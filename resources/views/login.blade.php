@@ -37,6 +37,14 @@
         .form-group label {
             font-weight: bold;
         }
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .forgot-password a {
+            color: #006F91;
+            text-decoration: underline;
+        }
         .register-link {
             margin-top: 15px;
         }
@@ -59,11 +67,14 @@
         <div class="form-group">
             <label for="password">Kata Sandi</label>
             <input type="password" class="form-control" id="password" placeholder="Masukkan kata sandi" required>
+            <div class="forgot-password">
+                <a href="/forgot-password">Lupa password?</a>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Login</button>
     </form>
     <div class="register-link">
-        <p>Belum punya akun? <a href="/register">Daftar sekarang</a></p>
+        <p>Belum punya akun? <a href="/register">Daftar sekarang!</a></p>
     </div>
 </div>
 
