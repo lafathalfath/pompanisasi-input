@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 // return redirect(RouteServiceProvider::HOME);
                 $role = Auth::guard($guard)->user()->role;
-                return redirect()->route("dashboard.$role.index");
+                return redirect()->route("$role.dashboard");
             }
         }
 
