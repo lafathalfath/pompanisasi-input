@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('/inputpompa', function () {
-    return view('inputpompa');
+Route::get('/poktan/inputpompa', function () {
+    return view('poktan.inputpompa');
 });
 
