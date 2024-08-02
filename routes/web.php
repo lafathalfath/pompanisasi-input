@@ -38,3 +38,6 @@ Route::get('/poktan/inputpompa', function () {
     return view('poktan.inputpompa');
 });
 
+Route::get('/kabupaten/listverifdatakec', function () {
+    return view('kabupaten.listverifdatakec');
+});
