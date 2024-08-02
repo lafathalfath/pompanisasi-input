@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::get('/login', function () {
+    return view('login');
 });
+
+Route::get('/register', function () {
+    return view('register');
+});
+Route::get('/kabupaten/dashboard', function () {
+    return view('kabupaten.dashboard');
+});
+
+Route::get('/inputpompa', function () {
+    return view('inputpompa');
+});
+
