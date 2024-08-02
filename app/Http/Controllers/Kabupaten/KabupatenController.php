@@ -43,10 +43,9 @@ class KabupatenController extends Controller
                         $pompa_abt->digunakan += $pom->pompa_abt->digunakan;
                     }
                 }
-                // $expand_kecamatan[] = $des;
                 $expand_kecamatan[] = (object) [
                     'kecamatan' => $des->kecamatan,
-                    'desa' => $des->nama,
+                    'desa' => $des->kecamatan,
                     'luas_tanam' => $luas_tanam,
                     'nama_poktan' => array_unique($nama_poktan),
                     'pompanisasi' => (object) [
@@ -62,5 +61,9 @@ class KabupatenController extends Controller
             'kecamatan' => $kecamatan,
             'expand_kecamatan' => $expand_kecamatan,
         ]);
+    }
+
+    public function verifikasiData() {
+        return view('kabupaten.verifikasiData');
     }
 }

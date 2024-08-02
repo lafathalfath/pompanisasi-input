@@ -13,6 +13,6 @@ class PompaRefocusing extends Model
     protected $guarded = [];
 
     public function pompanisasi() : BelongsTo {
-        return $this->belongsTo(Pompanisasi::class);
+        return $this->belongsTo(Pompanisasi::class, 'pompanisasi_id', 'id');
     }
 }
