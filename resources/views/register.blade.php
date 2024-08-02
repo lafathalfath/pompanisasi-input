@@ -65,10 +65,14 @@
             <label for="password">Kata Sandi</label>
             <input type="password" class="form-control" id="password" placeholder="Buat Kata Sandi">
         </div>
+        <div class="form-group">
+            <label for="password">Konfirmasi Kata Sandi</label>
+            <input type="password" class="form-control" id="password" placeholder="Konfirmasi Kata Sandi">
+        </div>
         <button type="submit" class="btn btn-primary btn-block">Daftar</button>
     </form>
     <div class="login-link">
-        Sudah punya akun? <a href="/login">Masuk</a>
+        Sudah punya akun? <a href="/login">Masuk</a><br>
     </div>
 </div>
 

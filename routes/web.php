@@ -24,3 +24,7 @@ Route::get('/register', function () {
     return view('register');
 });
 
+Route::get('/inputpompa', function () {
+    return view('inputpompa');
+});
+
