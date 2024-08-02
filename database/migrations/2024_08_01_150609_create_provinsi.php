@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('provinsi', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pj_provinsi_id')->unsigned()->nullable();
+            $table->bigInteger('pj_id')->unsigned()->unique()->nullable();
             $table->bigInteger('wilayah_id')->unsigned();
             $table->string('nama');
             $table->timestamps();
 
-            $table->foreign('pj_provinsi_id')->references('id')->on('users');
+            $table->foreign('pj_id')->references('id')->on('users');
             $table->foreign('wilayah_id')->references('id')->on('wilayah');
         });
     }

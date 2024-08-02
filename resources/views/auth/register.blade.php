@@ -48,31 +48,32 @@
         <img src="/assets/img/logobbpsip.png" alt="Logo">
     </div>
     <h3>Daftar Akun</h3>
-    <form>
+    <form action="{{ route('register.register') }}" method="POST">
+        @csrf
         <div class="form-group">
             <label for="name">Nama</label>
-            <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap">
+            <input type="text" name="nama" class="form-control" id="name" placeholder="Masukkan nama lengkap" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Masukkan email">
+            <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan email" required>
         </div>
         <div class="form-group">
             <label for="phone">No. HP</label>
-            <input type="tel" class="form-control" id="phone" placeholder="Masukkan Nomor HP">
+            <input type="tel" name="no_hp" class="form-control" id="phone" placeholder="Masukkan Nomor HP"required>
         </div>
         <div class="form-group">
             <label for="password">Kata Sandi</label>
-            <input type="password" class="form-control" id="password" placeholder="Buat Kata Sandi">
+            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Buat Kata Sandi" required autocomplete="new-password">
         </div>
         <div class="form-group">
             <label for="password">Konfirmasi Kata Sandi</label>
-            <input type="password" class="form-control" id="password" placeholder="Konfirmasi Kata Sandi">
+            <input type="password" name="password_confirmation" class="form-control" id="password-confirm" placeholder="Konfirmasi Kata Sandi" required autocomplete="new-password">
         </div>
         <button type="submit" class="btn btn-primary btn-block">Daftar</button>
     </form>
     <div class="login-link">
-        Sudah punya akun? <a href="/login">Masuk</a><br>
+        Sudah punya akun? <a href="/login" style="text-decoration: none;">Masuk</a><br>
     </div>
 </div>
 

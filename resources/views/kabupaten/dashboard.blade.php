@@ -46,7 +46,6 @@
                 <th rowspan="2" class="merged-cell">Kecamatan</th>
                 <th rowspan="2" class="merged-cell">Desa</th>
                 <th rowspan="2" class="merged-cell">Nama Poktan</th>
-                <th rowspan="2" class="merged-cell">CPCL Pompa</th>
                 <th rowspan="2" class="merged-cell">Luas Tanam</th>
                 <th colspan="3" class="merged-cell-pink">Pompa Refocusing</th>
                 <th colspan="3" class="merged-cell-yellow">Pompa ABT</th>
@@ -62,34 +61,114 @@
         </thead>
         <tbody>
             @php
-                $data = [
-                    ['kecamatan' => 'Kecamatan A', 'desa' => 'Desa 1', 'nama_poktan' => 'Poktan 1', 'cpcl_pompa' => 0, 'luas_tanam' => 10, 'pompa_refocusing_usulan' => 23, 'pompa_refocusing_diterima' => 2, 'pompa_refocusing_digunakan' => 3, 'pompa_abt_usulan' => 12, 'pompa_abt_diterima' => 3, 'pompa_abt_digunakan' => 45],
-                    ['kecamatan' => 'Kecamatan B', 'desa' => 'Desa 2', 'nama_poktan' => 'Poktan 2', 'cpcl_pompa' => 0, 'luas_tanam' => 0, 'pompa_refocusing_usulan' => 0, 'pompa_refocusing_diterima' => 0, 'pompa_refocusing_digunakan' => 0, 'pompa_abt_usulan' => 0, 'pompa_abt_diterima' => 0, 'pompa_abt_digunakan' => 0],
-                    ['kecamatan' => 'Kecamatan C', 'desa' => 'Desa 3', 'nama_poktan' => 'Poktan 3', 'cpcl_pompa' => 0, 'luas_tanam' => 0, 'pompa_refocusing_usulan' => 0, 'pompa_refocusing_diterima' => 0, 'pompa_refocusing_digunakan' => 0, 'pompa_abt_usulan' => 0, 'pompa_abt_diterima' => 0, 'pompa_abt_digunakan' => 0],
-                    // Tambahkan data dummy lainnya sesuai kebutuhan
-                ];
+                $nomor = 1;
             @endphp
 
-            @forelse ($data as $index => $item)
+            @if ($kabupaten)
+                @forelse ($kabupaten->kecamatan as $i=>$kec)
+                    {{-- {{ dd('$kec') }} --}}
+                    @foreach ($kec->desa as $j=>$des)
+                        <tr>
+                            {{-- no --}}
+                            <td>{{ $nomor++ }}</td>
+                            {{-- kecamatan --}}
+                            <td>{{ $kec->nama }}</td>
+                            {{-- desa --}}
+                            <td>{{ $des->nama }}</td>
+                            {{-- nama poktan --}}
+                            <td>
+                                @forelse ($des->pompanisasi as $despom)
+                                    @if ($loop->iteration == count($des->pompanisasi))
+                                        {{ $despom->poktan->nama }}
+                                    @else
+                                        {{ $despom->poktan->nama }},<br/>
+                                    @endif
+                                @empty
+                                    -
+                                @endforelse
+                            </td>
+                            {{-- luas tanam --}}
+                            <td>
+                                @php
+                                    $luas_tanam = 0;
+                                    foreach ($des->pompanisasi as $pom) {
+                                        $luas_tanam += $pom->luas_tanam;
+                                    }
+                                @endphp
+                                {{ $luas_tanam }}
+                            </td>
+                            {{-- pompa refocusing usulan --}}
+                            <td>
+                                @php
+                                    $pru = 0;
+                                    foreach ($des->pompanisasi as $pom) {
+                                        $pru += $pom->pompa_refocusing->usulan;
+                                    }
+                                @endphp
+                                {{ $pru }}
+                            </td>
+                            {{-- pompa refocusing diterima --}}
+                            <td>
+                                @php
+                                    $prdt = 0;
+                                    foreach ($des->pompanisasi as $pom) {
+                                        $prdt += $pom->pompa_refocusing->diterima;
+                                    }
+                                @endphp
+                                {{ $prdt }}
+                            </td>
+                            {{-- pompa refocusing digunakan --}}
+                            <td>
+                                @php
+                                    $prdg = 0;
+                                    foreach ($des->pompanisasi as $pom) {
+                                        $prdg += $pom->pompa_refocusing->digunakan;
+                                    }
+                                @endphp
+                                {{ $prdg }}
+                            </td>
+                            {{-- pompa abt usulan --}}
+                            <td>
+                                @php
+                                    $pau = 0;
+                                    foreach ($des->pompanisasi as $pom) {
+                                        $pau += $pom->pompa_abt->usulan;
+                                    }
+                                @endphp
+                                {{ $pau }}
+                            </td>
+                            {{-- pompa abt diterima --}}
+                            <td>
+                                @php
+                                    $padt = 0;
+                                    foreach ($des->pompanisasi as $pom) {
+                                        $padt += $pom->pompa_abt->diterima;
+                                    }
+                                @endphp
+                                {{ $padt }}
+                            </td>
+                            {{-- pompa abt digunakan --}}
+                            <td>
+                                @php
+                                    $padg = 0;
+                                    foreach ($des->pompanisasi as $pom) {
+                                        $padg += $pom->pompa_abt->digunakan;
+                                    }
+                                @endphp
+                                {{ $padg }}
+                            </td>
+                        </tr>
+                    @endforeach
+                @empty
+                    <tr>
+                        <td colspan="12" class="text-center">Data belum ditemukan</td>
+                    </tr>
+                @endforelse
+            @else
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $item['kecamatan'] }}</td>
-                    <td>{{ $item['desa'] }}</td>
-                    <td>{{ $item['nama_poktan'] }}</td>
-                    <td>{{ $item['cpcl_pompa'] }}</td>
-                    <td>{{ $item['luas_tanam'] }}</td>
-                    <td>{{ $item['pompa_refocusing_usulan'] }}</td>
-                    <td>{{ $item['pompa_refocusing_diterima'] }}</td>
-                    <td>{{ $item['pompa_refocusing_digunakan'] }}</td>
-                    <td>{{ $item['pompa_abt_usulan'] }}</td>
-                    <td>{{ $item['pompa_abt_diterima'] }}</td>
-                    <td>{{ $item['pompa_abt_digunakan'] }}</td>
+                    <td colspan="12" class="text-center">Data belum ditemukan</td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="12" class="text-center">No data found</td>
-                </tr>
-            @endforelse
+            @endif
         </tbody>
     </table>
 </div>

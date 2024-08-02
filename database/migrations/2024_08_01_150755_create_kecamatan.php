@@ -13,17 +13,10 @@ return new class extends Migration
     {
         Schema::create('kecamatan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pj_kecamatan_id')->unsigned()->nullable();
             $table->bigInteger('kabupaten_id')->unsigned();
             $table->string('nama');
-            $table->integer('potensi_pompanisasi')->nullable();
-            $table->integer('hujan_kepmentan')->nullable();
-            $table->timestamp('verified_by_kabupaten')->nullable();
-            $table->timestamp('verified_by_provinsi')->nullable();
-            $table->timestamp('verified_by_wilayah')->nullable();
             $table->timestamps();
 
-            $table->foreign('pj_kecamatan_id')->references('id')->on('users');
             $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
         });
     }
