@@ -49,7 +49,7 @@
 <body>
 
 <div class="login-container">
-    <img src="/assets/img/logobbsip.png" alt="Logo">
+    <img src="/assets/img/logobbpsip.png" alt="Logo">
     <h3>Login</h3>
     <form>
         <div class="form-group">

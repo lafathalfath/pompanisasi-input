@@ -13,7 +13,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
         .register-container {
             background-color: #ffffff;
@@ -22,6 +21,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
+            margin: 20px 0px;
         }
         .register-container .logo {
             display: flex;
@@ -34,6 +34,10 @@
         }
         .form-group label {
             font-weight: bold;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -63,6 +67,9 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Daftar</button>
     </form>
+    <div class="login-link">
+        Sudah punya akun? <a href="/login">Masuk</a>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
