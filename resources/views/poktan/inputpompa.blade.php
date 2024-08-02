@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pompanaisasi</title>
+    <title>Pompanisasi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
@@ -36,11 +37,27 @@
         }
         .footer {
             margin-top: 30px;
+            padding: 20px 0;
         }
-        .footer .map {
+        footer .contact-info p a {
+            color: white;
+            text-decoration: none;
+        }
+        .map {
             width: 100%;
             height: 200px;
             background-color: #ddd;
+        }
+        footer .social-links {
+        margin-top: 10px;
+        }
+        footer .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer .social-links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -97,7 +114,7 @@
             </div>
         </div>
 
-        <h2>CPCL</h2>
+        <h2 style="margin-top: 35px;">CPCL</h2>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="province">Provinsi</label>
@@ -107,9 +124,9 @@
                 </select>
             </div>
             <div class="form-group col-md-6">
-                <label for="district">Kabupaten</label>
-                <select id="district" class="form-control">
-                    <option selected>Pilih Kabupaten</option>
+            <label for="village">Desa</label>
+                <select id="village" class="form-control">
+                    <option selected>Pilih Desa</option>
                     <!-- Add options here -->
                 </select>
             </div>
@@ -121,34 +138,49 @@
                 </select>
             </div>
             <div class="form-group col-md-6">
-                <label for="village">Desa</label>
-                <select id="village" class="form-control">
-                    <option selected>Pilih Desa</option>
+                <label for="farmerGroup">Nama Poktan</label>
+                <input type="text" class="form-control" id="farmerGroup" placeholder="Nama Poktan">
+            </div>            
+            <div class="form-group col-md-6">
+                <label for="district">Kabupaten</label>
+                <select id="district" class="form-control">
+                    <option selected>Pilih Kabupaten</option>
                     <!-- Add options here -->
                 </select>
             </div>
+
             <div class="form-group col-md-6">
-                <label for="farmerGroup">Nama Petani</label>
-                <input type="text" class="form-control" id="farmerGroup" placeholder="Nama Petani">
+                <label for="farmerGroup">Foto Bukti & File </label>
+                <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
             </div>
-            <div class="form-group col-md-6">
-                <label for="uploadFile">Bukti Foto & File</label>
-                <input type="file" class="form-control-file" id="uploadFile">
-            </div>
+            
         </div>
     </form>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <div class="contact-info">
-            <p>Kontak:</p>
-            <p>(0251) 8531727 | WA : 085282828696</p>
-            <p>Email: bbpsip@apps.pertanian.go.id</p>
-            <p>Jl. Tentara Pelajar No.10, RT.04/RW.07, Ciwaringin, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16124</p>
-        </div>
-        <div class="map">
-            <p>Map Placeholder</p>
+        <div class="row">
+            <div class="col-md-6">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.5443994375355!2d106.78557271018322!3d-6.5790339933869735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c5311ad80031%3A0xae42de3ba17aceb7!2sBalai%20Besar%20Penerapan%20Standar%20Instrumen%20Pertanian%20(BBPSIP)!5e0!3m2!1sen!2sid!4v1722608683905!5m2!1sen!2sid" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="col-md-6">
+                <div class="contact-info">
+                    <p>KONTAK</p>
+                    <p>(0251) 8531727 | WA : 085282828696</p>
+                    <p>Email: bbpsip@apps.pertanian.go.id</p>
+                    <p>Jl. Tentara Pelajar No.10, RT.04/RW.07, Ciwaringin, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16124</p>
+
+                    <p><a href="https://bbpsip.bsip.pertanian.go.id" target="_blank">https://bbpsip.bsip.pertanian.go.id</a></p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/BSIPPenerapan/" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@bsippenerapan" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://instagram.com/bsippenerapan" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/bsippenerapan" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://tiktok.com/@bsippenerapan" target="_blank"><i class="fab fa-tiktok"></i></a>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
