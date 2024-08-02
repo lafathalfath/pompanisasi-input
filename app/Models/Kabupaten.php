@@ -12,9 +12,9 @@ class Kabupaten extends Model
     use HasFactory;
     protected $table = 'kabupaten';
     protected $guarded = [];
-    
-    public function pj_kabupaten() : BelongsTo {
-        return $this->belongsTo(User::class);
+
+    public function pj() : BelongsTo {
+        return $this->belongsTo(User::class, 'pj_id', 'id');
     }
 
     public function provinsi() : BelongsTo {

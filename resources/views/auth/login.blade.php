@@ -37,6 +37,14 @@
         .form-group label {
             font-weight: bold;
         }
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .forgot-password a {
+            color: #006F91;
+            text-decoration: underline;
+        }
         .register-link {
             margin-top: 15px;
         }
@@ -51,19 +59,33 @@
 <div class="login-container">
     <img src="/assets/img/logobbpsip.png" alt="Logo">
     <h3>Login</h3>
-    <form>
+    @error('email')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
+    @error('password')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
+    <form action="{{ route('login.login') }}" method="POST">
+        @csrf
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Masukkan email" required>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan email" required>
         </div>
         <div class="form-group">
             <label for="password">Kata Sandi</label>
-            <input type="password" class="form-control" id="password" placeholder="Masukkan kata sandi" required>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan kata sandi" required>
+            <div class="forgot-password">
+                <a href="/forgot-password">Lupa password?</a>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Login</button>
     </form>
     <div class="register-link">
-        <p>Belum punya akun? <a href="/register">Daftar sekarang</a></p>
+        <p>Belum punya akun? <a href="/register" style="text-decoration: none;">Daftar sekarang!</a></p>
     </div>
 </div>
 
