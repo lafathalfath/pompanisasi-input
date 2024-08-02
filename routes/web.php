@@ -28,3 +28,6 @@ Route::get('/inputpompa', function () {
     return view('inputpompa');
 });
 
+Route::get('/verifdatakec', function () {
+    return view('verifdatakec');
+});
