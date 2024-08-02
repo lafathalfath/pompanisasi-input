@@ -23,4 +23,7 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('register');
 });
+Route::get('/kabupaten/dashboard', function () {
+    return view('kabupaten.dashboard');
+});
 
