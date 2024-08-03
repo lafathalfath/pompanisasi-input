@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -114,32 +115,34 @@
         </div>
 
         <h2 style="margin-top: 35px;">CPCL</h2>
-        <div class="form-row">
+        <div class="form-col">
             <div class="form-group col-md-6">
-                <label for="province">Provinsi</label>
-                <select id="province" class="form-control">
+                <label for="provinsi">Provinsi</label>
+                <select id="provinsi" class="form-control js-example-templating" oninput="()=>console.log(this.value)">
                     <option selected>Pilih Provinsi</option>
-                    <!-- Add options here -->
+                    @foreach($provinsi as $prov)
+                        <option value="{{ $prov->id }}">{{ $prov->nama }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group col-md-6">
-            <label for="village">Desa</label>
-                <select id="village" class="form-control">
-                    <option selected>Pilih Desa</option>
+                <label for="kabupaten">Kota/Kabupaten</label>
+                <select id="kabupaten" class="form-control js-example-templating" disabled>
+                    <option selected>Pilih Kota/Kabupaten</option>
                     <!-- Add options here -->
                 </select>
-            </div>
+            </div> 
             <div class="form-group col-md-6">
-                <label for="subdistrict">Kecamatan</label>
-                <select id="subdistrict" class="form-control">
+                <label for="kecamatan">Kecamatan</label>
+                <select id="kecamatan" class="form-control js-example-templating" disabled>
                     <option selected>Pilih Kecamatan</option>
                     <!-- Add options here -->
                 </select>
-            </div>       
+            </div>                           
             <div class="form-group col-md-6">
-                <label for="district">Kota/Kabupaten</label>
-                <select id="district" class="form-control">
-                    <option selected>Pilih Kota/Kabupaten</option>
+            <label for="desa">Desa</label>
+                <select id="desa" class="form-control js-example-templating" disabled>
+                    <option selected>Pilih Desa</option>
                     <!-- Add options here -->
                 </select>
             </div>
@@ -153,6 +156,15 @@
             </div>
         </div>
     </form>
+
+    {{-- <form action=""> --}}
+        <input type="text" oninput="handleChange(this.value)">
+        <select name="" id="">
+            <option value="">a</option>
+            <option value="">b</option>
+            <option value="">c</option>
+        </select>
+    {{-- </form> --}}
 </div>
 
 <footer class="footer">
@@ -182,8 +194,109 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    const handleChange = (e) => {
+        console.log(e);
+    }
+
+    $(document).ready(function() {
+        $(".js-example-templating").select2();
+
+        $('#provinsi').change(function() {
+            let provinsiId = $(this).val();
+            $('#kabupaten').prop('disabled', provinsiId == '');
+            $('#kecamatan').prop('disabled', true).val('');
+            $('#desa').prop('disabled', true).val('');
+
+            // let options = '<option selected>Pilih Kota/Kabupaten</option>';
+            // options += '<option val="9999">Buat Baru</option>';
+            if (provinsiId) {
+                $.ajax({
+                    url: `/api/get-kabupaten/${provinsiId}`,
+                    type: 'GET',
+                    success: function(data) {
+                        let options = '<option selected>Pilih Kota/Kabupaten</option>';
+                        data.forEach(function(kabupaten) {
+                            options += `<option value="${kabupaten.id}">${kabupaten.nama}</option>`;
+                        });
+                        $('#kabupaten').html(options);
+                    },
+                    error: (err) => {
+                        console.error(err);
+                    }
+                });
+            }
+        });
+
+        $('#kabupaten').change(function() {
+            let kabupatenId = $(this).val();
+            $('#kecamatan').prop('disabled', kabupatenId == '');
+            $('#desa').prop('disabled', true).val('');
+
+            if (kabupatenId) {
+                $.ajax({
+                    url: `/api/get-kecamatan/${kabupatenId}`,
+                    type: 'GET',
+                    success: function(data) {
+                        let options = '<option selected>Pilih Kecamatan</option>';
+                        data.forEach(function(kecamatan) {
+                            options += `<option value="${kecamatan.id}">${kecamatan.nama}</option>`;
+                        });
+                        $('#kecamatan').html(options);
+                    },
+                    error: (err) => {
+                        console.error(err);
+                    }
+                });
+            }
+        });
+
+        $('#kecamatan').change(function() {
+            console.log($(this).val());
+            
+            let kecamatanId = $(this).val();
+            $('#desa').prop('disabled', kecamatanId == '');
+
+            if (kecamatanId) {
+                $.ajax({
+                    url: `/api/get-desa/${kecamatanId}`,
+                    type: 'GET',
+                    success: function(data) {
+                        let options = '<option selected>Pilih Desa</option>';
+                        data.forEach(function(desa) {
+                            options += `<option value="${desa.id}">${desa.nama}</option>`;
+                        });
+                        $('#desa').html(options);
+                    },
+                    error: (err) => {
+                        console.error(err);
+                    }
+                });
+            }
+        });
+
+        $('#provinsi').on('select2:open', e => {
+            const input = $('.select2-search__field')
+            var inputValue = '';
+            input.on('input', () => {
+                inputValue = input[0].value
+                console.log(inputValue);
+            })
+            input.keypress((q) => {
+                if (q.key == 'Enter') {
+                    q.preventDefault()
+                    console.log('sip')
+                }
+            })
+            console.log(e.params);
+        });
+
+    });
+</script>
 </body>
 </html>

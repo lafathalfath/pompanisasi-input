@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
-use App\Http\Controllers\Provinsi\ProvinsiController;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -20,6 +19,11 @@ use function PHPUnit\Framework\returnSelf;
 
 Route::get('/', function () {
     return redirect()->route('login.view');
+});
+
+Route::get('/cek', function () {
+    $provinsi = Provinsi::get();
+    dd($provinsi[0]->kabupaten->pluck('nama'));
 });
 
 Route::middleware('guest')->group(function () {
@@ -43,7 +47,11 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('/poktan/inputpompa', function () {
-    return view('poktan.inputpompa');
-});
+<<<<<<< HEAD
+
+
+Route::get('/poktan/inputpompa', [LocationController::class, 'showForm']);
+// Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
+// Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
+// Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
 
