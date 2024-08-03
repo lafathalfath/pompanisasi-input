@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kabupaten', function (Blueprint $table) {
+        Schema::create('role', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pj_id')->unsigned()->unique()->nullable();
-            $table->bigInteger('provinsi_id')->unsigned();
             $table->string('nama');
             $table->timestamps();
-
-            $table->foreign('pj_id')->references('id')->on('users');
-            $table->foreign('provinsi_id')->references('id')->on('provinsi');
         });
     }
 
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kabupaten');
+        Schema::dropIfExists('role');
     }
 };
