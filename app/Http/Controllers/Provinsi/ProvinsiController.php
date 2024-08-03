@@ -10,7 +10,7 @@ class ProvinsiController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        if (!$user) return redirect()->route('login.view')->withErrors('unauthorized');
+        if (!$user) return redirect()->route('login')->withErrors('unauthorized');
 
         $kabupaten = $user->provinsi->kabupaten;
         $expand_kabupaten = [];

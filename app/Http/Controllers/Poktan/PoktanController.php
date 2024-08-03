@@ -14,7 +14,7 @@ class PoktanController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        if (!$user) return redirect()->route('login.view')->withErrors('unauthorized');
+        if (!$user) return redirect()->route('login')->withErrors('unauthorized');
         $pompanisasi = $user->pompanisasi;
         // dd($pompanisasi);
         return view('poktan.index', ['pompanisasi' => $pompanisasi]);
@@ -29,7 +29,7 @@ class PoktanController extends Controller
     public function storePompa(Request $request) {
         // dd(date('Y-m-d'));
         $user = Auth::user();
-        if (!$user) return redirect()->route('login.view')->withErrors('unauthorized');
+        if (!$user) return redirect()->route('login')->withErrors('unauthorized');
         $request->validate([
             'luas_tanam' => 'required|numeric',
             'pompa_refocusing_usulan' => 'required|numeric',
