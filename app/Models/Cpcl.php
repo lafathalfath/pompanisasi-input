@@ -13,7 +13,7 @@ class Cpcl extends Model
     protected $guarded = [];
 
     public function desa() : BelongsTo {
-        return $this->belongsTo(Desa::class);
+        return $this->belongsTo(Desa::class, 'desa_id', 'id');
     }
 
     public function poktan() : BelongsTo {

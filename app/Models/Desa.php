@@ -14,7 +14,7 @@ class Desa extends Model
     protected $guarded = [];
 
     public function kecamatan() : BelongsTo {
-        return $this->belongsTo(Kecamatan::class);
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'id');
     }
 
     public function pompanisasi() : HasMany {

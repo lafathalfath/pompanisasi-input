@@ -17,10 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('no_hp');
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['admin', 'wilayah', 'provinsi', 'kabupaten', 'poktan']);
+            $table->bigInteger('role_id')->unsigned();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('role_id')->references('id')->on('role');
         });
     }
 
