@@ -14,7 +14,7 @@ class PoktanController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        if (!$user) return redirect()->route('login')->withErrors('unauthorized');
+        if (!$user) return redirect()->route('login.view')->withErrors('unauthorized');
         $pompanisasi = $user->pompanisasi;
         // dd($pompanisasi);
         return view('poktan.index', ['pompanisasi' => $pompanisasi]);
