@@ -26,9 +26,10 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         if (!$user) return redirect()->route('login.view')->withErrors('cannot found user with this email');
         if (!Hash::check($request->password, $user->password)) return redirect()->route('login.view')->withErrors('password invalid');
-        if (!Auth::attempt($request->except('_token'))) return redirect()->route('login.view')->withErrors('email or password invalid');
+        $attempt = Auth::attempt($request->except('_token'));
+        if (!$attempt) return redirect()->route('login.view')->withErrors('email or password invalid');
         
-        $role = Auth::user()->role;
+        $role = Auth::user()->role->nama;
         return redirect()->route("$role.dashboard")->with('success', 'login successfully');
     }
 
@@ -57,18 +58,25 @@ class AuthController extends Controller
             'password.string' => 'password must be string',
             'password.confirmed' => 'password not match',
         ]);
-        // dd($request->all());
         $user = User::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'no_hp' => $request->no_hp,
             // 'role' => $request->role,
-            'role' => 'kabupaten', // default role. can change by admin
+            'role_id' => 4, // default role poktan. can change by admin
             'password' => Hash::make($request->password),
         ]);
+        // dd($user);
 
         if (!$user) return back()->withErrors('account register failed');
         Auth::attempt(['email' => $user->email, 'password' => $user->password]);
-        return redirect()->route("$user->role.dashboard")->with('success', 'account created');
+        $role = $user->role->nama;
+        // dd($role);
+        return redirect()->route("$role.dashboard")->with('success', 'account created');
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('login.view')->with('success', 'logout successfully');
     }
 }

@@ -29,15 +29,14 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::prefix('/kabupaten')->group(function () {
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
+        Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data');
     });
 });
 
 Route::get('/poktan/inputpompa', function () {
     return view('poktan.inputpompa');
-});
-
-Route::get('/kabupaten/listverifdatakec', function () {
-    return view('kabupaten.listverifdatakec');
 });

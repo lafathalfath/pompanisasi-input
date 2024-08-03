@@ -18,7 +18,7 @@ class Provinsi extends Model
     }
 
     public function wilayah() : BelongsTo {
-        return $this->belongsTo(Wilayah::class);
+        return $this->belongsTo(Wilayah::class, 'wilayah_id', 'id');
     }
 
     public function kabupaten() : HasMany {
