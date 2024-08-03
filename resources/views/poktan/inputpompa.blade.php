@@ -61,6 +61,14 @@
         footer .social-links a:hover {
             text-decoration: underline;
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -69,49 +77,50 @@
     <div class="container">
         <img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;">
         <div>
-            <a href="#" class="btn btn-outline-light mr-2">Logout</a>
+            <a href="{{ route('logout') }}" class="btn btn-outline-light mr-2">Logout</a>
         </div>
     </div>
 </header>
 
 <div class="container content">
     <h2>Pompanisasi</h2>
-    <form >
+    <form action="{{ route('poktan.pompa.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="pumpaRefocusingUnit">Luas Tanam</label>
-                    <input type="text" class="form-control" id="pumpaRefocusingUnit" placeholder="Hektar (HA)">
-                </div>
+            <div class="form-group col-md-3">
+                <label for="pumpaRefocusingUnit">Luas Tanam</label>
+                <input type="number" name="luas_tanam" class="form-control" id="pumpaRefocusingUnit" placeholder="Hektar (HA)">
+            </div>
         </div>
         <h4>Pompa Refocusing</h4>
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="pumpaRefocusingUnit">Usulan</label>
-                <input type="text" class="form-control" id="pumpaRefocusingUnit" placeholder="Unit">
+                <input type="number" name="pompa_refocusing_usulan" class="form-control" id="pumpaRefocusingUnit" placeholder="Unit">
             </div>
             
             <div class="form-group col-md-3">
                 <label for="pumpaRefocusingDelivered">Diterima</label>
-                <input type="text" class="form-control" id="pumpaRefocusingDelivered" placeholder="Unit">
+                <input type="number" name="pompa_refocusing_diterima" class="form-control" id="pumpaRefocusingDelivered" placeholder="Unit">
             </div>
             <div class="form-group col-md-3">
                 <label for="pumpaRefocusingUsed">Digunakan</label>
-                <input type="text" class="form-control" id="pumpaRefocusingUsed" placeholder="Unit">
+                <input type="number" name="pompa_refocusing_digunakan" class="form-control" id="pumpaRefocusingUsed" placeholder="Unit">
             </div>
         </div>
         <h4>Pompa ABT</h4>
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="pumpaABTUnit">Usulan</label>
-                <input type="text" class="form-control" id="pumpaABTUnit" placeholder="Unit">
+                <input type="number" name="pompa_abt_usulan" class="form-control" id="pumpaABTUnit" placeholder="Unit">
             </div>
             <div class="form-group col-md-3">
                 <label for="pumpaABTDelivered">Diterima</label>
-                <input type="text" class="form-control" id="pumpaABTDelivered" placeholder="Unit">
+                <input type="number" name="pompa_abt_diterima" class="form-control" id="pumpaABTDelivered" placeholder="Unit">
             </div>
             <div class="form-group col-md-3">
                 <label for="pumpaABTUsed">Digunakan</label>
-                <input type="text" class="form-control" id="pumpaABTUsed" placeholder="Unit">
+                <input type="number" name="pompa_abt_digunakan" class="form-control" id="pumpaABTUsed" placeholder="Unit">
             </div>
         </div>
 
@@ -152,7 +161,7 @@
             <div class="form-group col-md-6">
             <label for="desa">Desa</label>
                 <div class="d-flex align-items-center">
-                    <select id="desa" class="form-control js-example-templating" disabled>
+                    <select id="desa" name="desa_id" class="form-control js-example-templating" disabled>
                         <option selected>Pilih Desa</option>
                         <!-- Add options here -->
                     </select>
@@ -162,7 +171,7 @@
 
             <div class="form-group col-md-6">
                 <label for="farmerGroup">Foto Bukti</label>
-                <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*">
             </div>
             <div class="form-group col-md-6">
                 <button type="submit" class="btn btn-success" style="margin-top: 30px;">Submit</button>

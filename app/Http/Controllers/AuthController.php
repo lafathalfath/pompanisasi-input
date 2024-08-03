@@ -63,7 +63,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'no_hp' => $request->no_hp,
             // 'role' => $request->role,
-            'role_id' => 4, // default role kabupaten. can change by admin
+            'role_id' => 5, // default role poktan. can change by admin
             'password' => Hash::make($request->password),
         ]);
         // dd($user);
