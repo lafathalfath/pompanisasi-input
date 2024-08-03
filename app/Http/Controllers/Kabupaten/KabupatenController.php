@@ -13,7 +13,7 @@ class KabupatenController extends Controller
         $user = Auth::user();
         if (!$user) return redirect()->route('login.view')->withErrors('unauthorized');
 
-        $kecamatan = $user->kabupaten->kecamatan;
+        $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
         $expand_kecamatan = [];
         foreach ($kecamatan as $kec) {
             foreach ($kec->desa as $des) {
