@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
-
-use function PHPUnit\Framework\returnSelf;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\Poktan\PoktanController;
+use App\Http\Controllers\Provinsi\ProvinsiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,6 @@ use function PHPUnit\Framework\returnSelf;
 
 Route::get('/', function () {
     return redirect()->route('login.view');
-});
-
-Route::get('/cek', function () {
-    $provinsi = Provinsi::get();
-    dd($provinsi[0]->kabupaten->pluck('nama'));
 });
 
 Route::middleware('guest')->group(function () {
@@ -47,11 +43,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-<<<<<<< HEAD
-
-
-Route::get('/poktan/inputpompa', [LocationController::class, 'showForm']);
-// Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
-// Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
-// Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
-
+Route::prefix('/poktan')->group(function () {
+    Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
+});
+Route::post('/kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
+Route::post('/desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');

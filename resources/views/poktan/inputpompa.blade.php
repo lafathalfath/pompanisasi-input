@@ -6,6 +6,7 @@
     <title>Pompanisasi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
@@ -75,7 +76,7 @@
 
 <div class="container content">
     <h2>Pompanisasi</h2>
-    <form>
+    <form >
         <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="pumpaRefocusingUnit">Luas Tanam</label>
@@ -118,33 +119,45 @@
         <div class="form-col">
             <div class="form-group col-md-6">
                 <label for="provinsi">Provinsi</label>
-                <select id="provinsi" class="form-control js-example-templating" oninput="()=>console.log(this.value)">
-                    <option selected>Pilih Provinsi</option>
-                    @foreach($provinsi as $prov)
-                        <option value="{{ $prov->id }}">{{ $prov->nama }}</option>
-                    @endforeach
-                </select>
+                <div class="d-flex align-items-center">
+                    <select id="provinsi" class="form-control js-example-templating" oninput="()=>console.log(this.value)">
+                        <option selected>Pilih Provinsi</option>
+                        @foreach($provinsi as $prov)
+                            <option value="{{ $prov->id }}">{{ $prov->nama }}</option>
+                        @endforeach
+                    </select>
+                    {{-- <button type="button" class="btn btn-primary btn-sm d-none" id="lainnya-provinsi" data-bs-toggle="modal" data-bs-target="#provinsiModal">Lainnya...</button> --}}
+                </div>
             </div>
             <div class="form-group col-md-6">
                 <label for="kabupaten">Kota/Kabupaten</label>
-                <select id="kabupaten" class="form-control js-example-templating" disabled>
-                    <option selected>Pilih Kota/Kabupaten</option>
-                    <!-- Add options here -->
-                </select>
+                <div class="d-flex align-items-center">
+                    <select id="kabupaten" class="form-control js-example-templating" disabled>
+                        <option selected>Pilih Kota/Kabupaten</option>
+                        <!-- Add options here -->
+                    </select>
+                    {{-- <button type="button" class="btn btn-primary btn-sm d-none" id="lainnya-kabupaten" data-bs-toggle="modal" data-bs-target="#kabupatenModal">Lainnya...</button> --}}
+                </div>
             </div> 
             <div class="form-group col-md-6">
                 <label for="kecamatan">Kecamatan</label>
-                <select id="kecamatan" class="form-control js-example-templating" disabled>
-                    <option selected>Pilih Kecamatan</option>
-                    <!-- Add options here -->
-                </select>
+                <div class="d-flex align-items-center">
+                    <select id="kecamatan" class="form-control js-example-templating" disabled>
+                        <option selected>Pilih Kecamatan</option>
+                        <!-- Add options here -->
+                    </select>
+                    <button type="button" class="btn btn-primary btn-sm d-none" id="lainnya-kecamatan" data-bs-toggle="modal" data-bs-target="#kecamatanModal">Lainnya...</button>
+                </div>
             </div>                           
             <div class="form-group col-md-6">
             <label for="desa">Desa</label>
-                <select id="desa" class="form-control js-example-templating" disabled>
-                    <option selected>Pilih Desa</option>
-                    <!-- Add options here -->
-                </select>
+                <div class="d-flex align-items-center">
+                    <select id="desa" class="form-control js-example-templating" disabled>
+                        <option selected>Pilih Desa</option>
+                        <!-- Add options here -->
+                    </select>
+                    <button type="button" class="btn btn-primary btn-sm d-none" id="lainnya-desa" data-bs-toggle="modal" data-bs-target="#desaModal">Lainnya...</button>
+                </div>
             </div>
 
             <div class="form-group col-md-6">
@@ -152,7 +165,7 @@
                 <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
             </div>
             <div class="form-group col-md-6">
-                <button type="submit" class="btn btn-primary" style="margin-top: 30px;">Submit</button>
+                <button type="submit" class="btn btn-success" style="margin-top: 30px;">Submit</button>
             </div>
         </div>
     </form>
@@ -185,13 +198,93 @@
     </div>
 </footer>
 
+{{-- modals --}}
+{{-- <div class="modal fade" id="provinsiModal" tabindex="-1" aria-labelledby="provinsiModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="provinsiModalLabel">Modal Provinsi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-sm btn-primary">Tambah</button>
+            </div>
+        </form>
+    </div>
+</div> --}}
+{{-- <div class="modal fade" id="kabupatenModal" tabindex="-1" aria-labelledby="kabupatenModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="kabupatenModalLabel">Modal Kabupaten</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-sm btn-primary">Tambah</button>
+            </div>
+        </form>
+    </div>
+</div> --}}
+
+<div class="modal fade" id="kecamatanModal" tabindex="-1" aria-labelledby="kecamatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{{ route('lokasi.kecamatan.store') }}" method="POST" class="modal-content">
+            @csrf
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="kecamatanModalLabel">Tambah Data Kecamatan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="number" 
+                class="d-none" 
+                id="kecamatan-input-kabupaten_id" name="kabupaten_id">
+                <input type="text" id="tambah-kecamatan" name="nama" placeholder="Nama Kecamatan">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-sm btn-primary">Tambah</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="desaModal" tabindex="-1" aria-labelledby="desaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{{ route('lokasi.desa.store') }}" method="POST" class="modal-content">
+            @csrf
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="desaModalLabel">Tambah Data Desa</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="number" class="d-none" id="desa-input-kecamatan_id" name="kecamatan_id">
+                <input type="text" id="tambah-desa" name="nama" placeholder="Nama Kecamatan">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-sm btn-primary">Tambah</button>
+            </div>
+        </form>
+    </div>
+</div>
+{{-- end modals --}}
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-
+    // console.log($('#a a')[0].text)
     $(document).ready(function() {
         $(".js-example-templating").select2();
 
@@ -245,8 +338,6 @@
         });
 
         $('#kecamatan').change(function() {
-            console.log($(this).val());
-            
             let kecamatanId = $(this).val();
             $('#desa').prop('disabled', kecamatanId == '');
 
@@ -268,31 +359,97 @@
             }
         });
 
-        $('#provinsi').on('select2:open', e => {
-            console.log(e);
+        // $('#provinsi').on('select2:open', e => {
+        //     const all_options = [...$('#provinsi option')]
+        //     let lowercase_options = []
+        //     all_options.forEach((item) => {
+        //         lowercase_options.push(item.text.toLowerCase())
+        //     });
+            
+        //     const input = $('.select2-search__field')
+        //     var inputValue = '';
+
+        //     input.on('input', () => {
+        //         inputValue = input[0].value
+        //         if (!lowercase_options.includes(inputValue.toLowerCase()) || inputValue == '') {
+        //             $('#lainnya-provinsi').removeClass('d-none')
+        //         } else {
+        //             $('#lainnya-provinsi').addClass('d-none')
+        //         }
+        //     })
+        // });
+
+        // $('#kabupaten').on('select2:open', e => {
+        //     const all_options = [...$('#kabupaten option')]
+        //     let lowercase_options = []
+        //     all_options.forEach((item) => {
+        //         lowercase_options.push(item.text.toLowerCase())
+        //     });
+            
+        //     const input = $('.select2-search__field')
+        //     var inputValue = '';
+
+        //     input.on('input', () => {
+        //         inputValue = input[0].value
+        //         if (!lowercase_options.includes(inputValue.toLowerCase()) || inputValue == '') {
+        //             $('#lainnya-kabupaten').removeClass('d-none')
+        //         } else {
+        //             $('#lainnya-kabupaten').addClass('d-none')
+        //         }
+        //     })
+        // });
+
+        $('#kecamatan').on('select2:open', e => {
+            const all_options = [...$('#kecamatan option')]
+            let lowercase_options = []
+            all_options.forEach((item) => {
+                lowercase_options.push(item.text.toLowerCase())
+            });
             
             const input = $('.select2-search__field')
             var inputValue = '';
+
             input.on('input', () => {
                 inputValue = input[0].value
-                console.log(e);
-            })
-            input.on('keydown', (q) => {
-                if (q.key == 'Enter') {
-                    q.preventDefault()
-                    const allOptions = $('#provinsi option')
-                    
-                    const options = $('#provinsi option').map(() => {
-                        return $(this).text().toLowerCase()
-                    }).get()
-                    if (!options.includes(inputValue.toLowerCase())) {
-                        allOptions.append('<option selected>buatbaru</option>')
-                        console.log('gaada yang sama')
-                    }
-                    // console.log('sip')
+                if (!lowercase_options.includes(inputValue.toLowerCase()) || inputValue == '') {
+                    $('#lainnya-kecamatan').removeClass('d-none')
+                } else {
+                    $('#lainnya-kecamatan').addClass('d-none')
                 }
             })
         });
+
+        $('#desa').on('select2:open', e => {
+            const all_options = [...$('#desa option')]
+            let lowercase_options = []
+            all_options.forEach((item) => {
+                lowercase_options.push(item.text.toLowerCase())
+            });
+            
+            const input = $('.select2-search__field')
+            var inputValue = '';
+
+            input.on('input', () => {
+                inputValue = input[0].value
+                if (!lowercase_options.includes(inputValue.toLowerCase()) || inputValue == '') {
+                    $('#lainnya-desa').removeClass('d-none')
+                } else {
+                    $('#lainnya-desa').addClass('d-none')
+                }
+            })
+        });
+
+        $('#lainnya-kecamatan').on('click', () => {
+            // console.log($('#kabupaten')[0].value);
+            
+            const input = $('#kecamatan-input-kabupaten_id')[0]
+            input.value = parseInt($('#kabupaten').val())
+        })
+
+        $('#lainnya-desa').on('click', () => {
+            const input = $('#desa-input-kecamatan_id')[0]
+            input.value = parseInt($('#kecamatan').val())
+        })
 
     });
 </script>
