@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
-use App\Models\Provinsi;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Poktan\PoktanController;
+use App\Http\Controllers\Provinsi\ProvinsiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +22,6 @@ Route::get('/', function () {
     return redirect()->route('login.view');
 });
 
-Route::get('/cek', function () {
-    $provinsi = Provinsi::get();
-    dd($provinsi[0]->kabupaten->pluck('nama'));
-});
-
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register.view');
     Route::post('/register', [AuthController::class, 'register'])->name('register.register');
@@ -41,8 +36,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
         Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data');
     });
-});
 
+    Route::prefix('/provinsi')->group(function () {
+        Route::get('/dashboard', [ProvinsiController::class, 'index'])->name('provinsi.dashboard');
+        Route::get('/verifikasi-data', [ProvinsiController::class, 'verifikasiData'])->name('provinsi.verifikasi.data');
+    });
+});
 
 Route::prefix('/poktan')->group(function () {
     Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
