@@ -32,4 +32,34 @@ class LocationController extends Controller
         $desa = Desa::where('kecamatan_id', $kecamatan_id)->get();
         return response()->json($desa);
     }
+
+    public function storeKecamatan(Request $request) {
+        $request->validate([
+            'kabupaten_id' => 'required',
+            'nama' => 'required',
+        ], [
+            'kabupaten_id.required' => 'kabupaten id cannot be null',
+            'nama.required' => 'nama kecamatan cannot be null',
+        ]);
+        $kecamatan = Kecamatan::create([
+            'nama' => $request->nama,
+            'kabupaten_id' => $request->kabupaten_id,
+        ]);
+        return response()->json($kecamatan);
+    }
+
+    public function storeDesa(Request $request) {
+        $request->validate([
+            'kecamatan_id' => 'required',
+            'nama' => 'required',
+        ], [
+            'kabupaten_id.required' => 'kecamatan id cannot be null',
+            'nama.required' => 'nama desa cannot be null',
+        ]);
+        $kecamatan = Kecamatan::create([
+            'nama' => $request->nama,
+            'kecamatan_id' => $request->kecamatan_id,
+        ]);
+        return response()->json($kecamatan);
+    }
 }
