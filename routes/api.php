@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LokasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
-Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
-Route::post('/post-kecamatan', [LocationController::class, 'storeKecamatan']);
-Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
-Route::post('/post-desa', [LocationController::class, 'storeDesa']);
+Route::get('/get-kabupaten/{provinsi_id}', [LokasiController::class, 'getKabupaten']);
+Route::get('/get-kecamatan/{kabupaten_id}', [LokasiController::class, 'getKecamatan']);
+Route::get('/get-desa/{kecamatan_id}', [LokasiController::class, 'getDesa']);

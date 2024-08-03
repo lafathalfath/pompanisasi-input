@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
 use App\Models\Provinsi;
-use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\Poktan\PoktanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +44,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-Route::get('/poktan/inputpompa', [LocationController::class, 'showForm']);
-// Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
-// Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
-// Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
+Route::prefix('/poktan')->group(function () {
+    Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
+});
+Route::post('/kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
+Route::post('/desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');

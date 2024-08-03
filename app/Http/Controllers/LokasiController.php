@@ -1,13 +1,13 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Provinsi;
+use App\Models\Desa;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
-use App\Models\Desa;
+use Illuminate\Http\Request;
 
-class LocationController extends Controller
+class LokasiController extends Controller
 {
     public function getKabupaten($provinsi_id)
     {
