@@ -73,7 +73,7 @@
         <button type="submit" class="btn btn-primary btn-block">Daftar</button>
     </form>
     <div class="login-link">
-        Sudah punya akun? <a href="/login" style="text-decoration: none;">Masuk</a><br>
+        Sudah punya akun? <a href="{{ route('login') }}" style="text-decoration: none;">Masuk</a><br>
     </div>
 </div>
 
