@@ -37,6 +37,11 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('/poktan/inputpompa', function () {
-    return view('poktan.inputpompa');
-});
+
+use App\Http\Controllers\LocationController;
+
+Route::get('/poktan/inputpompa', [LocationController::class, 'showForm']);
+// Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
+// Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
+// Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
+
