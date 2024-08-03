@@ -31,3 +31,7 @@ Route::get('/inputpompa', function () {
     return view('inputpompa');
 });
 
+Route::get('/provinsi/dashboard', function () {
+    return view('provinsi.dashboard');
+});
+
