@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
-use App\Models\Provinsi;
-use App\Http\Controllers\LocationController;
+
+use function PHPUnit\Framework\returnSelf;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,11 +40,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
         Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data');
     });
+
+    Route::prefix('/provinsi')->group(function () {
+        Route::get('/dashboard', [ProvinsiController::class, 'index'])->name('provinsi.dashboard');
+        Route::get('/verifikasi-data', [ProvinsiController::class, 'verifikasiData'])->name('provinsi.verifikasi.data');
+    });
 });
 
+<<<<<<< HEAD
 
 
 Route::get('/poktan/inputpompa', [LocationController::class, 'showForm']);
 // Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
 // Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
 // Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
+
