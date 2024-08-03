@@ -18,7 +18,7 @@ class Kabupaten extends Model
     }
 
     public function provinsi() : BelongsTo {
-        return $this->belongsTo(Provinsi::class);
+        return $this->belongsTo(Provinsi::class, 'provinsi_id', 'id');
     }
 
     public function kecamatan() : HasMany {
