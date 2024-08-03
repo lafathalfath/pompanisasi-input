@@ -13,7 +13,7 @@
             background-color: #f8f9fa;
         }
         .header, .footer {
-            background-color: #006400;
+            background-color: #007b83;
             color: white;
             padding: 10px 0;
         }
@@ -65,10 +65,9 @@
 
 <header class="header">
     <div class="container">
-        <img src="/assets/img/logobbpsip.png" alt="Logo" style="height: 50px;">
+        <img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;">
         <div>
-            <a href="/register" class="btn btn-outline-light mr-2">Daftar</a>
-            <a href="/login" class="btn btn-light">Masuk</a>
+            <a href="#" class="btn btn-outline-light mr-2">Logout</a>
         </div>
     </div>
 </header>
@@ -136,24 +135,22 @@
                     <option selected>Pilih Kecamatan</option>
                     <!-- Add options here -->
                 </select>
-            </div>
+            </div>       
             <div class="form-group col-md-6">
-                <label for="farmerGroup">Nama Poktan</label>
-                <input type="text" class="form-control" id="farmerGroup" placeholder="Nama Poktan">
-            </div>            
-            <div class="form-group col-md-6">
-                <label for="district">Kabupaten</label>
+                <label for="district">Kota/Kabupaten</label>
                 <select id="district" class="form-control">
-                    <option selected>Pilih Kabupaten</option>
+                    <option selected>Pilih Kota/Kabupaten</option>
                     <!-- Add options here -->
                 </select>
             </div>
 
             <div class="form-group col-md-6">
-                <label for="farmerGroup">Foto Bukti & File </label>
+                <label for="farmerGroup">Foto Bukti</label>
                 <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
             </div>
-            
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary" style="margin-top: 30px;">Submit</button>
+            </div>
         </div>
     </form>
 </div>
