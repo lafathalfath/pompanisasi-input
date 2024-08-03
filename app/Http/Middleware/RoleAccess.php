@@ -18,7 +18,7 @@ class RoleAccess
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        if (empty($guards)) return error();
+        if (empty($guards)) return abort(500);
         
         foreach ($guards as $guard) {
             $role = Auth::user()->role->nama;
