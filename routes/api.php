@@ -21,4 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
 Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
+Route::post('/post-kecamatan', [LocationController::class, 'storeKecamatan']);
 Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
+Route::post('/post-desa', [LocationController::class, 'storeDesa']);

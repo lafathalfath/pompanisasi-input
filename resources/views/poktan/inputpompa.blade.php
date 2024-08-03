@@ -156,15 +156,6 @@
             </div>
         </div>
     </form>
-
-    {{-- <form action=""> --}}
-        <input type="text" oninput="handleChange(this.value)">
-        <select name="" id="">
-            <option value="">a</option>
-            <option value="">b</option>
-            <option value="">c</option>
-        </select>
-    {{-- </form> --}}
 </div>
 
 <footer class="footer">
@@ -200,9 +191,6 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-    const handleChange = (e) => {
-        console.log(e);
-    }
 
     $(document).ready(function() {
         $(".js-example-templating").select2();
@@ -281,19 +269,29 @@
         });
 
         $('#provinsi').on('select2:open', e => {
+            console.log(e);
+            
             const input = $('.select2-search__field')
             var inputValue = '';
             input.on('input', () => {
                 inputValue = input[0].value
-                console.log(inputValue);
+                console.log(e);
             })
-            input.keypress((q) => {
+            input.on('keydown', (q) => {
                 if (q.key == 'Enter') {
                     q.preventDefault()
-                    console.log('sip')
+                    const allOptions = $('#provinsi option')
+                    
+                    const options = $('#provinsi option').map(() => {
+                        return $(this).text().toLowerCase()
+                    }).get()
+                    if (!options.includes(inputValue.toLowerCase())) {
+                        allOptions.append('<option selected>buatbaru</option>')
+                        console.log('gaada yang sama')
+                    }
+                    // console.log('sip')
                 }
             })
-            console.log(e.params);
         });
 
     });
