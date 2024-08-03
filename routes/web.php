@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
 use App\Models\Provinsi;
-
-use function PHPUnit\Framework\returnSelf;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +42,9 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::prefix('/poktan')->group(function () {
-    Route::get('/inputpompa', function () {
-        return view('poktan.inputpompa');
-    });
-});
+
+
+Route::get('/poktan/inputpompa', [LocationController::class, 'showForm']);
+// Route::get('/get-kabupaten/{provinsi_id}', [LocationController::class, 'getKabupaten']);
+// Route::get('/get-kecamatan/{kabupaten_id}', [LocationController::class, 'getKecamatan']);
+// Route::get('/get-desa/{kecamatan_id}', [LocationController::class, 'getDesa']);
