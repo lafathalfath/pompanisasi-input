@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Kabupaten\KabupatenController;
+
+use function PHPUnit\Framework\returnSelf;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,20 +17,26 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-
-
-Route::get('/login', function () {
-    return view('login');
+Route::get('/', function () {
+    return redirect()->route('login.view');
 });
 
-Route::get('/register', function () {
-    return view('register');
-});
-Route::get('/kabupaten/dashboard', function () {
-    return view('kabupaten.dashboard');
-});
-
-Route::get('/inputpompa', function () {
-    return view('inputpompa');
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [AuthController::class, 'registerView'])->name('register.view');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.register');
+    Route::get('/login', [AuthController::class, 'loginView'])->name('login.view');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.login');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::prefix('/kabupaten')->group(function () {
+        Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
+        Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data');
+    });
+});
+
+Route::get('/poktan/inputpompa', function () {
+    return view('poktan.inputpompa');
+});

@@ -12,13 +12,13 @@ class Provinsi extends Model
     use HasFactory;
     protected $table = 'provinsi';
     protected $guarded = [];
-    
-    public function pj_provinsi() : BelongsTo {
-        return $this->belongsTo(User::class);
+
+    public function pj() : BelongsTo {
+        return $this->belongsTo(User::class, 'pj_id', 'id');
     }
 
     public function wilayah() : BelongsTo {
-        return $this->belongsTo(Wilayah::class);
+        return $this->belongsTo(Wilayah::class, 'wilayah_id', 'id');
     }
 
     public function kabupaten() : HasMany {

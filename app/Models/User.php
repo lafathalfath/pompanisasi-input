@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,9 +20,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'email',
-        'role',
+        'no_hp',
+        'role_id',
         'password',
     ];
 
@@ -42,4 +45,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role() : BelongsTo {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function wilayah() : HasOne {
+        return $this->hasOne(Wilayah::class, 'pj_id', 'id');
+    }
+
+    public function provinsi() : HasOne {
+        return $this->hasOne(Provinsi::class, 'pj_id', 'id');
+    }
+
+    public function kabupaten() : HasOne {
+        return $this->hasOne(Kabupaten::class, 'pj_id', 'id');
+    }
+
+    public function cpcl() : HasOne {
+        return $this->hasOne(Cpcl::class, 'poktan_id', 'id');
+    }
+
+    public function pompanisasi() : HasOne {
+        return $this->hasOne(Pompanisasi::class, 'poktan_id', 'id');
+    }
 }
