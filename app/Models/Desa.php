@@ -20,8 +20,4 @@ class Desa extends Model
     public function pompanisasi() : HasMany {
         return $this->hasMany(Pompanisasi::class);
     }
-
-    public function cpcl() : HasMany {
-        return $this->hasMany(Cpcl::class);
-    }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('poktan_id')->unsigned();
             $table->integer('luas_tanam')->default(0);
             $table->date('tanggal')->unique();
+            $table->string('url_gambar');
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
