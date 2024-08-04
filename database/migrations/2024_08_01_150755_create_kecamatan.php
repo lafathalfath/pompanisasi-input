@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('kecamatan', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('pj_id')->unsigned()->unique()->nullable();
             $table->bigInteger('kabupaten_id')->unsigned();
             $table->string('nama');
             $table->timestamps();
 
+            $table->foreign('pj_id')->references('id')->on('users');
             $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
         });
     }

@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pompanisasi', function (Blueprint $table) {
+        Schema::create('pompanisasi_kec', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('kabupaten_id')->unsigned();
-            $table->bigInteger('poktan_id')->unsigned();
+            $table->bigInteger('desa_id')->unsigned();
             $table->integer('luas_lahan')->default(0);
+            $table->date('tanggal')->unique();
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
-            $table->foreign('poktan_id')->references('id')->on('users');
+            $table->foreign('desa_id')->references('id')->on('desa');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pompanisasi');
+        Schema::dropIfExists('pompanisasi_kec');
     }
 };
