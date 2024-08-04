@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pompanisasi', function (Blueprint $table) {
+        Schema::create('pompa_ref_kec_diterima', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('kabupaten_id')->unsigned();
-            $table->bigInteger('poktan_id')->unsigned();
+            $table->string('nama_poktan');
+            $table->string('no_hp_poktan')->nullable();
             $table->integer('luas_lahan')->default(0);
-            $table->timestamp('verified_at')->nullable();
+            $table->integer('pompa_3_inch')->default(0);
+            $table->integer('pompa_4_inch')->default(0);
+            $table->integer('pompa_6_inch')->default(0);
+            $table->date('tanggal')->default(date('Y-m-d'));
             $table->timestamps();
-
-            $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
-            $table->foreign('poktan_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pompanisasi');
+        Schema::dropIfExists('pompa_ref_kec_diterima');
     }
 };
