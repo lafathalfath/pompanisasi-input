@@ -13,8 +13,8 @@ class Wilayah extends Model
     protected $table = 'wilayah';
     protected $guarded = [];
 
-    public function pj_wilayah() : BelongsTo {
-        return $this->belongsTo(User::class);
+    public function pj() : BelongsTo {
+        return $this->belongsTo(User::class, 'pj_id', 'id');
     }
 
     public function provinsi() : HasMany {

@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Kecamatan extends Model
+class Desa extends Model
 {
     use HasFactory;
-    protected $table = 'kecamatan';
+    protected $table = 'desa';
     protected $guarded = [];
 
-    public function kabupaten() : BelongsTo {
-        return $this->belongsTo(Kabupaten::class, 'kabupaten_id', 'id');
+    public function kecamatan() : BelongsTo {
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'id');
     }
 
-    public function desa() : HasMany {
-        return $this->hasMany(Desa::class);
+    public function pompanisasi() : HasMany {
+        return $this->hasMany(Pompanisasi::class);
     }
 }
