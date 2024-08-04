@@ -15,18 +15,23 @@ class AuthController extends Controller
 
     public function login(Request $request) {
         $request->validate([
-            'email' => 'required|string|email',
+            'email' => 'required',
             'password' => 'required',
         ], [
             'email.required' => 'email can\'t be null',
-            'email.email' => 'email invalid',
             'password.required' => 'password can\'t be null',
         ]);
 
+        $user = null;
+        $login_by = 'email';
         $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            $login_by = 'no_hp';
+            $user = User::where('no_hp', $request->email)->first();
+        }
         if (!$user) return redirect()->route('login')->withErrors('cannot found user with this email');
         if (!Hash::check($request->password, $user->password)) return redirect()->route('login')->withErrors('password invalid');
-        $attempt = Auth::attempt($request->except('_token'));
+        $attempt = Auth::attempt([$login_by=>$request->email, 'password' => $request->password]);
         if (!$attempt) return redirect()->route('login')->withErrors('email or password invalid');
         
         $role = Auth::user()->role->nama;
@@ -41,7 +46,7 @@ class AuthController extends Controller
         $request->validate([
             'nama' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
-            'no_hp' => 'required',
+            'no_hp' => 'required|unique:users',
             // 'role' => 'required',
             'password' => 'required|string|confirmed'
         ], [
@@ -53,6 +58,7 @@ class AuthController extends Controller
             'email.email' => 'email invalid',
             'email.unique' => 'email already exist',
             'no_hp.required' => 'no_hp cannot be null',
+            'no_hp.unique' => 'no_hp already exist',
             // 'role.required' => 'role cannot be null',
             'password.required' => 'password cannot be null',
             'password.string' => 'password must be string',

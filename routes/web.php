@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
+use App\Http\Controllers\Kecamatan\KecamatanController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Poktan\PoktanController;
 use App\Http\Controllers\Provinsi\ProvinsiController;
+use App\Http\Controllers\Wilayah\WilayahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::prefix('/wilayah')->group(function () {
+        Route::get('/', function () {return redirect()->route('wilayah.dashboard');});
+        Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilaya.dashboard');
+    });
+
     Route::prefix('/provinsi')->middleware('access:provinsi')->group(function () {
         Route::get('/', function () {return redirect()->route('provinsi.dashboard');});
         Route::get('/dashboard', [ProvinsiController::class, 'index'])->name('provinsi.dashboard');
@@ -44,18 +51,23 @@ Route::middleware('auth')->group(function () {
         Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data');
     });
     
+    Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
+        Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
+        Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
+    });
+    
     Route::prefix('/poktan')->middleware('access:poktan')->group(function () {
         Route::get('/', function () {return redirect()->route('poktan.dashboard');});
         Route::get('/dashboard', [PoktanController::class, 'index'])->name('poktan.dashboard');
         Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
         Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
     });
-    Route::post('/kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
-    Route::post('/desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
-
+  
     Route::get('/kabupaten/datacpclkec', function () {
         return view('poktan.datacpclkec');
     });
-
+    
+    Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
+    Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
 
