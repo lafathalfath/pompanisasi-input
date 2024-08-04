@@ -62,6 +62,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
         Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
     });
+  
+    Route::get('/kabupaten/datacpclkec', function () {
+        return view('poktan.datacpclkec');
+    });
     
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
