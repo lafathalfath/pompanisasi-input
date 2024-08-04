@@ -17,7 +17,7 @@ class Desa extends Model
         return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'id');
     }
 
-    public function pompanisasi() : HasMany {
-        return $this->hasMany(Pompanisasi::class);
-    }
+    // public function pompanisasi() : HasMany {
+    //     return $this->hasMany(Pompanisasi::class);
+    // }
 }

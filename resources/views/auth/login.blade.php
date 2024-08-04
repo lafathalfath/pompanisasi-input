@@ -52,6 +52,14 @@
             color: #006F91;
             text-decoration: underline;
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -72,8 +80,8 @@
     <form action="{{ route('login.login') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan email" required>
+            <label for="email">Email atau Nomor Ponsel</label>
+            <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email atau Nomor Ponsel" required>
         </div>
         <div class="form-group">
             <label for="password">Kata Sandi</label>

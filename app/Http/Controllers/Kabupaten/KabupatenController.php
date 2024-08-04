@@ -45,7 +45,7 @@ class KabupatenController extends Controller
                 }
                 $expand_kecamatan[] = (object) [
                     'kecamatan' => $des->kecamatan,
-                    'desa' => $des->kecamatan,
+                    'desa' => $des,
                     'luas_tanam' => $luas_tanam,
                     'nama_poktan' => array_unique($nama_poktan),
                     'pompanisasi' => (object) [

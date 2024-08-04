@@ -13,8 +13,8 @@ class Pompanisasi extends Model
     protected $table = 'pompanisasi';
     protected $guarded = [];
 
-    public function desa() : BelongsTo {
-        return $this->belongsTo(Desa::class, 'desa_id', 'id');
+    public function kabupaten() : BelongsTo {
+        return $this->belongsTo(Kabupaten::class, 'kabupaten_id', 'id');
     }
 
     public function poktan() : BelongsTo {
