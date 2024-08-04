@@ -22,6 +22,17 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/kecamatan/inputPompaKecamatan', function () {
+    return view('kecamatan.inputPompaKecamatan');
+});
+
+Route::get('/kecamatan/pompaAbtUsulanForm', function () {return view('kecamatan.pompaAbtUsulanForm');});
+Route::get('/kecamatan/pompaAbtDiterimaForm', function () {return view('kecamatan.pompaAbtDiterimaForm');});
+Route::get('/kecamatan/pompaAbtDigunakanForm', function () {return view('kecamatan.pompaAbtDigunakanForm');});
+Route::get('/kecamatan/pompaRefocusingUsulanForm', function () {return view('kecamatan.pompaRefocusingUsulanForm');});
+Route::get('/kecamatan/pompaRefocusingDiterimaForm', function () {return view('kecamatan.pompaRefocusingDiterimaForm');});
+Route::get('/kecamatan/pompaRefocusingDigunakanForm', function () {return view('kecamatan.pompaRefocusingDigunakanForm');});
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register.register');
