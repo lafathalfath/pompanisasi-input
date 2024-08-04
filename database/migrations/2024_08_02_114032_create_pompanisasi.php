@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('pompanisasi', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('desa_id')->unsigned();
+            $table->bigInteger('kabupaten_id')->unsigned();
             $table->bigInteger('poktan_id')->unsigned();
-            $table->integer('luas_tanam')->default(0);
-            $table->date('tanggal')->unique();
+            $table->integer('luas_lahan')->default(0);
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('desa_id')->references('id')->on('desa');
+            $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
             $table->foreign('poktan_id')->references('id')->on('users');
         });
     }
