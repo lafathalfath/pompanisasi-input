@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pompa_abt_kec_digunakan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pompanisasi_kec_id')->unsigned()->unique();
             $table->string('nama_poktan');
             $table->string('no_hp_poktan')->nullable();
             $table->integer('luas_lahan')->default(0);
@@ -21,10 +20,8 @@ return new class extends Migration
             $table->integer('pompa_3_inch')->default(0);
             $table->integer('pompa_4_inch')->default(0);
             $table->integer('pompa_6_inch')->default(0);
-            $table->date('tanggal')->unique();
+            $table->date('tanggal')->default(date('Y-m-d'));
             $table->timestamps();
-
-            $table->foreign('pompanisasi_kec_id')->references('id')->on('pompanisasi_kec');
         });
     }
 
