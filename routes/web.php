@@ -52,5 +52,10 @@ Route::middleware('auth')->group(function () {
     });
     Route::post('/kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
+
+    Route::get('/kabupaten/datacpclkec', function () {
+        return view('poktan.datacpclkec');
+    });
+
 });
 
