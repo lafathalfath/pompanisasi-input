@@ -11,7 +11,7 @@ class KabupatenController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        if (!$user) return redirect()->route('login.view')->withErrors('unauthorized');
+        if (!$user) return redirect()->route('login')->withErrors('unauthorized');
 
         $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
         $expand_kecamatan = [];

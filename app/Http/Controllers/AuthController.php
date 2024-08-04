@@ -24,10 +24,10 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        if (!$user) return redirect()->route('login.view')->withErrors('cannot found user with this email');
-        if (!Hash::check($request->password, $user->password)) return redirect()->route('login.view')->withErrors('password invalid');
+        if (!$user) return redirect()->route('login')->withErrors('cannot found user with this email');
+        if (!Hash::check($request->password, $user->password)) return redirect()->route('login')->withErrors('password invalid');
         $attempt = Auth::attempt($request->except('_token'));
-        if (!$attempt) return redirect()->route('login.view')->withErrors('email or password invalid');
+        if (!$attempt) return redirect()->route('login')->withErrors('email or password invalid');
         
         $role = Auth::user()->role->nama;
         return redirect()->route("$role.dashboard")->with('success', 'login successfully');
@@ -63,7 +63,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'no_hp' => $request->no_hp,
             // 'role' => $request->role,
-            'role_id' => 4, // default role poktan. can change by admin
+            'role_id' => 5, // default role poktan. can change by admin
             'password' => Hash::make($request->password),
         ]);
         // dd($user);
@@ -77,6 +77,6 @@ class AuthController extends Controller
 
     public function logout() {
         Auth::logout();
-        return redirect()->route('login.view')->with('success', 'logout successfully');
+        return redirect()->route('login')->with('success', 'logout successfully');
     }
 }

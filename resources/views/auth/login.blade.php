@@ -85,7 +85,7 @@
         <button type="submit" class="btn btn-primary btn-block">Login</button>
     </form>
     <div class="register-link">
-        <p>Belum punya akun? <a href="/register" style="text-decoration: none;">Daftar sekarang!</a></p>
+        <p>Belum punya akun? <a href="{{ route('register') }}" style="text-decoration: none;">Daftar sekarang!</a></p>
     </div>
 </div>
 
