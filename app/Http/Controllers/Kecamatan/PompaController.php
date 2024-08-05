@@ -17,13 +17,13 @@ class PompaController extends Controller
         return view('kecamatan.refocusing.digunakan');
     }
     public function abtUsulanView() {
-        return view('kecamatan.pompaAbtUsulanForm');
+        return view('kecamatan.abt.usulan');
     }
     public function abtDiterimaView() {
-        return view('kecamatan.pompaAbtDiterimaForm');
+        return view('kecamatan.abt.diterima');
     }
     public function abtDigunakanView() {
-        return view('kecamatan.pompaAbtDigunakanForm');
+        return view('kecamatan.abt.digunakan');
     }
     public function refocusingUsulan() {
         return view('kecamatan.pompaRefocusingUsulanForm');
