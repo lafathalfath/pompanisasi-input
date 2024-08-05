@@ -98,3 +98,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
 
+Route::get('/admin/adminProvinsi', function () {
+    return view('admin.adminProvinsi');
+});
+Route::get('/admin/adminKabupaten', function () {
+    return view('admin.adminKabupaten');
+});
+Route::get('/admin/adminKecamatan', function () {
+    return view('admin.adminKecamatan');
+});
+Route::get('/admin/adminWilayah', function () {
+    return view('admin.adminWilayah');
+});
