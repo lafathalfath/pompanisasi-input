@@ -18,26 +18,26 @@ class PompanisasiKec extends Model
     }
 
     public function pompa_ref_kec_usulan() : HasOne {
-        return $this->hasOne(PompaRefKecUsulan::class, 'pompanisasi_kec_id', 'id');
-    }
-
-    public function pompa_ref_kec_digunakan() : HasOne {
-        return $this->hasOne(PompaRefKecDigunakan::class, 'pompananisasi_kec_id', 'id');
+        return $this->hasOne(PompaRefKecUsulan::class, 'pompa_ref_kec_usulan_id', 'id');
     }
 
     public function pompa_ref_kec_diterima() : HasOne {
-        return $this->hasOne(PompaRefKecDiterima::class, 'pompananisasi_kec_id', 'id');
+        return $this->hasOne(PompaRefKecDiterima::class, 'pompa_ref_kec_diterima_id', 'id');
+    }
+
+    public function pompa_ref_kec_digunakan() : HasOne {
+        return $this->hasOne(PompaRefKecDigunakan::class, 'pompa_ref_kec_digunakan_id', 'id');
     }
 
     public function pompa_abt_kec_usulan() : HasOne {
-        return $this->hasOne(PompaAbtKecUsulan::class, 'pompanisasi_kec_id', 'id');
-    }
-
-    public function pompa_abt_kec_digunakan() : HasOne {
-        return $this->hasOne(PompaAbtKecDigunakan::class, 'pompananisasi_kec_id', 'id');
+        return $this->hasOne(PompaAbtKecUsulan::class, 'pompa_abt_kec_usulan_id', 'id');
     }
 
     public function pompa_abt_kec_diterima() : HasOne {
-        return $this->hasOne(PompaAbtKecDiterima::class, 'pompananisasi_kec_id', 'id');
+        return $this->hasOne(PompaAbtKecDiterima::class, 'pompa_abt_kec_diterima_id', 'id');
+    }
+
+    public function pompa_abt_kec_digunakan() : HasOne {
+        return $this->hasOne(PompaAbtKecDigunakan::class, 'pompa_abt_kec_diterima_id', 'id');
     }
 }
