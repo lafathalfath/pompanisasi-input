@@ -29,7 +29,7 @@
         margin-bottom: 20px;
     }
 </style>
-    <!-- Grafik -->
+    <!-- Grafik s-->
 <div class="container mt-4">
     <div class="chart-container">
         <canvas id="rekapDataChart" width="400" height="200"></canvas>
