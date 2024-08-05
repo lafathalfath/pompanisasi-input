@@ -1,123 +1,391 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekapitulasi Perluasan Areal Tanam dan Pompanisasi</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body> --}}
 @extends('layouts.kabupaten')
 @section('content')
-    <script>
-        const title = document.getElementsByTagName('title')[0]
-        title.innerHTML += ' | Dashboard'
-    </script>
 
-    <style>
-        .table thead th {
-            vertical-align: middle;
-            text-align: center;
-        }
-        .merged-cell {
-            background-color: #d9ead3;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .merged-cell-yellow {
-            background-color: #fff2cc;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .merged-cell-pink {
-            background-color: #ead1dc;
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
-    <div class="container">
-        <h1 class="mt-5">Rekapitulasi Perluasan Areal Tanam dan Pompanisasi</h1>
+<style>
+    .table thead th {
+        vertical-align: middle;
+        text-align: center;
+        background-color: #c8dce4;
+    }
 
-        <form method="GET" class="my-3">
-            <div class="form-group">
-                <label for="kecamatan">Filter by Kecamatan</label>
-                <input type="text" name="kecamatan" id="kecamatan" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Filter</button>
-        </form>
+    .merged-cell {
+        background-color: #d9ead3;
+        text-align: center;
+        vertical-align: middle;
+    }
 
-        <table class="table table-bordered">
+    .btn-detail {
+        background-color: yellow;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row" style="margin-left: 3px">
+        <h2>Rekap Data Kabupaten</h2>
+        <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th rowspan="2" class="merged-cell">No</th>
-                    <th rowspan="2" class="merged-cell">Kecamatan</th>
-                    <th rowspan="2" class="merged-cell">Desa</th>
-                    <th rowspan="2" class="merged-cell">Nama Poktan</th>
-                    <th rowspan="2" class="merged-cell">Luas Tanam</th>
-                    <th colspan="3" class="merged-cell-pink">Pompa Refocusing</th>
-                    <th colspan="3" class="merged-cell-yellow">Pompa ABT</th>
-                </tr>
-                <tr>
-                    <th class="merged-cell-pink">Usulan</th>
-                    <th class="merged-cell-pink">Diterima</th>
-                    <th class="merged-cell-pink">Digunakan</th>
-                    <th class="merged-cell-yellow">Usulan</th>
-                    <th class="merged-cell-yellow">Diterima</th>
-                    <th class="merged-cell-yellow">Digunakan</th>
+                    <th colspan="2">CPCL Pompa Refocusing</th>
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $nomor = 1;
-                @endphp
-
-                @forelse ($expand_kecamatan as $i=>$exp)
-                    <tr>
-                        {{-- no --}}
-                        <td>{{ $nomor++ }}</td>
-                        {{-- kecamatan --}}
-                        <td>{{ $exp->kecamatan->nama }}</td>
-                        {{-- desa --}}
-                        <td>{{ $exp->desa->nama }}</td>
-                        {{-- nama poktan --}}
-                        <td>
-                            @forelse ($exp->nama_poktan as $np)
-                                @if ($loop->iteration == count($exp->nama_poktan))
-                                    {{ $np }}
-                                @else
-                                    {{ $np }},<br/>
-                                @endif
-                            @empty
-                                -
-                            @endforelse
-                        </td>
-                        {{-- luas tanam --}}
-                        <td>{{ $exp->luas_tanam }}</td>
-                        {{-- pompa refocusing usulan --}}
-                        <td>{{ $exp->pompanisasi->pompa_refocusing->usulan }}</td>
-                        {{-- pompa refocusing diterima --}}
-                        <td>{{ $exp->pompanisasi->pompa_refocusing->diterima }}</td>
-                        {{-- pompa refocusing digunakan --}}
-                        <td>{{ $exp->pompanisasi->pompa_refocusing->digunakan }}</td>
-                        {{-- pompa abt usulan --}}
-                        <td>{{ $exp->pompanisasi->pompa_abt->usulan }}</td>
-                        {{-- pompa abt diterima --}}
-                        <td>{{ $exp->pompanisasi->pompa_abt->diterima }}</td>
-                        {{-- pompa abt digunakan --}}
-                        <td>{{ $exp->pompanisasi->pompa_abt->digunakan }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="12" class="text-center">Data belum ditemukan</td>
-                    </tr>
-                @endforelse
+                <tr>
+                    <td style="font-weight: bold;">Refocusing Usulan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Refocusing Diterima</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Refocusing Digunakan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-custom" style="width: fit-content;">
+            <thead>
+                <tr>
+                    <th colspan="2">CPCL Pompa ABT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold;">ABT Usulan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">ABT Diterima</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">ABT Digunakan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
             </tbody>
         </table>
     </div>
-@endsection
+    <br><br>
+    <h2>Detail Data Pompa ABT</h2>
+    <div class="mb-3">
+        <label for="date" class="form-label">Tanggal:</label>
+        <input type="date" class="form-control" id="date">
+    </div>
 
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html> --}}
+    <h5><b>Usulan Pompa ABT</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Usulan Pompa ABT</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Babakan</td>
+            <td>Desa 1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>        </tr>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cisarua</td>
+            <td>Desa 2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>        </tr>
+        </tr>
+        <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+
+    <h5><b>Pompa ABT Diterima</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Pompa ABT Diterima</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Babakan</td>
+            <td>Desa 1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cisarua</td>
+            <td>Desa 2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+
+    <h5><b>Pompa ABT Digunakan</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Pompa ABT Digunakan</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Babakan</td>
+            <td>Desa 1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cisarua</td>
+            <td>Desa 2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+</div>
+<br><br>
+<div class="container mt-4">
+    <h2>Detail Data Pompa Refocusing</h2>
+    <div class="mb-3">
+        <label for="date" class="form-label">Tanggal:</label>
+        <input type="date" class="form-control" id="date">
+    </div>
+
+    <h5><b>Usulan Pompa Refocusing</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Usulan Pompa Refocusing</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Babakan</td>
+            <td>Desa 1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cisarua</td>
+            <td>Desa 2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>        </tr>
+        <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+
+    <h5><b>Pompa Refocusing Diterima</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Pompa Refocusing Diterima</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Babakan</td>
+            <td>Desa 1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cisarua</td>
+            <td>Desa 2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+
+    <h5><b>Pompa Refocusing Digunakan</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Pompa Refocusing Digunakan</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Babakan</td>
+            <td>Desa 1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cisarua</td>
+            <td>Desa 2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>08123456789</td>
+            <td><button class="btn-detail">Detail</button></td>
+        </tr>
+        <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+</div>
+<br><br>
+<div class="container mt-4">
+    <h2>Luas tanam harian</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Kecamatan</th>
+            <th>Desa</th>
+            <th>Kelompok tani</th>
+            <th>Luas tanam</th>
+            <th>Tanggal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Babakan</td>
+            <td>Desa 1</td>
+            <td>Kelompok tani A</td>
+            <td>10 ha</td>
+            <td>2024-08-01</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cisarua</td>
+            <td>Desa 2</td>
+            <td>Kelompok tani B</td>
+            <td>15 ha</td>
+            <td>2024-08-02</td>
+        </tr>
+        <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+</div>
+
+@endsection

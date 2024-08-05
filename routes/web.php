@@ -47,12 +47,18 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/provinsi')->middleware('access:provinsi')->group(function () {
         Route::get('/', function () {return redirect()->route('provinsi.dashboard');});
         Route::get('/dashboard', [ProvinsiController::class, 'index'])->name('provinsi.dashboard');
+        Route::get('/detailkabupaten', function () {
+            return view('provinsi.detailkabupaten');
+        })->name('provinsi.detailkabupaten');
         Route::get('/verifikasi-data', [ProvinsiController::class, 'verifikasiData'])->name('provinsi.verifikasi.data');
     });
     
     Route::prefix('/kabupaten')->middleware('access:kabupaten')->group(function () {
         Route::get('/', function () {return redirect()->route('kabupaten.dashboard');});
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
+        Route::get('/detailkecamatan', function () {
+            return view('kabupaten.detailkecamatan');
+        })->name('kabupaten.detailkecamatan');
         Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
     });
     

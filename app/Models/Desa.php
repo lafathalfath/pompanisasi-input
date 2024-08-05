@@ -20,4 +20,8 @@ class Desa extends Model
     // public function pompanisasi() : HasMany {
     //     return $this->hasMany(Pompanisasi::class);
     // }
+    
+    public function luas_tanam() : HasMany {
+        return $this->hasMany(LuasTanam::class, 'desa_id', 'id');
+    }
 }
