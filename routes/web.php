@@ -98,3 +98,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
 
+Route::get('/admin/verifAdmin', function () {
+    return view('admin.verifikasiAdmin');
+});
