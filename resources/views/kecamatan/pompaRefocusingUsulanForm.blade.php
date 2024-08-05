@@ -3,7 +3,7 @@
 <div class="container mt-5">
     <form action="pompaRefocusingDiterimaForm" method="POST" enctype="multipart/form-data">
         <!-- Pompa Refocusing Usulan -->
-        <h4>Pompa Refocusing Usulan</h4>
+        <h4>Usulan Pompa Refocusing</h4>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanDesa">Desa</label>

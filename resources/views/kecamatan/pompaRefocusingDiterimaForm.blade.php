@@ -36,7 +36,7 @@
 
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="pumpaABTUsulanJumlah">Jumlah yang Diusulkan</label>
+                <label for="pumpaABTUsulanJumlah">Jumlah yang Diterima</label>
                 <input type="number" name="pompa_abt_usulan_jumlah" class="form-control" id="pumpaABTUsulanJumlah" placeholder="Jumlah" required>
             </div>
             <div class="form-group col-md-4">
@@ -46,6 +46,10 @@
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanTanggal">Tanggal</label>
                 <input type="date" name="pompa_abt_usulan_tanggal" class="form-control" id="pumpaABTUsulanTanggal" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="farmerGroup">Foto Bukti</label>
+                <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*">
             </div>
         </div>
             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit</button>

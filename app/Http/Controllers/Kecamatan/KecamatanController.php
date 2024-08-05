@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class KecamatanController extends Controller
 {
     public function index() {
-        return 'berhasil masuk sebagai penanggung jawab kecamatan';
+        return view('kecamatan.dashboard');
     }
 
     public function storeRefocusingUsulan(Request $request) {
