@@ -36,10 +36,10 @@
         </div>
 
         <div class="form-row">
-            {{-- <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
                 <label for="pumpaABTDigunakanJumlah">Jumlah yang Digunakan</label>
                 <input type="number" name="pompa_abt_digunakan_jumlah" class="form-control" id="pumpaABTDigunakanJumlah" placeholder="Jumlah" required>
-            </div> --}}
+            </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTDigunakanNoHP">No HP Poktan (Opsional)</label>
                 <input type="text" name="pompa_abt_digunakan_no_hp" class="form-control" id="pumpaABTDigunakanNoHP" placeholder="No HP">
@@ -47,6 +47,10 @@
             <div class="form-group col-md-4">
                 <label for="pumpaABTDigunakanLuasTerairi">Luas Lahan Terairi (ha)</label>
                 <input type="number" name="pompa_abt_digunakan_luas_terairi" class="form-control" id="pumpaABTDigunakanLuasTerairi" placeholder="Luas Terairi (ha)" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="farmerGroup">Foto Bukti</label>
+                <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*">
             </div>
             {{-- <div class="form-group col-md-4">
                 <label for="pumpaABTDigunakanTanggal">Tanggal</label>
