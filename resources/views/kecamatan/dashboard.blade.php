@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPCL Pompa ABT</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .table thead th {
-            vertical-align: middle;
-            text-align: center;
-            background-color: #c8dce4;
-        }
+@extends('layouts.kecamatan')
+@section('content')
 
-        .merged-cell {
-            background-color: #d9ead3;
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
-</head>
-<body>
+<style>
+    .table thead th {
+        vertical-align: middle;
+        text-align: center;
+        background-color: #c8dce4;
+    }
+
+    .merged-cell {
+        background-color: #d9ead3;
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
 <div class="container mt-4">
     <h2>CPCL Pompa ABT</h2>
     <div class="mb-3">
@@ -170,53 +165,28 @@
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
     </table>
-    <table class="table table-bordered table-custom">
+    <table class="table table-bordered table-custom" style="width: fit-content;">
         <thead>
             <tr>
                 <th colspan="2">CPCL Pompa ABT</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Refocusing Usulan</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Refocusing Diterima</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Refocusing Digunakan</td>
-                    <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="font-weight: bold;">ABT Usulan</td>
+                <td style="padding: 10px 20px;">0</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">ABT Diterima</td>
+                <td style="padding: 10px 20px;">0</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">ABT Digunakan</td>
+                <td style="padding: 10px 20px;">0</td>
             </tr>
         </tbody>
     </table>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPCL Pompa Refocusing</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .table thead th {
-            vertical-align: middle;
-            text-align: center;
-        }
-        
-        .merged-cell {
-            background-color: #d9ead3;
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
-</head>
-<body>
 <div class="container mt-4">
     <h2>CPCL Pompa Refocusing</h2>
     <div class="mb-3">
@@ -367,7 +337,7 @@
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
     </table>
-    <table class="table table-bordered table-custom">
+    <table class="table table-bordered table-custom" style="width: fit-content;">
         <thead>
             <tr>
                 <th colspan="2">CPCL Pompa Refocusing</th>
@@ -375,20 +345,18 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Refocusing Usulan</td>
-                    <td></td>
+                    <td style="font-weight: bold;">Refocusing Usulan</td>
+                    <td style="padding: 10px 20px;">0</td>
                 </tr>
                 <tr>
-                    <td>Refocusing Diterima</td>
-                    <td></td>
+                    <td style="font-weight: bold;">Refocusing Diterima</td>
+                    <td style="padding: 10px 20px;">0</td>
                 </tr>
                 <tr>
-                    <td>Refocusing Digunakan</td>
-                    <td></td>
+                    <td style="font-weight: bold;">Refocusing Digunakan</td>
+                    <td style="padding: 10px 20px;">0</td>
             </tr>
         </tbody>
     </table>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@endsection
