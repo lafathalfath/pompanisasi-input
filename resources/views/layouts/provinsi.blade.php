@@ -84,14 +84,13 @@
     <body>
         <div class="sidebar">
             <div class="sidebar-header">
-                <a href="{{ route('kabupaten.dashboard') }}">
+                <a href="{{ route('provinsi.dashboard') }}">
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi</h1>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('kabupaten.dashboard') }}" class="{{ request()->url() == route('kabupaten.dashboard') ? 'active' : '' }}">Dashboard</a></li>
-                <li><a href="{{ route('kabupaten.verifikasi.data') }}" class="{{ request()->url() == route('kabupaten.verifikasi.data') ? 'active' : '' }}">Verifikasi Data</a></li>
+                <li><a href="{{ route('provinsi.dashboard') }}" class="{{ request()->url() == route('provinsi.dashboard') ? 'active' : '' }}">Dashboard</a></li>
             </ul>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
