@@ -29,12 +29,12 @@
         margin-bottom: 20px;
     }
 </style>
-
+    <!-- Grafik -->
 <div class="container mt-4">
     <div class="chart-container">
         <canvas id="rekapDataChart" width="400" height="200"></canvas>
-    </div>
-    
+    </div> 
+
     <div class="row" style="margin-left: 3px">
         <h2>Rekap Data Kabupaten</h2>
         <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
