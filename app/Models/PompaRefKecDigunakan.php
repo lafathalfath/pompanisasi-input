@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PompaRefKecDigunakan extends Model
 {
@@ -12,7 +13,7 @@ class PompaRefKecDigunakan extends Model
     protected $table = 'pompa_ref_kec_digunakan';
     protected $guarded = [];
 
-    public function pompanisasi_kec() : BelongsTo {
-        return $this->belongsTo(PompanisasiKec::class, 'pompanisasi_kec_id', 'id');
+    public function pompanisasi_kec() : HasOne {
+        return $this->hasOne(PompanisasiKec::class, 'pompa_ref_kec_digunakan_id', 'id');
     }
 }

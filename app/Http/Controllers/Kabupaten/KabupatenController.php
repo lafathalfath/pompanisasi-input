@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Kabupaten;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kabupaten;
+use App\Models\PompanisasiKec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,7 +64,17 @@ class KabupatenController extends Controller
         ]);
     }
 
-    public function verifikasiData() {
+    public function verifikasiDataView() {
         return view('kabupaten.verifikasiData');
+    }
+
+    public function verifikasiData($pompanisasi_kec_id) {
+        $pompanisasi_kec = PompanisasiKec::find($pompanisasi_kec_id);
+        if (!$pompanisasi_kec) return back()->withErrors('data tidak ditemukan');
+        if ($pompanisasi_kec->verified_at) return back()->withErrors('data sudah terverifikasi');
+        $pompanisasi_kec->update([
+            'verified_at' => date('Y-m-d H:i:s'),
+        ]);
+        return back()->with('success', 'berhasil verifikasi data');
     }
 }

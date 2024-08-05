@@ -24,6 +24,17 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/kecamatan/inputPompaKecamatan', function () {
+    return view('kecamatan.inputPompaKecamatan');
+});
+
+Route::get('/kecamatan/pompaAbtUsulanForm', function () {return view('kecamatan.pompaAbtUsulanForm');});
+Route::get('/kecamatan/pompaAbtDiterimaForm', function () {return view('kecamatan.pompaAbtDiterimaForm');});
+Route::get('/kecamatan/pompaAbtDigunakanForm', function () {return view('kecamatan.pompaAbtDigunakanForm');});
+Route::get('/kecamatan/pompaRefocusingUsulanForm', function () {return view('kecamatan.pompaRefocusingUsulanForm');});
+Route::get('/kecamatan/pompaRefocusingDiterimaForm', function () {return view('kecamatan.pompaRefocusingDiterimaForm');});
+Route::get('/kecamatan/pompaRefocusingDigunakanForm', function () {return view('kecamatan.pompaRefocusingDigunakanForm');});
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register.register');
@@ -48,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/kabupaten')->middleware('access:kabupaten')->group(function () {
         Route::get('/', function () {return redirect()->route('kabupaten.dashboard');});
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
-        Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data');
+        Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
     });
     
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
