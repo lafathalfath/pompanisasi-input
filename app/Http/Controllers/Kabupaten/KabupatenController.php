@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Kabupaten;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kabupaten;
+use App\Models\PompanisasiKec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +12,7 @@ class KabupatenController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        if (!$user) return redirect()->route('login.view')->withErrors('unauthorized');
+        if (!$user) return redirect()->route('login')->withErrors('unauthorized');
 
         $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
         $expand_kecamatan = [];
@@ -45,7 +46,7 @@ class KabupatenController extends Controller
                 }
                 $expand_kecamatan[] = (object) [
                     'kecamatan' => $des->kecamatan,
-                    'desa' => $des->kecamatan,
+                    'desa' => $des,
                     'luas_tanam' => $luas_tanam,
                     'nama_poktan' => array_unique($nama_poktan),
                     'pompanisasi' => (object) [
@@ -63,7 +64,17 @@ class KabupatenController extends Controller
         ]);
     }
 
-    public function verifikasiData() {
+    public function verifikasiDataView() {
         return view('kabupaten.verifikasiData');
+    }
+
+    public function verifikasiData($pompanisasi_kec_id) {
+        $pompanisasi_kec = PompanisasiKec::find($pompanisasi_kec_id);
+        if (!$pompanisasi_kec) return back()->withErrors('data tidak ditemukan');
+        if ($pompanisasi_kec->verified_at) return back()->withErrors('data sudah terverifikasi');
+        $pompanisasi_kec->update([
+            'verified_at' => date('Y-m-d H:i:s'),
+        ]);
+        return back()->with('success', 'berhasil verifikasi data');
     }
 }
