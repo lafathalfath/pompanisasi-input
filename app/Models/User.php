@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,11 +63,7 @@ class User extends Authenticatable
         return $this->hasOne(Kabupaten::class, 'pj_id', 'id');
     }
 
-    public function cpcl() : HasOne {
-        return $this->hasOne(Cpcl::class, 'poktan_id', 'id');
-    }
-
-    public function pompanisasi() : HasOne {
-        return $this->hasOne(Pompanisasi::class, 'poktan_id', 'id');
+    public function pompanisasi() : HasMany {
+        return $this->hasMany(Pompanisasi::class, 'poktan_id', 'id');
     }
 }

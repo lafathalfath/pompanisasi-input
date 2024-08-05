@@ -39,6 +39,14 @@
             text-align: center;
             margin-top: 20px;
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -59,8 +67,8 @@
             <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan email" required>
         </div>
         <div class="form-group">
-            <label for="phone">No. HP</label>
-            <input type="tel" name="no_hp" class="form-control" id="phone" placeholder="Masukkan Nomor HP"required>
+            <label for="phone">Nomor Ponsel</label>
+            <input type="number" name="no_hp" class="form-control" id="phone" placeholder="Masukkan Nomor Ponsel"required>
         </div>
         <div class="form-group">
             <label for="password">Kata Sandi</label>
@@ -73,7 +81,7 @@
         <button type="submit" class="btn btn-primary btn-block">Daftar</button>
     </form>
     <div class="login-link">
-        Sudah punya akun? <a href="/login" style="text-decoration: none;">Masuk</a><br>
+        Sudah punya akun? <a href="{{ route('login') }}" style="text-decoration: none;">Masuk</a><br>
     </div>
 </div>
 

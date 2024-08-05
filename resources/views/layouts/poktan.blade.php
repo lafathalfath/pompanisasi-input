@@ -87,12 +87,11 @@
                 <a href="{{ route('kabupaten.dashboard') }}">
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
-                <h1>Pompanisasi <br> Kab. Simeulue</h1>
-                <div class="my-3">Role: {{ auth()->user()->role->nama }}</div>
+                <h1>SI POMPA<br>Poktan</h1>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('kabupaten.dashboard') }}" class="{{ request()->url() == route('kabupaten.dashboard') ? 'active' : '' }}">Dashboard</a></li>
-                <li><a href="{{ route('kabupaten.verifikasi.data') }}" class="{{ request()->url() == route('kabupaten.verifikasi.data') ? 'active' : '' }}">Verifikasi Data</a></li>
+                <li><a href="{{ route('poktan.dashboard') }}" class="{{ request()->url() == route('poktan.dashboard') ? 'active' : '' }}">Dashboard</a></li>
+                <li><a href="{{ route('poktan.inputpompa') }}" target="_blank" class="{{ request()->url() == route('poktan.inputpompa') ? 'active' : '' }}">Form Pompanisasi</a></li>
             </ul>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
