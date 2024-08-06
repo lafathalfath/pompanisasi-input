@@ -33,8 +33,8 @@
 <div class="container mt-4">
     <div class="chart-container">
         <canvas id="rekapDataChart" width="400" height="200"></canvas>
-    </div> 
-    <!-- Akhir Grafik -->
+    </div>
+    <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
         <h2>Rekap Data Kabupaten</h2>
