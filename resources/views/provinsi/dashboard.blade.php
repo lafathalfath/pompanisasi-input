@@ -14,11 +14,14 @@
         vertical-align: middle;
     }
 
-    .detail-button {
-        background-color: yellow;
+    .btn btn-sm btn-info {
+        background-color: #c8dce4;
         border: none;
         padding: 5px 10px;
         cursor: pointer;
+        border-radius: 7px; 
+        text-decoration: none !important;
+        color: black;
     }
 </style>
 
@@ -86,7 +89,7 @@
         <thead>
         <tr>
             <th rowspan="2">No</th>
-            <th rowspan="2">Kabupaten</th>
+            <th rowspan="2">Kabupaten/Kota</th>
             <th rowspan="2">Kecamatan</th>
             <th rowspan="2">Desa/Kel</th>
             <th rowspan="2">Luas lahan (ha)</th>
@@ -111,7 +114,7 @@
             <td>1</td>
             <td>1</td>
             <td>08123456789</td>
-            <td><a href="{{ route('provinsi.detailkabupaten') }}" class="detail-button">Detail</a></td>
+            <td><a href="{{ route('provinsi.detailkabupaten') }}" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -123,7 +126,7 @@
             <td>2</td>
             <td>1</td>
             <td>08123456789</td>
-            <td><button class="detail-button">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         </tbody>
     </table>
@@ -133,7 +136,7 @@
         <thead>
         <tr>
             <th rowspan="2">No</th>
-            <th rowspan="2">Kabupaten</th>
+            <th rowspan="2">Kabupaten/Kota</th>
             <th rowspan="2">Kecamatan</th>
             <th rowspan="2">Desa/Kel</th>
             <th rowspan="2">Luas lahan (ha)</th>
@@ -158,7 +161,7 @@
             <td>1</td>
             <td>1</td>
             <td>08123456789</td>
-            <td><a href="{{ route('provinsi.detailkabupaten') }}" class="detail-button">Detail</a></td>
+            <td><a href="{{ route('provinsi.detailkabupaten') }}" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -170,7 +173,7 @@
             <td>2</td>
             <td>1</td>
             <td>08123456789</td>
-            <td><button class="detail-button">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         </tbody>
     </table>
@@ -180,7 +183,7 @@
         <thead>
         <tr>
             <th rowspan="2">No</th>
-            <th rowspan="2">Kabupaten</th>
+            <th rowspan="2">Kabupaten/Kota</th>
             <th rowspan="2">Kecamatan</th>
             <th rowspan="2">Desa/Kel</th>
             <th rowspan="2">Luas lahan (ha)</th>
@@ -205,7 +208,7 @@
             <td>1</td>
             <td>1</td>
             <td>08123456789</td>
-            <td><button class="detail-button">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <tr>
             <td>2</td>
@@ -217,7 +220,7 @@
             <td>2</td>
             <td>1</td>
             <td>08123456789</td>
-            <td><button class="detail-button">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         </tbody>
     </table>
@@ -231,8 +234,8 @@
         <thead>
             <tr>
                 <th>No.</th>
-                <th>Kab/Kota</th>
-                <th>Kec.</th>
+                <th>Kabupaten/Kota</th>
+                <th>Kecamatan</th>
                 <th>Desa</th>
                 <th>Kelompok Tani</th>
                 <th>Luas Tanam (ha)</th>
