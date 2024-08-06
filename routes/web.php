@@ -28,6 +28,9 @@ Route::get('/', function () {
 Route::get('/kecamatan/inputPompaKecamatan', function () {
     return view('kecamatan.inputPompaKecamatan');
 });
+Route::get('/lupa-password', function () {
+    return view('auth.forgot-password');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register');
@@ -52,7 +55,7 @@ Route::middleware('auth')->group(function () {
         })->name('provinsi.detailkabupaten');
         Route::get('/verifikasi-data', [ProvinsiController::class, 'verifikasiData'])->name('provinsi.verifikasi.data');
     });
-    
+
     Route::prefix('/kabupaten')->middleware('access:kabupaten')->group(function () {
         Route::get('/', function () {return redirect()->route('kabupaten.dashboard');});
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
@@ -61,10 +64,18 @@ Route::middleware('auth')->group(function () {
         })->name('kabupaten.detailkecamatan');
         Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
     });
-    
+
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
+        Route::get('/detaildesa', function () {
+            return view('kecamatan.detaildesa');
+        });
+        
+        Route::get('/inputLuasTanam', function () {
+            return view('kecamatan.inputLuasTanam');
+        })->name('kecamatan.inputLuasTanam');
+
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/usulan', [PompaController::class, 'refUsulanView'])->name('kecamatan.pompa.ref.usulan');
             Route::get('/diterima', [PompaController::class, 'refDiterimaView'])->name('kecamatan.pompa.ref.diterima');
@@ -92,14 +103,14 @@ Route::middleware('auth')->group(function () {
             Route::post('/digunakan', [KecamatanController::class, 'storeAbtDigunakan'])->name('kecamatan.abt.digunakan.store');
         });
     });
-    
+
     Route::prefix('/poktan')->middleware('access:poktan')->group(function () {
         Route::get('/', function () {return redirect()->route('poktan.dashboard');});
         Route::get('/dashboard', [PoktanController::class, 'index'])->name('poktan.dashboard');
         Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
         Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
     });
-    
+
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });

@@ -17,6 +17,16 @@
     margin-left: 35px;
     }
     
+    .detail-button {
+        background-color: #c8dce4;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 7px; 
+        text-decoration: none !important;
+        color: black;
+    }
+
 </style>
 
 <div class="container mt-4">
@@ -81,11 +91,12 @@
             <th rowspan="2">ABT Diterima</th>
             <th rowspan="2">ABT Digunakan</th> -->
             <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Tanggal</th>
             <th rowspan="2">Kelompok tani</th>
             <th rowspan="2">Luas lahan (ha)</th>
             <th colspan="3" class="text-center">Usulan Pompa ABT</th>
             <th rowspan="2">No HP Poktan (jika ada)</th>
-            {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+            <th rowspan="2">Aksi</th>
         </tr>
         <tr>
             <th>3 inch (unit)</th>
@@ -100,13 +111,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Babakan</td>
+            <td>12345</td>
             <td>Kelompok tani 1</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -114,13 +126,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Cisarua</td>
+            <td>12345</td>
             <td>Kelompok tani 2</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -135,11 +148,12 @@
             <th rowspan="2">ABT Diterima</th>
             <th rowspan="2">ABT Digunakan</th> -->
             <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Tanggal</th>
             <th rowspan="2">Kelompok tani</th>
             <th rowspan="2">Luas lahan (ha)</th>
             <th colspan="3" class="text-center">Pompa ABT Diterima</th>
             <th rowspan="2">No HP Poktan (jika ada)</th>
-            {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+            <th rowspan="2">Aksi</th>
         </tr>
         <tr>
             <th>3 inch (unit)</th>
@@ -154,13 +168,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Babakan</td>
+            <td>12345</td>
             <td>Kelompok tani 1</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -168,13 +183,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Cisarua</td>
+            <td>12345</td>
             <td>Kelompok tani 2</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -189,11 +205,12 @@
             <th rowspan="2">ABT Diterima</th>
             <th rowspan="2">ABT Digunakan</th> -->
             <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Tanggal</th>
             <th rowspan="2">Kelompok tani</th>
             <th rowspan="2">Luas lahan (ha)</th>
             <th colspan="3" class="text-center">Pompa ABT Digunakan</th>
             <th rowspan="2">No HP Poktan (jika ada)</th>
-            {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+            <th rowspan="2">Aksi</th>
         </tr>
         <tr>
             <th>3 inch (unit)</th>
@@ -208,13 +225,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Babakan</td>
+            <td>12345</td>
             <td>Kelompok tani 1</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -222,13 +240,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Cisarua</td>
+            <td>12345</td>
             <td>Kelompok tani 2</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -251,11 +270,12 @@
             <th rowspan="2">ABT Diterima</th>
             <th rowspan="2">ABT Digunakan</th> -->
             <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Tanggal</th>
             <th rowspan="2">Kelompok tani</th>
             <th rowspan="2">Luas lahan (ha)</th>
             <th colspan="3" class="text-center">Usulan Pompa Refocusing</th>
             <th rowspan="2">No HP Poktan (jika ada)</th>
-            {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+            <th rowspan="2">Aksi</th>
         </tr>
         <tr>
             <th>3 inch (unit)</th>
@@ -270,13 +290,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Babakan</td>
+            <td>12345</td>
             <td>Kelompok tani 1</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -284,13 +305,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Cisarua</td>
+            <td>12345</td>
             <td>Kelompok tani 2</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -305,11 +327,12 @@
             <th rowspan="2">ABT Diterima</th>
             <th rowspan="2">ABT Digunakan</th> -->
             <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Tanggal</th>
             <th rowspan="2">Kelompok tani</th>
             <th rowspan="2">Luas lahan (ha)</th>
             <th colspan="3" class="text-center">Pompa Refocusing Diterima</th>
             <th rowspan="2">No HP Poktan (jika ada)</th>
-            {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+            <th rowspan="2">Aksi</th>
         </tr>
         <tr>
             <th>3 inch (unit)</th>
@@ -324,13 +347,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Babakan</td>
+            <td>12345</td>
             <td>Kelompok tani 1</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -338,13 +362,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Cisarua</td>
+            <td>12345</td>
             <td>Kelompok tani 2</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -359,11 +384,12 @@
             <th rowspan="2">ABT Diterima</th>
             <th rowspan="2">ABT Digunakan</th> -->
             <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Tanggal</th>
             <th rowspan="2">Kelompok tani</th>
             <th rowspan="2">Luas lahan (ha)</th>
             <th colspan="3" class="text-center">Pompa Refocusing Digunakan</th>
             <th rowspan="2">No HP Poktan (jika ada)</th>
-            {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+            <th rowspan="2">Aksi</th>
         </tr>
         <tr>
             <th>3 inch (unit)</th>
@@ -378,13 +404,14 @@
             <td>0</td>
             <td>0</td> -->
             <td>Babakan</td>
+            <td>12345</td>
             <td>Kelompok tani 1</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -392,15 +419,67 @@
             <td>0</td>
             <td>0</td> -->
             <td>Cisarua</td>
+            <td>12345</td>
             <td>Kelompok tani 2</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            {{-- <td>0</td> --}}
+            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
+        </tbody>
+    </table>
+</div>
+<div class="container mt-4">
+    <h2>Luas tanam harian</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Desa</th>
+                <th>Kelompok Tani</th>
+                <th>Luas Tanam (ha)</th>
+                <th>Tanggal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Kotanagara</td>
+                <td>Mekar Jaya</td>
+                <td>7</td>
+                <td>2024-07-01</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Cikeruh</td>
+                <td>Harapan Baru</td>
+                <td>5</td>
+                <td>2024-07-02</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Payungagung</td>
+                <td>Subur Makmur</td>
+                <td>6</td>
+                <td>2024-07-03</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Sukamulya</td>
+                <td>Mandiri Tani</td>
+                <td>8</td>
+                <td>2024-07-04</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Sidaraja</td>
+                <td>Sejahtera</td>
+                <td>9</td>
+                <td>2024-07-05</td>
+            </tr>
         </tbody>
     </table>
 </div>
