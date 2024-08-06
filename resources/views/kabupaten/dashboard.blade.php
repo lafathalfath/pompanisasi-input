@@ -129,7 +129,7 @@
             <td>08123456789</td>
             <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>
         </tr>
-        <!-- Tambahkan baris sesuai kebutuhan -->
+        <!-- Tambahkan baris sesuai kebutuhan dan selera-->
         </tbody>
     </table>
 
