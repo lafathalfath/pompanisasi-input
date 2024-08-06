@@ -77,7 +77,7 @@
             }
 
             .content {
-                margin-left: 150px;
+                margin-left: 200px;
                 padding: 20px;
                 flex-grow: 1;
             }

@@ -14,9 +14,8 @@
         vertical-align: middle;
     }
     .mt-4 {
-    margin-left: 35px;
+    margin-left: 0px;
     }
-    
     .detail-button {
         background-color: #c8dce4;
         border: none;
