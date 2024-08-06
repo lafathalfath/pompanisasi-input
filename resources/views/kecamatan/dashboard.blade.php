@@ -13,6 +13,9 @@
         text-align: center;
         vertical-align: middle;
     }
+    .mt-4 {
+    margin-left: 35px;
+    }
     
 </style>
 
