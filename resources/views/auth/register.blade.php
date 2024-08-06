@@ -84,6 +84,16 @@
             <input type="number" name="no_hp" class="form-control" id="phone" placeholder="Masukkan Nomor Ponsel"required>
         </div>
         <div class="form-group">
+            <label for="role">Role</label>
+            <select name="role" class="form-control" id="role" required>
+                <option value="" disabled selected>Pilih Sebagai</option>
+                <option value="wilayah">Wilayah</option>
+                <option value="provinsi">Provinsi</option>
+                <option value="kabupaten">Kota/Kabupaten</option>
+                <option value="kecamatan">Kecamatan</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="password">Kata Sandi</label>
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Buat Kata Sandi" required autocomplete="new-password">
         </div>
