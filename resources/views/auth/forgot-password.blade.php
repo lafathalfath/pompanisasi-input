@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar - Satgas Pompanisasi</title>
+    <title>Lupa Password - Satgas Pompanisasi</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logobbpsip.png') }}">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: "Poppins";
@@ -15,8 +14,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
         }
-        .register-container {
+        .forgot-password-container {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 8px;
@@ -25,24 +25,14 @@
             width: 100%;
             margin: 20px 0px;
         }
-        .register-container .logo {
+        .forgot-password-container .logo {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
-        .register-container h3 {
+        .forgot-password-container h3 {
             text-align: center;
             margin-bottom: 20px;
-        }
-        .back-button {
-            top: 10px;
-            left: 10px;
-            font-size: 20px;
-            color: #007bff;
-            text-decoration: none;
-        }
-        .back-button:hover {
-            color: #0056b3;
         }
         .form-group label {
             font-weight: bold;
@@ -63,38 +53,21 @@
 </head>
 <body>
 
-<div class="register-container">
-    <a href="javascript:history.back()" class="back-button"><i class="fas fa-arrow-left"></i></a>
+<div class="forgot-password-container">
     <div class="logo">
         <img src="/assets/img/logobbpsip.png" alt="Logo">
     </div>
-    <h3>Daftar Akun</h3>
-    <form action="{{ route('register.register') }}" method="POST">
+    <h3>Lupa Password</h3>
+    {{-- <form action="{{ route('password.email') }}" method="POST"> --}}
         @csrf
-        <div class="form-group">
-            <label for="name">Nama</label>
-            <input type="text" name="nama" class="form-control" id="name" placeholder="Masukkan nama lengkap" required>
-        </div>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan email" required>
         </div>
-        <div class="form-group">
-            <label for="phone">Nomor Ponsel</label>
-            <input type="number" name="no_hp" class="form-control" id="phone" placeholder="Masukkan Nomor Ponsel"required>
-        </div>
-        <div class="form-group">
-            <label for="password">Kata Sandi</label>
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Buat Kata Sandi" required autocomplete="new-password">
-        </div>
-        <div class="form-group">
-            <label for="password">Konfirmasi Kata Sandi</label>
-            <input type="password" name="password_confirmation" class="form-control" id="password-confirm" placeholder="Konfirmasi Kata Sandi" required autocomplete="new-password">
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Daftar</button>
+        <button type="submit" class="btn btn-primary btn-block">Kirim Tautan Reset Password</button>
     </form>
     <div class="login-link">
-        Sudah punya akun? <a href="{{ route('login') }}" style="text-decoration: none;">Masuk</a><br>
+        Kembali ke <a href="{{ route('login') }}" style="text-decoration: none;">Masuk</a><br>
     </div>
 </div>
 
