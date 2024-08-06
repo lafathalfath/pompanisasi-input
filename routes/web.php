@@ -68,6 +68,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
+        Route::get('/detaildesa', function () {
+            return view('kecamatan.detaildesa');
+        });
+        
+        Route::get('/inputLuasTanam', function () {
+            return view('kecamatan.inputLuasTanam');
+        })->name('kecamatan.inputLuasTanam');
+
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/usulan', [PompaController::class, 'refUsulanView'])->name('kecamatan.pompa.ref.usulan');
             Route::get('/diterima', [PompaController::class, 'refDiterimaView'])->name('kecamatan.pompa.ref.diterima');

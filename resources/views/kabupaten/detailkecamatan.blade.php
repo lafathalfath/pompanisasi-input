@@ -1,4 +1,4 @@
-@extends('layouts.kecamatan')
+@extends('layouts.kabupaten')
 @section('content')
 
 <style>
