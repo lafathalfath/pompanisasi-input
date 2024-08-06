@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <title>SI POMPA</title>
+        <title>Satgas Pompanisasi</title>
+        <link rel="shortcut icon" href="{{ asset('assets/img/logobbpsip.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
@@ -123,7 +124,6 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.usulan') }}">Usulan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.diterima') }}">Diterima</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.digunakan') }}">Digunakan</a></li>
-                        <li><a class="dropdown-item text-dark" href="">Isi Form</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -131,10 +131,9 @@
                         Pompa ABT
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="">Usulan</a></li>
-                        <li><a class="dropdown-item text-dark" href="">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="">Digunakan</a></li>
-                        <li><a class="dropdown-item text-dark" href="">Isi Form</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.usulan') }}">Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
 

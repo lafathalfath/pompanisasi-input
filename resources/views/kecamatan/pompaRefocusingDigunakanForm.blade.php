@@ -48,8 +48,8 @@
                 <input type="number" name="pompa_abt_digunakan_luas_terairi" class="form-control" id="pumpaABTDigunakanLuasTerairi" placeholder="Luas Terairi (ha)" required>
             </div>
             <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanTanggal">Tanggal</label>
-                <input type="date" name="pompa_abt_digunakan_tanggal" class="form-control" id="pumpaABTDigunakanTanggal" required>
+                <label for="farmerGroup">Foto Bukti</label>
+                <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*">
             </div>
         </div>
             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit</button>
