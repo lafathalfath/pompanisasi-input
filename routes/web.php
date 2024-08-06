@@ -111,4 +111,3 @@ Route::middleware('auth')->group(function () {
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
-
