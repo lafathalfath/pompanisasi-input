@@ -1,5 +1,10 @@
 @extends('layouts.kecamatan')
 @section('content')
+<style>
+    .content {
+        margin-left: 30px;
+    }
+</style>
 <div class="container mt-5">
     <form action="pompaAbtDiterimaForm" method="POST" enctype="multipart/form-data">
         <!-- Pompa ABT Usulan -->
