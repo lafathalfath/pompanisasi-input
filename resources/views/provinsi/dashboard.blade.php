@@ -1,99 +1,286 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekapitulasi Perluasan Areal Tanam dan Pompanisasi</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .table thead th {
-            vertical-align: middle;
-            text-align: center;
-        }
-        .merged-cell {
-            background-color: #d9ead3;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .merged-cell-yellow {
-            background-color: #fff2cc;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .merged-cell-pink {
-            background-color: #ead1dc;
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1 class="mt-5">Rekapitulasi Perluasan Areal Tanam dan Pompanisasi</h1>
+@extends('layouts.provinsi')
+@section('content')
 
-    <form method="GET" class="my-3">
-        <div class="form-group">
-            <label for="provinsi">Filter by Provinsi</label>
-            <input type="text" name="provinsi" id="provinsi" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
+<style>
+    .table thead th {
+        vertical-align: middle;
+        text-align: center;
+        background-color: #c8dce4;
+    }
 
+    .merged-cell {
+        background-color: #d9ead3;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .detail-button {
+        background-color: yellow;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row" style="margin-left: 3px">
+        <h2>Rekap Data Provinsi</h2>
+        <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
+            <thead>
+                <tr>
+                    <th colspan="2">CPCL Pompa Refocusing</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold;">Refocusing Usulan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Refocusing Diterima</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Refocusing Digunakan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-custom" style="width: fit-content;">
+            <thead>
+                <tr>
+                    <th colspan="2">CPCL Pompa ABT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold;">ABT Usulan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">ABT Diterima</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">ABT Digunakan</td>
+                    <td style="padding: 10px 20px;">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br><br>
+    <h2>Detail Data Pompa ABT</h2>
+    <div class="mb-3">
+        <label for="date" class="form-label">Tanggal:</label>
+        <input type="date" class="form-control" id="date">
+    </div>
+
+    <h5><b>Usulan Pompa ABT</b></h5>
     <table class="table table-bordered">
         <thead>
-            <tr>
-                <th rowspan="2" class="merged-cell">No</th>
-                <th rowspan="2" class="merged-cell">Provinsi</th>
-                <th rowspan="2" class="merged-cell">Nama Poktan</th>
-                <th rowspan="2" class="merged-cell">CPCL Pompa</th>
-                <th rowspan="2" class="merged-cell">Luas Tanam</th>
-                <th colspan="3" class="merged-cell-pink">Pompa Refocusing</th>
-                <th colspan="3" class="merged-cell-yellow">Pompa ABT</th>
-            </tr>
-            <tr>
-                <th class="merged-cell-pink">Usulan</th>
-                <th class="merged-cell-pink">Diterima</th>
-                <th class="merged-cell-pink">Digunakan</th>
-                <th class="merged-cell-yellow">Usulan</th>
-                <th class="merged-cell-yellow">Diterima</th>
-                <th class="merged-cell-yellow">Digunakan</th>
-            </tr>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kabupaten</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Usulan Pompa ABT</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
         </thead>
         <tbody>
-            @php
-                $data = [
-                    ['provinsi' => 'provinsi A', 'nama_poktan' => 'Poktan 1', 'cpcl_pompa' => 0, 'luas_tanam' => 10, 'pompa_refocusing_usulan' => 23, 'pompa_refocusing_diterima' => 2, 'pompa_refocusing_digunakan' => 3, 'pompa_abt_usulan' => 12, 'pompa_abt_diterima' => 3, 'pompa_abt_digunakan' => 45],
-                    ['provinsi' => 'provinsi B', 'nama_poktan' => 'Poktan 2', 'cpcl_pompa' => 0, 'luas_tanam' => 0, 'pompa_refocusing_usulan' => 0, 'pompa_refocusing_diterima' => 0, 'pompa_refocusing_digunakan' => 0, 'pompa_abt_usulan' => 0, 'pompa_abt_diterima' => 0, 'pompa_abt_digunakan' => 0],
-                    ['provinsi' => 'provinsi C', 'nama_poktan' => 'Poktan 3', 'cpcl_pompa' => 0, 'luas_tanam' => 0, 'pompa_refocusing_usulan' => 0, 'pompa_refocusing_diterima' => 0, 'pompa_refocusing_digunakan' => 0, 'pompa_abt_usulan' => 0, 'pompa_abt_diterima' => 0, 'pompa_abt_digunakan' => 0],
-                    // Tambahkan data dummy lainnya sesuai kebutuhan
-                ];
-            @endphp
+        <tr>
+            <td>1</td>
+            <td>Bandung</td>
+            <td>Arcamanik</td>
+            <td>Babakan</td>
+            <td>5</td>
+            <td>2</td>
+            <td>1</td>
+            <td>1</td>
+            <td>08123456789</td>
+            <td><a href="{{ route('provinsi.detailkabupaten') }}" class="detail-button">Detail</a></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Bogor</td>
+            <td>Ciomas</td>
+            <td>Cisarua</td>
+            <td>10</td>
+            <td>3</td>
+            <td>2</td>
+            <td>1</td>
+            <td>08123456789</td>
+            <td><button class="detail-button">Detail</button></td>
+        </tr>
+        </tbody>
+    </table>
 
-            @forelse ($data as $index => $item)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $item['provinsi'] }}</td>
-                    <td>{{ $item['nama_poktan'] }}</td>
-                    <td>{{ $item['cpcl_pompa'] }}</td>
-                    <td>{{ $item['luas_tanam'] }}</td>
-                    <td>{{ $item['pompa_refocusing_usulan'] }}</td>
-                    <td>{{ $item['pompa_refocusing_diterima'] }}</td>
-                    <td>{{ $item['pompa_refocusing_digunakan'] }}</td>
-                    <td>{{ $item['pompa_abt_usulan'] }}</td>
-                    <td>{{ $item['pompa_abt_diterima'] }}</td>
-                    <td>{{ $item['pompa_abt_digunakan'] }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="12" class="text-center">No data found</td>
-                </tr>
-            @endforelse
+    <h5><b>Pompa ABT Diterima</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kabupaten</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Pompa ABT Diterima</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Bandung</td>
+            <td>Arcamanik</td>
+            <td>Babakan</td>
+            <td>5</td>
+            <td>2</td>
+            <td>1</td>
+            <td>1</td>
+            <td>08123456789</td>
+            <td><a href="{{ route('provinsi.detailkabupaten') }}" class="detail-button">Detail</a></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Bogor</td>
+            <td>Ciomas</td>
+            <td>Cisarua</td>
+            <td>10</td>
+            <td>3</td>
+            <td>2</td>
+            <td>1</td>
+            <td>08123456789</td>
+            <td><button class="detail-button">Detail</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h5><b>Pompa ABT Digunakan</b></h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Kabupaten</th>
+            <th rowspan="2">Kecamatan</th>
+            <th rowspan="2">Desa/Kel</th>
+            <th rowspan="2">Luas lahan (ha)</th>
+            <th colspan="3" class="text-center">Pompa ABT Digunakan</th>
+            <th rowspan="2">No HP Poktan (jika ada)</th>
+            <th rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+            <th>3 inch (unit)</th>
+            <th>4 inch (unit)</th>
+            <th>6 inch (unit)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Bandung</td>
+            <td>Arcamanik</td>
+            <td>Babakan</td>
+            <td>5</td>
+            <td>2</td>
+            <td>1</td>
+            <td>1</td>
+            <td>08123456789</td>
+            <td><button class="detail-button">Detail</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Bogor</td>
+            <td>Ciomas</td>
+            <td>Cisarua</td>
+            <td>10</td>
+            <td>3</td>
+            <td>2</td>
+            <td>1</td>
+            <td>08123456789</td>
+            <td><button class="detail-button">Detail</button></td>
+        </tr>
         </tbody>
     </table>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<br><br>
+
+<div class="container mt-4">
+    <h2>Luas tanam harian</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Kab/Kota</th>
+                <th>Kec.</th>
+                <th>Desa</th>
+                <th>Kelompok Tani</th>
+                <th>Luas Tanam (ha)</th>
+                <th>Tanggal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Garut</td>
+                <td>Banyuresmi</td>
+                <td>Kotanagara</td>
+                <td>Mekar Jaya</td>
+                <td>7</td>
+                <td>2024-07-01</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Sumedang</td>
+                <td>Jatinangor</td>
+                <td>Cikeruh</td>
+                <td>Harapan Baru</td>
+                <td>5</td>
+                <td>2024-07-02</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Ciamis</td>
+                <td>Panumbangan</td>
+                <td>Payungagung</td>
+                <td>Subur Makmur</td>
+                <td>6</td>
+                <td>2024-07-03</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Majalengka</td>
+                <td>Kertajati</td>
+                <td>Sukamulya</td>
+                <td>Mandiri Tani</td>
+                <td>8</td>
+                <td>2024-07-04</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Kuningan</td>
+                <td>Cilimus</td>
+                <td>Sidaraja</td>
+                <td>Sejahtera</td>
+                <td>9</td>
+                <td>2024-07-05</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@endsection
