@@ -98,7 +98,6 @@
                 border-radius: 10px;
             }
 
-            /* Handle on hover */
             .sidebar::-webkit-scrollbar-thumb:hover {
                 background: gray; 
             }
