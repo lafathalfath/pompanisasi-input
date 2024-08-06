@@ -13,7 +13,7 @@
         text-align: center;
         vertical-align: middle;
     }
-    
+
 </style>
 
 <div class="container mt-4">
@@ -119,7 +119,7 @@
             <td>08123456789</td>
             {{-- <td>0</td> --}}
         </tr>
-        <!-- Tambahkan baris sesuai kebutuhan -->
+        <!-- Tambahkan baris sesuai kebutuhan dari code -->
         </tbody>
     </table>
 
