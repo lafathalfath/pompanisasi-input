@@ -8,7 +8,7 @@
 <div class="container mt-5">
     <form action="pompaAbtDiterimaForm" method="POST" enctype="multipart/form-data">
         <!-- Pompa ABT Usulan -->
-        <h4>Usulan  Pompa ABT</h4>
+        <h4>Input Luas Tanam</h4>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanDesa">Desa</label>
