@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <title>SI POMPA</title>
+        <title>Satgas Pompanisasi</title>
+        <link rel="shortcut icon" href="{{ asset('assets/img/logobbpsip.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
@@ -76,7 +77,7 @@
             }
 
             .content {
-                margin-left: 150px;
+                margin-left: 200px;
                 padding: 20px;
                 flex-grow: 1;
             }
@@ -97,7 +98,6 @@
                 border-radius: 10px;
             }
 
-            /* Handle on hover */
             .sidebar::-webkit-scrollbar-thumb:hover {
                 background: gray; 
             }
@@ -107,7 +107,7 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <a href="{{ route('kabupaten.dashboard') }}">
-                <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
+                    <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
             </div>
@@ -135,6 +135,9 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
+
+
+                <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Input Luas Tanam</a></li>
 
 
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}
