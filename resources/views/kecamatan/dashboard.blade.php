@@ -14,7 +14,7 @@
         vertical-align: middle;
     }
     .mt-4 {
-    margin-left: 0px;
+    margin-left: px;
     }
     .detail-button {
         background-color: #c8dce4;
@@ -52,6 +52,7 @@
                 </tr>
             </tbody>
         </table>
+
         <table class="table table-bordered table-custom" style="width: fit-content;">
             <thead>
                 <tr>
@@ -73,55 +74,52 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-
-<div class="container mt-4">
-    <h4><b>Luas Tanam Harian</b></h4>
-    <table class="table table-bordered">
+    <h5><b>Luas Tanam Harian</b></h5>
+        <table class="table table-bordered">
         <thead>
             <tr>
                 <th>No.</th>
+                <th>Tanggal</th>
                 <th>Desa</th>
                 <th>Kelompok Tani</th>
                 <th>Luas Tanam (ha)</th>
-                <th>Tanggal</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>1</td>
+                <td>2024-07-01</td>
                 <td>Kotanagara</td>
                 <td>Mekar Jaya</td>
                 <td>7</td>
-                <td>2024-07-01</td>
             </tr>
             <tr>
                 <td>2</td>
+                <td>2024-07-01</td>
                 <td>Cikeruh</td>
                 <td>Harapan Baru</td>
                 <td>5</td>
-                <td>2024-07-02</td>
             </tr>
             <tr>
                 <td>3</td>
+                <td>2024-07-01</td>
                 <td>Payungagung</td>
                 <td>Subur Makmur</td>
                 <td>6</td>
-                <td>2024-07-03</td>
             </tr>
             <tr>
                 <td>4</td>
+                <td>2024-07-01</td>
                 <td>Sukamulya</td>
                 <td>Mandiri Tani</td>
                 <td>8</td>
-                <td>2024-07-04</td>
             </tr>
             <tr>
                 <td>5</td>
+                <td>2024-07-01</td>
                 <td>Sidaraja</td>
                 <td>Sejahtera</td>
                 <td>9</td>
-                <td>2024-07-05</td>
             </tr>
         </tbody>
     </table>
