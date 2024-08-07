@@ -45,11 +45,12 @@
                 <tr>
                     <th>3 inch (unit)</th>
                     <th>4 inch (unit)</th>
-                    <th>6 inch (unit)</th> 
+                    <th>6 inch (unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    {{-- contoh isi data dummy 1 data --}}
                     <td>1</td>
                     <td>Babakan</td>
                     <td>4-08-2024</td>

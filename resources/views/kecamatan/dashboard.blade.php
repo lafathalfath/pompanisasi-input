@@ -21,7 +21,7 @@
         border: none;
         padding: 5px 10px;
         cursor: pointer;
-        border-radius: 7px; 
+        border-radius: 7px;
         text-decoration: none !important;
         color: black;
     }
@@ -38,6 +38,7 @@
                 </tr>
             </thead>
             <tbody>
+                {{-- buat sidebar di halaman dashboard --}}
                 <tr>
                     <td style="font-weight: bold;">Refocusing Usulan</td>
                     <td style="padding: 10px 20px;">0</td>
@@ -74,6 +75,7 @@
                 </tr>
             </tbody>
         </table>
+        {{-- tabel untuk luas Tanam Harian --}}
     <h5><b>Luas Tanam Harian</b></h5>
         <table class="table table-bordered">
         <thead>
@@ -86,6 +88,7 @@
             </tr>
         </thead>
         <tbody>
+            {{-- contoh isi data dummy yang diambil --}}
             <tr>
                 <td>1</td>
                 <td>2024-07-01</td>
