@@ -18,8 +18,10 @@ class Desa2Seeder extends Seeder
         $header = fgetcsv($csv_file); // bypass first row
 
         $desa = [];
+        $desa_index = 0;
         while (($row = fgetcsv($csv_file)) !== false) {
-            $desa[] = [
+            if (!empty($desa) && count($desa[$desa_index]) > 12899) $desa_index++;
+            $desa[$desa_index][] = [
                 'id' => $row[0],
                 'kecamatan_id' => $row[1],
                 'nama' => $row[2],
@@ -27,8 +29,9 @@ class Desa2Seeder extends Seeder
                 'updated_at' => now(),
             ];
         }
-        // dd($desa);
         fclose($csv_file);
-        DB::table('desa')->insert($desa);
+        foreach ($desa as $ds) {
+            DB::table('desa')->insert($ds);
+        }
     }
 }
