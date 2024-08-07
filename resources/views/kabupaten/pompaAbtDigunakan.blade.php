@@ -1,64 +1,71 @@
 @extends('layouts.kabupaten')
 @section('content')
-<div class="container mt-5">
-    <form action="{{ route('kecamatan.abt.usulan.store') }}" method="POST">
-        @csrf
-        <!-- Pompa Digunakan -->
-        <h4>Pompa ABT Digunakan</h4>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanDesa">Desa</label>
-                <input type="text" name="pompa_abt_digunakan_desa" class="form-control" id="pumpaABTDigunakanDesa" placeholder="Desa" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanPoktan">Nama Poktan</label>
-                <input type="text" name="nama_poktan" class="form-control" id="pumpaABTDigunakanPoktan" placeholder="Nama Poktan" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanLuas">Luas Lahan (ha)</label>
-                <input type="number" name="luas_lahan" class="form-control" id="pumpaABTDigunakanLuas" placeholder="Luas Lahan (ha)" required>
-            </div>
-        </div>
+<style>
+    .table thead th {
+    vertical-align: middle;
+    text-align: center;
+    background-color: #c8dce4;
+}
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="pilihan_spesifikasi_pompa_3inch">Pilihan Spesifikasi Pompa (3 inch)</label>
-                <input type="number" name="pompa_3_inch" class="form-control" id="pilihan_spesifikasi_pompa_3inch" placeholder="Unit" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="pilihan_spesifikasi_pompa_4inch">Pilihan Spesifikasi Pompa (4 Inch)</label>
-                <input type="number" name="pompa_4_inch" class="form-control" id="pilihan_spesifikasi_pompa_4inch" placeholder="Unit" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="pilihan_spesifikasi_pompa_6inch">Pilihan Spesifikasi Pompa (6 Inch)</label>
-                <input type="number" name="pompa_6_inch" class="form-control" id="pilihan_spesifikasi_pompa_6inch" placeholder="Unit" required>
-            </div>
-        </div>
+.merged-cell {
+    background-color: #d9ead3;
+    text-align: center;
+    vertical-align: middle;
+}
+</style>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanJumlah">Jumlah yang Digunakan</label>
-                <input type="number" name="pompa_abt_digunakan_jumlah" class="form-control" id="pumpaABTDigunakanJumlah" placeholder="Jumlah" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanNoHP">No HP Poktan (Opsional)</label>
-                <input type="text" name="pompa_abt_digunakan_no_hp" class="form-control" id="pumpaABTDigunakanNoHP" placeholder="No HP">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanLuasTerairi">Luas Lahan Terairi (ha)</label>
-                <input type="number" name="pompa_abt_digunakan_luas_terairi" class="form-control" id="pumpaABTDigunakanLuasTerairi" placeholder="Luas Terairi (ha)" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="farmerGroup">Foto Bukti</label>
-                <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*">
-            </div>
-            {{-- <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanTanggal">Tanggal</label>
-                <input type="date" name="pompa_abt_digunakan_tanggal" class="form-control" id="pumpaABTDigunakanTanggal" required>
-            </div> --}}
+<div class="d-flex flex-col justify-content-center">
+    <div>
+        <div>
+            <a href="{{ route('kecamatan.abt.digunakan.input') }}" type="submit" class="btn btn-success">Input Data</a>
+        </div><br>
+        <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+            <i class="fa-solid fa-sliders"></i>
+            <input type="date" class="form-control" id="date">
+            <select name="kota_kabupaten" class="form-control" id="kota-kabupaten">
+                <option value="" disabled selected>Pilih Desa/Kelurahan</option>
+                <option value="empang">Empank</option>
+                <option value="baranangsiang">Baranangsiang</option>
+                <!-- Tambahkan opsi kota/kabupaten lainnya -->
+            </select>
         </div>
-            <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit</button>
-    </form>
+        <table class="w-100 table table-bordered">
+            <thead>
+                <tr>
+                    <th rowspan="2">No</th>
+                    <th rowspan="2">Desa/Kel</th>
+                    <th rowspan="2">Tanggal</th>
+                    <th rowspan="2">Kelompok tani</th>
+                    <th rowspan="2">Luas lahan (ha)</th>
+                    <th colspan="3" class="text-center">Pompa ABT Digunakan</th>
+                    <th rowspan="2">No HP Poktan (jika ada)</th>
+                    <th rowspan="2">Aksi</th>
+                    {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+                </tr>
+                <tr>
+                    <th>3 inch (unit)</th>
+                    <th>4 inch (unit)</th>
+                    <th>6 inch (unit)</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Babakan</td>
+                    <td>4-08-2024</td>
+                    <td>Kelompok tani 1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>08123456789</td>
+                    <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                    {{-- <td>0</td> --}}
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
 </div>
 @endsection
-
