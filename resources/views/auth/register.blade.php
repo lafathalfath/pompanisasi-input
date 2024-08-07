@@ -73,6 +73,7 @@
         <img src="/assets/img/logobbpsip.png" alt="Logo">
     </div>
     <h3>Daftar Akun</h3>
+    {{-- halaman daftar akun semua role kecuali admin --}}
     <form action="{{ route('register.register') }}" method="POST">
         @csrf
         <div class="form-group">
@@ -87,6 +88,7 @@
             <label for="phone">Nomor Ponsel</label>
             <input type="number" name="no_hp" class="form-control" id="phone" placeholder="Masukkan Nomor Ponsel"required>
         </div>
+        {{-- disini untuk memilih role yang dipilih user ketika mendaftar akun --}}
         <div class="form-group">
             <label for="role">Role</label>
             <select name="role_id" class="form-control" id="role" required>

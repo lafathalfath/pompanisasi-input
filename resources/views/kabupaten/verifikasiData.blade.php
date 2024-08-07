@@ -1,5 +1,11 @@
 @extends('layouts.kabupaten')
 @section('content')
+  <style>
+    .content{
+      margin-left: 180px;
+    }
+  </style>
+
   <script>
     const title = document.getElementsByTagName('title')[0]
     title.innerHTML += ' | Verifikasi Data'

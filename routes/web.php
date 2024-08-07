@@ -99,7 +99,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/detaildesa', function () {
             return view('kecamatan.detaildesa');
         });
-        
+
         Route::get('/inputLuasTanam', function () {
             return view('kecamatan.inputLuasTanam');
         })->name('kecamatan.inputLuasTanam');
@@ -143,4 +143,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
 
+// routes sementara abt
+Route::get('/abt-digunakan', function () {
+    return view('kabupaten.abt.Digunakan');
+});
+Route::get('/abt-diterima', function () {
+    return view('kabupaten.abt.Diterima');
+});
 
+Route::get('/abt-usulan', function () {
+    return view('kabupaten.abt.Usulan');
+});
+// routes sampai sini
