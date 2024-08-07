@@ -88,7 +88,7 @@
             <label for="password">Kata Sandi</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan kata sandi" required>
             <div class="forgot-password">
-                <a href="/forgot-password">Lupa kata sandi?</a>
+                <a href="/lupa-password">Lupa kata sandi?</a>
             </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Masuk</button>

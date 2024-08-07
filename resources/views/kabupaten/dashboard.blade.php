@@ -14,7 +14,7 @@
         vertical-align: middle;
     }
 
-    .btn-detail {
+    .btn btn-sm btn-info {
         background-color: yellow;
         border: none;
         padding: 5px 10px;
@@ -33,8 +33,8 @@
 <div class="container mt-4">
     <div class="chart-container">
         <canvas id="rekapDataChart" width="400" height="200"></canvas>
-    </div> 
-    <!-- Akhir Grafik -->
+    </div>
+    <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
         <h2>Rekap Data Kabupaten</h2>
@@ -116,7 +116,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>
+            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -127,9 +127,9 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>
+            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn btn-sm btn-info">Detail</a></td>
         </tr>
-        <!-- Tambahkan baris sesuai kebutuhan -->
+        <!-- Tambahkan baris sesuai kebutuhan dan selera-->
         </tbody>
     </table>
 
@@ -161,7 +161,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <tr>
             <td>2</td>
@@ -172,7 +172,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -206,7 +206,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <tr>
             <td>2</td>
@@ -217,7 +217,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -259,7 +259,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <tr>
             <td>2</td>
@@ -270,8 +270,8 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn-detail">Detail</a></td>
-        </tr>
+            <td><a href="{{ route('kabupaten.detailkecamatan') }}" class="btn btn-sm btn-info">Detail</a></td>
+          </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
     </table>
@@ -304,7 +304,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <tr>
             <td>2</td>
@@ -315,7 +315,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>
@@ -349,7 +349,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <tr>
             <td>2</td>
@@ -360,7 +360,7 @@
             <td>0</td>
             <td>0</td>
             <td>08123456789</td>
-            <td><button class="btn-detail">Detail</button></td>
+            <td><button class="btn btn-sm btn-info">Detail</button></td>
         </tr>
         <!-- Tambahkan baris sesuai kebutuhan -->
         </tbody>

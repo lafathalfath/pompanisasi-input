@@ -77,7 +77,7 @@
             }
 
             .content {
-                margin-left: 150px;
+                margin-left: 200px;
                 padding: 20px;
                 flex-grow: 1;
             }
@@ -98,7 +98,6 @@
                 border-radius: 10px;
             }
 
-            /* Handle on hover */
             .sidebar::-webkit-scrollbar-thumb:hover {
                 background: gray; 
             }
@@ -108,7 +107,7 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <a href="{{ route('kabupaten.dashboard') }}">
-                <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
+                    <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
             </div>
@@ -136,6 +135,9 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
+
+
+                <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Input Luas Tanam</a></li>
 
 
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}
