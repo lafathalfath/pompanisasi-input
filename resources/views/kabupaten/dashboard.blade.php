@@ -28,6 +28,10 @@
         width: 100%;
         margin-bottom: 20px;
     }
+
+    .content {
+        margin-left: 180px;
+    }
 </style>
     <!-- Grafik -->
 <div class="container mt-4">
@@ -379,6 +383,7 @@
     var abtDigunakan = 10;
 
     // Menghitung persentase baru
+
     var refocusingDiterimaPercent = (refocusingDiterima / refocusingUsulan) * 100;
     var refocusingDigunakanPercent = (refocusingDigunakan / refocusingUsulan) * 100;
 
@@ -392,12 +397,12 @@
             labels: ['Refocusing', 'ABT'],
             datasets: [
                 {
-                    label: 'Diterima (%)',
+                    label: 'Diterima (unit)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#2ecc71', // Hijau
+                    backgroundColor: '#18a4bc', // Hijau
                 },
                 {
-                    label: 'Digunakan (%)',
+                    label: 'Digunakan (unit)',
                     data: [refocusingDigunakanPercent, abtDigunakanPercent],
                     backgroundColor: '#e74c3c', // Merah
                 }
@@ -411,7 +416,7 @@
                     max: 100,
                     title: {
                         display: true,
-                        text: 'Persentase (%)'
+                        text: 'unit'
                     }
                 }
             },
