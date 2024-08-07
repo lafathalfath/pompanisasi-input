@@ -31,7 +31,7 @@
 <div class="container mt-4">
     <div class="row" style="margin-left: 3px">
         <h2>Rekap Data Kecamatan</h2>
-        <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
+        <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
                     <th colspan="2">CPCL Pompa Refocusing</th>
@@ -53,7 +53,7 @@
             </tbody>
         </table>
 
-        <table class="table table-bordered table-custom" style="width: fit-content;">
+        <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
                     <th colspan="2">CPCL Pompa ABT</th>
