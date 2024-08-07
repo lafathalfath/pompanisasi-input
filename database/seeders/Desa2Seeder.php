@@ -17,17 +17,18 @@ class Desa2Seeder extends Seeder
         $csv_file = fopen($file_path, 'r');
         $header = fgetcsv($csv_file); // bypass first row
 
+        $desa = [];
         while (($row = fgetcsv($csv_file)) !== false) {
-            // dd([$row[0],$row[1],$row[2]]);
-            DB::table('desa')->insert([
+            $desa[] = [
                 'id' => $row[0],
                 'kecamatan_id' => $row[1],
                 'nama' => $row[2],
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
+            ];
         }
-
+        // dd($desa);
         fclose($csv_file);
+        DB::table('desa')->insert($desa);
     }
 }

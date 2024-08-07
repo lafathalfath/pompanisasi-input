@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DesaController;
+use App\Http\Controllers\Admin\KabupatenController as AdminKabupatenController;
+use App\Http\Controllers\Admin\KecamatanController as AdminKecamatanController;
+use App\Http\Controllers\Admin\ProvinsiController as AdminProvinsiController;
+use App\Http\Controllers\Admin\VerifikasiPjController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
@@ -41,6 +47,28 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::prefix('/admin')->group(function () {
+        Route::get('/', function () {return redirect()->route('admin.dashboard');});
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
+        Route::put('verifikasi-pj/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
+        Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
+        Route::prefix('/manage')->group(function () {
+            Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
+            Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
+            Route::put('/provinsi/{id}', [AdminProvinsiController::class, 'update'])->name('admin.manage.provinsi.update');
+            Route::get('/kabupaten', [AdminKabupatenController::class, 'index'])->name('admin.manage.kabupaten');
+            Route::post('/kabupaten', [AdminKabupatenController::class, 'store'])->name('admin.manage.kabupaten.store');
+            Route::put('/kabupaten/{id}', [AdminKabupatenController::class, 'update'])->name('admin.manage.kabupaten.update');
+            Route::get('/kecamatan', [AdminKecamatanController::class, 'index'])->name('admin.manage.kecamatan');
+            Route::post('/kecamatan', [AdminKecamatanController::class, 'store'])->name('admin.manage.kecamatan.store');
+            Route::put('/kecamatan/{id}', [AdminKecamatanController::class, 'update'])->name('admin.manage.kecamatan.update');
+            Route::get('/desa', [DesaController::class, 'index'])->name('admin.manage.desa');
+            Route::post('/desa', [DesaController::class, 'store'])->name('admin.manage.desa.store');
+            Route::put('/desa/{id}', [DesaController::class, 'update'])->name('admin.manage.desa.update');
+        });
+    });
 
     Route::prefix('/wilayah')->group(function () {
         Route::get('/', function () {return redirect()->route('wilayah.dashboard');});
@@ -114,3 +142,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
+
+
