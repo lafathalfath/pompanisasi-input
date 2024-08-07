@@ -2,7 +2,7 @@
 @section('content')
 <style>
     .content {
-        margin-left: 30px;
+        margin-left: 180px;
     }
 </style>
 <div class="container mt-5">
