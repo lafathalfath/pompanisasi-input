@@ -28,6 +28,10 @@
         width: 100%;
         margin-bottom: 20px;
     }
+
+    .content {
+        margin-left: 180px;
+    }
 </style>
     <!-- Grafik -->
 <div class="container mt-4">
@@ -38,7 +42,7 @@
 
     <div class="row" style="margin-left: 3px">
         <h2>Rekap Data Kabupaten</h2>
-        <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
+        <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
                     <th colspan="2">CPCL Pompa Refocusing</th>
@@ -59,7 +63,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table table-bordered table-custom" style="width: fit-content;">
+        <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
                     <th colspan="2">CPCL Pompa ABT</th>
@@ -80,6 +84,55 @@
                 </tr>
             </tbody>
         </table>
+        <h5><b>Luas Tanam Harian</b></h5>
+        <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Tanggal</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
+                <th>Luas Tanam (ha)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2024-07-01</td>
+                <td>Kotanagara</td>
+                <td>Mekar Jaya</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2024-07-01</td>
+                <td>Cikeruh</td>
+                <td>Harapan Baru</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>2024-07-01</td>
+                <td>Payungagung</td>
+                <td>Subur Makmur</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>2024-07-01</td>
+                <td>Sukamulya</td>
+                <td>Mandiri Tani</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>2024-07-01</td>
+                <td>Sidaraja</td>
+                <td>Sejahtera</td>
+                <td>9</td>
+            </tr>
+        </tbody>
+    </table>
     </div>
     <br><br>
     <h2>Detail Data Pompa ABT</h2>
@@ -379,6 +432,7 @@
     var abtDigunakan = 10;
 
     // Menghitung persentase baru
+
     var refocusingDiterimaPercent = (refocusingDiterima / refocusingUsulan) * 100;
     var refocusingDigunakanPercent = (refocusingDigunakan / refocusingUsulan) * 100;
 
@@ -392,12 +446,12 @@
             labels: ['Refocusing', 'ABT'],
             datasets: [
                 {
-                    label: 'Diterima (%)',
+                    label: 'Diterima (unit)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#2ecc71', // Hijau
+                    backgroundColor: '#18a4bc', // Hijau
                 },
                 {
-                    label: 'Digunakan (%)',
+                    label: 'Digunakan (unit)',
                     data: [refocusingDigunakanPercent, abtDigunakanPercent],
                     backgroundColor: '#e74c3c', // Merah
                 }
@@ -411,7 +465,7 @@
                     max: 100,
                     title: {
                         display: true,
-                        text: 'Persentase (%)'
+                        text: 'unit'
                     }
                 }
             },

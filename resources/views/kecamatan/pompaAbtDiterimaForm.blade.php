@@ -4,7 +4,7 @@
     <form action="pompaAbtDigunakanForm" method="POST" enctype="multipart/form-data">
         <!-- Pompa Diterima -->
         <h4>Pompa ABT Diterima</h4>
-        <div class="form-row">
+        {{-- <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanDesa">Desa</label>
                 <input type="text" name="pompa_abt_usulan_desa" class="form-control" id="pumpaABTUsulanDesa" placeholder="Desa" required>
@@ -17,29 +17,29 @@
                 <label for="pumpaABTUsulanLuas">Luas Lahan (ha)</label>
                 <input type="number" name="pompa_abt_usulan_luas" class="form-control" id="pumpaABTUsulanLuas" placeholder="Luas Lahan (ha)" required>
             </div>
-        </div>
+        </div> --}}
 
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pilihan_spesifikasi_pompa_3inch">Pilihan Spesifikasi Pompa (3 inch)</label>
-                <input type="number" name="pilihan_spesifikasi_pompa_3inch" class="form-control" id="pilihan_spesifikasi_pompa_3inch" placeholder="3 Inch">
+                <input type="number" name="pilihan_spesifikasi_pompa_3inch" class="form-control" id="pilihan_spesifikasi_pompa_3inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pilihan_spesifikasi_pompa_4inch">Pilihan Spesifikasi Pompa (4 Inch)</label>
-                <input type="number" name="pilihan_spesifikasi_pompa_4inch" class="form-control" id="pilihan_spesifikasi_pompa_4inch" placeholder="4 Inch">
+                <input type="number" name="pilihan_spesifikasi_pompa_4inch" class="form-control" id="pilihan_spesifikasi_pompa_4inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pilihan_spesifikasi_pompa_6inch">Pilihan Spesifikasi Pompa (6 Inch)</label>
-                <input type="number" name="pilihan_spesifikasi_pompa_6inch" class="form-control" id="pilihan_spesifikasi_pompa_6inch" placeholder="6 Inch">
+                <input type="number" name="pilihan_spesifikasi_pompa_6inch" class="form-control" id="pilihan_spesifikasi_pompa_6inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanJumlah">Jumlah yang Diterima</label>
-                <input type="number" name="pompa_abt_usulan_jumlah" class="form-control" id="pumpaABTUsulanJumlah" placeholder="Jumlah" required>
+                <input type="number" name="pompa_abt_usulan_jumlah" class="form-control" id="pumpaABTDiterimaJumlah" placeholder="Jumlah" readonly>
             </div>
-            <div class="form-group col-md-4">
+            {{-- <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanNoHP">No HP Poktan (Opsional)</label>
                 <input type="text" name="pompa_abt_usulan_no_hp" class="form-control" id="pumpaABTUsulanNoHP" placeholder="No HP">
             </div>
@@ -50,10 +50,20 @@
             <div class="form-group col-md-4">
                 <label for="farmerGroup">Foto Bukti</label>
                 <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*">
-            </div>
+            </div> --}}
         </div>
             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit</button>
     </form>
 </div>
+
+<script>
+    function updateJumlahDiterima() {
+        var spesifikasi3Inch = parseInt(document.getElementById('pilihan_spesifikasi_pompa_3inch').value) || 0;
+        var spesifikasi4Inch = parseInt(document.getElementById('pilihan_spesifikasi_pompa_4inch').value) || 0;
+        var spesifikasi6Inch = parseInt(document.getElementById('pilihan_spesifikasi_pompa_6inch').value) || 0;
+        var totalJumlah = spesifikasi3Inch + spesifikasi4Inch + spesifikasi6Inch;
+        document.getElementById('pumpaABTDiterimaJumlah').value = totalJumlah;
+    }
+</script>
 @endsection
 

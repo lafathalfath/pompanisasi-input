@@ -14,6 +14,10 @@
         vertical-align: middle;
     }
 
+    .content{
+        margin-left: 180px;
+    }
+
 </style>
 
 <div class="container mt-4">
