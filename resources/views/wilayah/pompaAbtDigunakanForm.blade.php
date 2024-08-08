@@ -7,8 +7,8 @@
         <h4>Pompa ABT Digunakan</h4>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanProv">Provinsi</label>
-                <input type="text" name="pompa_abt_digunakan_prov" class="form-control" id="pumpaABTDigunakanProv" placeholder="Provinsi" required>
+                <label for="pumpaABTDigunakanprov">Provinsi</label>
+                <input type="text" name="pompa_abt_digunakan_prov" class="form-control" id="pumpaABTDigunakanprov" placeholder="Prov" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTDigunakanPoktan">Nama Poktan</label>

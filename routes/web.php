@@ -155,3 +155,7 @@ Route::get('/abt-usulan', function () {
     return view('kabupaten.abt.Usulan');
 });
 // routes sampai sini
+
+Route::get('/dashboard-wilayah', function () {
+    return view('wilayah.dashboard');
+});
