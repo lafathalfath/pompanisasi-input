@@ -4,7 +4,7 @@
     <form action="pompaRefocusingDigunakanForm" method="POST" enctype="multipart/form-data">
         <!-- Pompa Refocusing Diterima -->
         <h4>Pompa Refocusing Diterima</h4>
-        <div class="form-row">
+        {{-- <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanDesa">Desa</label>
                 <input type="text" name="pompa_ref_usulan_desa" class="form-control" id="pumparefUsulanDesa" placeholder="Desa" required>
@@ -17,7 +17,7 @@
                 <label for="pumparefUsulanLuas">Luas Lahan (ha)</label>
                 <input type="number" name="pompa_ref_usulan_luas" class="form-control" id="pumparefUsulanLuas" placeholder="Luas Lahan (ha)" required>
             </div>
-        </div>
+        </div> --}}
 
         <div class="form-row">
             <div class="form-group col-md-4">
@@ -39,7 +39,7 @@
                 <label for="pumpaRefDiterimaJumlah">Jumlah yang Diterima</label>
                 <input type="number" name="pumpaRefDiterimaJumlah" class="form-control" id="pumpaRefDiterimaJumlah" placeholder="Jumlah" readonly>
             </div>
-            <div class="form-group col-md-4">
+            {{-- <div class="form-group col-md-4">
                 <label for="pumparefUsulanNoHP">No HP Poktan (Opsional)</label>
                 <input type="text" name="pompa_ref_usulan_no_hp" class="form-control" id="pumparefUsulanNoHP" placeholder="No HP">
             </div>
@@ -50,7 +50,7 @@
             <div class="form-group col-md-4">
                 <label for="farmerGroup">Foto Bukti</label>
                 <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*" required>
-            </div>
+            </div> --}}
         </div>
             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit</button>
     </form>
