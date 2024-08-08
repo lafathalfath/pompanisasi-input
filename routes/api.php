@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LokasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/get-kabupaten/{provinsi_id}', [LokasiController::class, 'getKabupaten']);
 Route::get('/get-kecamatan/{kabupaten_id}', [LokasiController::class, 'getKecamatan']);
 Route::get('/get-desa/{kecamatan_id}', [LokasiController::class, 'getDesa']);
+
+Route::get('/get-region/{role_id}', [AuthController::class, 'getAsignee']);
