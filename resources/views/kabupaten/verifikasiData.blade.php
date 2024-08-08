@@ -4,6 +4,12 @@
     .content{
       margin-left: 180px;
     }
+
+    .table thead th {
+    vertical-align: middle;
+    text-align: center;
+    background-color: #c8dce4;
+}
   </style>
 
   <script>
@@ -72,3 +78,4 @@
     </table>
   </div>
 @endsection
+
