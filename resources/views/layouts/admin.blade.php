@@ -4,13 +4,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
         <title>Dashboard Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        
+        {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+        
+        {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <style>
             body {
                 font-family: Poppins, sans-serif;
@@ -83,6 +95,9 @@
                 padding: 20px;
                 flex-grow: 1;
             }
+            a{
+                text-decoration: none;
+            }
         </style>
     </head>
     <body>
@@ -91,21 +106,21 @@
                 <a href="{{ route('kabupaten.dashboard') }}">
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
-                <h1>Admin Pompanisasi<br></h1>
+                <h1>Satgas Pompanisasi<br></h1>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Verifikasi Data</a></li>
-                
-                {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Manage Wilayah</a></li>    --}}
+                <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->url() == route('admin.dashboard') ? 'active' : '' }}">Dashboard</a></li>
+                <li><a href="{{ route('admin.verifikasiPj') }}" class="{{ request()->url() == route('admin.verifikasiPj') ? 'active' : '' }}">Verifikasi <br>Penanggungjawab</a></li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Manage Wilayah
+                        Manage Region
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.usulan') }}">Wilayah</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.usulan') }}">Provinsi</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.diterima') }}">Kabupaten</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.digunakan') }}">Kecamatan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.manage.provinsi') }}">Provinsi</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.manage.kabupaten') }}">Kabupaten</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.manage.kecamatan') }}">Kecamatan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.manage.desa') }}">Desa</a></li>
                     </ul>
                 </li>
 

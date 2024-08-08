@@ -17,17 +17,19 @@ class Kecamatan2Seeder extends Seeder
         $csv_file = fopen($file_path, 'r');
         $header = fgetcsv($csv_file); // bypass first row
 
+        $kecamatan = [];
         while (($row = fgetcsv($csv_file)) !== false) {
-            DB::table('kecamatan')->insert([
+            $kecamatan[] = [
                 'id' => $row[0],
                 'pj_id' => null,
                 'kabupaten_id' => $row[1],
                 'nama' => $row[2],
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
+            ];
         }
-
         fclose($csv_file);
+
+        DB::table('kecamatan')->insert($kecamatan);
     }
 }
