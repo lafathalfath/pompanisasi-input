@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Masuk - Satgas Pompanisasi</title>
+    <link rel="shortcut icon" href="{{ asset('assets/img/logobbpsip.png') }}">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
@@ -66,7 +67,7 @@
 
 <div class="login-container">
     <img src="/assets/img/logobbpsip.png" alt="Logo">
-    <h3>Login</h3>
+    <h3>Masuk</h3>
     @error('email')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -87,10 +88,10 @@
             <label for="password">Kata Sandi</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan kata sandi" required>
             <div class="forgot-password">
-                <a href="/forgot-password">Lupa password?</a>
+                <a href="/lupa-password">Lupa kata sandi?</a>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
     </form>
     <div class="register-link">
         <p>Belum punya akun? <a href="{{ route('register') }}" style="text-decoration: none;">Daftar sekarang!</a></p>

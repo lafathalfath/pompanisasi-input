@@ -1,4 +1,4 @@
-@extends('layouts.kecamatan')
+@extends('layouts.kabupaten')
 @section('content')
 
 <style>
@@ -13,7 +13,11 @@
         text-align: center;
         vertical-align: middle;
     }
-    
+
+    .content{
+        margin-left: 180px;
+    }
+
 </style>
 
 <div class="container mt-4">
@@ -119,7 +123,7 @@
             <td>08123456789</td>
             {{-- <td>0</td> --}}
         </tr>
-        <!-- Tambahkan baris sesuai kebutuhan -->
+        <!-- Tambahkan baris sesuai kebutuhan dari code -->
         </tbody>
     </table>
 
