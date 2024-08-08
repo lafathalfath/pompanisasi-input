@@ -21,15 +21,15 @@
 
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="pilihan_spesifikasi_pompa_3inch">Pilihan Spesifikasi Pompa (3 inch)</label>
+                <label for="pilihan_spesifikasi_pompa_3inch">Pompa 3 inch</label>
                 <input type="number" name="pilihan_spesifikasi_pompa_3inch" class="form-control" id="pilihan_spesifikasi_pompa_3inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
             <div class="form-group col-md-4">
-                <label for="pilihan_spesifikasi_pompa_4inch">Pilihan Spesifikasi Pompa (4 Inch)</label>
+                <label for="pilihan_spesifikasi_pompa_4inch">Pompa 4 Inch</label>
                 <input type="number" name="pilihan_spesifikasi_pompa_4inch" class="form-control" id="pilihan_spesifikasi_pompa_4inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
             <div class="form-group col-md-4">
-                <label for="pilihan_spesifikasi_pompa_6inch">Pilihan Spesifikasi Pompa (6 Inch)</label>
+                <label for="pilihan_spesifikasi_pompa_6inch">Pompa 6 Inch</label>
                 <input type="number" name="pilihan_spesifikasi_pompa_6inch" class="form-control" id="pilihan_spesifikasi_pompa_6inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
         </div>
