@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/admin/verifAdmin', function () {
     return view('admin.verifikasiAdmin');
+});
 Route::get('/admin/adminProvinsi', function () {
     return view('admin.adminProvinsi');
 });
