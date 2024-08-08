@@ -20,7 +20,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanLuas">Luas Tanam (ha)</label>
-                <input type="number" name="pompa_abt_usulan_luas" class="form-control" id="pumpaABTUsulanLuas" placeholder="Luas Lahan (ha)" required>
+                <input type="number" name="pompa_abt_usulan_luas" class="form-control" id="pumpaABTUsulanLuas" placeholder="Luas Tanam (ha)" required>
             </div>
         </div>
         <div class="form-row">
