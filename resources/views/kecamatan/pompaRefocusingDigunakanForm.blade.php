@@ -51,6 +51,10 @@
                 <label for="farmerGroup">Foto Bukti</label>
                 <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*" required>
             </div>
+            <div class="form-group col-md-4">
+                <label for="pumparefUsulanTanggal">Tanggal</label>
+                <input type="date" name="pompa_ref_usulan_tanggal" class="form-control" id="pumparefUsulanTanggal" required>
+            </div>
         </div>
             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit</button>
     </form>
