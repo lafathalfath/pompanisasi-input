@@ -11,8 +11,8 @@ class ProvinsiController extends Controller
 {
     public function index(Request $request) {
         $wilayah = Wilayah::get();
-        $provinsi = Provinsi::get();
-        if ($request->nama) $provinsi = Provinsi::where('nama', 'LIKE', "%$request->nama%")->get();
+        $provinsi = Provinsi::paginate(10);
+        if ($request->nama) $provinsi = Provinsi::where('nama', 'LIKE', "%$request->nama%")->paginate(10);
         return view('admin.manageProvinsi', ['wilayah' => $wilayah, 'provinsi' => $provinsi]);
     }
 
