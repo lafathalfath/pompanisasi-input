@@ -11,9 +11,9 @@ class DesaController extends Controller
 {
     public function index(Request $request) {
         $kecamatan = Kecamatan::get();
-        $desa = Desa::get();
+        $desa = Desa::paginate(10);
         // dd($kabupaten[0]->provinsi->wilayah->nama);
-        if ($request->nama) $desa = Desa::where('nama', 'LIKE', "%$request->nama%")->get();
+        if ($request->nama) $desa = Desa::where('nama', 'LIKE', "%$request->nama%")->paginate(10);
         return view('admin.manageDesa', ['desa' => $desa, 'kecamatan' => $kecamatan]);
     }
 

@@ -11,9 +11,9 @@ class KabupatenController extends Controller
 {
     public function index(Request $request) {
         $provinsi = Provinsi::get();
-        $kabupaten = Kabupaten::get();
+        $kabupaten = Kabupaten::paginate(10);
         // dd($kabupaten[0]->provinsi->wilayah->nama);
-        if ($request->nama) $kabupaten = Kabupaten::where('nama', 'LIKE', "%$request->nama%")->get();
+        if ($request->nama) $kabupaten = Kabupaten::where('nama', 'LIKE', "%$request->nama%")->paginate(10);
         return view('admin.manageKabupaten', ['provinsi' => $provinsi, 'kabupaten' => $kabupaten]);
     }
 
