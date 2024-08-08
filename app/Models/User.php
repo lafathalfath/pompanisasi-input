@@ -25,7 +25,9 @@ class User extends Authenticatable
         'email',
         'no_hp',
         'role_id',
+        'region_id',
         'password',
+        'status_verifikasi',
     ];
 
     /**

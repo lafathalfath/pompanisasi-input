@@ -17,17 +17,18 @@ class Provinsi2Seeder extends Seeder
         $csv_file = fopen($file_path, 'r');
         $header = fgetcsv($csv_file); // bypass first row
 
+        $provinsi = [];
         while (($row = fgetcsv($csv_file)) !== false) {
-            DB::table('provinsi')->insert([
+            $provinsi[] = [
                 'id' => $row[0],
                 'pj_id' => null,
                 'wilayah_id' => $row[1],
                 'nama' => $row[2],
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
+            ];
         }
-
         fclose($csv_file);
+        DB::table('provinsi')->insert($provinsi);
     }
 }
