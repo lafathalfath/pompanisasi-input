@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('nama')->unique();
             $table->string('email')->unique()->nullable();
             $table->string('no_hp')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->bigInteger('role_id')->unsigned();
+            $table->bigInteger('region_id')->unsigned()->nullable();
             $table->string('password');
+            $table->enum('status_verifikasi', ['proses', 'terverifikasi', 'ditolak'])->default('proses');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
