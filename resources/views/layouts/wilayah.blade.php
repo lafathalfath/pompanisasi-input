@@ -107,13 +107,13 @@
     <body>
         <div class="sidebar">
             <div class="sidebar-header">
-                <a href="{{ route('kabupaten.dashboard') }}">
+                <a href="{{ route('wilayah.dashboard') }}">
                     <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Dashboard</a></li>
+                <li><a href="{{ route('wilayah.dashboard') }}" class="{{ request()->url() == route('wilayah.dashboard') ? 'active' : '' }}">Dashboard</a></li>
 
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa Refocusing</a></li>    --}}
                 <li class="nav-item dropdown">
@@ -121,9 +121,9 @@
                         Pompa Refocusing
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <!-- <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.usulan') }}">Usulan</a></li> -->
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.digunakan') }}">Digunakan</a></li>
+                        <!-- <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.usulan') }}">Usulan</a></li> -->
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.diterima') }}">Diterima</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -131,9 +131,9 @@
                         Pompa ABT
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.usulan') }}">Usulan</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.abt.usulan') }}">Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.abt.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
 
