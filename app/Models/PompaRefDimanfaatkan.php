@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PompaRefocusing extends Model
+class PompaRefDimanfaatkan extends Model
 {
     use HasFactory;
-    protected $table = 'pompa_refocusing';
+    protected $table = 'pompa_ref_dimanfaatkan';
     protected $guarded = [];
 
     public function pompanisasi() : BelongsTo {
