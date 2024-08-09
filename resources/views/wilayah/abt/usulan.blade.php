@@ -2,9 +2,15 @@
 @section('content')
 <div class="d-flex flex-col justify-content-center">
     <div>
-        <div>
-            <a href="{{ route('kecamatan.abt.usulan.input') }}" type="submit" class="btn btn-success">Input Data</a>
-        </div><br>
+        <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+            <i class="fa-solid fa-sliders"></i>
+            <input type="date" class="form-control" id="date">
+            <select name="wilayah" class="form-control" id="wilayah">
+                <option value="" disabled selected>Pilih Provinsi</option>
+                <option value="Jawa Barat">Jawa Barat</option>
+                <option value="Jawa Tengah">Jawa Tengah</option>
+                <!-- Tambahkan opsi Provinsi lainnya -->
+            </select>
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
