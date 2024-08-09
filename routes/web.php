@@ -6,10 +6,10 @@ use App\Http\Controllers\Admin\KabupatenController as AdminKabupatenController;
 use App\Http\Controllers\Admin\KecamatanController as AdminKecamatanController;
 use App\Http\Controllers\Admin\ProvinsiController as AdminProvinsiController;
 use App\Http\Controllers\Admin\VerifikasiPjController;
+use App\Http\Controllers\Kecamatan\KecamatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
-use App\Http\Controllers\Kecamatan\KecamatanController;
 use App\Http\Controllers\Kecamatan\PompaController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Poktan\PoktanController;
@@ -34,6 +34,7 @@ Route::get('/', function () {
 Route::get('/kecamatan/inputPompaKecamatan', function () {
     return view('kecamatan.inputPompaKecamatan');
 });
+
 Route::get('/lupa-password', function () {
     return view('auth.forgot-password');
 });
@@ -108,7 +109,6 @@ Route::middleware('auth')->group(function () {
         })->name('kecamatan.inputLuasTanam');
 
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/usulan', [PompaController::class, 'refUsulanView'])->name('kecamatan.pompa.ref.usulan');
             Route::get('/diterima', [PompaController::class, 'refDiterimaView'])->name('kecamatan.pompa.ref.diterima');
             Route::get('/digunakan', [PompaController::class, 'refDigunakanView'])->name('kecamatan.pompa.ref.digunakan');
         });
@@ -118,8 +118,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan', [PompaController::class, 'abtDigunakanView'])->name('kecamatan.pompa.abt.digunakan');
         });
         Route::prefix('/pompa/refocusing/form')->group(function () {
-            Route::get('/usulan', [PompaController::class, 'refocusingUsulan'])->name('kecamatan.refocusing.usulan.input');
-            Route::post('/usulan', [KecamatanController::class, 'storeRefocusingUsulan'])->name('kecamatan.refocusing.usulan.store');
             Route::get('/diterima', [PompaController::class, 'refocusingDiterima'])->name('kecamatan.refocusing.diterima.input');
             Route::post('/diterima', [KecamatanController::class, 'storeRefocusingDiterima'])->name('kecamatan.refocusing.diterima.store');
             Route::get('/digunakan', [PompaController::class, 'refocusingDigunakan'])->name('kecamatan.refocusing.digunakan.input');
@@ -145,16 +143,3 @@ Route::middleware('auth')->group(function () {
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
-
-// routes sementara abt
-Route::get('/abt-digunakan', function () {
-    return view('kabupaten.abt.Digunakan');
-});
-Route::get('/abt-diterima', function () {
-    return view('kabupaten.abt.Diterima');
-});
-
-Route::get('/abt-usulan', function () {
-    return view('kabupaten.abt.Usulan');
-});
-// routes sampai sini
