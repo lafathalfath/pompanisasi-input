@@ -12,6 +12,15 @@
         text-align: center;
         vertical-align: middle;
     }
+    .btn-detail{
+        background-color: #c8dce4;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 7px;
+        text-decoration: none !important;
+        color: black;
+    }
 </style>
 <div class="d-flex flex-col justify-content-center">
     <div>
@@ -55,8 +64,7 @@
                     <td>0</td>
                     <td>0</td>
                     <td>08123456789</td>
-                    <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
-                    {{-- <td>0</td> --}}
+                    <td><a href="{{ route('provinsi.detailprovinsi') }}" class="btn btn-sm btn-info">Detail</a></td>
                 </tr>
             </tbody>
         </table>

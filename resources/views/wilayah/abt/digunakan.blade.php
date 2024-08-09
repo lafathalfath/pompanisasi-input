@@ -1,10 +1,18 @@
 @extends('layouts.wilayah')
 @section('content')
+<style>
+    .btn-detail{
+        background-color: #c8dce4;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 7px;
+        text-decoration: none !important;
+        color: black;
+    }
+</style>
 <div class="d-flex flex-col justify-content-center">
     <div>
-        <div>
-            <a href="{{ route('kecamatan.abt.digunakan.input') }}" type="submit" class="btn btn-success">Input Data</a>
-        </div><br>
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
@@ -36,7 +44,7 @@
                     <td>0</td>
                     <td>0</td>
                     <td>08123456789</td>
-                    {{-- <td>0</td> --}}
+                    <td><a href="{{ route('provinsi.detailprovinsi') }}" class="btn btn-sm btn-info">Detail</a></td>
                 </tr>
             </tbody>
         </table>

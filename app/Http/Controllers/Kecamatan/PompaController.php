@@ -11,6 +11,7 @@ class PompaController extends Controller
 {
     public function refDiterimaView() {
         $user = Auth::user();
+        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
         $ref_diterima = [];
         if ($user->kecamatan) {
             foreach ($user->kecamatan->desa as $des) {
@@ -19,11 +20,13 @@ class PompaController extends Controller
                 }
             }
         }
-        return view('kecamatan.refocusing.diterima', ['desa' => $user->kecamatan->desa, 'ref_diterima' => $ref_diterima]);
+        // dd('zcv');
+        return view('kecamatan.refocusing.diterima', ['desa' => $desa, 'ref_diterima' => $ref_diterima]);
     }
 
     public function refDigunakanView() {
         $user = Auth::user();
+        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
         $ref_dimanfaatkan = [];
         if ($user->kecamatan) {
             foreach ($user->kecamatan->desa as $des) {
@@ -32,7 +35,7 @@ class PompaController extends Controller
                 }
             }
         }
-        return view('kecamatan.refocusing.digunakan', ['desa' => $user->kecamatan->desa, 'ref_dimanfaatkan' => $ref_dimanfaatkan]);
+        return view('kecamatan.refocusing.digunakan', ['desa' => $desa, 'ref_dimanfaatkan' => $ref_dimanfaatkan]);
     }
     public function abtUsulanView() {
         return view('kecamatan.abt.usulan');

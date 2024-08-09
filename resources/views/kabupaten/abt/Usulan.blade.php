@@ -15,16 +15,13 @@
 </style>
 <div class="d-flex flex-col justify-content-center">
     <div>
-        <div>
-            <a href="{{ route('kecamatan.abt.usulan.input') }}" type="submit" class="btn btn-success">Input Data</a>
-        </div><br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
             <select name="kota_kabupaten" class="form-control" id="kota-kabupaten">
-                <option value="" disabled selected>Pilih Desa/Kelurahan</option>
-                <option value="empang">Empank</option>
-                <option value="baranangsiang">Baranangsiang</option>
+                <option value="" disabled selected>Pilih Kecamatan</option>
+                <option value="Bogor Utara">Bogor Utara</option>
+                <option value="Bogor Selatan">Bogor Selatan</option>
                 <!-- Tambahkan opsi kota/kabupaten lainnya -->
             </select>
         </div>
@@ -32,7 +29,7 @@
             <thead>
                 <tr>
                     <th rowspan="2">No</th>
-                    <th rowspan="2">Desa/Kel</th>
+                    <th rowspan="2">Kecamatan</th>
                     <th rowspan="2">Tanggal</th>
                     <th rowspan="2">Kelompok tani</th>
                     <th rowspan="2">Luas lahan (ha)</th>
@@ -44,13 +41,13 @@
                 <tr>
                     <th>3 inch (unit)</th>
                     <th>4 inch (unit)</th>
-                    <th>6 inch (unit)</th> 
+                    <th>6 inch (unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>Babakan</td>
+                    <td>Bogor Utara</td>
                     <td>4-08-2024</td>
                     <td>Kelompok tani 1</td>
                     <td>0</td>

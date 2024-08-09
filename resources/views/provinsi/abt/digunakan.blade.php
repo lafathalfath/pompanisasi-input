@@ -1,5 +1,16 @@
-@extends('layouts.kecamatan')
+@extends('layouts.provinsi')
 @section('content')
+<style>
+    .btn btn-sm btn-info {
+        background-color: #c8dce4;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 7px;
+        text-decoration: none !important;
+        color: black;
+    }
+</style>
 <div class="d-flex flex-col justify-content-center">
     <div>
         <div>
@@ -21,12 +32,12 @@
                 <tr>
                     <th>3 inch (unit)</th>
                     <th>4 inch (unit)</th>
-                    <th>6 inch (unit)</th> 
+                    <th>6 inch (unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>1</td> 
+                    <td>1</td>
                     <td>Kota Bogor</td>
                     <td>Bogor Tengah</td>
                     <td>Babakan</td>
@@ -36,6 +47,7 @@
                     <td>0</td>
                     <td>0</td>
                     <td>08123456789</td>
+                    <td><a href="{{ route('provinsi.detailkabupaten') }}" class="btn btn-sm btn-info">Detail</a></td>
                     {{-- <td>0</td> --}}
                 </tr>
             </tbody>
