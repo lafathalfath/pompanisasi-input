@@ -122,7 +122,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -132,7 +132,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.usulan') }}">Usulan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
 
