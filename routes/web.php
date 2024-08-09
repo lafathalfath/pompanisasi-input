@@ -71,9 +71,12 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::prefix('/wilayah')->group(function () {
+    Route::prefix('/wilayah')->middleware('access:wilayah')->group(function () {
         Route::get('/', function () {return redirect()->route('wilayah.dashboard');});
         Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilayah.dashboard');
+        Route::get('/detailprovinsi', function () {
+            return view('wilayah.detailProvinsi');
+        })->name('wilayah.detailprovinsi');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', function () {return view('wilayah.refocusing.diterima');})->name('wilayah.pompa.ref.diterima');
             Route::get('/digunakan', function () {return view('wilayah.refocusing.digunakan');})->name('wilayah.pompa.ref.digunakan');
@@ -91,7 +94,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/detailkabupaten', function () {
             return view('provinsi.detailkabupaten');
         })->name('provinsi.detailkabupaten');
-        Route::get('/verifikasi-data', [ProvinsiController::class, 'verifikasiData'])->name('provinsi.verifikasi.data');
+        Route::prefix('/pompa/refocusing')->group(function () {
+            Route::get('/diterima', function () {return view('provinsi.refocusing.diterima');})->name('provinsi.pompa.ref.diterima');
+            Route::get('/digunakan', function () {return view('provinsi.refocusing.digunakan');})->name('provinsi.pompa.ref.digunakan');
+        });
+        Route::prefix('/pompa/abt')->group(function () {
+            Route::get('/usulan', function () {return view('provinsi.abt.usulan');})->name('provinsi.pompa.abt.usulan');
+            Route::get('/diterima', function () {return view('provinsi.abt.diterima');})->name('provinsi.pompa.abt.diterima');
+            Route::get('/digunakan', function () {return view('provinsi.abt.digunakan');})->name('provinsi.pompa.abt.digunakan');
+        });
     });
 
     Route::prefix('/kabupaten')->middleware('access:kabupaten')->group(function () {
@@ -142,13 +153,14 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::prefix('/poktan')->middleware('access:poktan')->group(function () {
-        Route::get('/', function () {return redirect()->route('poktan.dashboard');});
-        Route::get('/dashboard', [PoktanController::class, 'index'])->name('poktan.dashboard');
-        Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
-        Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
-    });
-
+    
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
 });
+
+// Route::prefix('/poktan')->group(function () {
+//     Route::get('/', function () {return redirect()->route('poktan.dashboard');});
+//     Route::get('/dashboard', [PoktanController::class, 'index'])->name('poktan.dashboard');
+//     Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
+//     Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
+// });

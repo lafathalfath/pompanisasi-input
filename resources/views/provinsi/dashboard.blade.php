@@ -1,4 +1,4 @@
-@extends('layouts.wilayah')
+@extends('layouts.provinsi')
 @section('content')
 
 <style>

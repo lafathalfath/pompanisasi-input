@@ -1,4 +1,4 @@
-@extends('layouts.wilayah')
+@extends('layouts.provinsi')
 
 @section('content')
 <div class="d-flex flex-col justify-content-center">
