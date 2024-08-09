@@ -73,7 +73,16 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/wilayah')->group(function () {
         Route::get('/', function () {return redirect()->route('wilayah.dashboard');});
-        Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilaya.dashboard');
+        Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilayah.dashboard');
+    });
+    Route::prefix('/pompa/refocusing')->group(function () {
+        Route::get('/diterima', [PompaController::class, 'refDiterimaView'])->name('wilayah.pompa.ref.diterima');
+        Route::get('/digunakan', [PompaController::class, 'refDigunakanView'])->name('wilayah.pompa.ref.digunakan');
+    });
+    Route::prefix('/pompa/abt')->group(function () {
+        Route::get('/usulan', [PompaController::class, 'abtUsulanView'])->name('wilayah.pompa.abt.usulan');
+        Route::get('/diterima', [PompaController::class, 'abtDiterimaView'])->name('wilayah.pompa.abt.diterima');
+        Route::get('/digunakan', [PompaController::class, 'abtDigunakanView'])->name('wilayah.pompa.abt.digunakan');
     });
 
     Route::prefix('/provinsi')->middleware('access:provinsi')->group(function () {
@@ -97,8 +106,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
-        Route::get('/detaildesa', function () {
-            return view('kecamatan.detaildesa');
+        Route::get('/detailRefocusingDigunakan', function () {
+            return view('kecamatan.detailRefocusingDigunakan');
+        });
+        Route::get('/detailAbtDigunakan', function () {
+            return view('kecamatan.detailAbtDigunakan');
         });
 
         Route::get('/inputLuasTanam', function () {
