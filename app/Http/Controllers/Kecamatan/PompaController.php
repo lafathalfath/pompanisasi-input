@@ -52,7 +52,7 @@ class PompaController extends Controller
 
     public function refocusingDiterima() {
         $user = Auth::user();
-        $desa = $user->kecamatan->desa;
+        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
         return view('kecamatan.pompaRefocusingDiterimaForm', ['desa' => $desa]);
     }
     public function refocusingDigunakan() {
