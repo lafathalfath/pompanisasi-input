@@ -44,7 +44,7 @@
                     <td>0</td>
                     <td>0</td>
                     <td>08123456789</td>
-                    <td><a href="{{ route('provinsi.detailprovinsi') }}" class="btn btn-sm btn-info">Detail</a></td>
+                    <td><a href="{{ route('wilayah.detailprovinsi') }}" class="btn btn-sm btn-info">Detail</a></td>
                 </tr>
             </tbody>
         </table>
