@@ -19,40 +19,20 @@ class KecamatanController extends Controller
     }
 
     public function storeRefocusingDiterima(Request $request) {
-        $user = Auth::user();
-        if (!$user) return redirect()->route('login');
         $request->validate([
             'desa_id' => 'required',
-            'nama_poktan' => 'required',
+            'total_unit' => 'required',
         ], [
             'desa_id.required' => 'desa id cannot be null',
-            'nama_poktan.required' => 'nama poktan cannot be null',
         ]);
-        $diterima = PompaRefDiterima::create([...$request->except(['_token', 'desa_id']), 'tanggal' => date('Y-m-d')]);
-        if (!$diterima) return back()->withErrors('gagal menambahkan data');
-        $pompanisasi_kec = Pompanisasi::where([
-            ['desa_id', '=', $request->desa_id],
-            ['pompa_ref_kec_diterima_id', '=', $diterima->id],
-        ])->first();
-        if (!$pompanisasi_kec) {
-            Pompanisasi::create([
-                'desa_id' => $request->desa_id,
-                'luas_lahan' => $request->luas_lahan ? $request->luas_lahan : 0,
-                'pompa_ref_kec_diterima_id' => $diterima->id,
-            ]);
-        } else {
-            $pompanisasi_kec->update([
-                'desa_id' => $request->desa_id,
-                'luas_lahan' => $request->luas_lahan ? $pompanisasi_kec->luas_lahan + $request->luas_lahan : 0,
-                'pompa_ref_kec_diterima_id' => $diterima->id,
-            ]);
-        }
+        $pompanisasi = Pompanisasi::where('desa_id', $request->desa_id)->get()->last();
+        if ($pompanisasi && $pompanisasi->pompa_ref_diterima) return redirect()->route('kecamatan.pompa.ref.diterima')->withErrors('data pompa refocusing sudah ada');
+        if (!$pompanisasi) $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
+        PompaRefDiterima::create([...$request->except(['_token', 'desa_id']), 'pompanisasi_id' => $pompanisasi->id]);
         return redirect()->route('kecamatan.pompa.ref.diterima')->with('success', 'berhasil menambahkan data');
     }
 
     public function storeRefocusingDigunakan(Request $request) {
-        // dd([...$request->all(), 'tes' => 'testestes']);
-        $user = Auth::user();
         $request->validate([
             'desa_id' => 'required',
             'nama_poktan' => 'required',
@@ -65,15 +45,18 @@ class KecamatanController extends Controller
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
         ]);
+        $pompanisasi = Pompanisasi::where('desa_id', $request->desa_id)->get()->last();
+
+        if (!$pompanisasi) return redirect()->route('kecamatan.pompa.ref.diterima')->withErrors('data pompa refocusing diterima belum ada');
+        if ($pompanisasi && !$pompanisasi->pompa_ref_diterima) return redirect()->route('kecamatan.pompa.ref.diterima')->withErrors('data pompa refocusing diterima belum ada');
+        if ($pompanisasi && $pompanisasi->pompa_ref_diterima && $pompanisasi->pompa_ref_diterima->pompa_ref_dimanfaatkan) return redirect()->route('kecamatan.pompa.ref.diterima')->withErrors('data pompa refocusing sudah ada');
+        
         $name_gambar = $request->gambar->hashName();
         $request->gambar->move(storage_path('app/public/pompanisasi'), $name_gambar);
         $url_gambar = "/storage/pompanisasi/$name_gambar";
-        // dd($name_gambar);
-        $pompanisasi = Pompanisasi::where('desa_id', $request->desa_id)->first();
-        if (!$pompanisasi) $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
         PompaRefDimanfaatkan::create([
             ...$request->except(['_token', 'desa_id', 'gambar']),
-            'pompanisasi_id' => $pompanisasi->id,
+            'pompa_ref_diterima_id' => $pompanisasi->pompa_ref_diterima->id,
             'url_gambar' => $url_gambar,
         ]);
         return redirect()->route('kecamatan.pompa.ref.digunakan')->with('success', 'berhasil menambahkan data');
