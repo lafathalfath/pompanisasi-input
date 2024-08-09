@@ -121,8 +121,8 @@
                         Pompa Refocusing
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.digunakan') }}">Digunakan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

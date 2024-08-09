@@ -4,7 +4,7 @@
     <form action="{{ route('kecamatan.refocusing.digunakan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Pompa Refocusing Digunakan -->
-        <h4>Pompa Refocusing Digunakan</h4>
+        <h4>Pompa Refocusing Dimanfaatkan</h4>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumparefDigunakanDesa">Desa</label>
@@ -44,7 +44,7 @@
 
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="pumpaRefDigunakanJumlah">Jumlah yang Digunakan</label>
+                <label for="pumpaRefDigunakanJumlah">Jumlah yang Dimanfaatkan</label>
                 <input type="number" name="total_unit" class="form-control" id="pumpaRefDigunakanJumlah" placeholder="Jumlah" readonly>
             </div>
             <div class="form-group col-md-4">

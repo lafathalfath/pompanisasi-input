@@ -53,7 +53,7 @@
             </tr>
         </thead>
         <tbody id="data-table-body">
-            @foreach ($users as $user)
+            @foreach ($users as $key=>$user)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $user->nama }}</td>
@@ -65,8 +65,16 @@
                             $region = $user->region;
                         @endphp
                         {{ $region->nama }}
-                        {{ $region->kabupaten ? '- '.$region->kabupaten->nama : '' }}
-                        {{ $region->kabupaten && $region->kabupaten->provinsi ? '- '.$region->kabupaten->provinsi->nama : '' }}
+                        @if ($user->role_id == 5)
+                            {{ '- '.$region->kabupaten->nama }}
+                            {{ '-'.$region->kabupaten->provinsi->nama }}
+                            {{ '- '.$region->kabupaten->provinsi->wilayah->nama }}
+                        @elseif ($user->role_id == 4)
+                            {{ '-'.$region->provinsi->nama }}
+                            {{ '- '.$region->provinsi->wilayah->nama }}
+                        @elseif ($user->role_id == 3)
+                            {{ '- '.$region->wilayah->nama }}
+                        @endif
                     </td>
                     <td>
                             <div class="badge
