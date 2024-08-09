@@ -33,7 +33,7 @@
             <thead>
                 <tr>
                     <th rowspan="2">No</th>
-                    <th rowspan="2">Desa/Kel</th>
+                    <th rowspan="2">Kecamatan</th>
                     <th rowspan="2">Tanggal</th>
                     <th rowspan="2">Kelompok tani</th>
                     <th rowspan="2">Luas lahan (ha)</th>
@@ -52,7 +52,7 @@
                 <tr>
                     {{-- contoh isi data dummy 1 data --}}
                     <td>1</td>
-                    <td>Babakan</td>
+                    <td>Bogor Utara</td>
                     <td>4-08-2024</td>
                     <td>Kelompok tani 1</td>
                     <td>0</td>
