@@ -4,7 +4,7 @@
     <form action="{{ route('kecamatan.abt.usulan.store') }}" method="POST">
         @csrf
         <!-- Pompa Digunakan -->
-        <h4>Pompa ABT Digunakan</h4>
+        <h4>Pompa ABT Dimanfaatkan</h4>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumpaABTDigunakanProv">Provinsi</label>
@@ -37,7 +37,7 @@
 
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="pumpaABTDigunakanJumlah">Jumlah yang Digunakan</label>
+                <label for="pumpaABTDigunakanJumlah">Jumlah yang Dimanfaatkan</label>
                 <input type="number" name="pompa_abt_digunakan_jumlah" class="form-control" id="pumpaABTDigunakanJumlah" placeholder="Jumlah" readonly>
             </div>
             <div class="form-group col-md-4">
