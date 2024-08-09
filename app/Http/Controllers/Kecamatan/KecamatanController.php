@@ -47,7 +47,7 @@ class KecamatanController extends Controller
                 'pompa_ref_kec_diterima_id' => $diterima->id,
             ]);
         }
-        return redirect()->route('kecamatan.dashboard')->with('success', 'berhasil menambahkan data');
+        return redirect()->route('kecamatan.pompa.ref.diterima')->with('success', 'berhasil menambahkan data');
     }
 
     public function storeRefocusingDigunakan(Request $request) {

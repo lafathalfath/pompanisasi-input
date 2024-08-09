@@ -27,7 +27,7 @@ class PompaController extends Controller
         if ($user->kecamatan) {
             foreach ($user->kecamatan->desa as $des) {
                 foreach ($des->pompanisasi as $pom) {
-                    if ($pom->pompa_ref_dimanfaatkan) $ref_dimanfaatkan[] = $pom->pompa_ref_dimanfaatkan;
+                    if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $ref_dimanfaatkan[] = $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan;
                 }
             }
         }
