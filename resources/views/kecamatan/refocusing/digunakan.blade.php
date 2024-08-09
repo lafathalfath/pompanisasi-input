@@ -34,10 +34,10 @@
                     <th rowspan="2">No</th>
                     <th rowspan="2">Desa/Kel</th>
                     <th rowspan="2">Tanggal</th>
-                    <th rowspan="2">Kelompok tani</th>
+                    <th rowspan="2">Kelompok <br>tani</th>
                     <th rowspan="2">Luas lahan <br>(ha)</th>
                     <th colspan="3" class="text-center">Pompa Refocusing Digunakan</th>
-                    <th rowspan="2">Total dimanfaatkan</th>
+                    <th rowspan="2">Total <br>dimanfaatkan</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
                     <th rowspan="2">Aksi</th>
                     {{-- <th rowspan="2">Total diusulkan <br>(unit)</th> --}}
@@ -52,7 +52,7 @@
                 @forelse ($ref_dimanfaatkan as $rd)
                     <tr>
                         <td>{{ $loop->iteration }}</td> 
-                        <td>{{ $rd->pompanisasi->desa->nama }}</td>
+                        <td>{{ $rd->pompa_ref_diterima->pompanisasi->desa->nama }}</td>
                         <td>{{ $rd->tanggal }}</td>
                         <td>{{ $rd->nama_poktan }}</td>
                         <td>{{ $rd->luas_lahan }}</td>
