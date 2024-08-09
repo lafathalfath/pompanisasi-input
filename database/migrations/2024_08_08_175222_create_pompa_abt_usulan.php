@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pompa_abt', function (Blueprint $table) {
+        Schema::create('pompa_abt_usulan', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('pompanisasi_id')->unsigned()->unique();
-            $table->integer('usulan')->default(0);
-            $table->integer('diterima')->default(0);
-            $table->integer('digunakan')->default(0);
+            $table->string('nama_poktan');
+            $table->float('luas_lahan');
+            $table->integer('pompa_3_inch')->unsigned();
+            $table->integer('pompa_4_inch')->unsigned();
+            $table->integer('pompa_6_inch')->unsigned();
+            $table->integer('total_unit')->unsigned();
+            $table->string('no_hp_poktan')->nullable();
+            $table->date('tanggal');
             $table->timestamps();
 
             $table->foreign('pompanisasi_id')->references('id')->on('pompanisasi')->onDelete('cascade');
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pompa_abt');
+        Schema::dropIfExists('pompa_abt_usulan');
     }
 };

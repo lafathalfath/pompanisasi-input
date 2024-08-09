@@ -92,37 +92,37 @@
                 border: 1px solid lightgray;
                 border-radius: 10px;
             }
-            
+
             /* Handle */
             .sidebar::-webkit-scrollbar-thumb {
-                background: lightgray; 
+                background: lightgray;
                 border-radius: 10px;
             }
 
             .sidebar::-webkit-scrollbar-thumb:hover {
-                background: gray; 
+                background: gray;
             }
         </style>
     </head>
     <body>
         <div class="sidebar">
             <div class="sidebar-header">
-                <a href="{{ route('kabupaten.dashboard') }}">
+                <a href="{{ route('wilayah.dashboard') }}">
                     <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Dashboard</a></li>
-                
+                <li><a href="{{ route('wilayah.dashboard') }}" class="{{ request()->url() == route('wilayah.dashboard') ? 'active' : '' }}">Dashboard</a></li>
+
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa Refocusing</a></li>    --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Pompa Refocusing
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.ref.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.ref.diterima') }}">Diterima</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -130,18 +130,14 @@
                         Pompa ABT
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.usulan') }}">Usulan</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.abt.usulan') }}">Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.abt.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
 
-
-                <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Input Luas Tanam</a></li>
-
-
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}
-                
+
                 {{-- <li><a href="{{ route('kecamatan.refocusing.usulan.input') }}" class="{{ request()->url() == route('kecamatan.refocusing.usulan.input') ? 'active' : '' }}" target="_blank">Input pompanisasi refocusing usulan</a></li>
                 <li><a href="{{ route('kecamatan.refocusing.diterima.input') }}" class="{{ request()->url() == route('kecamatan.refocusing.diterima.input') ? 'active' : '' }}" target="_blank">Input pompanisasi refocusing diterima</a></li>
                 <li><a href="{{ route('kecamatan.refocusing.digunakan.input') }}" class="{{ request()->url() == route('kecamatan.refocusing.digunakan.input') ? 'active' : '' }}" target="_blank">Input pompanisasi refocusing digunakan</a></li>

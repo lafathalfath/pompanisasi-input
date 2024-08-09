@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pompa_refocusing', function (Blueprint $table) {
+        Schema::create('pompa_ref_diterima', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('pompanisasi_id')->unsigned()->unique();
-            $table->integer('usulan')->default(0);
-            $table->integer('diterima')->default(0);
-            $table->integer('digunakan')->default(0);
+            $table->integer('pompa_3_inch')->unsigned();
+            $table->integer('pompa_4_inch')->unsigned();
+            $table->integer('pompa_6_inch')->unsigned();
+            $table->integer('total_unit')->unsigned();
             $table->timestamps();
 
             $table->foreign('pompanisasi_id')->references('id')->on('pompanisasi')->onDelete('cascade');
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pompa_refocusing');
+        Schema::dropIfExists('pompa_ref_diterima');
     }
 };
