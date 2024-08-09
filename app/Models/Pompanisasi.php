@@ -20,20 +20,8 @@ class Pompanisasi extends Model
     public function pompa_ref_diterima() : HasOne {
         return $this->hasOne(PompaRefDiterima::class, 'pompanisasi_id', 'id');
     }
-
-    public function pompa_ref_dimanfaatkan() : HasOne {
-        return $this->hasOne(PompaRefDimanfaatkan::class, 'pompanisasi_id', 'id');
-    }
     
     public function pompa_abt_usulan() : HasOne {
         return $this->hasOne(PompaAbtUsulan::class, 'pompanisasi_id', 'id');
-    }
-
-    public function pompa_abt_diterima() : HasOne {
-        return $this->hasOne(PompaAbtDiterima::class, 'pompanisasi_id', 'id');
-    }
-
-    public function pompa_abt_dimanfaatkan() : HasOne {
-        return $this->hasOne(PompaAbtDimanfaatkan::class, 'pompanisasi_id', 'id');
     }
 }

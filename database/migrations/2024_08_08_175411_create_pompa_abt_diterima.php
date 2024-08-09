@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('pompa_abt_diterima', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pompanisasi_id')->unsigned()->unique();
+            $table->bigInteger('pompa_abt_usulan_id')->unsigned()->unique();
             $table->integer('pompa_3_inch')->unsigned();
             $table->integer('pompa_4_inch')->unsigned();
             $table->integer('pompa_6_inch')->unsigned();
             $table->integer('total_unit')->unsigned();
             $table->timestamps();
 
-            $table->foreign('pompanisasi_id')->references('id')->on('pompanisasi')->onDelete('cascade');
+            $table->foreign('pompa_abt_usulan_id')->references('id')->on('pompa_abt_usulan')->onDelete('cascade');
         });
     }
 

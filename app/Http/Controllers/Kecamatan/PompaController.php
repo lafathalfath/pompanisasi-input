@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Kecamatan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Desa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,7 @@ class PompaController extends Controller
         if ($user->kecamatan) {
             foreach ($user->kecamatan->desa as $des) {
                 foreach ($des->pompanisasi as $pom) {
-                    if ($pom->pompa_ref_dimanfaatkan) $ref_dimanfaatkan[] = $pom->pompa_ref_dimanfaatkan;
+                    if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $ref_dimanfaatkan[] = $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan;
                 }
             }
         }
@@ -47,11 +48,21 @@ class PompaController extends Controller
     }
 
     public function refocusingDiterima() {
-        return view('kecamatan.pompaRefocusingDiterimaForm');
+        $user = Auth::user();
+        $desa = $user->kecamatan->desa;
+        return view('kecamatan.pompaRefocusingDiterimaForm', ['desa' => $desa]);
     }
     public function refocusingDigunakan() {
         $user = Auth::user();
-        $desa = $user->kecamatan->desa;
+        // $desa = $user->kecamatan->desa;
+        $desa = [];
+        foreach ($user->kecamatan->desa as $des) {
+            if ($des->pompanisasi) {
+                foreach ($des->pompanisasi as $pom) {
+                    if ($pom->pompa_ref_diterima && !$pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $desa[] = $des;
+                }
+            }
+        }
         return view('kecamatan.pompaRefocusingDigunakanForm', ['desa' => $desa]);
     }
     public function abtUsulan() {
