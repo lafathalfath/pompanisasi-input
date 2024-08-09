@@ -59,10 +59,12 @@ class PompaController extends Controller
         $user = Auth::user();
         // $desa = $user->kecamatan->desa;
         $desa = [];
-        foreach ($user->kecamatan->desa as $des) {
-            if ($des->pompanisasi) {
-                foreach ($des->pompanisasi as $pom) {
-                    if ($pom->pompa_ref_diterima && !$pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $desa[] = $des;
+        if ($user->kecamatan) {
+            foreach ($user->kecamatan->desa as $des) {
+                if ($des->pompanisasi) {
+                    foreach ($des->pompanisasi as $pom) {
+                        if ($pom->pompa_ref_diterima && !$pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $desa[] = $des;
+                    }
                 }
             }
         }
