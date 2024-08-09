@@ -96,8 +96,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
-        Route::get('/detaildesa', function () {
-            return view('kecamatan.detaildesa');
+        Route::get('/detailRefocusingDigunakan', function () {
+            return view('kecamatan.detailRefocusingDigunakan');
+        });
+        Route::get('/detailAbtDigunakan', function () {
+            return view('kecamatan.detailAbtDigunakan');
         });
 
         Route::get('/inputLuasTanam', function () {
