@@ -12,6 +12,7 @@
                 <select name="desa_id" class="form-control" id="pumparefDigunakanDesa" required>
                     <option value="" disabled selected>Pilih Desa</option>
                     @foreach ($desa as $des)
+                        {{-- {{ dd($des) }} --}}
                         <option value="{{ $des->id }}">{{ $des->nama }}</option>
                     @endforeach
                 </select>

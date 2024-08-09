@@ -1,43 +1,50 @@
 @extends('layouts.inputPompa')
 @section('content')
 <div class="container mt-5">
-    <form action="pompaRefocusingDigunakanForm" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('kecamatan.refocusing.diterima.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <!-- Pompa Refocusing Diterima -->
         <h4>Pompa Refocusing Diterima</h4>
-        {{-- <div class="form-row">
+        <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanDesa">Desa</label>
-                <input type="text" name="pompa_ref_usulan_desa" class="form-control" id="pumparefUsulanDesa" placeholder="Desa" required>
+                {{-- <input type="text" name="pompa_ref_usulan_desa" class="form-control" id="pumparefUsulanDesa" placeholder="Desa" required> --}}
+                <select name="desa_id" class="form-control" id="pumparefUsulanDesa" required>
+                    <option value="" disabled selected>Pilih Desa</option>
+                    @foreach ($desa as $des)
+                        <option value="{{ $des->id }}">{{ $des->nama }}</option>
+                    @endforeach
+                </select>
             </div>
-            <div class="form-group col-md-4">
+            {{-- <div class="form-group col-md-4">
                 <label for="pumparefUsulanPoktan">Nama Poktan</label>
                 <input type="text" name="pompa_ref_usulan_poktan" class="form-control" id="pumparefUsulanPoktan" placeholder="Nama Poktan" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanLuas">Luas Lahan (ha)</label>
                 <input type="number" name="pompa_ref_usulan_luas" class="form-control" id="pumparefUsulanLuas" placeholder="Luas Lahan (ha)" required>
-            </div>
-        </div> --}}
+            </div> --}}
+        </div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pilihan_spesifikasi_pompa_3inch">Pompa 3 inch</label>
-                <input type="number" name="pilihan_spesifikasi_pompa_3inch" class="form-control" id="pilihan_spesifikasi_pompa_3inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
+                <input type="number" name="pompa_3_inch" class="form-control" id="pilihan_spesifikasi_pompa_3inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pilihan_spesifikasi_pompa_4inch">Pompa 4 Inch</label>
-                <input type="number" name="pilihan_spesifikasi_pompa_4inch" class="form-control" id="pilihan_spesifikasi_pompa_4inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
+                <input type="number" name="pompa_4_inch" class="form-control" id="pilihan_spesifikasi_pompa_4inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pilihan_spesifikasi_pompa_6inch">Pompa 6 Inch</label>
-                <input type="number" name="pilihan_spesifikasi_pompa_6inch" class="form-control" id="pilihan_spesifikasi_pompa_6inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
+                <input type="number" name="pompa_6_inch" class="form-control" id="pilihan_spesifikasi_pompa_6inch" placeholder="Unit" oninput="updateJumlahDiterima()" required>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumpaRefDiterimaJumlah">Jumlah yang Diterima</label>
-                <input type="number" name="pumpaRefDiterimaJumlah" class="form-control" id="pumpaRefDiterimaJumlah" placeholder="Jumlah" readonly>
+                <input type="number" name="total_unit" class="form-control" id="pumpaRefDiterimaJumlah" placeholder="Jumlah" readonly>
             </div>
             {{-- <div class="form-group col-md-4">
                 <label for="pumparefUsulanNoHP">No HP Poktan (Opsional)</label>
