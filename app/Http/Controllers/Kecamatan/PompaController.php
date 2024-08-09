@@ -37,11 +37,35 @@ class PompaController extends Controller
         }
         return view('kecamatan.refocusing.digunakan', ['desa' => $desa, 'ref_dimanfaatkan' => $ref_dimanfaatkan]);
     }
+
+
     public function abtUsulanView() {
-        return view('kecamatan.abt.usulan');
+        $user = Auth::user();
+        $desa = [];
+        $abt_usulan = [];
+        if ($user->kecamatan) {
+            $desa = $user->kecamatan->desa;
+            foreach ($desa as $des) {
+                foreach ($des->pompanisasi as $pom) {
+                    if ($pom->pompa_abt_usulan) $abt_usulan[] = $pom->pompa_abt_usulan;
+                }
+            }
+        }
+        return view('kecamatan.abt.usulan', ['desa' => $desa, 'abt_usulan' => $abt_usulan]);
     }
     public function abtDiterimaView() {
-        return view('kecamatan.abt.diterima');
+        $user = Auth::user();
+        $desa = [];
+        $abt_diterima = [];
+        if ($user->kecamatan) {
+            $desa = $user->kecamatan->desa;
+            foreach ($desa as $des) {
+                foreach ($des->pompanisasi as $pom) {
+                    if ($pom->pompa_abt_usulan && $pom->pompa_abt_usulan->pompa_abt_diterima) $abt_diterima[] = $pom->pompa_abt_usulan->pompa_abt_diterima;
+                }
+            }
+        }
+        return view('kecamatan.abt.diterima', ['desa' => $desa, 'abt_diterima' => $abt_diterima]);
     }
     public function abtDigunakanView() {
         return view('kecamatan.abt.digunakan');
@@ -50,6 +74,7 @@ class PompaController extends Controller
         return view('kecamatan.pompaRefocusingUsulanForm');
     }
 
+    // form
     public function refocusingDiterima() {
         $user = Auth::user();
         $desa = $user->kecamatan ? $user->kecamatan->desa : [];
@@ -70,8 +95,12 @@ class PompaController extends Controller
         }
         return view('kecamatan.pompaRefocusingDigunakanForm', ['desa' => $desa]);
     }
+
+
     public function abtUsulan() {
-        return view('kecamatan.pompaAbtUsulanForm');
+        $user = Auth::user();
+        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
+        return view('kecamatan.pompaAbtUsulanForm', ['desa' => $desa]);
     }
     public function abtDiterima() {
         return view('kecamatan.pompaAbtDiterimaForm');

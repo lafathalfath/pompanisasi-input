@@ -27,23 +27,21 @@ use App\Http\Controllers\Wilayah\WilayahController;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+Route::get('/', function () {return redirect()->route('login');});
 
-Route::get('/kecamatan/inputPompaKecamatan', function () {
-    return view('kecamatan.inputPompaKecamatan');
-});
+// Route::get('/kecamatan/inputPompaKecamatan', function () {
+//     return view('kecamatan.inputPompaKecamatan');
+// });
 
-Route::get('/lupa-password', function () {
-    return view('auth.forgot-password');
-});
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register.register');
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.login');
+    Route::get('/lupa-password', function () {
+        return view('auth.forgot-password');
+    });
 });
 
 Route::middleware('auth')->group(function () {
