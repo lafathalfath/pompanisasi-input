@@ -13,19 +13,27 @@ class Pompanisasi extends Model
     protected $table = 'pompanisasi';
     protected $guarded = [];
 
-    public function kabupaten() : BelongsTo {
-        return $this->belongsTo(Kabupaten::class, 'kabupaten_id', 'id');
+    public function desa() : BelongsTo {
+        return $this->belongsTo(Desa::class, 'desa_id', 'id');
     }
 
-    public function poktan() : BelongsTo {
-        return $this->belongsTo(User::class, 'poktan_id', 'id');
+    public function pompa_ref_diterima() : HasOne {
+        return $this->hasOne(PompaRefDiterima::class, 'pompanisasi_id', 'id');
+    }
+
+    public function pompa_ref_dimanfaatkan() : HasOne {
+        return $this->hasOne(PompaRefDimanfaatkan::class, 'pompanisasi_id', 'id');
     }
     
-    public function pompa_refocusing() : HasOne {
-        return $this->hasOne(PompaRefocusing::class);
+    public function pompa_abt_usulan() : HasOne {
+        return $this->hasOne(PompaAbtUsulan::class, 'pompanisasi_id', 'id');
     }
 
-    public function pompa_abt() : HasOne {
-        return $this->hasOne(PompaAbt::class);
+    public function pompa_abt_diterima() : HasOne {
+        return $this->hasOne(PompaAbtDiterima::class, 'pompanisasi_id', 'id');
+    }
+
+    public function pompa_abt_dimanfaatkan() : HasOne {
+        return $this->hasOne(PompaAbtDimanfaatkan::class, 'pompanisasi_id', 'id');
     }
 }
