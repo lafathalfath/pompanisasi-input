@@ -73,7 +73,16 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/wilayah')->group(function () {
         Route::get('/', function () {return redirect()->route('wilayah.dashboard');});
-        Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilaya.dashboard');
+        Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilayah.dashboard');
+        Route::prefix('/pompa/refocusing')->group(function () {
+            Route::get('/diterima', function () {return view('wilayah.refocusing.diterima');})->name('wilayah.pompa.ref.diterima');
+            Route::get('/digunakan', function () {return view('wilayah.refocusing.digunakan');})->name('wilayah.pompa.ref.digunakan');
+        });
+        Route::prefix('/pompa/abt')->group(function () {
+            Route::get('/usulan', function () {return view('wilayah.abt.usulan');})->name('wilayah.pompa.abt.usulan');
+            Route::get('/diterima', function () {return view('wilayah.abt.diterima');})->name('wilayah.pompa.abt.diterima');
+            Route::get('/digunakan', function () {return view('wilayah.abt.digunakan');})->name('wilayah.pompa.abt.digunakan');
+        });
     });
 
     Route::prefix('/provinsi')->middleware('access:provinsi')->group(function () {
