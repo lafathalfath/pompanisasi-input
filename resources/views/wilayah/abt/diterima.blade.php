@@ -14,7 +14,7 @@
                     <th rowspan="2">Kecamatan</th>
                     <th rowspan="2">Kelompok tani</th>
                     <th rowspan="2">Luas lahan (ha)</th>
-                    <th colspan="3" class="text-center">Pompa Refocusing Diterima</th>
+                    <th colspan="3" class="text-center">Pompa ABT Diterima</th>
                     <th rowspan="2">No HP Poktan (jika ada)</th>
                     {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
                 </tr>
