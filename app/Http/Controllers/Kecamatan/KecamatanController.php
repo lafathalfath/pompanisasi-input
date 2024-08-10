@@ -15,7 +15,42 @@ use Illuminate\Support\Facades\Auth;
 class KecamatanController extends Controller
 {
     public function index() {
-        return view('kecamatan.dashboard');
+        $user = Auth::user();
+        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
+        $luas_tanam_harian = [];
+        $ref_diterima = 0;
+        $ref_digunakan = 0;
+        $abt_usulan = 0;
+        $abt_diterima = 0;
+        $abt_digunakan = 0;
+        foreach ($desa as $des) {
+            if ($des->luas_tanam) foreach ($des->luas_tanam as $lt) {
+                $luas_tanam_harian[] = $lt;
+            }
+            if ($des->pompanisasi) foreach ($des->pompanisasi as $pom) {
+                if ($pom->pompa_ref_diterima) {
+                    $ref_diterima += $pom->pompa_ref_diterima->total_unit;
+                    if ($pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $ref_digunakan += $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan->total_unit;
+                }
+                if ($pom->pompa_abt_usulan) {
+                    $abt_usulan += $pom->pompa_abt_usulan->total_unit;
+                    if ($pom->pompa_abt_usulan->pompa_abt_diterima) {
+                        $abt_diterima += $pom->pompa_abt_usulan->pompa_abt_diterima->total_unit;
+                        if ($pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) $abt_digunakan += $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan->total_unit;
+                    }
+                }
+            }
+        }
+
+        // $luas_tanam_harian = $luas_tanam_harian->paginate(10);
+        return view('kecamatan.dashboard', [
+            'luas_tanam_harian' => $luas_tanam_harian,
+            'ref_diterima' => $ref_diterima,
+            'ref_digunakan' => $ref_digunakan,
+            'abt_usulan' => $abt_usulan,
+            'abt_diterima' => $abt_diterima,
+            'abt_digunakan' => $abt_digunakan,
+        ]);
     }
 
     public function storeRefocusingDiterima(Request $request) {

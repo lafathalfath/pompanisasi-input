@@ -10,6 +10,7 @@ use App\Http\Controllers\Kecamatan\KecamatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
+use App\Http\Controllers\Kecamatan\LuasTanamController;
 use App\Http\Controllers\Kecamatan\PompaController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Poktan\PoktanController;
@@ -122,9 +123,8 @@ Route::middleware('auth')->group(function () {
             return view('kecamatan.detailAbtDigunakan');
         });
 
-        Route::get('/inputLuasTanam', function () {
-            return view('kecamatan.inputLuasTanam');
-        })->name('kecamatan.inputLuasTanam');
+        Route::get('/inputLuasTanam', [LuasTanamController::class, 'index'])->name('kecamatan.inputLuasTanam');
+        Route::post('/inputLuasTanam', [LuasTanamController::class, 'store'])->name('kecamatan.inputLuasTanam.store');
 
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [PompaController::class, 'refDiterimaView'])->name('kecamatan.pompa.ref.diterima');
