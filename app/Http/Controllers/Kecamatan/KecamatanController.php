@@ -26,14 +26,15 @@ class KecamatanController extends Controller
             'desa_id.required' => 'desa id cannot be null',
         ]);
         $pompanisasi = Pompanisasi::where('desa_id', $request->desa_id)->get()->last();
-        if (!$pompanisasi) $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
-        if ($pompanisasi->pompa_ref_diterima) {
+        if ($pompanisasi && $pompanisasi->pompa_ref_diterima) {
             if ($pompanisasi->pompa_ref_diterima->pompa_ref_dimanfaatkan) {
+                $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
                 PompaRefDiterima::create([...$request->except(['_token', 'desa_id']), 'pompanisasi_id' => $pompanisasi->id]);
                 return redirect()->route('kecamatan.pompa.ref.diterima')->with('success', 'berhasil menambahkan data');
             }
             return redirect()->route('kecamatan.pompa.ref.diterima')->withErrors('data pompa refocusing sudah ada');
         }
+        if (!$pompanisasi) $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
         PompaRefDiterima::create([...$request->except(['_token', 'desa_id']), 'pompanisasi_id' => $pompanisasi->id]);
         return redirect()->route('kecamatan.pompa.ref.diterima')->with('success', 'berhasil menambahkan data');
     }
@@ -80,14 +81,15 @@ class KecamatanController extends Controller
             'nama_poktan.required' => 'nama poktan cannot be null',
         ]);
         $pompanisasi = Pompanisasi::where('desa_id', $request->desa_id)->get()->last();
-        if (!$pompanisasi) $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
-        if ($pompanisasi->pompa_abt_usulan) {
+        if ($pompanisasi && $pompanisasi->pompa_abt_usulan) {
             if ($pompanisasi->pompa_abt_usulan->pompa_abt_diterima && $pompanisasi->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) {
+                $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
                 PompaAbtUsulan::create([...$request->except(['_token', 'desa_id']), 'pompanisasi_id' => $pompanisasi->id]);
                 return redirect()->route('kecamatan.pompa.abt.usulan')->with('success', 'berhasil menambahkan data');
             }
             return redirect()->route('kecamatan.pompa.abt.usulan')->withErrors('pompa abt sudah diusulkan');
         }
+        if (!$pompanisasi) $pompanisasi = Pompanisasi::create(['desa_id' => $request->desa_id]);
         PompaAbtUsulan::create([...$request->except(['_token', 'desa_id']), 'pompanisasi_id' => $pompanisasi->id]);
         return redirect()->route('kecamatan.pompa.abt.usulan')->with('success', 'berhasil menambahkan data');
     }
@@ -97,31 +99,20 @@ class KecamatanController extends Controller
         if (!$user) return redirect()->route('login');
         $request->validate([
             'desa_id' => 'required',
-            'nama_poktan' => 'required',
+            'total_unit' => 'required',
         ], [
             'desa_id.required' => 'desa id cannot be null',
-            'nama_poktan.required' => 'nama poktan cannot be null',
+            'total_unit.required' => 'total unit cannot be null',
         ]);
-        $diterima = PompaAbtDiterima::create([...$request->except(['_token', 'desa_id']), 'tanggal' => date('Y-m-d')]);
-        if (!$diterima) return back()->withErrors('gagal menambahkan data');
-        $pompanisasi_kec = Pompanisasi::where([
-            ['desa_id', '=', $request->desa_id],
-            ['pompa_abt_kec_diterima_id', '=', $diterima->id],
-        ])->first();
-        if (!$pompanisasi_kec) {
-            Pompanisasi::create([
-                'desa_id' => $request->desa_id,
-                'luas_lahan' => $request->luas_lahan ? $request->luas_lahan : 0,
-                'pompa_abt_kec_diterima_id' => $diterima->id,
-            ]);
-        } else {
-            $pompanisasi_kec->update([
-                'desa_id' => $request->desa_id,
-                'luas_lahan' => $request->luas_lahan ? $pompanisasi_kec->luas_lahan + $request->luas_lahan : 0,
-                'pompa_abt_kec_diterima_id' => $diterima->id,
-            ]);
-        }
-        return redirect()->route('kecamatan.dashboard')->with('success', 'berhasil menambahkan data');
+        $pompanisasi = Pompanisasi::where('desa_id', $request->desa_id)->get()->last();
+        if (!$pompanisasi) return redirect()->route('kecamatan.pompa.abt.diterima')->withErrors('pompanisasi tidak ditemukan');
+        if (!$pompanisasi->pompa_abt_usulan)  return redirect()->route('kecamatan.pompa.abt.diterima')->withErrors('data pompa abt diusulkan tidak ada');
+        if ($pompanisasi->pompa_abt_usulan && $pompanisasi->pompa_abt_usulan->pompa_abt_diterima) return redirect()->route('kecamatan.pompa.abt.diterima')->withErrors('data sudah ada');
+        PompaAbtDiterima::create([
+            ...$request->except(['_token', 'desa_id']),
+            'pompa_abt_usulan_id' => $pompanisasi->pompa_abt_usulan->id,
+        ]);
+        return redirect()->route('kecamatan.pompa.abt.diterima')->with('success', 'berhasil menambahkan data');
     }
 
     public function storeAbtDigunakan(Request $request) {
@@ -130,31 +121,29 @@ class KecamatanController extends Controller
         $request->validate([
             'desa_id' => 'required',
             'nama_poktan' => 'required',
-            'luas_terairi' => 'required',
+            'luas_lahan' => 'required',
+            'total_unit' => 'required',
+            'gambar' => 'required',
+            'tanggal' => 'required',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
-            'luas_terairi.required' => 'luas terairi cannot be null',
+            'luas_lahan.required' => 'luas lahan cannot be null',
         ]);
-        $digunakan = PompaAbtDimanfaatkan::create([...$request->except(['_token', 'desa_id']), 'tanggal' => date('Y-m-d')]);
-        if (!$digunakan) return back()->withErrors('gagal menambahkan data');
-        $pompanisasi_kec = Pompanisasi::where([
-            ['desa_id', '=', $request->desa_id],
-            ['pompa_abt_kec_digunakan_id', '=', $digunakan->id],
-        ])->first();
-        if (!$pompanisasi_kec) {
-            Pompanisasi::create([
-                'desa_id' => $request->desa_id,
-                'luas_lahan' => $request->luas_lahan ? $request->luas_lahan : 0,
-                'pompa_abt_kec_digunakan_id' => $digunakan->id,
-            ]);
-        } else {
-            $pompanisasi_kec->update([
-                'desa_id' => $request->desa_id,
-                'luas_lahan' => $request->luas_lahan ? $pompanisasi_kec->luas_lahan + $request->luas_lahan : 0,
-                'pompa_abt_kec_digunakan_id' => $digunakan->id,
-            ]);
-        }
-        return redirect()->route('kecamatan.dashboard')->with('success', 'berhasil menambahkan data');
+        $pompanisasi = Pompanisasi::where('desa_id', $request->desa_id)->get()->last();
+        if (!$pompanisasi) return redirect()->route('kecamatan.pompa.abt.digunakan')->withErrors('pompanisasi tidak ditemukan');
+        if (!$pompanisasi->pompa_abt_usulan) return redirect()->route('kecamatan.pompa.abt.diterima')->withErrors('data pompa abt diusulkan tidak ada');
+        if ($pompanisasi->pompa_abt_usulan && !$pompanisasi->pompa_abt_usulan->pompa_abt_diterima) return redirect()->route('kecamatan.pompa.abt.diterima')->withErrors('data pompa abt diterima tidak ada');
+        if ($pompanisasi->pompa_abt_usulan && $pompanisasi->pompa_abt_usulan->pompa_abt_diterima && $pompanisasi->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) return redirect()->route('kecamatan.pompa.abt.diterima')->withErrors('data pompa abt dimanfaatkan sudah ada');
+        
+        $filename = $request->gambar->hashName();
+        $request->gambar->move(storage_path('app/public/pompanisasi', $filename));
+        $url_gambar = "/storage/pompanisasi/$filename";
+        PompaAbtDimanfaatkan::create([
+            ...$request->except(['_token', 'desa_id', 'gambar']),
+            'pompa_abt_diterima_id' => $pompanisasi->pompa_abt_usulan->pompa_abt_diterima->id,
+            'url_gambar' => $url_gambar,
+        ]);
+        return redirect()->route('kecamatan.pompa.abt.digunakan')->with('success', 'berhasil menambahkan data');
     }
 }
