@@ -97,6 +97,37 @@
             @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item {{ $users->currentPage()==1?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $users->currentPage()-1]) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item {{ $users->currentPage()==1?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => 1]) }}" aria-label="Previous">
+                    <span aria-hidden="true">First</span>
+                    </a>
+                </li>
+                @for ($i = 1; $i <= $users->lastPage(); $i++)
+                    @if ($i>($users->currentPage()-5) && $i<($users->currentPage()+5))
+                        <li class="page-item {{ $users->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $i]) }}">{{ $i }}</a></li>
+                    @endif
+                @endfor
+                <li class="page-item {{ $users->currentPage()==$users->lastPage()?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $users->lastPage()]) }}" aria-label="Next">
+                    <span aria-hidden="true">Last</span>
+                    </a>
+                </li>
+                <li class="page-item {{ $users->currentPage()==$users->lastPage()?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $users->currentPage()+1]) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 
 <!-- Modal -->
