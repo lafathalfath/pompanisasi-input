@@ -172,7 +172,7 @@ class KecamatanController extends Controller
         if ($pompanisasi->pompa_abt_usulan && $pompanisasi->pompa_abt_usulan->pompa_abt_diterima && $pompanisasi->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) return redirect()->route('kecamatan.pompa.abt.diterima')->withErrors('data pompa abt dimanfaatkan sudah ada');
         
         $filename = $request->gambar->hashName();
-        $request->gambar->move(storage_path('app/public/pompanisasi', $filename));
+        $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
         $url_gambar = "/storage/pompanisasi/$filename";
         PompaAbtDimanfaatkan::create([
             ...$request->except(['_token', 'desa_id', 'gambar']),

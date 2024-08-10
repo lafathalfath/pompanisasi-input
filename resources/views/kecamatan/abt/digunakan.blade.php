@@ -61,7 +61,7 @@
                         <td>{{ $ad->pompa_6_inch }}</td>
                         <td>{{ $ad->total_unit }}</td>
                         <td>08123456789</td>
-                        <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                        <td><a href="{{ route('kecamatan.pompa.abt.digunakan.detail', Crypt::encryptString($ad->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
                     </tr>
                 @empty
                     <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
