@@ -68,29 +68,45 @@ class PompaController extends Controller
         return view('kecamatan.abt.diterima', ['desa' => $desa, 'abt_diterima' => $abt_diterima]);
     }
     public function abtDigunakanView() {
-        return view('kecamatan.abt.digunakan');
+        $user = Auth::user();
+        $desa = [];
+        $abt_dimanfaatkan = [];
+        if ($user->kecamatan) {
+            $desa = $user->kecamatan->desa;
+            foreach ($desa as $des) {
+                foreach ($des->pompanisasi as $pom) {
+                    if ($pom->pompa_abt_usulan && $pom->pompa_abt_usulan->pompa_abt_diterima && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) $abt_dimanfaatkan[] = $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan;
+                }
+            }
+        }
+        return view('kecamatan.abt.digunakan', ['desa' => $desa, 'abt_dimanfaatkan' => $abt_dimanfaatkan]);
     }
+
+    //
     public function refocusingUsulan() {
         return view('kecamatan.pompaRefocusingUsulanForm');
-    }
+    }//
 
     // form
     public function refocusingDiterima() {
         $user = Auth::user();
-        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
+        $desa = [];
+        if ($user->kecamatan) foreach ($user->kecamatan->desa as $des) {
+            if (count($des->pompanisasi)==0) $desa[] = $des;
+            foreach ($des->pompanisasi as $pom) {
+                if (!$pom->pompa_ref_diterima) $desa[] = $des;
+                if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $desa[] = $des;
+            }
+        }
         return view('kecamatan.pompaRefocusingDiterimaForm', ['desa' => $desa]);
     }
     public function refocusingDigunakan() {
         $user = Auth::user();
         // $desa = $user->kecamatan->desa;
         $desa = [];
-        if ($user->kecamatan) {
-            foreach ($user->kecamatan->desa as $des) {
-                if ($des->pompanisasi) {
-                    foreach ($des->pompanisasi as $pom) {
-                        if ($pom->pompa_ref_diterima && !$pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $desa[] = $des;
-                    }
-                }
+        if ($user->kecamatan) foreach ($user->kecamatan->desa as $des) {
+            if ($des->pompanisasi) foreach ($des->pompanisasi as $pom) {
+                if ($pom->pompa_ref_diterima && !$pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $desa[] = $des;
             }
         }
         return view('kecamatan.pompaRefocusingDigunakanForm', ['desa' => $desa]);
@@ -99,13 +115,34 @@ class PompaController extends Controller
 
     public function abtUsulan() {
         $user = Auth::user();
-        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
+        $desa = [];
+        if ($user->kecamatan) foreach ($user->kecamatan->desa as $des) {
+            if (count($des->pompanisasi)==0) $desa[] = $des;
+            foreach ($des->pompanisasi as $pom) {
+                if (!$pom->pompa_abt_usulan) $desa[] = $des;
+                elseif ($pom->pompa_abt_usulan && $pom->pompa_abt_usulan->pompa_abt_diterima && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) $desa[] = $des;
+            }
+        }
         return view('kecamatan.pompaAbtUsulanForm', ['desa' => $desa]);
     }
     public function abtDiterima() {
-        return view('kecamatan.pompaAbtDiterimaForm');
+        $user = Auth::user();
+        $desa = [];
+        if ($user->kecamatan) foreach ($user->kecamatan->desa as $des) {
+            if ($des->pompanisasi) foreach ($des->pompanisasi as $pom) {
+                if ($pom->pompa_abt_usulan && !$pom->pompa_abt_usulan->pompa_abt_diterima) $desa[] = $des;
+            }
+        }
+        return view('kecamatan.pompaAbtDiterimaForm', ['desa' => $desa]);
     }
     public function abtDigunakan() {
-        return view('kecamatan.pompaAbtDigunakanForm');
+        $user = Auth::user();
+        $desa = [];
+        if ($user->kecamatan) foreach ($user->kecamatan->desa as $des) {
+            if ($des->pompanisasi) foreach ($des->pompanisasi as $pom) {
+                if ($pom->pompa_abt_usulan && $pom->pompa_abt_usulan->pompa_abt_diterima && !$pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) $desa[] = $des;
+            }
+        }
+        return view('kecamatan.pompaAbtDigunakanForm', ['desa' => $desa]);
     }
 }

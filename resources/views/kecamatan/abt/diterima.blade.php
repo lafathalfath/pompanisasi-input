@@ -37,7 +37,7 @@
                     <th rowspan="2">Kelompok <br>tani</th>
                     <th rowspan="2">Luas lahan <br>(ha)</th>
                     <th colspan="3" class="text-center">Pompa ABT Diterima</th>
-                    <th rowspan="2">Total <br>diusulkan</th>
+                    <th rowspan="2">Total <br>diterima</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
                     <th rowspan="2">Aksi</th>
                 </tr>
