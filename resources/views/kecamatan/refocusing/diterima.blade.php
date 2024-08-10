@@ -39,7 +39,7 @@
                     <th colspan="3" class="text-center">Pompa Refocusing Diterima</th>
                     <th rowspan="2">Total diterima</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
-                    <th rowspan="2">Aksi</th>
+                    {{-- <th rowspan="2">Aksi</th> --}}
                     {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
                 </tr>
                 <tr>
@@ -61,7 +61,7 @@
                         <td>{{ $rd->pompa_6_inch }}</td>
                         <td>{{ $rd->total_unit }}</td>
                         <td>08123456789</td>
-                        <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                        {{-- <td><a href="" class="btn btn-sm btn-info">Detail</a></td> --}}
                     </tr>
                 @empty
                     <tr><td colspan="11" class="text-center">Belum ada data</td></tr>

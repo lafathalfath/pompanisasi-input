@@ -39,7 +39,7 @@
                     <th colspan="3" class="text-center">Usulan Pompa ABT</th>
                     <th rowspan="2">Total <br>diusulkan</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
-                    <th rowspan="2">Aksi</th>
+                    {{-- <th rowspan="2">Aksi</th> --}}
                 </tr>
                 <tr>
                     <th>3 inch <br>(unit)</th>
@@ -60,7 +60,7 @@
                     <td>{{ $au->pompa_6_inch }}</td>
                     <td>{{ $au->total_unit }}</td>
                     <td>{{ $au->no_hp_poktan }}</td>
-                    <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                    {{-- <td><a href="" class="btn btn-sm btn-info">Detail</a></td> --}}
                 </tr>
                 @empty
                     <tr>

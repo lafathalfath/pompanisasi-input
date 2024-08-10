@@ -116,12 +116,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
-        Route::get('/detailRefocusingDigunakan', function () {
-            return view('kecamatan.detailRefocusingDigunakan');
-        });
-        Route::get('/detailAbtDigunakan', function () {
-            return view('kecamatan.detailAbtDigunakan');
-        });
 
         Route::get('/inputLuasTanam', [LuasTanamController::class, 'index'])->name('kecamatan.inputLuasTanam');
         Route::post('/inputLuasTanam', [LuasTanamController::class, 'store'])->name('kecamatan.inputLuasTanam.store');
@@ -129,11 +123,13 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [PompaController::class, 'refDiterimaView'])->name('kecamatan.pompa.ref.diterima');
             Route::get('/digunakan', [PompaController::class, 'refDigunakanView'])->name('kecamatan.pompa.ref.digunakan');
+            Route::get('/digunakan/{id}/detail', [PompaController::class, 'refDigunakanDetail'])->name('kecamatan.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
             Route::get('/usulan', [PompaController::class, 'abtUsulanView'])->name('kecamatan.pompa.abt.usulan');
             Route::get('/diterima', [PompaController::class, 'abtDiterimaView'])->name('kecamatan.pompa.abt.diterima');
             Route::get('/digunakan', [PompaController::class, 'abtDigunakanView'])->name('kecamatan.pompa.abt.digunakan');
+            Route::get('/digunakan/{id}/detal', [PompaController::class, 'abtDigunakanDetail'])->name('kecamatan.pompa.abt.digunakan.detail');
         });
         Route::prefix('/pompa/refocusing/form')->group(function () {
             Route::get('/diterima', [PompaController::class, 'refocusingDiterima'])->name('kecamatan.refocusing.diterima.input');

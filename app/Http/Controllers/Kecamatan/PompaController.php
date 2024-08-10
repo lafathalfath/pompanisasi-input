@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Kecamatan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Desa;
+use App\Models\PompaAbtDimanfaatkan;
+use App\Models\PompaRefDimanfaatkan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class PompaController extends Controller
 {
@@ -23,7 +26,6 @@ class PompaController extends Controller
         // dd('zcv');
         return view('kecamatan.refocusing.diterima', ['desa' => $desa, 'ref_diterima' => $ref_diterima]);
     }
-
     public function refDigunakanView() {
         $user = Auth::user();
         $desa = $user->kecamatan ? $user->kecamatan->desa : [];
@@ -36,6 +38,11 @@ class PompaController extends Controller
             }
         }
         return view('kecamatan.refocusing.digunakan', ['desa' => $desa, 'ref_dimanfaatkan' => $ref_dimanfaatkan]);
+    }
+    public function refDigunakanDetail($id) {
+        $id = Crypt::decryptString($id);
+        $ref_dimanfaatkan = PompaRefDimanfaatkan::find($id);
+        return view('kecamatan.detailRefocusingDigunakan', ['ref_dimanfaatkan' => $ref_dimanfaatkan]);
     }
 
 
@@ -80,6 +87,12 @@ class PompaController extends Controller
             }
         }
         return view('kecamatan.abt.digunakan', ['desa' => $desa, 'abt_dimanfaatkan' => $abt_dimanfaatkan]);
+    }
+
+    public function abtDigunakanDetail($id) {
+        $id = Crypt::decryptString($id);
+        $abt_dimanfaatkan = PompaAbtDimanfaatkan::find($id);
+        return view('kecamatan.detailAbtDigunakan', ['abt_dimanfaatkan' => $abt_dimanfaatkan]);
     }
 
     //
