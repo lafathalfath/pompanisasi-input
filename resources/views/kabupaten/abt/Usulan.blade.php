@@ -15,6 +15,7 @@
 </style>
 <div class="d-flex flex-col justify-content-center">
     <div>
+        <br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">

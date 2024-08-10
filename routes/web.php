@@ -10,6 +10,7 @@ use App\Http\Controllers\Kecamatan\KecamatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
+use App\Http\Controllers\Kabupaten\KabupatenRefocusingController;
 use App\Http\Controllers\Kecamatan\LuasTanamController;
 use App\Http\Controllers\Kecamatan\PompaController;
 use App\Http\Controllers\LokasiController;
@@ -111,6 +112,15 @@ Route::middleware('auth')->group(function () {
             return view('kabupaten.detailkecamatan');
         })->name('kabupaten.detailkecamatan');
         Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
+        Route::prefix('/pompa/refocusing')->group(function () {
+            Route::get('/diterima', [KabupatenRefocusingController::class, 'diterimaView'])->name('kabupaten.pompa.ref.diterima');
+            Route::get('/digunakan', [KabupatenRefocusingController::class, 'digunakanView'])->name('kabupaten.pompa.ref.digunakan');
+        });
+        Route::prefix('/pompa/abt')->group(function () {
+            Route::get('/usulan', function () {return view('kabupaten.abt.Usulan');})->name('kabupaten.pompa.abt.usulan');
+            Route::get('/diterima', function () {return view('kabupaten.abt.Diterima');})->name('kabupaten.pompa.abt.diterima');
+            Route::get('/digunakan', function () {return view('kabupaten.abt.Digunakan');})->name('kabupaten.pompa.abt.digunakan');
+        });
     });
 
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
