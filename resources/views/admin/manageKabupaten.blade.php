@@ -63,6 +63,37 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{ $kabupaten->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kabupaten', ['nama' => request()->query('nama'), 'page' => $kabupaten->currentPage()-1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $kabupaten->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kabupaten', ['nama' => request()->query('nama'), 'page' => 1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $kabupaten->lastPage(); $i++)
+                        @if ($i>($kabupaten->currentPage()-5) && $i<($kabupaten->currentPage()+5))
+                            <li class="page-item {{ $kabupaten->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('admin.manage.kabupaten', ['nama' => request()->query('nama'), 'page' => $i]) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item {{ $kabupaten->currentPage()==$kabupaten->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kabupaten', ['nama' => request()->query('nama'), 'page' => $kabupaten->lastPage()]) }}" aria-label="Next">
+                        <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $kabupaten->currentPage()==$kabupaten->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kabupaten', ['nama' => request()->query('nama'), 'page' => $kabupaten->currentPage()+1]) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <!-- Modal -->

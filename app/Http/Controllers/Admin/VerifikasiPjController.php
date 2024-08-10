@@ -16,7 +16,7 @@ class VerifikasiPjController extends Controller
     public function index() {
         $users = User::where('role_id', '!=', 1)
             ->where('id', '!=', Auth::user()->id)
-            ->get();
+            ->paginate(10);
         foreach ($users as $us) {
             if ($us->role_id == 2) $us->region = Wilayah::find($us->region_id);
             else if ($us->role_id == 3) $us->region = Provinsi::find($us->region_id);
