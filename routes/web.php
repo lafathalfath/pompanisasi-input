@@ -9,11 +9,13 @@ use App\Http\Controllers\Admin\VerifikasiPjController;
 use App\Http\Controllers\Kecamatan\KecamatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Kabupaten\KabupatenAbtController;
 use App\Http\Controllers\Kabupaten\KabupatenController;
 use App\Http\Controllers\Kabupaten\KabupatenRefocusingController;
 use App\Http\Controllers\Kecamatan\LuasTanamController;
 use App\Http\Controllers\Kecamatan\PompaController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\Nasional\NasionalController;
 use App\Http\Controllers\Poktan\PoktanController;
 use App\Http\Controllers\Provinsi\ProvinsiController;
 use App\Http\Controllers\Wilayah\WilayahController;
@@ -49,7 +51,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::prefix('/admin')->group(function () {
+    Route::prefix('/admin')->middleware('access:admin')->group(function () {
         Route::get('/', function () {return redirect()->route('admin.dashboard');});
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
@@ -68,6 +70,20 @@ Route::middleware('auth')->group(function () {
             Route::get('/desa', [DesaController::class, 'index'])->name('admin.manage.desa');
             Route::post('/desa', [DesaController::class, 'store'])->name('admin.manage.desa.store');
             Route::put('/desa/{id}', [DesaController::class, 'update'])->name('admin.manage.desa.update');
+        });
+    });
+
+    Route::prefix('/nasional')->middleware('access:nasional')->group(function () {
+        Route::get('/', function () {return redirect()->route('nasional.dashboard');});
+        Route::get('/dashboard', [NasionalController::class, 'index'])->name('nasional.dashboard');
+        Route::prefix('/pompa/refocusing')->group(function () {
+            Route::get('/diterima', function () {return view('nasional.refocusing.diterima');})->name('nasional.pompa.ref.diterima');
+            Route::get('/digunakan', function () {return view('nasional.refocusing.digunakan');})->name('nasional.pompa.ref.digunakan');
+        });
+        Route::prefix('/pompa/abt')->group(function () {
+            Route::get('/usulan', function () {return view('nasional.abt.usulan');})->name('nasional.pompa.abt.usulan');
+            Route::get('/diterima', function () {return view('nasional.abt.diterima');})->name('nasional.pompa.abt.diterima');
+            Route::get('/digunakan', function () {return view('nasional.abt.digunakan');})->name('nasional.pompa.abt.digunakan');
         });
     });
 
@@ -117,9 +133,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan', [KabupatenRefocusingController::class, 'digunakanView'])->name('kabupaten.pompa.ref.digunakan');
         });
         Route::prefix('/pompa/abt')->group(function () {
-            Route::get('/usulan', function () {return view('kabupaten.abt.Usulan');})->name('kabupaten.pompa.abt.usulan');
-            Route::get('/diterima', function () {return view('kabupaten.abt.Diterima');})->name('kabupaten.pompa.abt.diterima');
-            Route::get('/digunakan', function () {return view('kabupaten.abt.Digunakan');})->name('kabupaten.pompa.abt.digunakan');
+            Route::get('/usulan', [KabupatenAbtController::class, 'usulanView'])->name('kabupaten.pompa.abt.usulan');
+            Route::get('/diterima', [KabupatenAbtController::class, 'diterimaView'])->name('kabupaten.pompa.abt.diterima');
+            Route::get('/digunakan', [KabupatenAbtController::class, 'digunakanView'])->name('kabupaten.pompa.abt.digunakan');
         });
     });
 

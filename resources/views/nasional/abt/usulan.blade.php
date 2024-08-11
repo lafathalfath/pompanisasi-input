@@ -1,4 +1,4 @@
-@extends('layouts.wilayah')
+@extends('layouts.nasional')
 @section('content')
 <style>
         .table thead th {

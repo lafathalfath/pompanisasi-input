@@ -64,7 +64,7 @@
                         @php
                             $region = $user->region;
                         @endphp
-                        {{ $region->nama }}
+                        {{ $region ? $region->nama : '-' }}
                         @if ($user->role_id == 5)
                             {{ '- '.$region->kabupaten->nama }}
                             {{ '-'.$region->kabupaten->provinsi->nama }}

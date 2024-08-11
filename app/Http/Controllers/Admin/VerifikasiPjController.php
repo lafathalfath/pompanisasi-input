@@ -34,8 +34,10 @@ class VerifikasiPjController extends Controller
         else if ($user->role_id == 3) $region = Provinsi::find($user->region_id);
         else if ($user->role_id == 4) $region = Kabupaten::find($user->region_id);
         else if ($user->role_id == 5) $region = Kecamatan::find($user->region_id);
-        if ($region->pj_id) return back()->withErrors('pj region ini telah di assign');
-        $region->update(['pj_id' => $user->id]);
+        if ($region) {
+            if ($region->pj_id) return back()->withErrors('pj region ini telah di assign');
+            $region->update(['pj_id' => $user->id]);
+        }
         $user->update(['status_verifikasi' => 'terverifikasi']);
         return back()->with('success', "Berhasil verifikasi: $user->nama");
     }
