@@ -128,6 +128,7 @@ Route::middleware('auth')->group(function () {
             return view('kabupaten.detailkecamatan');
         })->name('kabupaten.detailkecamatan');
         Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
+        Route::put('/verifikasi-data/{kec_id}', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data.verifikasi');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [KabupatenRefocusingController::class, 'diterimaView'])->name('kabupaten.pompa.ref.diterima');
             Route::get('/digunakan', [KabupatenRefocusingController::class, 'digunakanView'])->name('kabupaten.pompa.ref.digunakan');

@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Kabupaten;
 
 use App\Http\Controllers\Controller;
+use App\Traits\ArrayPaginator;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class KabupatenRefocusingController extends Controller
 {
+    use ArrayPaginator;
+
     public function diterimaView() {
         $user = Auth::user();
         $kecamatan = [];
@@ -66,6 +71,8 @@ class KabupatenRefocusingController extends Controller
                 ];
             }
         }
+        $ref_digunakan = $this->paginate($ref_digunakan, 10);
+        // dd($ref_digunakan);
         return view('kabupaten.refocusing.Digunakan', ['kecamatan' => $kecamatan, 'ref_digunakan' => $ref_digunakan]);
     }
 }
