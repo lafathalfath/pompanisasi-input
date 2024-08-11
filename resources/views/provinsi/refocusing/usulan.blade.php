@@ -40,6 +40,8 @@
                     <th rowspan="2">Luas Lahan (ha)</th>
                     <th colspan="3" class="text-center">Pompa Refocusing Diterima</th>
                     <th rowspan="2">No HP Poktan (jika ada)</th>
+                    <th rowspan="2">Aksi</th>
+
                 </tr>
                 <tr>
                     <th>3 inch (unit)</th>
