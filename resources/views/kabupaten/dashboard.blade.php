@@ -51,11 +51,11 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;">8</td>
+                    <td style="padding: 10px 20px;" id="ref_diterima">8</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;">7</td>
+                    <td style="padding: 10px 20px;" id="ref_digunakan">7</td>
                 </tr>
             </tbody>
         </table>
@@ -68,15 +68,15 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;">15</td>
+                    <td style="padding: 10px 20px;" id="abt_usulan">15</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;">13</td>
+                    <td style="padding: 10px 20px;" id="abt_diterima">13</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;">10</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">10</td>
                 </tr>
             </tbody>
         </table>
@@ -109,24 +109,28 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    
     // Data dari tabel
-    var refocusingUsulan = 10;
-    var refocusingDiterima = 8;
-    var refocusingDigunakan = 7;
+    // var refocusingUsulan = 10;
+    var refocusingDiterima = parseInt(document.getElementById('ref_diterima').innerHTML)
+    var refocusingDigunakan = parseInt(document.getElementById('ref_digunakan').innerHTML)
 
-    var abtUsulan = 15;
-    var abtDiterima = 13;
-    var abtDigunakan = 10;
-</script>
-<script>
+    var abtUsulan = parseInt(document.getElementById('abt_usulan').innerHTML)
+    var abtDiterima = parseInt(document.getElementById('abt_diterima').innerHTML)
+    var abtDigunakan = parseInt(document.getElementById('abt_digunakan').innerHTML)
 
     // Menghitung persentase baru
 
-    var refocusingDiterimaPercent = (refocusingDiterima / refocusingUsulan) * 100;
-    var refocusingDigunakanPercent = (refocusingDigunakan / refocusingUsulan) * 100;
+    // var refocusingDiterimaPercent = (refocusingDiterima / refocusingUsulan) * 100;
+    // var refocusingDigunakanPercent = (refocusingDigunakan / refocusingUsulan) * 100;
+    var refocusingDiterimaPercent = (refocusingDiterima / (refocusingDiterima + refocusingDigunakan)) * 100
+    var refocusingDigunakanPercent = (refocusingDigunakan / (refocusingDiterima + refocusingDigunakan)) * 100
 
-    var abtDiterimaPercent = (abtDiterima / abtUsulan) * 100;
-    var abtDigunakanPercent = (abtDigunakan / abtUsulan) * 100;
+    // var abtDiterimaPercent = (abtDiterima / abtUsulan) * 100;
+    // var abtDigunakanPercent = (abtDigunakan / abtUsulan) * 100;
+    var abtUsulanPercent = (abtUsulan / (abtUsulan + abtDiterima + abtDigunakan)) * 100
+    var abtDiterimaPercent = (abtDiterima / (abtUsulan + abtDiterima + abtDigunakan)) * 100
+    var abtDigunakanPercent = (abtDigunakan / (abtUsulan + abtDiterima + abtDigunakan)) * 100
 
     var ctx = document.getElementById('rekapDataChart').getContext('2d');
     var rekapDataChart = new Chart(ctx, {
@@ -134,6 +138,11 @@
         data: {
             labels: ['Refocusing', 'ABT'],
             datasets: [
+                {
+                    label: 'Usulan (unit)',
+                    data: [null, abtUsulanPercent],
+                    backgroundColor: '#00aa11', // Hijau
+                },
                 {
                     label: 'Diterima (unit)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
