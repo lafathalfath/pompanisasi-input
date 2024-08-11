@@ -53,7 +53,7 @@
             </tr>
         </thead>
         <tbody id="data-table-body">
-            @foreach ($users as $user)
+            @foreach ($users as $key=>$user)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $user->nama }}</td>
@@ -64,9 +64,17 @@
                         @php
                             $region = $user->region;
                         @endphp
-                        {{ $region->nama }}
-                        {{ $region->kabupaten ? '- '.$region->kabupaten->nama : '' }}
-                        {{ $region->kabupaten && $region->kabupaten->provinsi ? '- '.$region->kabupaten->provinsi->nama : '' }}
+                        {{ $region ? $region->nama : '-' }}
+                        @if ($user->role_id == 5)
+                            {{ '- '.$region->kabupaten->nama }}
+                            {{ '-'.$region->kabupaten->provinsi->nama }}
+                            {{ '- '.$region->kabupaten->provinsi->wilayah->nama }}
+                        @elseif ($user->role_id == 4)
+                            {{ '-'.$region->provinsi->nama }}
+                            {{ '- '.$region->provinsi->wilayah->nama }}
+                        @elseif ($user->role_id == 3)
+                            {{ '- '.$region->wilayah->nama }}
+                        @endif
                     </td>
                     <td>
                             <div class="badge
@@ -89,6 +97,37 @@
             @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item {{ $users->currentPage()==1?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $users->currentPage()-1]) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item {{ $users->currentPage()==1?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => 1]) }}" aria-label="Previous">
+                    <span aria-hidden="true">First</span>
+                    </a>
+                </li>
+                @for ($i = 1; $i <= $users->lastPage(); $i++)
+                    @if ($i>($users->currentPage()-5) && $i<($users->currentPage()+5))
+                        <li class="page-item {{ $users->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $i]) }}">{{ $i }}</a></li>
+                    @endif
+                @endfor
+                <li class="page-item {{ $users->currentPage()==$users->lastPage()?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $users->lastPage()]) }}" aria-label="Next">
+                    <span aria-hidden="true">Last</span>
+                    </a>
+                </li>
+                <li class="page-item {{ $users->currentPage()==$users->lastPage()?'disabled':'' }}">
+                    <a class="page-link" href="{{ route('admin.verifikasiPj', ['page' => $users->currentPage()+1]) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 
 <!-- Modal -->

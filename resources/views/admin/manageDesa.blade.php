@@ -67,6 +67,37 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{ $desa->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.desa', ['nama' => request()->query('nama'), 'page' => $desa->currentPage()-1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $desa->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.desa', ['nama' => request()->query('nama'), 'page' => 1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $desa->lastPage(); $i++)
+                        @if ($i>($desa->currentPage()-5) && $i<($desa->currentPage()+5))
+                            <li class="page-item {{ $desa->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('admin.manage.desa', ['nama' => request()->query('nama'), 'page' => $i]) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item {{ $desa->currentPage()==$desa->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.desa', ['nama' => request()->query('nama'), 'page' => $desa->lastPage()]) }}" aria-label="Next">
+                        <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $desa->currentPage()==$desa->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.desa', ['nama' => request()->query('nama'), 'page' => $desa->currentPage()+1]) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
     
     <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">

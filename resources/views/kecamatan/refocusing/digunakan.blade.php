@@ -36,7 +36,7 @@
                     <th rowspan="2">Tanggal</th>
                     <th rowspan="2">Kelompok <br>tani</th>
                     <th rowspan="2">Luas lahan <br>(ha)</th>
-                    <th colspan="3" class="text-center">Pompa Refocusing Digunakan</th>
+                    <th colspan="3" class="text-center">Pompa Refocusing Dimanfaatkan</th>
                     <th rowspan="2">Total <br>dimanfaatkan</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
                     <th rowspan="2">Aksi</th>
@@ -61,7 +61,7 @@
                         <td>{{ $rd->pompa_6_inch }}</td>
                         <td>{{ $rd->total_unit }}</td>
                         <td>{{ $rd->no_hp_poktan }}</td>
-                        <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                        <td><a href="{{ route('kecamatan.pompa.ref.digunakan.detail', Crypt::encryptString($rd->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
                         {{-- <td>0</td> --}}
                     </tr>
                 @empty

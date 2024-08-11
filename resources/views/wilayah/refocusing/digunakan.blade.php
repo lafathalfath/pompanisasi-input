@@ -13,6 +13,8 @@
                     <th rowspan="2">Luas lahan (ha)</th>
                     <th colspan="3" class="text-center">Pompa Refocusing Diterima</th>
                     <th rowspan="2">No HP Poktan (jika ada)</th>
+                    <th rowspan="2">Aksi</th>
+
                     {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
                 </tr>
                 <tr>
@@ -33,7 +35,7 @@
                     <td>0</td>
                     <td>0</td>
                     <td>08123456789</td>
-                    <td><a href="{{ route('provinsi.detailprovinsi') }}" class="btn btn-sm btn-info">Detail</a></td>
+                    <td><a href="{{ route('wilayah.detailprovinsi') }}" class="btn btn-sm btn-info">Detail</a></td>
                 </tr>
             </tbody>
         </table>
