@@ -10,6 +10,9 @@
         text-decoration: none !important;
         color: black;
     }
+    .content{
+        margin-left: 200px;
+    }
 </style>
 <div class="d-flex flex-col justify-content-center">
     <div>
