@@ -17,7 +17,7 @@
             }
 
             .sidebar {
-                width: 180px;
+                width: 200px;
                 background-color: #007b83;
                 color: white;
                 height: 100%;
