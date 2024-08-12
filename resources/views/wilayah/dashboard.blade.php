@@ -41,7 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                 <tr>
+                <tr>
                     <td style="font-weight: bold;">Refocusing Usulan</td>
                     <td style="padding: 10px 20px;">0</td>
                 </tr>

@@ -130,29 +130,31 @@
         $(".js-example-templating").select2();
 
         $('#role').change((e) => {
-            $.ajax({
-                type: 'GET',
-                url: `/api/get-region/${e.target.value}`,
-                beforeSend: () => {
-                    $('#pj_region').html('<option disabled selected>Waiting...</option>');
-                },
-                success: ({data}) => {
-                    let options = '<option selected>Pilih Region</option>';
-                    data.forEach((region) => {
-                        options += `<option value="${region.id}">
-                            ${region.nama}
-                            ${region.nama_kabupaten ? `- ${region.nama_kabupaten}` : ''}
-                            ${region.nama_provinsi ? `- ${region.nama_provinsi}` : ''}
-                        </option>`;
-                    });
-                    $('#pj_region').html(options);
-                },
-                error: (err) => {
-                    console.error(err)
-                },
-            })
+            if (e.target.value != 6) {
+                $.ajax({
+                    type: 'GET',
+                    url: `/api/get-region/${e.target.value}`,
+                    beforeSend: () => {
+                        $('#pj_region').html('<option disabled selected>Waiting...</option>');
+                    },
+                    success: ({data}) => {
+                        let options = '<option selected>Pilih Region</option>';
+                        data.forEach((region) => {
+                            options += `<option value="${region.id}">
+                                ${region.nama}
+                                ${region.nama_kabupaten ? `- ${region.nama_kabupaten}` : ''}
+                                ${region.nama_provinsi ? `- ${region.nama_provinsi}` : ''}
+                            </option>`;
+                        });
+                        $('#pj_region').html(options);
+                    },
+                    error: (err) => {
+                        console.error(err)
+                    },
+                })
 
-            $('#pj_region').prop('disabled', e.target.name == '')
+                $('#pj_region').prop('disabled', e.target.name == '')
+            } else $('#pj_region').prop('disabled', true)
         })
     })
 </script>

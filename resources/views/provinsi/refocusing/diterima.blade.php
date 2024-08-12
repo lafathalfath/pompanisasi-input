@@ -1,4 +1,4 @@
-@extends('layouts.wilayah')
+@extends('layouts.provinsi')
 @section('content')
 <div class="d-flex flex-col justify-content-center">
     <div>
@@ -13,7 +13,7 @@
                     <th rowspan="2">Luas lahan (ha)</th>
                     <th colspan="3" class="text-center">Pompa Refocusing Diterima</th>
                     <th rowspan="2">No HP Poktan (jika ada)</th>
-                    {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+                    <th rowspan="2">Aksi</th>
                 </tr>
                 <tr>
                     <th>3 inch (unit)</th>
