@@ -86,6 +86,9 @@
                 <tr>
                     <th>No.</th>
                     <th>Tanggal</th>
+                    <th>Wilayah</th>
+                    <th>Provinsi</th>
+                    <th>Kabupaten</th>
                     <th>Kecamatan</th>
                     <th>Desa</th>
                     <th>Luas Tanam (ha)</th>
@@ -94,6 +97,9 @@
             <tbody>
         
                     <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
                         <td>-</td>
                         <td>-</td>
                         <td>-</td>
