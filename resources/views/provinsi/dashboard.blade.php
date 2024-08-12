@@ -51,11 +51,11 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;" id="ref_diterima">{{ $pompanisasi->ref_diterima }}</td>
+                    <td style="padding: 10px 20px;" id="ref_diterima">-</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;" id="ref_digunakan">{{ $pompanisasi->ref_dimanfaatkan }}</td>
+                    <td style="padding: 10px 20px;" id="ref_digunakan">-</td>
                 </tr>
             </tbody>
         </table>
@@ -68,15 +68,15 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;" id="abt_usulan">{{ $pompanisasi->abt_usulan }}</td>
+                    <td style="padding: 10px 20px;" id="abt_usulan">-</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;" id="abt_diterima">{{ $pompanisasi->abt_diterima }}</td>
+                    <td style="padding: 10px 20px;" id="abt_diterima">-</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $pompanisasi->abt_dimanfaatkan }}</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
                 </tr>
             </tbody>
         </table>
