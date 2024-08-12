@@ -19,23 +19,40 @@ class KabupatenController extends Controller
         $user = Auth::user();
         $kecamatan = [];
         $luas_tanam_harian = [];
+        // $ref_diterima = 0;
+        // $ref_dimanfaatkan = 0;
+        // $abt_usulan = 0;
+        // $abt_diterima = 0;
+        // $abt_dimanfaatkan = 0;
+        $pompanisasi = (object) [
+            'ref_diterima' => 0,
+            'ref_dimanfaatkan' => 0,
+            'abt_usulan' => 0,
+            'abt_diterima' => 0,
+            'abt_dimanfaatkan' => 0,
+        ];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
             foreach ($kecamatan as $kec) {
                 // $luas_tanam = 0;
                 foreach ($kec->desa as $des) {
                     if ($des->luas_tanam) foreach ($des->luas_tanam as $lt) {
-                        $luas_tanam_harian[] = $lt;
+                        if ($lt->verified_at) $luas_tanam_harian[] = $lt;
+                    }
+                    if ($des->pompanisasi) foreach ($des->pompanisasi as $pom) if ($pom->verified_at) {
+                        // dd($pom->pompa_ref_diterima->pompa_ref_dimanfaatkan);
+                        if ($pom->pompa_ref_diterima) $pompanisasi->ref_diterima += $pom->pompa_ref_diterima->total_unit;
+                        if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $pompanisasi->ref_dimanfaatkan += $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan->total_unit;
+                        if ($pom->pompa_abt_usulan) $pompanisasi->abt_usulan += $pom->pompa_abt_usulan->total_unit;
+                        if ($pom->pompa_abt_usulan && $pom->pompa_abt_usulan->pompa_abt_diterima) $pompanisasi->abt_diterima += $pom->pompa_abt_usulan->pompa_abt_diterima->total_unit;
+                        if ($pom->pompa_abt_usulan && $pom->pompa_abt_usulan->pompa_abt_diterima && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan) $pompanisasi->abt_dimanfaatkan += $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan->total_unit;
                     }
                 }
-                // if ($luas_tanam > 0) $luas_tanam_harian[] = (object) [
-                //     'kecamatan' => $kec->nama,
-                //     'luas_tanam' => $luas_tanam,
-                // ];
             }
         }
-        // dd($luas_tanam_harian);
-        return view('kabupaten.dashboard', ['luas_tanam_harian' => $luas_tanam_harian]);
+        
+        // dd($pompanisasi);
+        return view('kabupaten.dashboard', ['luas_tanam_harian' => $luas_tanam_harian, 'pompanisasi' => $pompanisasi]);
     }
 
     public function verifikasiDataView() {
@@ -108,7 +125,13 @@ class KabupatenController extends Controller
                 $lt->update(['verified_at' => now()]);
             }
             foreach ($des->pompanisasi as $pom) {
-                $pom->update(['verified_at' => now()]);
+                if (
+                    $pom->pompa_ref_diterima
+                    && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan
+                    && $pom->pompa_abt_usulan
+                    && $pom->pompa_abt_usulan->pompa_abt_diterima
+                    && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan
+                ) $pom->update(['verified_at' => now()]);
             }
         }
         return back()->with('success', 'berhasil verifikasi data');
