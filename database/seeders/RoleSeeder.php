@@ -19,6 +19,7 @@ class RoleSeeder extends Seeder
             ['id' => 3, 'nama' => 'provinsi'],
             ['id' => 4, 'nama' => 'kabupaten'],
             ['id' => 5, 'nama' => 'kecamatan'],
+            ['id' => 6, 'nama' => 'nasional'],
         ];
 
         DB::table('role')->insert($role);

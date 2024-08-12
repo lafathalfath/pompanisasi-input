@@ -15,6 +15,7 @@
 </style>
 <div class="d-flex flex-col justify-content-center">
     <div>
+        <br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
@@ -28,36 +29,35 @@
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
-                    <th rowspan="2">No</th>
-                    <th rowspan="2">Kecamatan</th>
-                    <th rowspan="2">Tanggal</th>
-                    <th rowspan="2">Kelompok tani</th>
-                    <th rowspan="2">Luas lahan (ha)</th>
-                    <th colspan="3" class="text-center">Usulan Pompa ABT</th>
-                    <th rowspan="2">No HP Poktan (jika ada)</th>
-                    <th rowspan="2">Aksi</th>
-                    {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+                    <th>No</th>
+                    <th>Kecamatan</th>
+                    {{-- <th>Tanggal</th> --}}
+                    <th>Kelompok tani</th>
+                    <th>Luas lahan (ha)</th>
+                    <th class="text-center">Usulan Pompa ABT</th>
+                    {{-- <th>No HP Poktan (jika ada)</th> --}}
+                    <th>Aksi</th>
+                    {{-- <th>Total diusulkan (unit)</th> --}}
                 </tr>
-                <tr>
+                {{-- <tr>
                     <th>3 inch (unit)</th>
                     <th>4 inch (unit)</th>
                     <th>6 inch (unit)</th>
-                </tr>
+                </tr> --}}
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Bogor Utara</td>
-                    <td>4-08-2024</td>
-                    <td>Kelompok tani 1</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>08123456789</td>
-                    <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
-                    {{-- <td>0</td> --}}
-                </tr>
+                @forelse ($abt_usulan as $au)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $au->kecamatan->nama }}</td>
+                        <td>{{ $au->poktan }}</td>
+                        <td>{{ $au->luas_lahan }}</td>
+                        <td>{{ $au->usulan }}</td>
+                        <td><a href="{{ route('kabupaten.pompa.abt.usulan.detail', Crypt::encryptString($au->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
+                    </tr>
+                @empty
+                    <tr><td colspan="6" class="text-center">Belum ada data</td></tr>
+                @endforelse
             </tbody>
         </table>
 

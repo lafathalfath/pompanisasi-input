@@ -54,7 +54,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users',
             'no_hp' => 'required|unique:users',
             'role_id' => 'required',
-            'region_id' => 'required',
+            // 'region_id' => 'required',
             'password' => 'required|string|confirmed'
         ], [
             'nama.required' => 'nama cannot be null',
@@ -74,27 +74,13 @@ class AuthController extends Controller
         ]);
         // dd($request->region_id);
         $user = User::create([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'role_id' => $request->role_id, // default role poktan. can change by admin
-            'region_id' => $request->region_id,
+            ...$request->except(['_token', 'password']),
             'password' => Hash::make($request->password),
         ]);
-        // dd($user);
         if (!$user) return back()->withErrors('account register failed');
-        // $region = null;
-
-        // if ($user->role_id == 2) $region = Wilayah::find($request->region_id);
-        // else if ($user->role_id == 3) $region = Provinsi::find($request->region_id);
-        // else if ($user->role_id == 4) $region = Kabupaten::find($request->region_id);
-        // else if ($user->role_id == 5) $region = Kecamatan::find($request->region_id);
-        // if (!$region) return back()->withErrors('region invalid');
-        // $region->update(['pj_id' => $user->id]);
-
+        
         Auth::attempt(['email' => $user->email, 'password' => $user->password]);
         $role = $user->role->nama;
-        // dd($role);
         return redirect()->route("$role.dashboard")->with('success', 'account created');
     }
 

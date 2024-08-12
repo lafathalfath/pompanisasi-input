@@ -1,4 +1,4 @@
-@extends('layouts.wilayah')
+@extends('layouts.provinsi')
 @section('content')
 
 <style>
@@ -22,6 +22,9 @@
         border-radius: 7px;
         text-decoration: none !important;
         color: black;
+    }
+    .content{
+        margin-left: 180px;
     }
 </style>
 
