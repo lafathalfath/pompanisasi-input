@@ -34,7 +34,7 @@
                     <th>Kecamatan</th>
                     <th>Kelompok tani</th>
                     <th>Luas lahan (ha)</th>
-                    <th class="text-center">Pompa ABT Diterima</th>
+                    <th class="text-center">Pompa ABT Digunakan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -46,7 +46,7 @@
                         <td>{{ $ad->poktan }}</td>
                         <td>{{ $ad->luas_lahan }}</td>
                         <td>{{ $ad->dimanfaatkan }}</td>
-                        <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                        <td><a href="{{ route('kabupaten.pompa.abt.digunakan.detail', Crypt::encryptString($ad->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
                     </tr>
                 @empty
                     <tr><td colspan="6" class="text-center">Belum ada data</td></tr>
