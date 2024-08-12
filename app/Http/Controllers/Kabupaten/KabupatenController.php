@@ -75,7 +75,6 @@ class KabupatenController extends Controller
                     $luas_tanam += $lt->luas_tanam;
                 }
                 foreach ($des->pompanisasi as $pom) {
-                    if (!$pom->verified_at) $status = false;
                     if (
                         $pom->pompa_ref_diterima
                         && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan
@@ -83,6 +82,7 @@ class KabupatenController extends Controller
                         && $pom->pompa_abt_usulan->pompa_abt_diterima
                         && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan
                     ) {
+                        if (!$pom->verified_at) $status = false;
                         $poktan += 3;
                         $ref_diterima += $pom->pompa_ref_diterima->total_unit;
                         $ref_dimanfaatkan += $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan->total_unit;
