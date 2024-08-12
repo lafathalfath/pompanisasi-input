@@ -21,6 +21,9 @@
             align-items: center;
             min-height: calc(100% - 1rem);
         }
+        .content{
+            margin-left: 180px;
+        }
     </style>
     <script>
         const title = document.getElementsByTagName('title')[0];
@@ -32,7 +35,7 @@
         
         <div class="d-flex align-items-center justify-content-between">
             <form method="GET" class="search-bar">
-                <input type="text" name="nama" value="{{ request()->nama }}" id="search-input" placeholder="Cari">
+                <input type="text" name="nama" value="{{ request()->nama }}" id="search-input" placeholder="Cari" style="border-radius: 5px">
             </form>
             <div>
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal">+ Tambah</button>
@@ -65,6 +68,37 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{ $kecamatan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kecamatan', ['nama' => request()->query('nama'), 'page' => $kecamatan->currentPage()-1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $kecamatan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kecamatan', ['nama' => request()->query('nama'), 'page' => 1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $kecamatan->lastPage(); $i++)
+                        @if ($i>($kecamatan->currentPage()-5) && $i<($kecamatan->currentPage()+5))
+                            <li class="page-item {{ $kecamatan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('admin.manage.kecamatan', ['nama' => request()->query('nama'), 'page' => $i]) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item {{ $kecamatan->currentPage()==$kecamatan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kecamatan', ['nama' => request()->query('nama'), 'page' => $kecamatan->lastPage()]) }}" aria-label="Next">
+                        <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $kecamatan->currentPage()==$kecamatan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('admin.manage.kecamatan', ['nama' => request()->query('nama'), 'page' => $kecamatan->currentPage()+1]) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
     
     <!-- Modal -->

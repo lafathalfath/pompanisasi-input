@@ -39,17 +39,17 @@
             </thead>
             <tbody>
                 {{-- buat sidebar di halaman dashboard --}}
-                <tr>
+                {{-- <tr>
                     <td style="font-weight: bold;">Refocusing Usulan</td>
                     <td style="padding: 10px 20px;">0</td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;">0</td>
+                    <td style="padding: 10px 20px;">{{ $ref_diterima }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;">0</td>
+                    <td style="padding: 10px 20px;">{{ $ref_digunakan }}</td>
                 </tr>
             </tbody>
         </table>
@@ -63,15 +63,15 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;">0</td>
+                    <td style="padding: 10px 20px;">{{ $abt_usulan }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;">0</td>
+                    <td style="padding: 10px 20px;">{{ $abt_diterima }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;">0</td>
+                    <td style="padding: 10px 20px;">{{ $abt_digunakan }}</td>
                 </tr>
             </tbody>
         </table>
@@ -88,42 +88,19 @@
             </tr>
         </thead>
         <tbody>
-            {{-- contoh isi data dummy yang diambil --}}
-            <tr>
-                <td>1</td>
-                <td>2024-07-01</td>
-                <td>Kotanagara</td>
-                <td>Mekar Jaya</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2024-07-01</td>
-                <td>Cikeruh</td>
-                <td>Harapan Baru</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>2024-07-01</td>
-                <td>Payungagung</td>
-                <td>Subur Makmur</td>
-                <td>6</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>2024-07-01</td>
-                <td>Sukamulya</td>
-                <td>Mandiri Tani</td>
-                <td>8</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>2024-07-01</td>
-                <td>Sidaraja</td>
-                <td>Sejahtera</td>
-                <td>9</td>
-            </tr>
+            @forelse ($luas_tanam_harian as $lt)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $lt->tanggal }}</td>
+                    <td>{{ $lt->desa->nama }}</td>
+                    <td>{{ $lt->nama_poktan }}</td>
+                    <td>{{ $lt->luas_tanam }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">Belum ada data</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

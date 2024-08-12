@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('desa_id')->unsigned();
             $table->string('nama_poktan');
-            $table->integer('luas_tanam');
+            $table->float('luas_tanam');
+            $table->string('no_hp_poktan')->nullable();
             $table->date('tanggal');
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('desa_id')->references('id')->on('desa');

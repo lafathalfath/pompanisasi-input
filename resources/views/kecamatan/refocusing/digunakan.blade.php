@@ -21,11 +21,11 @@
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
-            <select name="kota_kabupaten" class="form-control" id="kota-kabupaten">
+            <select name="desa_id" class="form-control" id="desa">
                 <option value="" disabled selected>Pilih Desa/Kelurahan</option>
-                <option value="empang">Empank</option>
-                <option value="baranangsiang">Baranangsiang</option>
-                <!-- Tambahkan opsi kota/kabupaten lainnya -->
+                @foreach ($desa as $des)
+                    <option value="{{ $des->id }}">{{ $des->nama }}</option>
+                @endforeach
             </select>
         </div>
         <table class="w-100 table table-bordered">
@@ -34,21 +34,40 @@
                     <th rowspan="2">No</th>
                     <th rowspan="2">Desa/Kel</th>
                     <th rowspan="2">Tanggal</th>
-                    <th rowspan="2">Kelompok tani</th>
-                    <th rowspan="2">Luas lahan (ha)</th>
-                    <th colspan="3" class="text-center">Pompa Refocusing Digunakan</th>
-                    <th rowspan="2">No HP Poktan (jika ada)</th>
+                    <th rowspan="2">Kelompok <br>tani</th>
+                    <th rowspan="2">Luas lahan <br>(ha)</th>
+                    <th colspan="3" class="text-center">Pompa Refocusing Dimanfaatkan</th>
+                    <th rowspan="2">Total <br>dimanfaatkan</th>
+                    <th rowspan="2">No HP Poktan <br>(jika ada)</th>
                     <th rowspan="2">Aksi</th>
-                    {{-- <th rowspan="2">Total diusulkan (unit)</th> --}}
+                    {{-- <th rowspan="2">Total diusulkan <br>(unit)</th> --}}
                 </tr>
                 <tr>
-                    <th>3 inch (unit)</th>
-                    <th>4 inch (unit)</th>
-                    <th>6 inch (unit)</th> 
+                    <th>3 inch <br>(unit)</th>
+                    <th>4 inch <br>(unit)</th>
+                    <th>6 inch <br>(unit)</th> 
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                @forelse ($ref_dimanfaatkan as $rd)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td> 
+                        <td>{{ $rd->pompa_ref_diterima->pompanisasi->desa->nama }}</td>
+                        <td>{{ $rd->tanggal }}</td>
+                        <td>{{ $rd->nama_poktan }}</td>
+                        <td>{{ $rd->luas_lahan }}</td>
+                        <td>{{ $rd->pompa_3_inch }}</td>
+                        <td>{{ $rd->pompa_4_inch }}</td>
+                        <td>{{ $rd->pompa_6_inch }}</td>
+                        <td>{{ $rd->total_unit }}</td>
+                        <td>{{ $rd->no_hp_poktan }}</td>
+                        <td><a href="{{ route('kecamatan.pompa.ref.digunakan.detail', Crypt::encryptString($rd->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
+                        {{-- <td>0</td> --}}
+                    </tr>
+                @empty
+                    <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
+                @endforelse
+                {{-- <tr>
                     <td>1</td> 
                     <td>Babakan</td>
                     <td>4-08-2024</td>
@@ -59,8 +78,7 @@
                     <td>0</td>
                     <td>08123456789</td>
                     <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
-                    {{-- <td>0</td> --}}
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
 
