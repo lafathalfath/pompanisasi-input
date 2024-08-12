@@ -25,7 +25,9 @@ class User extends Authenticatable
         'email',
         'no_hp',
         'role_id',
+        'region_id',
         'password',
+        'status_verifikasi',
     ];
 
     /**
@@ -63,7 +65,7 @@ class User extends Authenticatable
         return $this->hasOne(Kabupaten::class, 'pj_id', 'id');
     }
 
-    public function pompanisasi() : HasMany {
-        return $this->hasMany(Pompanisasi::class, 'poktan_id', 'id');
+    public function kecamatan() : HasOne {
+        return $this->hasOne(Kecamatan::class, 'pj_id', 'id');
     }
 }

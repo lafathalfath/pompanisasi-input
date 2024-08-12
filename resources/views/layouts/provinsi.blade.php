@@ -92,6 +92,26 @@
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('provinsi.dashboard') }}" class="{{ request()->url() == route('provinsi.dashboard') ? 'active' : '' }}">Dashboard</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pompa Refocusing
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.ref.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.ref.diterima') }}">Diterima</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pompa ABT
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.abt.usulan') }}">Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.abt.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.abt.digunakan') }}">Digunakan</a></li>
+                    </ul>
+                </li>
+
             </ul>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
