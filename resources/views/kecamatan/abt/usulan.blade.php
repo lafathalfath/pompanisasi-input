@@ -17,6 +17,8 @@
     <div>
         <div>
             <a href="{{ route('kecamatan.abt.usulan.input') }}" type="submit" class="btn btn-success">Input Data</a>
+            <a href="{{ url('/export-pompa-abt-usulan') }}" class="btn btn-secondary"><i class="fa fa-download"></i> Excel</a>
+
         </div><br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <i class="fa-solid fa-sliders"></i>
