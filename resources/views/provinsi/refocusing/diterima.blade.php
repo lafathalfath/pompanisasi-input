@@ -1,5 +1,12 @@
 @extends('layouts.provinsi')
 @section('content')
+<head>
+    <style>
+        .content{
+        margin-left: 200px;
+    }
+    </style>
+</head>
 <div class="d-flex flex-col justify-content-center">
     <div>
         <table class="w-100 table table-bordered">
