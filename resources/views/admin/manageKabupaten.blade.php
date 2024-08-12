@@ -21,6 +21,9 @@
             align-items: center;
             min-height: calc(100% - 1rem);
         }
+        .content{
+            margin-left: 180px;
+        }
     </style>
     <script>
         const title = document.getElementsByTagName('title')[0];
@@ -32,7 +35,7 @@
         
         <div class="d-flex align-items-center justify-content-between">
             <form class="search-bar" method="GET">
-                <input type="text" name="nama" value="{{ request()->nama }}" id="search-input" placeholder="Cari">
+                <input type="text" name="nama" value="{{ request()->nama }}" id="search-input" placeholder="Cari" style="border-radius: 5px">
             </form>
             <div>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal">+ Tambah</button>

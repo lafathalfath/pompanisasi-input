@@ -39,6 +39,7 @@
                     {{-- <th>No HP Poktan <br>(jika ada)</th> --}}
                     <th>Aksi</th>
                     {{-- <th rowspan="2">Total diusulkan <br>(unit)</th> --}}
+
                 </tr>
                 {{-- <tr>
                     <th>3 inch <br>(unit)</th>
@@ -47,7 +48,6 @@
                 </tr> --}}
             </thead>
             <tbody>
-                
                     <tr>
                         <td>-</td>
                         <td>-</td>
@@ -59,7 +59,6 @@
                         <td>-</td>
                         <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
                     </tr>
-
             </tbody>
         </table>
 

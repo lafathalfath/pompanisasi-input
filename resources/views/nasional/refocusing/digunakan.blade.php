@@ -27,6 +27,7 @@
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
+
                     <th>No</th>
                     <th>Wilayah</th>
                     <th>Provinsi</th>
@@ -50,6 +51,7 @@
                         <td>-</td>
                         <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
                     </tr>
+
             </tbody>
         </table>
 
