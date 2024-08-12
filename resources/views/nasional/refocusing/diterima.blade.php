@@ -19,8 +19,8 @@
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
-            <select name="kecamatan_id" class="form-control" id="kecamatan">
-                <option value="" disabled selected>Pilih Nasional</option>
+            <select name="wilayah_id" class="form-control" id="wilayah">
+                <option value="" disabled selected>Pilih Wilayah</option>
 
             </select>
         </div>
