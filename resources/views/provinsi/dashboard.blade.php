@@ -23,6 +23,9 @@
         text-decoration: none !important;
         color: black;
     }
+    .content{
+        margin-left: 180px;
+    }
 </style>
 
     <!-- Grafik -->

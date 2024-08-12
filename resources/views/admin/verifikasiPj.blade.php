@@ -16,6 +16,9 @@
     .search-bar input {
         flex: 1;
     }
+    .content{
+        margin-left: 180px;
+    }
 </style>
 <script>
     const title = document.getElementsByTagName('title')[0];
@@ -27,7 +30,7 @@
 
     <div class="search-bar">
         <b>Cari Berdasarkan:</b>
-        <select id="filter-category">
+        <select id="filter-category" style="border-radius: 5px">
             {{-- <option value="name">Semua</option> --}}
             <option value="name">Nama</option>
             <option value="email">Email</option>
@@ -36,7 +39,7 @@
             <option value="assignment">Daerah Assignee</option>
             <option value="status">Status</option>
         </select>
-        <input type="text" id="filter-input" placeholder="Cari">
+        <input type="text" id="filter-input" placeholder="Cari" style="border-radius: 5px">
     </div>
 
     <table class="table table-bordered">
