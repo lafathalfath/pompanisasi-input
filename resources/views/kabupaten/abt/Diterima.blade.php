@@ -45,7 +45,7 @@
                         <td>{{ $ad->poktan }}</td>
                         <td>{{ $ad->luas_lahan }}</td>
                         <td>{{ $ad->diterima }}</td>
-                        <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                        <td><a href="{{ route('kabupaten.pompa.abt.diterima.detail', Crypt::encryptString($ad->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
                     </tr>
                 @empty
                     <tr><td colspan="6" class="text-center">Belum ada data</td></tr>
