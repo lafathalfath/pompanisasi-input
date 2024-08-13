@@ -191,6 +191,15 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
+
+    Route::get('/verifAdmin', function () {
+        return view('admin.verifikasiData');
+    });
+
+    Route::get('/admin.kelolaAkun', function () {
+        return view('admin.kelolaAkun');
+    })->name('admin.kelolaAkun');
+
 });
 
 // Route::prefix('/poktan')->group(function () {
