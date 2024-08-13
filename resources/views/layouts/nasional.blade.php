@@ -8,7 +8,6 @@
         <link rel="shortcut icon" href="{{ asset('assets/img/logobbpsip.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
         <style>
             body {
                 font-family: Poppins, sans-serif;
@@ -22,7 +21,6 @@
                 background-color: #007b83;
                 color: white;
                 height: 100%;
-                overflow-y: scroll;
                 position: fixed;
                 display: flex;
                 flex-direction: column;
@@ -78,29 +76,9 @@
             }
 
             .content {
-                margin-left: 200px;
+                margin-left: 150px;
                 padding: 20px;
                 flex-grow: 1;
-            }
-            /* width */
-            .sidebar::-webkit-scrollbar {
-                width: 10px;
-            }
-
-            /* Track */
-            .sidebar::-webkit-scrollbar-track {
-                border: 1px solid lightgray;
-                border-radius: 10px;
-            }
-
-            /* Handle */
-            .sidebar::-webkit-scrollbar-thumb {
-                background: lightgray;
-                border-radius: 10px;
-            }
-
-            .sidebar::-webkit-scrollbar-thumb:hover {
-                background: gray;
             }
         </style>
     </head>
@@ -108,21 +86,19 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <a href="{{ route('nasional.dashboard') }}">
-                    <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
+                <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
-                <h1>Satgas Pompanisasi<br></h1>
+                <h1>Satgas Pompanisasi</h1>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('nasional.dashboard') }}" class="{{ request()->url() == route('nasional.dashboard') ? 'active' : '' }}">Dashboard</a></li>
-
-                {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa Refocusing</a></li>    --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Pompa Refocusing
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.ref.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.ref.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.ref.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -132,20 +108,11 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.abt.usulan') }}">Usulan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.abt.diterima') }}">Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.abt.digunakan') }}">Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
 
-                {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}
-
-                {{-- <li><a href="{{ route('kecamatan.refocusing.usulan.input') }}" class="{{ request()->url() == route('kecamatan.refocusing.usulan.input') ? 'active' : '' }}" target="_blank">Input pompanisasi refocusing usulan</a></li>
-                <li><a href="{{ route('kecamatan.refocusing.diterima.input') }}" class="{{ request()->url() == route('kecamatan.refocusing.diterima.input') ? 'active' : '' }}" target="_blank">Input pompanisasi refocusing diterima</a></li>
-                <li><a href="{{ route('kecamatan.refocusing.digunakan.input') }}" class="{{ request()->url() == route('kecamatan.refocusing.digunakan.input') ? 'active' : '' }}" target="_blank">Input pompanisasi refocusing digunakan</a></li>
-                <li><a href="{{ route('kecamatan.abt.usulan.input') }}" class="{{ request()->url() == route('kecamatan.abt.usulan.input') ? 'active' : '' }}" target="_blank">Input pompanisasi ABT usulan</a></li>
-                <li><a href="{{ route('kecamatan.abt.diterima.input') }}" class="{{ request()->url() == route('kecamatan.abt.diterima.input') ? 'active' : '' }}" target="_blank">Input pompanisasi ABT diterima</a></li>
-                <li><a href="{{ route('kecamatan.abt.digunakan.input') }}" class="{{ request()->url() == route('kecamatan.abt.digunakan.input') ? 'active' : '' }}" target="_blank">Input pompanisasi ABT digunakan</a></li> --}}
             </ul>
-            <br>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
 
@@ -159,3 +126,4 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>
+

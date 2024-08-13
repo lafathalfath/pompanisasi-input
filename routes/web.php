@@ -19,6 +19,13 @@ use App\Http\Controllers\Nasional\NasionalController;
 use App\Http\Controllers\Poktan\PoktanController;
 use App\Http\Controllers\Provinsi\ProvinsiController;
 use App\Http\Controllers\Wilayah\WilayahController;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Kecamatan\PompaAbtUsulanExport;
+use App\Exports\Kecamatan\PompaAbtDiterimaExport;
+use App\Exports\Kecamatan\PompaAbtDimanfaatkanExport;
+use App\Exports\Kecamatan\PompaRefDiterimaExport;
+use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -184,6 +191,15 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
     Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
+
+    Route::get('/verifAdmin', function () {
+        return view('admin.verifikasiData');
+    });
+
+    Route::get('/admin.kelolaAkun', function () {
+        return view('admin.kelolaAkun');
+    })->name('admin.kelolaAkun');
+
 });
 
 // Route::prefix('/poktan')->group(function () {
@@ -192,3 +208,21 @@ Route::middleware('auth')->group(function () {
 //     Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
 //     Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
 // });
+
+
+// Route Export Pompa ABT & Ref Kecamatan 
+Route::get('/export-pompa-abt-usulan', function () {
+    return Excel::download(new PompaAbtUsulanExport, 'Usulan Pompa ABT.xlsx');
+});
+Route::get('/export-pompa-abt-diterima', function () {
+    return Excel::download(new PompaAbtDiterimaExport, 'Pompa ABT Diterima.xlsx');
+});
+Route::get('/export-pompa-abt-dimanfaatkan', function () {
+    return Excel::download(new PompaAbtDimanfaatkanExport, 'Pompa ABT Dimanfaatkan.xlsx');
+});
+Route::get('/export-pompa-ref-diterima', function () {
+    return Excel::download(new PompaRefDiterimaExport, 'Pompa Refocusing Diterima.xlsx');
+});
+Route::get('/export-pompa-ref-dimanfaatkan', function () {
+    return Excel::download(new PompaRefDimanfaatkanExport, 'Pompa Refocusing Dimanfaatkan.xlsx');
+});
