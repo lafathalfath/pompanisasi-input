@@ -123,6 +123,9 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('admin.manage.desa') }}">Desa</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/admin.kelolaAkun') }}">Kelola Akun</a>
+                </li>
 
             </ul>
             <br>

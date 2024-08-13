@@ -188,6 +188,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/verifAdmin', function () {
         return view('admin.verifikasiData');
     });
+
+    Route::get('/admin.kelolaAkun', function () {
+        return view('admin.kelolaAkun');
+    })->name('admin.kelolaAkun');
+
 });
 
 // Route::prefix('/poktan')->group(function () {
