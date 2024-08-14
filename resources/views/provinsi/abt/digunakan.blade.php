@@ -1,73 +1,59 @@
 @extends('layouts.provinsi')
 @section('content')
-
-<head>
-    <style>
-        .content{
-        margin-left: 200px;
-    }
-
-    </style>
-
-<div class="d-flex flex-col justify-content-center">
-    <div>
-
+<style>
     .table thead th {
     vertical-align: middle;
     text-align: center;
     background-color: #c8dce4;
-    }
-    .merged-cell {
+}
+
+.merged-cell {
     background-color: #d9ead3;
     text-align: center;
     vertical-align: middle;
-    }
+}
 </style>
+
 <div class="d-flex flex-col justify-content-center">
     <div>
-        <!-- <div>
-            <a href="{{ route('kecamatan.abt.digunakan.input') }}" type="submit" class="btn btn-success">Input Data</a>
-        </div><br> -->
+        <br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+            <a href="{{ url('/export-pompa-ref-diterima') }}" class="d-flex align-items-center btn btn-secondary">
+                <i class="fa fa-download me-2"></i> Excel
+            </a>
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
             <select name="kota_kabupaten" class="form-control" id="kota-kabupaten">
-                <option value="" disabled selected>Pilih Provinsi</option>
-                <option value="Jawa Barat">Jawa Barat</option>
-                <option value="Jawa Tengah">Jawa Tengah</option>
-                <!-- Tambahkan opsi Provinsi lainnya yang 1 wilayah -->
+                <option value="" disabled selected>Pilih Desa/Kelurahan</option>
+                <option value="empang">Empank</option>
+                <option value="baranangsiang">Baranangsiang</option>
+                <!-- Tambahkan opsi kota/kabupaten lainnya -->
             </select>
         </div>
-
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
-                    <th rowspan="2">No</th>
-                    <th rowspan="2">Kabupaten</th>
-                    <th rowspan="2">Kelompok tani</th>
-                    <th rowspan="2">Luas lahan (ha)</th>
-                    <th colspan="3" class="text-center">Pompa ABT Digunakan</th>
-                    <th rowspan="2">No HP Poktan (jika ada)</th>
-                    <th rowspan="2">Aksi</th>
-                </tr>
-                <tr>
-                    <th>3 inch (unit)</th>
-                    <th>4 inch (unit)</th>
-                    <th>6 inch (unit)</th>
+                    <th>No</th>
+                    <th>Kabupaten</th>
+                    <th>Kelompok tani</th>
+                    <th>Luas lahan (ha)</th>
+                    <th class="text-center">Pompa ABT Digunakan</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Bogor</td>
-                    <td>Kelompok tani 1</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>08123456789</td>
-                    <td><a href="{{ route('provinsi.detailkabupaten') }}" class="btn btn-sm btn-info">Detail</a></td>
-                </tr>
+                {{-- @forelse ($abt_digunakan as $ad) --}}
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        {{-- <td><a href="{{ route('kabupaten.pompa.abt.digunakan.detail', Crypt::encryptString($ad->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td> --}}
+                    </tr>
+                {{-- @empty --}}
+                    <tr><td colspan="6" class="text-center">Belum ada data</td></tr>
+                {{-- @endforelse --}}
             </tbody>
         </table>
 
