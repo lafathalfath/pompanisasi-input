@@ -20,8 +20,8 @@
             <a href="{{ url('/export-pompa-ref-dimanfaatkan') }}" class="btn btn-secondary"><i class="fa fa-download"></i> Excel</a>
         </div><br> --}}
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
-            <a href="{{ route('kecamatan.refocusing.diterima.input') }}" type="submit" class="d-flex align-items-center btn btn-success" style="white-space: nowrap;">Input Data</a>
-            <a href="{{ url('/export-pompa-ref-diterima') }}" class="d-flex align-items-center btn btn-secondary">
+            <a href="{{ route('kecamatan.refocusing.digunakan.input') }}" type="submit" class="d-flex align-items-center btn btn-success" style="white-space: nowrap;">Input Data</a>
+            <a href="{{ url('/export-pompa-ref-digunakan') }}" class="d-flex align-items-center btn btn-secondary">
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
