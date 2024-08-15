@@ -62,7 +62,7 @@ class KabupatenController extends Controller
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
             foreach ($kecamatan as $kec) foreach ($kec->desa as $des) if (!empty($des->luas_tanam) && !empty($des->pompanisasi)) {
-                $row_pom = (object) [];
+                // $row_pom = (object) [];
                 // // foreach ($des->luas_tanam as $lt) {
                 // //     $row_pom->luas_tanam[] = $lt;
                 // // }
@@ -75,8 +75,12 @@ class KabupatenController extends Controller
                         && $pom->pompa_abt_usulan->pompa_abt_diterima
                         && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan
                     ) {
-                        // $row_pom = $pom;
+                        $status = $pom->verified_at;
+                        foreach ($pom->desa->luas_tanam as $lt) {
+                            if (!$lt->verified_at) $status = null;
+                        }
                         $pom->luas_tanam = $pom->desa->luas_tanam;
+                        $pom->status = $status;
                         $pompanisasi[] = $pom;
                     }
                 }
@@ -90,11 +94,13 @@ class KabupatenController extends Controller
     public function verifikasiData($des_id) {
         $id = Crypt::decryptString($des_id);
         $desa = Desa::find($id);
-        foreach ($desa as $des) {
-            foreach ($des->luas_tanam as $lt) {
+        // dd($desa);
+        // foreach ($desa as $des) {
+        //     dd($des);
+            foreach ($desa->luas_tanam as $lt) {
                 $lt->update(['verified_at' => now()]);
             }
-            foreach ($des->pompanisasi as $pom) {
+            foreach ($desa->pompanisasi as $pom) {
                 if (
                     $pom->pompa_ref_diterima
                     && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan
@@ -103,7 +109,7 @@ class KabupatenController extends Controller
                     && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan
                 ) $pom->update(['verified_at' => now()]);
             }
-        }
+        // }
         return back()->with('success', 'berhasil verifikasi data');
     }
 }
