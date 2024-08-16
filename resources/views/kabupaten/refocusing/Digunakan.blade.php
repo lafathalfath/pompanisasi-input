@@ -17,6 +17,9 @@
     <div>
         <br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+            <a href="{{ url('/export-pompa-ref-dimanfaatkan') }}" class="d-flex align-items-center btn btn-secondary">
+                <i class="fa fa-download me-2"></i> Excel
+            </a>
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
             <select name="kecamatan_id" class="form-control" id="kecamatan">
@@ -29,30 +32,73 @@
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Kecamatan</th>
-                    <th>Kelompok tani</th>
-                    <th>Luas lahan (ha)</th>
-                    <th class="text-center">Pompa Refocusing Digunakan</th>
-                    <th>Aksi</th>
+                    <th rowspan="2">No</th>
+                    <th rowspan="2">Kecamatan</th>
+                    <th rowspan="2">Desa/Kelurahan</th>
+                    <th rowspan="2">Tanggal</th>
+                    <th rowspan="2">Kelompok <br> tani</th>
+                    <th rowspan="2">Luas lahan <br> (ha)</th>
+                    <th colspan="3" class="text-center">Usulan Pompa ABT</th>
+                    <th rowspan="2">Total digunakan <br> (unit)</th>
+                    <th rowspan="2">No HP Poktan <br> (jika ada)</th>
+                </tr>
+                <tr>
+                    <th>3 inch <br> (unit)</th>
+                    <th>4 inch <br> (unit)</th>
+                    <th>6 inch <br> (unit)</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($ref_digunakan as $rd)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $rd->kecamatan->nama }}</td>
-                        <td>{{ $rd->poktan }}</td>
+                        <td>{{ $rd->pompa_ref_diterima->pompanisasi->desa->kecamatan->nama }}</td>
+                        <td>{{ $rd->pompa_ref_diterima->pompanisasi->desa->nama }}</td>
+                        <td>{{ $rd->tanggal }}</td>
+                        <td>{{ $rd->nama_poktan }}</td>
                         <td>{{ $rd->luas_lahan }}</td>
-                        <td>{{ $rd->digunakan }}</td>
-                        <td><a href="{{ route('kabupaten.pompa.ref.digunakan.detail', Crypt::encryptString($rd->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
+                        <td>{{ $rd->pompa_3_inch }}</td>
+                        <td>{{ $rd->pompa_4_inch }}</td>
+                        <td>{{ $rd->pompa_6_inch }}</td>
+                        <td>{{ $rd->total_unit }}</td>
+                        <td>{{ $rd->no_hp_poktan }}</td>
                     </tr>
                 @empty
                     <tr><td colspan="6" class="text-center">Belum ada Data</td></tr>
                 @endforelse
             </tbody>
         </table>
-
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{ $ref_digunakan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', ['nama' => request()->query('nama'), 'page' => $ref_digunakan->currentPage()-1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $ref_digunakan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', ['nama' => request()->query('nama'), 'page' => 1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $ref_digunakan->lastPage(); $i++)
+                        @if ($i>($ref_digunakan->currentPage()-5) && $i<($ref_digunakan->currentPage()+5))
+                            <li class="page-item {{ $ref_digunakan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', ['nama' => request()->query('nama'), 'page' => $i]) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item {{ $ref_digunakan->currentPage()==$ref_digunakan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', ['nama' => request()->query('nama'), 'page' => $ref_digunakan->lastPage()]) }}" aria-label="Next">
+                        <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $ref_digunakan->currentPage()==$ref_digunakan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', ['nama' => request()->query('nama'), 'page' => $ref_digunakan->currentPage()+1]) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
 </div>

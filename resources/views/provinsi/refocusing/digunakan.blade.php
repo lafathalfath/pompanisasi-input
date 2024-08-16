@@ -17,6 +17,9 @@
     <div>
         <br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+            <a href="{{ url('/export-pompa-ref-diterima') }}" class="d-flex align-items-center btn btn-secondary">
+                <i class="fa fa-download me-2"></i> Excel
+            </a>
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
             <select name="kecamatan_id" class="form-control" id="kecamatan">
@@ -47,9 +50,9 @@
                         <td>-</td>
                         {{-- <td><a href="{{ route('kabupaten.pompa.ref.digunakan.detail', Crypt::encryptString($rd->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td> --}}
                     </tr>
-                {{-- @empty
+                {{-- @empty --}}
                     <tr><td colspan="6" class="text-center">Belum ada Data</td></tr>
-                @endforelse --}}
+                {{-- @endforelse --}}
             </tbody>
         </table>
 
