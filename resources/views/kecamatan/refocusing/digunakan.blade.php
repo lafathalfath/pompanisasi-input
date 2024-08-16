@@ -15,12 +15,15 @@
 </style>
 <div class="d-flex flex-col justify-content-center">
     <div>
-        <div>
+        {{-- <div>
             <a href="{{ route('kecamatan.refocusing.digunakan.input') }}" type="submit" class="btn btn-success">Input Data</a>
             <a href="{{ url('/export-pompa-ref-dimanfaatkan') }}" class="btn btn-secondary"><i class="fa fa-download"></i> Excel</a>
-
-        </div><br>
+        </div><br> --}}
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+            <a href="{{ route('kecamatan.refocusing.digunakan.input') }}" type="submit" class="d-flex align-items-center btn btn-success" style="white-space: nowrap;">Input Data</a>
+            <a href="{{ url('/export-pompa-ref-dimanfaatkan') }}" class="d-flex align-items-center btn btn-secondary">
+                <i class="fa fa-download me-2"></i> Excel
+            </a>
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
             <select name="desa_id" class="form-control" id="desa">
