@@ -137,7 +137,7 @@
                 </li>
 
 
-                <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Input Luas Tanam</a></li>
+                <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Luas Tanam</a></li>
 
 
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}

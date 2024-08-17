@@ -1,6 +1,7 @@
 <?php
 namespace App\Exports\Kecamatan;
 
+use App\Models\Desa;
 use App\Models\PompaAbtDimanfaatkan;
 use App\Models\Pompanisasi;
 use Illuminate\Support\Facades\Auth;
@@ -37,23 +38,12 @@ class PompaAbtDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
                 $desa[] = $des->id;
             }
         }
+        elseif ($user->role_id == 6) {
+            $desa = Desa::get();
+        }
 
-        if (!empty($desa)) {
-            $pompanisasi = Pompanisasi::whereIn('desa_id', $desa)
-                ->where('verified_at', '!=', null)
-                ->get();
-            $id_diterima = [];
-            foreach ($pompanisasi as $pom) if (
-                $pom->pompa_ref_diterima 
-                && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan
-                && $pom->pompa_abt_usulan
-                && $pom->pompa_abt_usulan->pompa_abt_diterima
-                && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan
-            ) {
-                $id_diterima[] = $pom->pompa_abt_usulan->pompa_abt_diterima->id;
-            }
-            return PompaAbtDimanfaatkan::whereIn('pompa_abt_diterima_id', $id_diterima)
-                ->get()
+        if (!empty($desa)) foreach ($desa as $des) {
+            return $des->pompa_abt_dimanfaatkan
                 ->map(function ($item, $key) {
                     return [
                         'No' => $key+1,

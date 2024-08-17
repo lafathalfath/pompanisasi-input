@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pompa_abt_usulan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pompanisasi_id')->unsigned()->unique();
+            $table->bigInteger('desa_id')->unsigned()->unique();
             $table->string('nama_poktan');
             $table->float('luas_lahan');
             $table->integer('pompa_3_inch')->unsigned();
@@ -22,9 +22,10 @@ return new class extends Migration
             $table->integer('total_unit')->unsigned();
             $table->string('no_hp_poktan')->nullable();
             $table->date('tanggal');
+            $table->timestamp('verified_at');
             $table->timestamps();
 
-            $table->foreign('pompanisasi_id')->references('id')->on('pompanisasi')->onDelete('cascade');
+            $table->foreign('desa_id')->references('id')->on('desa');
         });
     }
 

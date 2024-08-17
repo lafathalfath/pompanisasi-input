@@ -17,7 +17,7 @@
     <form action="{{ route('kecamatan.inputLuasTanam.store') }}" method="POST">
         @csrf
         <!-- Pompa ABT Usulan -->
-        <h4>Input Luas Tanam</h4>
+        <h4>Luas Tanam</h4>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanDesa">Desa</label>
