@@ -118,7 +118,7 @@ Route::middleware('auth')->group(function () {
             return view('provinsi.detailkabupaten');
         })->name('provinsi.detailkabupaten');
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/diterima', function () {return view('provinsi.refocusing.diterima');})->name('provinsi.pompa.ref.diterima');
+            Route::get('/diterima', [ProvinsiController::class, 'refDiterima'])->name('provinsi.pompa.ref.diterima');
             Route::get('/digunakan', function () {return view('provinsi.refocusing.digunakan');})->name('provinsi.pompa.ref.digunakan');
         });
         Route::prefix('/pompa/abt')->group(function () {
