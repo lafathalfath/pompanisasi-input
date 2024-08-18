@@ -41,7 +41,7 @@
     <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
-        <h2>Rekap Data Nasional</h2>
+        <h2>Rekapitulasi Data Nasional</h2>
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
@@ -82,7 +82,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
@@ -112,7 +112,7 @@
                 </tr>
             </thead>
             <tbody>
-        
+
                     <tr>
                         <td>-</td>
                         <td>-</td>
@@ -130,7 +130,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    
+
     // Data dari tabel
     // var refocusingUsulan = 10;
     var refocusingDiterima = parseInt(document.getElementById('ref_diterima').innerHTML)
