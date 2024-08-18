@@ -41,7 +41,7 @@
     <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
-        <h2>Rekap Data Kabupaten</h2>
+        <h2>Rekapitulasi Data Kabupaten</h2>
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
@@ -109,7 +109,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    
+
     // Data dari tabel
     // var refocusingUsulan = 10;
     var refocusingDiterima = parseInt(document.getElementById('ref_diterima').innerHTML)
@@ -141,17 +141,17 @@
                 {
                     label: 'Usulan (unit)',
                     data: [null, abtUsulanPercent],
-                    backgroundColor: '#00aa11', // Hijau
+                    backgroundColor: '#ffff22', // Hijau
                 },
                 {
                     label: 'Diterima (unit)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#18a4bc', // Hijau
+                    backgroundColor: '#00aa00', // Hijau
                 },
                 {
                     label: 'Digunakan (unit)',
                     data: [refocusingDigunakanPercent, abtDigunakanPercent],
-                    backgroundColor: '#e74c3c', // Merah
+                    backgroundColor: '#18a4bc', // Biru
                 }
             ]
         },
