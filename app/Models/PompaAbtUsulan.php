@@ -13,11 +13,7 @@ class PompaAbtUsulan extends Model
     protected $table = 'pompa_abt_usulan';
     protected $guarded = [];
 
-    public function pompanisasi() : BelongsTo {
-        return $this->belongsTo(Pompanisasi::class, 'pompanisasi_id', 'id');
-    }
-
-    public function pompa_abt_diterima() : HasOne {
-        return $this->hasOne(PompaAbtDiterima::class, 'pompa_abt_usulan_id', 'id');
+    public function desa() : BelongsTo {
+        return $this->belongsTo(Desa::class, 'desa_id', 'id');
     }
 }
