@@ -158,7 +158,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
 
-        Route::get('/inputLuasTanam', [LuasTanamController::class, 'index'])->name('kecamatan.inputLuasTanam');
+        Route::get('/inputLuasTanam', [LuasTanamController::class, 'create'])->name('kecamatan.inputLuasTanam');
         Route::post('/inputLuasTanam', [LuasTanamController::class, 'store'])->name('kecamatan.inputLuasTanam.store');
 
         Route::prefix('/pompa/refocusing')->group(function () {
