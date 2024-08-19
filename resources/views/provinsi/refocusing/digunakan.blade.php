@@ -17,7 +17,7 @@
     <div>
         <br>
         <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
-            <a href="{{ url('/export-pompa-ref-diterima') }}" class="d-flex align-items-center btn btn-secondary">
+            <a href="{{ url('/export-pompa-ref-dimanfaatkan') }}" class="d-flex align-items-center btn btn-secondary">
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>

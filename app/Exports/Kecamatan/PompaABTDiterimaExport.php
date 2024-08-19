@@ -1,7 +1,10 @@
 <?php
 namespace App\Exports\Kecamatan;
 
+use App\Models\Desa;
 use App\Models\PompaAbtDiterima;
+use App\Models\Pompanisasi;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -13,22 +16,68 @@ class PompaAbtDiterimaExport implements FromCollection, WithHeadings, WithStyles
 {
     public function collection()
     {
-        return PompaAbtDiterima::with('pompa_abt_usulan.pompanisasi.desa')
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'No' => $item->id,
-                    'Desa/Kel' => $item->pompa_abt_usulan->pompanisasi->desa->nama,
-                    'Tanggal' => $item->pompa_abt_usulan->tanggal,
-                    'Kelompok Tani' => $item->pompa_abt_usulan->nama_poktan,
-                    'Luas Lahan (ha)' => $item->pompa_abt_usulan->luas_lahan,
-                    '3 inch (unit)' => $item->pompa_3_inch,
-                    '4 inch (unit)' => $item->pompa_4_inch,
-                    '6 inch (unit)' => $item->pompa_6_inch,
-                    'Total Diterima' => $item->total_unit,
-                    'No HP Poktan' => $item->pompa_abt_usulan->no_hp_poktan,
-                ];
-            });
+        $user = Auth::user();
+        $desa = [];
+        if ($user->role_id == 2) {
+            foreach ($user->wilayah->provinsi as $prov) foreach ($prov->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) {
+                $desa[] = $des->id;
+            }
+        }
+        elseif ($user->role_id == 3) {
+            foreach ($user->provinsi->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) {
+                $desa[] = $des->id;
+            }
+        }
+        elseif ($user->role_id == 4) {
+            foreach ($user->kabupaten->kecamatan as $kec) foreach ($kec->desa as $des) {
+                $desa[] = $des->id;
+            }
+        }
+        elseif ($user->role_id == 5) {
+            foreach ($user->kecamatan->desa as $des) {
+                $desa[] = $des->id;
+            }
+        }
+        elseif ($user->role_id == 6) {
+            $desa = Desa::get();
+        }
+
+        if (!empty($desa)) foreach ($desa as $des) {
+            return $des->pompa_abt_diterima
+                ->map(function ($item, $key) {
+                    return [
+                        'No' => $key+1,
+                        'Provinsi' => $item->pompa_abt_usulan->pompanisasi->desa->kecamatan->kabupaten->provinsi->nama,
+                        'Kabupaten' => $item->pompa_abt_usulan->pompanisasi->desa->kecamatan->kabupaten->nama,
+                        'Kecamatan' => $item->pompa_abt_usulan->pompanisasi->desa->kecamatan->nama,
+                        'Desa/Kel' => $item->pompa_abt_usulan->pompanisasi->desa->nama,
+                        'Tanggal' => $item->tanggal ? $item->tanggal : '-',
+                        'Kelompok Tani' => $item->nama_poktan ? $item->nama_poktan :'-',
+                        'Luas Lahan (ha)' => $item->luas_lahan ? $item->luas_lahan : '0',
+                        '3 inch (unit)' => $item->pompa_3_inch ? $item->pompa_3_inch : '0',
+                        '4 inch (unit)' => $item->pompa_4_inch ? $item->pompa_4_inch : '0',
+                        '6 inch (unit)' => $item->pompa_6_inch ? $item->pompa_6_inch : '0',
+                        'Total Dimanfaatkan' => $item->total_unit ? $item->total_unit : '0',
+                        'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
+                    ];
+                });
+        }
+        // return PompaAbtDiterima::with('pompa_abt_usulan.pompanisasi.desa')
+        //     ->get()
+        //     ->map(function ($item) {
+        //         return [
+        //             'No' => $item->id,
+        //             'Desa/Kel' => $item->pompa_abt_usulan->pompanisasi->desa->nama,
+        //             'Tanggal' => $item->pompa_abt_usulan->tanggal,
+        //             'Kelompok Tani' => $item->pompa_abt_usulan->nama_poktan,
+        //             'Luas Lahan (ha)' => $item->pompa_abt_usulan->luas_lahan,
+        //             '3 inch (unit)' => $item->pompa_3_inch,
+        //             '4 inch (unit)' => $item->pompa_4_inch,
+        //             '6 inch (unit)' => $item->pompa_6_inch,
+        //             'Total Diterima' => $item->total_unit,
+        //             'No HP Poktan' => $item->pompa_abt_usulan->no_hp_poktan,
+        //         ];
+        //     });
     }
 
     public function headings(): array
@@ -37,6 +86,9 @@ class PompaAbtDiterimaExport implements FromCollection, WithHeadings, WithStyles
             ['Pompa ABT Diterima'], // Judul di bagian atas
             [
                 'No',
+                'Provinsi',
+                'Kabupaten/Kota',
+                'Kecamatan',
                 'Desa/Kel',
                 'Tanggal',
                 'Kelompok Tani',
@@ -53,7 +105,7 @@ class PompaAbtDiterimaExport implements FromCollection, WithHeadings, WithStyles
     public function styles(Worksheet $sheet)
     {
         // Merge cells from A1 to J1 and center the text
-        $sheet->mergeCells('A1:J1');
+        $sheet->mergeCells('A1:M1');
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
 
         return [
@@ -64,7 +116,7 @@ class PompaAbtDiterimaExport implements FromCollection, WithHeadings, WithStyles
             2    => ['font' => ['bold' => true, 'size' => 12], 'alignment' => ['horizontal' => 'center']],
 
             // Border untuk tabel
-            'A2:J' . ($sheet->getHighestRow()) => [
+            'A2:M' . ($sheet->getHighestRow()) => [
                 'borders' => [
                     'allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
                 ],

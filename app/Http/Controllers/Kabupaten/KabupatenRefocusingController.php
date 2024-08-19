@@ -20,31 +20,14 @@ class KabupatenRefocusingController extends Controller
     public function diterimaView() {
         $user = Auth::user();
         $kecamatan = [];
-        // kecamatan, jum_poktan, luas_lahan, diterima
         $ref_diterima = [];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
-            foreach ($kecamatan as $kec) {
-                $poktan = 0;
-                $luas_lahan = 0;
-                $diterima = 0;
-                foreach ($kec->desa as $des) {
-                    if ($des->pompanisasi) foreach ($des->pompanisasi as $pom) {
-                        if ($pom->pompa_ref_diterima) {
-                            $diterima += $pom->pompa_ref_diterima->total_unit;
-                            
-                        }
-                    }
-                }
-                if ($diterima > 0) $ref_diterima[] = (object) [
-                    'kecamatan' => $kec,
-                    'poktan' => $poktan,
-                    'luas_lahan' => $luas_lahan,
-                    'diterima' => $diterima,
-                ];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompanisasi as $pom) if ($pom->verified_at) {
+                if ($pom->pompa_ref_diterima) $ref_diterima[] = $pom->pompa_ref_diterima;
             }
         }
-        // dd($ref_diterima);
+        $ref_diterima = $this->paginate($ref_diterima, 10);
         return view('kabupaten.refocusing.Diterima', ['kecamatan' => $kecamatan, 'ref_diterima' => $ref_diterima]);
     }
 
@@ -65,29 +48,11 @@ class KabupatenRefocusingController extends Controller
         $ref_digunakan = [];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
-            foreach ($kecamatan as $kec) {
-                $poktan = 0;
-                $luas_lahan = 0;
-                $digunakan = 0;
-                foreach ($kec->desa as $des) {
-                    if ($des->pompanisasi) foreach ($des->pompanisasi as $pom) {
-                        if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) {
-                            $poktan += 1;
-                            $luas_lahan += $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan->luas_lahan;
-                            $digunakan += $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan->total_unit;
-                        }
-                    }
-                }
-                if ($digunakan > 0) $ref_digunakan[] = (object) [
-                    'kecamatan' => $kec,
-                    'poktan' => $poktan,
-                    'luas_lahan' => $luas_lahan,
-                    'digunakan' => $digunakan,
-                ];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompanisasi as $pom) if ($pom->verified_at) {
+                if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $ref_digunakan[] = $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan;
             }
         }
         $ref_digunakan = $this->paginate($ref_digunakan, 10);
-        // dd($ref_digunakan);
         return view('kabupaten.refocusing.Digunakan', ['kecamatan' => $kecamatan, 'ref_digunakan' => $ref_digunakan]);
     }
 
