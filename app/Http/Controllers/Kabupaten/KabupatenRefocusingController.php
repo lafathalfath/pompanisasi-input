@@ -23,8 +23,8 @@ class KabupatenRefocusingController extends Controller
         $ref_diterima = [];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompanisasi as $pom) if ($pom->verified_at) {
-                if ($pom->pompa_ref_diterima) $ref_diterima[] = $pom->pompa_ref_diterima;
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_ref_diterima as $pom) if ($pom && $pom->verified_at) {
+                $ref_diterima[] = $pom;
             }
         }
         $ref_diterima = $this->paginate($ref_diterima, 10);
@@ -48,8 +48,8 @@ class KabupatenRefocusingController extends Controller
         $ref_digunakan = [];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompanisasi as $pom) if ($pom->verified_at) {
-                if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $ref_digunakan[] = $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan;
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_ref_dimanfaatkan as $pom) if ($pom && $pom->verified_at) {
+                $ref_digunakan[] = $pom;
             }
         }
         $ref_digunakan = $this->paginate($ref_digunakan, 10);

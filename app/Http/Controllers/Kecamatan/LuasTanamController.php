@@ -22,7 +22,7 @@ class LuasTanamController extends Controller
             'luas_tanam' => 'required',
             'tanggal' => 'required',
         ]);
-        $luas_tanam = LuasTanam::create($request->except(['_token',]));
+        $luas_tanam = LuasTanam::create($request->except('_token'));
         if (!$luas_tanam) return back()->withErrors('Data gagal disimpan');
         return redirect()->route('kecamatan.dashboard')->with('success', 'Data berhasil disimpan');
     }
