@@ -41,7 +41,7 @@
     <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
-        <h2>Rekap Data Provinsi</h2>
+        <h2>Rekapitulasi Data Provinsi</h2>
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
@@ -140,17 +140,17 @@
                 {
                     label: 'Usulan (unit)',
                     data: [null, abtUsulanPercent],
-                    backgroundColor: '#00aa11', // Hijau
+                    backgroundColor: '#ffff22', // Kuning
                 },
                 {
                     label: 'Diterima (unit)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#18a4bc', // Hijau
+                    backgroundColor: '#00aa00', // Hijau
                 },
                 {
                     label: 'Digunakan (unit)',
                     data: [refocusingDigunakanPercent, abtDigunakanPercent],
-                    backgroundColor: '#e74c3c', // Merah
+                    backgroundColor: '#18a4bc', // Biru
                 }
             ]
         },
