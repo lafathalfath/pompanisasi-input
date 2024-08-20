@@ -112,6 +112,26 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Verifikasi Refocusing
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Verifikasi ABT
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.usulan') }}">Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Luas Tanam Harian</a></li>
                 <li><a href="{{ route('kabupaten.verifikasi.data') }}" class="{{ request()->url() == route('kabupaten.verifikasi.data') ? 'active' : '' }}">Verifikasi Data</a></li>
             </ul>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
