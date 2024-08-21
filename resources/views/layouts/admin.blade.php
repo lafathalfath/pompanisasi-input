@@ -124,7 +124,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/admin.kelolaAkun') }}">Kelola Akun</a>
+                    <a class="nav-link" href="{{ route('admin.kelolaAkun') }}">Kelola Akun</a>
                 </li>
 
             </ul>
