@@ -18,27 +18,27 @@ class PompaAbtDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
     {
         $user = Auth::user();
         $desa = [];
-        if ($user->role_id == 2) {
+        if ($user->role_id == 2 && $user->wilayah) {
             foreach ($user->wilayah->provinsi as $prov) foreach ($prov->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        elseif ($user->role_id == 3) {
+        elseif ($user->role_id == 3 && $user->provinsi) {
             foreach ($user->provinsi->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        elseif ($user->role_id == 4) {
+        elseif ($user->role_id == 4 && $user->kabupaten) {
             foreach ($user->kabupaten->kecamatan as $kec) foreach ($kec->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        elseif ($user->role_id == 5) {
+        elseif ($user->role_id == 5 && $user->kecamatan) {
             foreach ($user->kecamatan->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        elseif ($user->role_id == 6) {
+        elseif ($user->role_id == 6 && $user->status_verifikasi == 'terverifikasi') {
             $desa = Desa::get();
         }
 
