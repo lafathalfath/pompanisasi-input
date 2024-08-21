@@ -220,6 +220,13 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/kecamatan/luasTanamHarian', function () {
+    return view('Kecamatan.luasTanamHarian');
+})->name('luasTanamHarian');
+
+// Route::get('/kecamatan/luasTanamHarian', [KecamatanController::class, 'index'])->name('luasTanamHarian');
+
+
 // Route::prefix('/poktan')->group(function () {
 //     Route::get('/', function () {return redirect()->route('poktan.dashboard');});
 //     Route::get('/dashboard', [PoktanController::class, 'index'])->name('poktan.dashboard');
