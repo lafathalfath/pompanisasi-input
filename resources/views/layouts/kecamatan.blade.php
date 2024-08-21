@@ -135,8 +135,7 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
-
-
+                <li><a href="">Luas Tanam Harian</a></li>
                 <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Luas Tanam</a></li>
 
 
