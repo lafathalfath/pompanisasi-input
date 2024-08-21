@@ -22,6 +22,7 @@
                 background-color: #007b83;
                 color: white;
                 height: 100%;
+                overflow-y: scroll;
                 position: fixed;
                 display: flex;
                 flex-direction: column;

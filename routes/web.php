@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
         Route::put('verifikasi-pj/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
         Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
+        Route::get('/kelolaAkun', function () {
+            return view('admin.kelolaAkun');
+        })->name('admin.kelolaAkun');
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
             Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
@@ -188,18 +191,12 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    
-    Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
-    Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
-
     Route::get('/verifAdmin', function () {
         return view('admin.verifikasiData');
     });
 
-    Route::get('/admin.kelolaAkun', function () {
-        return view('admin.kelolaAkun');
-    })->name('admin.kelolaAkun');
-
+    Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
+    Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
     
     // Route Export Pompa ABT & Ref all role
     Route::get('/export-pompa-abt-usulan', function () {
@@ -220,10 +217,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
-// Route::prefix('/poktan')->group(function () {
-//     Route::get('/', function () {return redirect()->route('poktan.dashboard');});
-//     Route::get('/dashboard', [PoktanController::class, 'index'])->name('poktan.dashboard');
-//     Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
-//     Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
-// });
-
+Route::get('/kecamatan/luasTanamHarian', function () {
+    return view('Kecamatan.luasTanamHarian');
+})->name('luasTanamHarian');
