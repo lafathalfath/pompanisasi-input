@@ -7,6 +7,10 @@
         background-color: #c8dce4;
     }
 
+    .content{
+        margin-left: 200px;
+    }
+
     .merged-cell {
         background-color: #d9ead3;
         text-align: center;
@@ -35,15 +39,18 @@
                     <th rowspan="2">No</th>
                     <th rowspan="2">Kecamatan</th>
                     <th rowspan="2">Desa/Kelurahan</th>
+                    <th rowspan="2">Tanggal</th>
+                    <th rowspan="2">Kelompok <br> tani</th>
+                    <th rowspan="2">Luas lahan <br> (ha)</th>
                     <th colspan="3" class="text-center">Pompa ABT Diterima</th>
-                    <th rowspan="2">Total diterima (unit)</th>
+                    <th rowspan="2">Total diusulkan <br> (unit)</th>
+                    <th rowspan="2">No HP Poktan <br> (jika ada)</th>
                 </tr>
                 <tr>
-                    <th>3 inch (unit)</th>
-                    <th>4 inch (unit)</th>
-                    <th>6 inch (unit)</th>
+                    <th>3 inch <br> (unit)</th>
+                    <th>4 inch <br> (unit)</th>
+                    <th>6 inch <br> (unit)</th>
                 </tr>
-
             </thead>
             <tbody>
                 @forelse ($abt_diterima as $ad)
@@ -57,7 +64,7 @@
                         <td>{{ $ad->total_unit }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="text-center">Belum ada data</td></tr>
+                    <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
                 @endforelse
             </tbody>
         </table>

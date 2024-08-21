@@ -219,4 +219,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/kecamatan/luasTanamHarian', function () {
     return view('Kecamatan.luasTanamHarian');
-})->name('luasTanamHarian');
+})->name('luasTanamHarianKec');
+
+Route::get('/kabupaten/luasTanamHarian', function () {
+    return view('kabupaten.luasTanamHarian');
+})->name('luasTanamHarianKab');

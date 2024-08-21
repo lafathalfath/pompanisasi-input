@@ -45,7 +45,8 @@
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa Refocusing</th>
+                    <th>Pompa Refocusing</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +63,8 @@
         <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa ABT</th>
+                    <th>Pompa ABT</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,7 +82,21 @@
                 </tr>
             </tbody>
         </table>
-        <h5><b>Luas Tanam Harian</b></h5>
+        <table class="table table-bordered table-custom" style="width: 45%;">
+            <thead>
+                <tr>
+                    <th>Luas Tanam</th>
+                    <th>Satuan <br>(ha)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold;">Luas Tanam</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                </tr>
+            </tbody>
+        </table>
+        {{-- <h5><b>Luas Tanam Harian</b></h5>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -104,7 +120,7 @@
                     <tr><td colspan="5" class="text-center">Belum ada data</td></tr>
                 @endforelse
             </tbody>
-        </table>
+        </table> --}}
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
