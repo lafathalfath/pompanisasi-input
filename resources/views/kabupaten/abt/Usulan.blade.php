@@ -7,6 +7,10 @@
         background-color: #c8dce4;
     }
 
+    .content{
+        margin-left: 200px;
+    }
+
     .merged-cell {
         background-color: #d9ead3;
         text-align: center;
@@ -65,7 +69,7 @@
                         {{-- <td><a href="{{ route('kabupaten.pompa.abt.usulan.detail', Crypt::encryptString($au->pompanisasi->desa->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td> --}}
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="text-center">Belum ada data</td></tr>
+                    <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
                 @endforelse
             </tbody>
         </table>
