@@ -39,10 +39,12 @@ class PompaRefDiterimaExport implements FromCollection, WithHeadings, WithStyles
             }
         }
         elseif ($user->role_id == 6 && $user->status_verifikasi == 'terverifikasi') {
-            $desa = Desa::get();
+            $desa = Desa::distinct()->pluck('id');
         }
-        if (!empty($desa)) foreach ($desa as $des) {
-            return $des->pompa_ref_diterima->map(function ($item, $key) {
+
+        if (!empty($desa)) {
+            $ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+            foreach ($ref_diterima as $key=>$item) {
                 return [
                     'No' => $key+1,
                     'Provinsi' => $item->desa->kecamatan->kabupaten->provinsi->nama,
@@ -58,8 +60,28 @@ class PompaRefDiterimaExport implements FromCollection, WithHeadings, WithStyles
                     'Total Diterima' => $item->total_unit ? $item->total_unit : '0',
                     'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
                 ];
-            });
+            }
         }
+
+        // if (!empty($desa)) foreach ($desa as $des) {
+        //     return $des->pompa_ref_diterima->map(function ($item, $key) {
+        //         return [
+        //             'No' => $key+1,
+        //             'Provinsi' => $item->desa->kecamatan->kabupaten->provinsi->nama,
+        //             'Kabupaten/Kota' => $item->desa->kecamatan->kabupaten->nama,
+        //             'Kecamatan' => $item->desa->kecamatan->nama,
+        //             'Desa/Kel' => $item->desa->nama,
+        //             'Tanggal' => $item->tanggal ? $item->tanggal : '-',
+        //             'Kelompok Tani' => $item->nama_poktan ? $item->nama_poktan : '-',
+        //             'Luas Lahan (ha)' => $item->luas_lahan ? $item->luas_lahan : '0',
+        //             '3 inch (unit)' => $item->pompa_3_inch ? $item->pompa_3_inch : '0',
+        //             '4 inch (unit)' => $item->pompa_4_inch ? $item->pompa_4_inch :'0',
+        //             '6 inch (unit)' => $item->pompa_6_inch ? $item->pompa_6_inch : '0',
+        //             'Total Diterima' => $item->total_unit ? $item->total_unit : '0',
+        //             'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
+        //         ];
+        //     });
+        // }
     }
 
     public function headings(): array
