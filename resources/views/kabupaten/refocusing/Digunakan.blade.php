@@ -42,7 +42,7 @@
                     <th rowspan="2">Tanggal</th>
                     <th rowspan="2">Kelompok <br> tani</th>
                     <th rowspan="2">Luas lahan <br> (ha)</th>
-                    <th colspan="3" class="text-center">Pompa refocusing Digunakan</th>
+                    <th colspan="3" class="text-center">Pompa refocusing Dimanfaatkan</th>
                     <th rowspan="2">Total digunakan <br> (unit)</th>
                     <th rowspan="2">No HP Poktan <br> (jika ada)</th>
                 </tr>

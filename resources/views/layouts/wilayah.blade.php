@@ -135,6 +135,7 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('wilayah.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('luasTanamHarianWil') }}" class="{{ request()->url() == route('luasTanamHarianWil') ? 'active' : '' }}">Luas Tanam Harian</a></li>
 
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}
 

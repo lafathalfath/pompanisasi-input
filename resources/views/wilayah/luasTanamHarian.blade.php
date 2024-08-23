@@ -1,4 +1,4 @@
-@extends('layouts.provinsi')
+@extends('layouts.wilayah')
 @section('content')
 
 <style>
@@ -46,7 +46,7 @@
             <i class="fa-solid fa-sliders"></i>
             <input type="date" class="form-control" id="date">
             <select name="desa_id" class="form-control" id="desa">
-                <option value="" disabled selected>Pilih Kabupaten</option>
+                <option value="" disabled selected>Pilih Provinsi</option>
                 {{-- @foreach ($desa as $des)
                     <option value="{{ $des->id }}">{{ $des->nama }}</option>
                 @endforeach --}}
@@ -57,6 +57,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Tanggal</th>
+                    <th>Provinsi</th>
                     <th>Kabupaten</th>
                     <th>Kecamatan</th>
                     <th>Desa</th>
