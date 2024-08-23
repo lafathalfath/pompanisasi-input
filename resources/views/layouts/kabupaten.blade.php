@@ -113,20 +113,20 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('luasTanamHarianKab') }}" class="{{ request()->url() == route('luasTanamHarianKab') ? 'active' : '' }}">Luas Tanam Harian</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Verifikasi Data
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.diterima') }}">Refocusing Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.digunakan') }}">Refocusing Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.ref.diterima.view') }}">Refocusing Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.ref.digunakan.view') }}">Refocusing Digunakan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.usulan') }}">ABT Usulan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.diterima') }}">ABT Diterima</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.digunakan') }}">ABT Digunakan</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ route('luasTanamHarianKab') }}" class="{{ request()->url() == route('luasTanamHarianKab') ? 'active' : '' }}">Luas Tanam Harian</a></li>
-                <li><a href="{{ route('kabupaten.verifikasi.data') }}" class="{{ request()->url() == route('kabupaten.verifikasi.data') ? 'active' : '' }}">Verifikasi Data</a></li>
+                {{-- <li><a href="{{ route('kabupaten.verifikasi.data') }}" class="{{ request()->url() == route('kabupaten.verifikasi.data') ? 'active' : '' }}">Verifikasi Data</a></li> --}}
             </ul>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
