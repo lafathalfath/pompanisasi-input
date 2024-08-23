@@ -34,45 +34,57 @@
 
     <div class="row" style="margin-left: 3px">
         <h2>Rekapitulasi Data Wilayah</h2>
-        <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
+        <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa Refocusing</th>
+                    <th>Pompa Refocusing</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td style="font-weight: bold;">Refocusing Usulan</td>
-                    <td style="padding: 10px 20px;">0</td>
-                </tr>
-                <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;">0</td>
+                    <td style="padding: 10px 20px;" id="ref_diterima">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;">0</td>
+                    <td style="padding: 10px 20px;" id="ref_digunakan">0</td>
                 </tr>
             </tbody>
         </table>
-        <table class="table table-bordered table-custom" style="width: fit-content;">
+        <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa ABT</th>
+                    <th>Pompa ABT</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;">15</td>
+                    <td style="padding: 10px 20px;" id="abt_usulan">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;">13</td>
+                    <td style="padding: 10px 20px;" id="abt_diterima">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;">10</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-custom" style="width: 45%;">
+            <thead>
+                <tr>
+                    <th>Luas Tanam</th>
+                    <th>Satuan <br>(ha)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold;">Luas Tanam</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
                 </tr>
             </tbody>
         </table>

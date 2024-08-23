@@ -224,3 +224,15 @@ Route::get('/kecamatan/luasTanamHarian', function () {
 Route::get('/kabupaten/luasTanamHarian', function () {
     return view('kabupaten.luasTanamHarian');
 })->name('luasTanamHarianKab');
+
+Route::get('/provinsi/luasTanamHarian', function () {
+    return view('provinsi.luasTanamHarian');
+})->name('luasTanamHarianProv');
+
+Route::get('/wilayah/luasTanamHarian', function () {
+    return view('wilayah.luasTanamHarian');
+})->name('luasTanamHarianWil');
+
+Route::get('/nasional/luasTanamHarian', function () {
+    return view('nasional.luasTanamHarian');
+})->name('luasTanamHarianNas');

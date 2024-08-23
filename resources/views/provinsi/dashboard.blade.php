@@ -45,38 +45,40 @@
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th colspan="2">Pompa Refocusing</th>
+                    <th>Pompa Refocusing</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;" id="ref_diterima">-</td>
+                    <td style="padding: 10px 20px;" id="ref_diterima">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;" id="ref_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="ref_digunakan">0</td>
                 </tr>
             </tbody>
         </table>
         <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th colspan="2">Pompa ABT</th>
+                    <th>Pompa ABT</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;" id="abt_usulan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_usulan">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;" id="abt_diterima">-</td>
+                    <td style="padding: 10px 20px;" id="abt_diterima">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">0</td>
                 </tr>
             </tbody>
         </table>
