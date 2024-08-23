@@ -7,6 +7,10 @@
     background-color: #c8dce4;
 }
 
+.content{
+    margin-left: 200px;
+}
+
 .merged-cell {
     background-color: #d9ead3;
     text-align: center;
@@ -38,7 +42,7 @@
                     <th rowspan="2">Tanggal</th>
                     <th rowspan="2">Kelompok <br> tani</th>
                     <th rowspan="2">Luas lahan <br> (ha)</th>
-                    <th colspan="3" class="text-center">Usulan Pompa ABT</th>
+                    <th colspan="3" class="text-center">Pompa refocusing Dimanfaatkan</th>
                     <th rowspan="2">Total digunakan <br> (unit)</th>
                     <th rowspan="2">No HP Poktan <br> (jika ada)</th>
                 </tr>
@@ -64,7 +68,7 @@
                         <td>{{ $rd->no_hp_poktan }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="text-center">Belum ada Data</td></tr>
+                    <tr><td colspan="11" class="text-center">Belum ada Data</td></tr>
                 @endforelse
             </tbody>
         </table>

@@ -45,7 +45,7 @@
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa Refocusing</th>
+                    <th colspan="2">Pompa Refocusing</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +62,7 @@
         <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa ABT</th>
+                    <th colspan="2">Pompa ABT</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,28 +80,18 @@
                 </tr>
             </tbody>
         </table>
-        <h5><b>Luas Tanam Harian</b></h5>
-        <table class="table table-bordered">
+        <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>Tanggal</th>
-                    <th>Kabupaten</th>
-                    <th>Luas Tanam (ha)</th>
+                    <th>Luas Tanam</th>
+                    <th>Satuan <br>(ha)</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @forelse ($luas_tanam_harian as $lt) --}}
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                {{-- @empty --}}
-                    <tr><td colspan="5" class="text-center">Belum ada data</td></tr>
-                {{-- @endforelse --}}
+                <tr>
+                    <td style="font-weight: bold;">Luas Tanam</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                </tr>
             </tbody>
         </table>
     </div>

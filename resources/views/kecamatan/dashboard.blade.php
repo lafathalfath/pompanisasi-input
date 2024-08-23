@@ -34,7 +34,8 @@
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th colspan="2">Pompa Refocusing</th>
+                    <th>Pompa Refocusing</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +58,8 @@
         <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th colspan="2">Pompa ABT</th>
+                    <th>Pompa ABT</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,33 +77,19 @@
                 </tr>
             </tbody>
         </table>
-        {{-- tabel untuk luas Tanam Harian --}}
-    <h5><b>Luas Tanam Harian</b></h5>
-        <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Tanggal</th>
-                <th>Desa</th>
-                <th>Kelompok Tani</th>
-                <th>Luas Tanam (ha)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($luas_tanam_harian as $lt)
+        <table class="table table-bordered table-custom" style="width: 45%;">
+            <thead>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $lt->tanggal }}</td>
-                    <td>{{ $lt->desa->nama }}</td>
-                    <td>{{ $lt->nama_poktan }}</td>
-                    <td>{{ $lt->luas_tanam }}</td>
+                    <th>Luas Tanam</th>
+                    <th>Satuan <br>(ha)</th>
                 </tr>
-            @empty
+            </thead>
+            <tbody>
                 <tr>
-                    <td colspan="5" class="text-center">Belum ada data</td>
+                    <td style="font-weight: bold;">Luas Tanam</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
                 </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 </div>
 @endsection
