@@ -33,7 +33,7 @@
     <!-- Akhir Grafik -->
 
     <div class="row" style="margin-left: 3px">
-        <h2>Rekap Data Wilayah</h2>
+        <h2>Rekapitulasi Data Wilayah</h2>
         <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
@@ -105,12 +105,12 @@
                 {
                     label: 'Diterima (%)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#2ecc71', // Hijau
+                    backgroundColor: '#00aa00', // Hijau
                 },
                 {
                     label: 'Digunakan (%)',
                     data: [refocusingDigunakanPercent, abtDigunakanPercent],
-                    backgroundColor: '#e74c3c', // Merah
+                    backgroundColor: '#18a4bc', // Biru
                 }
             ]
         },

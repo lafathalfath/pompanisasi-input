@@ -41,11 +41,12 @@
     <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
-        <h2>Rekap Data Nasioal</h2>
+        <h2>Rekapitulasi Data Nasional</h2>
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa Refocusing</th>
+                    <th>Pompa Refocusing</th>
+                    <th>(unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +63,8 @@
         <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa ABT</th>
+                    <th>Pompa ABT</th>
+                    <th>(unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,6 +78,21 @@
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-custom" style="width: 45%;">
+            <thead>
+                <tr>
+                    <th>Luas Tanam</th>
+                    <th>(ha)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold;">Luas Tanam</td>
                     <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
                 </tr>
             </tbody>
@@ -95,7 +112,7 @@
                 </tr>
             </thead>
             <tbody>
-        
+
                     <tr>
                         <td>-</td>
                         <td>-</td>
@@ -106,14 +123,13 @@
                         <td>-</td>
                         <td>-</td>
                     </tr>
-
             </tbody>
         </table>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    
+
     // Data dari tabel
     // var refocusingUsulan = 10;
     var refocusingDiterima = parseInt(document.getElementById('ref_diterima').innerHTML)
@@ -143,19 +159,19 @@
             labels: ['Refocusing', 'ABT'],
             datasets: [
                 {
-                    label: 'Usulan (unit)',
+                    label: 'Usulan (%)',
                     data: [null, abtUsulanPercent],
-                    backgroundColor: '#00aa11', // Hijau
+                    backgroundColor: '#ffff22', // Hijau
                 },
                 {
-                    label: 'Diterima (unit)',
+                    label: 'Diterima (%)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#18a4bc', // Hijau
+                    backgroundColor: '#00aa00', // Hijau
                 },
                 {
-                    label: 'Digunakan (unit)',
+                    label: 'Digunakan (%)',
                     data: [refocusingDigunakanPercent, abtDigunakanPercent],
-                    backgroundColor: '#e74c3c', // Merah
+                    backgroundColor: '#18a4bc', // Merah
                 }
             ]
         },
@@ -167,14 +183,14 @@
                     max: 100,
                     title: {
                         display: true,
-                        text: 'unit'
+                        text: 'percent (%)'
                     }
                 }
             },
             plugins: {
                 title: {
                     display: true,
-                    text: 'Persentase CPCL Pompa Refocusing dan ABT',
+                    text: 'Persentase Realisasi Pompa Refocusing dan ABT',
                     font: {
                         size: 18
                     }

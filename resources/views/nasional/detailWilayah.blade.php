@@ -27,7 +27,7 @@
 
     <div class="container mt-4">
         <div class="row" style="margin-left: 3px">
-            <h2>Rekap Data Wilayah</h2>
+            <h2>Rekapitulasi Data Wilayah</h2>
             <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
                 <thead>
                     <tr>

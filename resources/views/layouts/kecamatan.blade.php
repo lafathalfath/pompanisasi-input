@@ -135,9 +135,8 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kecamatan.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
-
-
-                <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Input Luas Tanam</a></li>
+                <li><a href="{{ route('luasTanamHarianKec') }}" class="{{ request()->url() == route('luasTanamHarianKec') ? 'active' : '' }}">Luas Tanam Harian</a></li>
+                {{-- <li><a href="{{ route('kecamatan.inputLuasTanam') }}" class="{{ request()->url() == route('kecamatan.inputLuasTanam') ? 'active' : '' }}">Luas Tanam</a></li> --}}
 
 
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}
