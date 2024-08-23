@@ -37,7 +37,7 @@
                     {{-- <th>Tanggal</th> --}}
                     <th>Kelompok tani</th>
                     <th>Luas lahan (ha)</th>
-                    <th class="text-center">Pompa Refocusing Digunakan</th>
+                    <th class="text-center">Pompa Refocusing Dimanfaatkan</th>
                     {{-- <th>No HP Poktan <br>(jika ada)</th> --}}
                     <th>Aksi</th>
                     {{-- <th rowspan="2">Total diusulkan <br>(unit)</th> --}}
@@ -45,7 +45,7 @@
                 {{-- <tr>
                     <th>3 inch <br>(unit)</th>
                     <th>4 inch <br>(unit)</th>
-                    <th>6 inch <br>(unit)</th> 
+                    <th>6 inch <br>(unit)</th>
                 </tr> --}}
             </thead>
             <tbody>

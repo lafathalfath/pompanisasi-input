@@ -35,7 +35,7 @@
                     <th>Kecamatan</th>
                     <th>Kelompok tani</th>
                     <th>Luas lahan (ha)</th>
-                    <th class="text-center">Pompa Refocusing Digunakan</th>
+                    <th class="text-center">Pompa Refocusing Dimanfaatkan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
