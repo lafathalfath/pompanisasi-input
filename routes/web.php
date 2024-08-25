@@ -16,7 +16,6 @@ use App\Http\Controllers\Kecamatan\LuasTanamController;
 use App\Http\Controllers\Kecamatan\PompaController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Nasional\NasionalController;
-use App\Http\Controllers\Poktan\PoktanController;
 use App\Http\Controllers\Provinsi\ProvinsiController;
 use App\Http\Controllers\Wilayah\WilayahController;
 use Maatwebsite\Excel\Facades\Excel;

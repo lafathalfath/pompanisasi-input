@@ -8,18 +8,22 @@ use App\Models\PompaAbtDiterima;
 use App\Models\PompaAbtUsulan;
 use App\Models\PompaRefDimanfaatkan;
 use App\Models\PompaRefDiterima;
+use App\Traits\ArrayPaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class VerifikasiDataController extends Controller
 {
+    use ArrayPaginator;
+
     public function refDiterimaView() {
         $user = Auth::user();
         $ref_diterima = [];
         if ($user->kabupaten) foreach ($user->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_ref_diterima as $rdt) {
             $ref_diterima[] = $rdt;
         }
+        $ref_diterima = $this->paginate($ref_diterima, 10);
         // return view
     }
 
@@ -29,6 +33,7 @@ class VerifikasiDataController extends Controller
         if ($user->kabupaten) foreach ($user->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_ref_dimanfaatkan as $rdm) {
             $ref_dimanfaatkan[] = $rdm;
         }
+        $ref_dimanfaatkan = $this->paginate($ref_dimanfaatkan, 10);
         // return view
     }
 
@@ -38,6 +43,7 @@ class VerifikasiDataController extends Controller
         if ($user->kabupaten) foreach ($user->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_abt_usulan as $aus) {
             $abt_usulan[] = $aus;
         }
+        $abt_usulan = $this->paginate($abt_usulan, 10);
         // return view
     }
 
@@ -47,6 +53,7 @@ class VerifikasiDataController extends Controller
         if ($user->kabupaten) foreach ($user->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_abt_diterima as $adt) {
             $abt_diterima[] = $adt;
         }
+        $abt_diterima = $this->paginate($abt_diterima, 10);
         // return view
     }
 
@@ -56,6 +63,7 @@ class VerifikasiDataController extends Controller
         if ($user->kabupaten) foreach ($user->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_abt_dimanfaatkan as $adm) {
             $abt_dimanfaatkan[] = $adm;
         }
+        $abt_dimanfaatkan = $this->paginate($abt_dimanfaatkan, 10);
         // return view
     }
 
