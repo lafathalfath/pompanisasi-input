@@ -34,59 +34,29 @@
           </tr>
         </thead>
         <tbody>
-          @forelse ($pompanisasi as $pom)
-            @php
-              $poktan = [
-                $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan->nama_poktan,
-                $pom->pompa_abt_usulan->nama_poktan,
-                $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan->nama_poktan,
-              ];
-              $luas_tanam = 0;
-              foreach ($pom->luas_tanam as $lt) {
-                $poktan[] = $lt->nama_poktan;
-                $luas_tanam += $lt->luas_tanam;
-              }
-              $poktan = array_unique($poktan);
-            @endphp
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $pom->desa->kecamatan->nama }}</td>
-                <td>{{ $pom->desa->nama }}</td>
-                {{-- <td>-</td> --}}
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
                 <td>
-                  @foreach ($poktan as $pok)
-                      {{ $pok }}, <br>
-                  @endforeach
-                </td>
-                <td>
-                  {{ $luas_tanam }}
-                </td>
-                <td>{{ $pom->pompa_ref_diterima->total_unit }}</td>
-                <td>{{ $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan->total_unit }}</td>
-                <td>{{ $pom->pompa_abt_usulan->total_unit }}</td>
-                <td>{{ $pom->pompa_abt_usulan->pompa_abt_diterima->total_unit }}</td>
-                <td>{{ $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan->total_unit }}</td>
-                <td>
-                  @if ($pom->status)
-                    <span class="badge text-bg-success fs-6 fw-normal">Terverifikasi</span>
-                  @else
                     <span class="badge text-bg-danger fs-6 fw-normal">Belum diverifikasi</span>
-                  @endif
                 </td>
                 <td class="border-0 d-flex align-items-center justify-content-center gap-2">
-                    {{-- <button class="btn btn-warning btn-sm">Edit</button> --}}
-                    @if (!$pom->status)
-                      <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#verifModal" onclick="handleClick('{{ route('kabupaten.verifikasi.data.verifikasi', Crypt::encryptString($pom->desa->id)) }}')"><span>&#10003;</span></button>
-                    @endif
-                    {{-- <button class="btn btn-danger btn-sm"><span>&#x292C;</span></button> --}}
+                    <button class="btn btn-success btn-sm"><span>&#10003;</span></button>
+                    <button class="btn btn-danger btn-sm"><span>&#x292C;</span></button>
                 </td>
             </tr>
-          @empty
+          {{-- @empty
             <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
-          @endforelse
+          @endforelse --}}
         </tbody>
     </table>
-    <div class="d-flex justify-content-center">
+
+    {{-- <div class="d-flex justify-content-center">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item {{ $pompanisasi->currentPage()==1?'disabled':'' }}">
@@ -116,7 +86,8 @@
             </li>
         </ul>
     </nav>
-    </div>
+    </div> --}}
+
   </div>
 
   {{-- modals --}}
