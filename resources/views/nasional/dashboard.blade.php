@@ -23,7 +23,7 @@
 
     .chart-container {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         width: 100%;
         margin-bottom: 20px;
@@ -32,13 +32,18 @@
     .content {
         margin-left: 180px;
     }
+
+    canvas {
+        max-width: 300px; /* Mengatur ukuran maksimal canvas */
+        max-height: 200px; /* Mengatur tinggi maksimal canvas */
+    }
 </style>
-    <!-- Grafik -->
+
 <div class="container mt-4">
     <div class="chart-container">
-        <canvas id="rekapDataChart" width="400" height="200"></canvas>
+        <canvas id="refocusingChart" width="300" height="200"></canvas>
+        <canvas id="abtChart" width="300" height="200"></canvas>
     </div>
-    <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
         <h2>Rekapitulasi Data Nasional</h2>
@@ -51,12 +56,16 @@
             </thead>
             <tbody>
                 <tr>
+                    <td style="font-weight: bold;">Refocusing Usulan</td>
+                    <td style="padding: 10px 20px;" id="ref_usulan">15000</td> <!-- Data dummy -->
+                </tr>
+                <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;" id="ref_diterima">-</td>
+                    <td style="padding: 10px 20px;" id="ref_diterima">10000</td> <!-- Data dummy -->
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;" id="ref_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="ref_digunakan">8000</td> <!-- Data dummy -->
                 </tr>
             </tbody>
         </table>
@@ -70,15 +79,15 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;" id="abt_usulan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_usulan">20000</td> <!-- Data dummy -->
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;" id="abt_diterima">-</td>
+                    <td style="padding: 10px 20px;" id="abt_diterima">15000</td> <!-- Data dummy -->
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">12000</td> <!-- Data dummy -->
                 </tr>
             </tbody>
         </table>
@@ -93,119 +102,119 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Luas Tanam</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="luas_tanam">5000</td> <!-- Data dummy -->
                 </tr>
             </tbody>
         </table>
-
-        {{-- <h5><b>Luas Tanam Harian</b></h5>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Tanggal</th>
-                    <th>Wilayah</th>
-                    <th>Provinsi</th>
-                    <th>Kabupaten</th>
-                    <th>Kecamatan</th>
-                    <th>Desa</th>
-                    <th>Luas Tanam (ha)</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-            </tbody>
-        </table> --}}
     </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    var refocusingTarget = 25771;
+    var abtTarget = 37607;
 
-    // Data dari tabel
-    // var refocusingUsulan = 10;
-    var refocusingDiterima = parseInt(document.getElementById('ref_diterima').innerHTML)
-    var refocusingDigunakan = parseInt(document.getElementById('ref_digunakan').innerHTML)
+    var refocusingUsulan = parseInt(document.getElementById('ref_usulan').innerHTML);
+    var refocusingDiterima = parseInt(document.getElementById('ref_diterima').innerHTML);
+    var refocusingDigunakan = parseInt(document.getElementById('ref_digunakan').innerHTML);
 
-    var abtUsulan = parseInt(document.getElementById('abt_usulan').innerHTML)
-    var abtDiterima = parseInt(document.getElementById('abt_diterima').innerHTML)
-    var abtDigunakan = parseInt(document.getElementById('abt_digunakan').innerHTML)
+    var abtUsulan = parseInt(document.getElementById('abt_usulan').innerHTML);
+    var abtDiterima = parseInt(document.getElementById('abt_diterima').innerHTML);
+    var abtDigunakan = parseInt(document.getElementById('abt_digunakan').innerHTML);
 
-    // Menghitung persentase baru
+    // Menghitung persentase berdasarkan target
+    var refocusingUsulanPercent = (refocusingUsulan / refocusingTarget) * 100;
+    var refocusingDiterimaPercent = (refocusingDiterima / refocusingTarget) * 100;
+    var refocusingDigunakanPercent = (refocusingDigunakan / refocusingTarget) * 100;
 
-    // var refocusingDiterimaPercent = (refocusingDiterima / refocusingUsulan) * 100;
-    // var refocusingDigunakanPercent = (refocusingDigunakan / refocusingUsulan) * 100;
-    var refocusingDiterimaPercent = (refocusingDiterima / (refocusingDiterima + refocusingDigunakan)) * 100
-    var refocusingDigunakanPercent = (refocusingDigunakan / (refocusingDiterima + refocusingDigunakan)) * 100
+    var abtUsulanPercent = (abtUsulan / abtTarget) * 100;
+    var abtDiterimaPercent = (abtDiterima / abtTarget) * 100;
+    var abtDigunakanPercent = (abtDigunakan / abtTarget) * 100;
 
-    // var abtDiterimaPercent = (abtDiterima / abtUsulan) * 100;
-    // var abtDigunakanPercent = (abtDigunakan / abtUsulan) * 100;
-    var abtUsulanPercent = (abtUsulan / (abtUsulan + abtDiterima + abtDigunakan)) * 100
-    var abtDiterimaPercent = (abtDiterima / (abtUsulan + abtDiterima + abtDigunakan)) * 100
-    var abtDigunakanPercent = (abtDigunakan / (abtUsulan + abtDiterima + abtDigunakan)) * 100
-
-    var ctx = document.getElementById('rekapDataChart').getContext('2d');
-    var rekapDataChart = new Chart(ctx, {
+    // Grafik Refocusing
+    var ctxRefocusing = document.getElementById('refocusingChart').getContext('2d');
+    var refocusingChart = new Chart(ctxRefocusing, {
         type: 'bar',
         data: {
-            labels: ['Refocusing', 'ABT'],
-            datasets: [
-                {
-                    label: 'Usulan (%)',
-                    data: [null, abtUsulanPercent],
-                    backgroundColor: '#ffff22', // Hijau
-                },
-                {
-                    label: 'Diterima (%)',
-                    data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#00aa00', // Hijau
-                },
-                {
-                    label: 'Digunakan (%)',
-                    data: [refocusingDigunakanPercent, abtDigunakanPercent],
-                    backgroundColor: '#18a4bc', // Merah
-                }
-            ]
+            labels: ['Usulan', 'Diterima', 'Digunakan'],
+            datasets: [{
+                label: 'Refocusing (25.771)',
+                data: [refocusingUsulanPercent, refocusingDiterimaPercent, refocusingDigunakanPercent],
+                backgroundColor: ['#ffff22', '#00aa00', '#18a4bc'],
+            }]
         },
         options: {
-            indexAxis: 'y',
             scales: {
-                x: {
+                y: {
                     beginAtZero: true,
                     max: 100,
                     title: {
                         display: true,
-                        text: 'percent (%)'
+                        text: 'Percent (%)'
                     }
                 }
             },
             plugins: {
                 title: {
                     display: true,
-                    text: 'Persentase Realisasi Pompa Refocusing dan ABT',
+                    text: 'Persentase Refocusing',
                     font: {
-                        size: 18
+                        size: 16
                     }
                 },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return context.parsed.x + '%';
+                            return context.parsed.y + '%';
                         }
                     }
                 }
             }
         }
     });
+
+    // Grafik ABT
+    var ctxAbt = document.getElementById('abtChart').getContext('2d');
+    var abtChart = new Chart(ctxAbt, {
+        type: 'bar',
+        data: {
+            labels: ['Usulan', 'Diterima', 'Digunakan'],
+            datasets: [{
+                label: 'ABT (37.607)',
+                data: [abtUsulanPercent, abtDiterimaPercent, abtDigunakanPercent],
+                backgroundColor: ['#ffff22', '#00aa00', '#18a4bc'],
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Percent (%)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Persentase ABT',
+                    font: {
+                        size: 16
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
 </script>
 
 @endsection
