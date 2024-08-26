@@ -98,8 +98,8 @@
                         Pompa Refocusing
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.ref.digunakan') }}">Digunakan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.ref.diterima') }}">Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.ref.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -112,7 +112,7 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('provinsi.pompa.abt.digunakan') }}">Digunakan</a></li>
                     </ul>
                 </li>
-
+                <li><a href="{{ route('luasTanamHarianProv') }}" class="{{ request()->url() == route('luasTanamHarianProv') ? 'active' : '' }}">Luas Tanam Harian</a></li>
             </ul>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>

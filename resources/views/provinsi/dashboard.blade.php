@@ -41,67 +41,59 @@
     <!-- Akhir Grafik Risqi -->
 
     <div class="row" style="margin-left: 3px">
-        <h2>Rekap Data Provinsi</h2>
+        <h2>Rekapitulasi Data Provinsi</h2>
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa Refocusing</th>
+                    <th>Pompa Refocusing</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;" id="ref_diterima">-</td>
+                    <td style="padding: 10px 20px;" id="ref_diterima">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;" id="ref_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="ref_digunakan">0</td>
                 </tr>
             </tbody>
         </table>
         <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th colspan="2">CPCL Pompa ABT</th>
+                    <th>Pompa ABT</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;" id="abt_usulan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_usulan">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;" id="abt_diterima">-</td>
+                    <td style="padding: 10px 20px;" id="abt_diterima">0</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">0</td>
                 </tr>
             </tbody>
         </table>
-        <h5><b>Luas Tanam Harian</b></h5>
-        <table class="table table-bordered">
+        <table class="table table-bordered table-custom" style="width: 45%;">
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>Tanggal</th>
-                    <th>Kabupaten</th>
-                    <th>Luas Tanam (ha)</th>
+                    <th>Luas Tanam</th>
+                    <th>Satuan <br>(ha)</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @forelse ($luas_tanam_harian as $lt) --}}
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                {{-- @empty --}}
-                    <tr><td colspan="5" class="text-center">Belum ada data</td></tr>
-                {{-- @endforelse --}}
+                <tr>
+                    <td style="font-weight: bold;">Luas Tanam</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -140,17 +132,17 @@
                 {
                     label: 'Usulan (unit)',
                     data: [null, abtUsulanPercent],
-                    backgroundColor: '#00aa11', // Hijau
+                    backgroundColor: '#ffff22', // Kuning
                 },
                 {
                     label: 'Diterima (unit)',
                     data: [refocusingDiterimaPercent, abtDiterimaPercent],
-                    backgroundColor: '#18a4bc', // Hijau
+                    backgroundColor: '#00aa00', // Hijau
                 },
                 {
                     label: 'Digunakan (unit)',
                     data: [refocusingDigunakanPercent, abtDigunakanPercent],
-                    backgroundColor: '#e74c3c', // Merah
+                    backgroundColor: '#18a4bc', // Biru
                 }
             ]
         },

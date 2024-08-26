@@ -19,7 +19,7 @@
         border: none;
         padding: 5px 10px;
         cursor: pointer;
-        border-radius: 7px; 
+        border-radius: 7px;
         text-decoration: none !important;
         color: black;
     }
@@ -27,7 +27,7 @@
 
 <div class="container mt-4">
     <div class="row" style="margin-left: 3px">
-        <h2>Rekap Data Kabupaten</h2>
+        <h2>Rekapitulasi Data Kabupaten</h2>
         <table class="table table-bordered table-custom" style="width: fit-content; margin-right: 20px; display: inline-table;">
             <thead>
                 <tr>

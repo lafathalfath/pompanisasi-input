@@ -15,14 +15,14 @@
                     @endforeach
                 </select>
             </div>
-            {{-- <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanPoktan">Nama Poktan</label>
                 <input type="text" name="pompa_abt_usulan_poktan" class="form-control" id="pumpaABTUsulanPoktan" placeholder="Nama Poktan" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanLuas">Luas Lahan (ha)</label>
                 <input type="number" name="pompa_abt_usulan_luas" class="form-control" id="pumpaABTUsulanLuas" placeholder="Luas Lahan (ha)" required>
-            </div> --}}
+            </div>
         </div>
 
         <div class="form-row">
@@ -45,7 +45,7 @@
                 <label for="pumpaABTUsulanJumlah">Jumlah yang Diterima</label>
                 <input type="number" name="total_unit" class="form-control" id="pumpaABTDiterimaJumlah" placeholder="Jumlah" readonly>
             </div>
-            {{-- <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanNoHP">No HP Poktan (Opsional)</label>
                 <input type="text" name="pompa_abt_usulan_no_hp" class="form-control" id="pumpaABTUsulanNoHP" placeholder="No HP">
             </div>
@@ -56,7 +56,7 @@
             <div class="form-group col-md-4">
                 <label for="farmerGroup">Foto Bukti</label>
                 <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*">
-            </div> --}}
+            </div>
         </div>
             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit</button>
     </form>

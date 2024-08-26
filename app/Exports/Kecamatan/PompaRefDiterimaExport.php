@@ -1,6 +1,7 @@
 <?php
 namespace App\Exports\Kecamatan;
 
+use App\Models\Desa;
 use App\Models\Pompanisasi;
 use App\Models\PompaRefDiterima;
 use Illuminate\Support\Facades\Auth;
@@ -17,94 +18,70 @@ class PompaRefDiterimaExport implements FromCollection, WithHeadings, WithStyles
     {
         $user = Auth::user();
         $desa = [];
-        if ($user->role_id == 2) {
+        if ($user->role_id == 2 && $user->wilayah) {
             foreach ($user->wilayah->provinsi as $prov) foreach ($prov->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        elseif ($user->role_id == 3) {
+        elseif ($user->role_id == 3 && $user->provinsi) {
             foreach ($user->provinsi->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        elseif ($user->role_id == 4) {
+        elseif ($user->role_id == 4 && $user->kabupaten) {
             foreach ($user->kabupaten->kecamatan as $kec) foreach ($kec->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        elseif ($user->role_id == 5) {
+        elseif ($user->role_id == 5 && $user->kecamatan) {
             foreach ($user->kecamatan->desa as $des) {
                 $desa[] = $des->id;
             }
         }
-        if (!empty($desa)) {
-            $pompanisasi = Pompanisasi::whereIn('desa_id', $desa)
-                ->where('verified_at', '!=', null)
-                ->get();
-            $id_pompa = [];
-            foreach ($pompanisasi as $pom) if (
-                $pom->pompa_ref_diterima 
-                && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan
-                && $pom->pompa_abt_usulan
-                && $pom->pompa_abt_usulan->pompa_abt_diterima
-                && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan
-            ) $id_pompa[] =  $pom->id;
-            
-            return PompaRefDiterima::whereIn('pompanisasi_id', $id_pompa)
-                ->get()
-                ->map(function ($item, $key) {
-                    // dd($key);
-                    return [
-                        'No' => $key+1,
-                        'Provinsi' => $item->pompanisasi->desa->kecamatan->kabupaten->provinsi->nama,
-                        'Kabupaten/Kota' => $item->pompanisasi->desa->kecamatan->kabupaten->nama,
-                        'Kecamatan' => $item->pompanisasi->desa->kecamatan->nama,
-                        'Desa/Kel' => $item->pompanisasi->desa->nama,
-                        'Tanggal' => '-', // Placeholder jika tidak ada data tanggal
-                        'Kelompok Tani' => '-', // Placeholder jika tidak ada data kelompok tani
-                        'Luas Lahan (ha)' => '-', // Placeholder jika tidak ada data luas lahan
-                        '3 inch (unit)' => $item->pompa_3_inch ? $item->pompa_3_inch : '0',
-                        '4 inch (unit)' => $item->pompa_4_inch ? $item->pompa_4_inch :'0',
-                        '6 inch (unit)' => $item->pompa_6_inch ? $item->pompa_6_inch : '0',
-                        'Total Diterima' => $item->total_unit ? $item->total_unit : '0',
-                        'No HP Poktan' => '-', // Placeholder jika nomor HP tidak ada
-                    ];
-                });
-            // foreach ($pompanisasi as $key=>$pom) if (
-            //     $pom->pompa_ref_diterima
-            //     && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan
-            // ) {
-            //     $ref_diterima = $pom->pompa_ref_diterima;
-            //     return [
-            //         'No' => $key+1,
-            //         'Desa/Kel' => $pom->desa->nama,
-            //         'Tanggal' => '-', // Placeholder jika tidak ada data tanggal
-            //         'Kelompok Tani' => '-', // Placeholder jika tidak ada data kelompok tani
-            //         'Luas Lahan (ha)' => '-', // Placeholder jika tidak ada data luas lahan
-            //         '3 inch (unit)' => $ref_diterima->pompa_3_inch,
-            //         '4 inch (unit)' => $ref_diterima->pompa_4_inch,
-            //         '6 inch (unit)' => $ref_diterima->pompa_6_inch,
-            //         'Total Diterima' => $ref_diterima->total_unit,
-            //         'No HP Poktan' => '-', // Placeholder jika nomor HP tidak ada
-            //     ];
-            // }
+        elseif ($user->role_id == 6 && $user->status_verifikasi == 'terverifikasi') {
+            $desa = Desa::distinct()->pluck('id');
         }
-        // return PompaRefDiterima::with('pompanisasi.desa')
-        //     ->get()
-        //     ->map(function ($item) {
+
+        if (!empty($desa)) {
+            $ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+            foreach ($ref_diterima as $key=>$item) {
+                return [
+                    'No' => $key+1,
+                    'Provinsi' => $item->desa->kecamatan->kabupaten->provinsi->nama,
+                    'Kabupaten/Kota' => $item->desa->kecamatan->kabupaten->nama,
+                    'Kecamatan' => $item->desa->kecamatan->nama,
+                    'Desa/Kel' => $item->desa->nama,
+                    'Tanggal' => $item->tanggal ? $item->tanggal : '-',
+                    'Kelompok Tani' => $item->nama_poktan ? $item->nama_poktan : '-',
+                    'Luas Lahan (ha)' => $item->luas_lahan ? $item->luas_lahan : '0',
+                    '3 inch (unit)' => $item->pompa_3_inch ? $item->pompa_3_inch : '0',
+                    '4 inch (unit)' => $item->pompa_4_inch ? $item->pompa_4_inch :'0',
+                    '6 inch (unit)' => $item->pompa_6_inch ? $item->pompa_6_inch : '0',
+                    'Total Diterima' => $item->total_unit ? $item->total_unit : '0',
+                    'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
+                ];
+            }
+        }
+
+        // if (!empty($desa)) foreach ($desa as $des) {
+        //     return $des->pompa_ref_diterima->map(function ($item, $key) {
         //         return [
-        //             'No' => $item->id,
-        //             'Desa/Kel' => $item->pompanisasi->desa->nama,
-        //             'Tanggal' => '-', // Placeholder jika tidak ada data tanggal
-        //             'Kelompok Tani' => '-', // Placeholder jika tidak ada data kelompok tani
-        //             'Luas Lahan (ha)' => '-', // Placeholder jika tidak ada data luas lahan
-        //             '3 inch (unit)' => $item->pompa_3_inch,
-        //             '4 inch (unit)' => $item->pompa_4_inch,
-        //             '6 inch (unit)' => $item->pompa_6_inch,
-        //             'Total Diterima' => $item->total_unit,
-        //             'No HP Poktan' => '08123456789', // Placeholder jika nomor HP tidak ada
+        //             'No' => $key+1,
+        //             'Provinsi' => $item->desa->kecamatan->kabupaten->provinsi->nama,
+        //             'Kabupaten/Kota' => $item->desa->kecamatan->kabupaten->nama,
+        //             'Kecamatan' => $item->desa->kecamatan->nama,
+        //             'Desa/Kel' => $item->desa->nama,
+        //             'Tanggal' => $item->tanggal ? $item->tanggal : '-',
+        //             'Kelompok Tani' => $item->nama_poktan ? $item->nama_poktan : '-',
+        //             'Luas Lahan (ha)' => $item->luas_lahan ? $item->luas_lahan : '0',
+        //             '3 inch (unit)' => $item->pompa_3_inch ? $item->pompa_3_inch : '0',
+        //             '4 inch (unit)' => $item->pompa_4_inch ? $item->pompa_4_inch :'0',
+        //             '6 inch (unit)' => $item->pompa_6_inch ? $item->pompa_6_inch : '0',
+        //             'Total Diterima' => $item->total_unit ? $item->total_unit : '0',
+        //             'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
         //         ];
         //     });
+        // }
     }
 
     public function headings(): array

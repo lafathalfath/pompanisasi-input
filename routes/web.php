@@ -16,7 +16,6 @@ use App\Http\Controllers\Kecamatan\LuasTanamController;
 use App\Http\Controllers\Kecamatan\PompaController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Nasional\NasionalController;
-use App\Http\Controllers\Poktan\PoktanController;
 use App\Http\Controllers\Provinsi\ProvinsiController;
 use App\Http\Controllers\Wilayah\WilayahController;
 use Maatwebsite\Excel\Facades\Excel;
@@ -64,6 +63,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
         Route::put('verifikasi-pj/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
         Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
+        Route::get('/kelolaAkun', function () {
+            return view('admin.kelolaAkun');
+        })->name('admin.kelolaAkun');
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
             Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
@@ -118,7 +120,7 @@ Route::middleware('auth')->group(function () {
             return view('provinsi.detailkabupaten');
         })->name('provinsi.detailkabupaten');
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/diterima', function () {return view('provinsi.refocusing.diterima');})->name('provinsi.pompa.ref.diterima');
+            Route::get('/diterima', [ProvinsiController::class, 'refDiterima'])->name('provinsi.pompa.ref.diterima');
             Route::get('/digunakan', function () {return view('provinsi.refocusing.digunakan');})->name('provinsi.pompa.ref.digunakan');
         });
         Route::prefix('/pompa/abt')->group(function () {
@@ -134,8 +136,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/detailkecamatan', function () {
             return view('kabupaten.detailkecamatan');
         })->name('kabupaten.detailkecamatan');
-        Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
-        Route::put('/verifikasi-data/{des_id}', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data.verifikasi');
+        // Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
+        // Route::put('/verifikasi-data/{des_id}', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data.verifikasi');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [KabupatenRefocusingController::class, 'diterimaView'])->name('kabupaten.pompa.ref.diterima');
             Route::get('diterima/{kec_id}/detail', [KabupatenRefocusingController::class, 'detailDiterimaView'])->name('kabupaten.pompa.ref.diterima.detail');
@@ -152,13 +154,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan/{kec_id}/detail', [KabupatenAbtController::class, 'detailDigunakanView'])->name('kabupaten.pompa.abt.digunakan.detail');
             Route::get('/digunakan/{id}/detail/detail', [KabupatenAbtController::class, 'detailDigunakanDetail'])->name('kabupaten.pompa.abt.digunakan.detail.detail');
         });
+        Route::prefix('/verifikasi')->group(function () {
+            Route::get('/refocusing/diterima', function () {return view('kabupaten.verifdata.verifRefDiterima');})->name('kabupaten.verif.ref.diterima.view');
+            Route::get('/refocusing/digunakan', function () {return view('kabupaten.verifdata.verifRefDigunakan');})->name('kabupaten.verif.ref.digunakan.view');
+        });
     });
 
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
 
-        Route::get('/inputLuasTanam', [LuasTanamController::class, 'index'])->name('kecamatan.inputLuasTanam');
+        Route::get('/inputLuasTanam', [LuasTanamController::class, 'create'])->name('kecamatan.inputLuasTanam');
         Route::post('/inputLuasTanam', [LuasTanamController::class, 'store'])->name('kecamatan.inputLuasTanam.store');
 
         Route::prefix('/pompa/refocusing')->group(function () {
@@ -188,18 +194,12 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    
-    Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
-    Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
-
     Route::get('/verifAdmin', function () {
         return view('admin.verifikasiData');
     });
 
-    Route::get('/admin.kelolaAkun', function () {
-        return view('admin.kelolaAkun');
-    })->name('admin.kelolaAkun');
-
+    Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
+    Route::post('/data-desa', [LokasiController::class, 'storeDesa'])->name('lokasi.desa.store');
     
     // Route Export Pompa ABT & Ref all role
     Route::get('/export-pompa-abt-usulan', function () {
@@ -220,10 +220,22 @@ Route::middleware('auth')->group(function () {
 
 });
 
-// Route::prefix('/poktan')->group(function () {
-//     Route::get('/', function () {return redirect()->route('poktan.dashboard');});
-//     Route::get('/dashboard', [PoktanController::class, 'index'])->name('poktan.dashboard');
-//     Route::get('/inputpompa', [PoktanController::class, 'showForm'])->name('poktan.inputpompa');
-//     Route::post('/pompa/store', [PoktanController::class, 'storePompa'])->name('poktan.pompa.store');
-// });
+Route::get('/kecamatan/luasTanamHarian', function () {
+    return view('Kecamatan.luasTanamHarian');
+})->name('luasTanamHarianKec');
 
+Route::get('/kabupaten/luasTanamHarian', function () {
+    return view('kabupaten.luasTanamHarian');
+})->name('luasTanamHarianKab');
+
+Route::get('/provinsi/luasTanamHarian', function () {
+    return view('provinsi.luasTanamHarian');
+})->name('luasTanamHarianProv');
+
+Route::get('/wilayah/luasTanamHarian', function () {
+    return view('wilayah.luasTanamHarian');
+})->name('luasTanamHarianWil');
+
+Route::get('/nasional/luasTanamHarian', function () {
+    return view('nasional.luasTanamHarian');
+})->name('luasTanamHarianNas');

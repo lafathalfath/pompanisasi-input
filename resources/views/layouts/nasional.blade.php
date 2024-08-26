@@ -112,7 +112,7 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('nasional.pompa.abt.digunakan') }}">Dimanfaatkan</a></li>
                     </ul>
                 </li>
-
+                <li><a href="{{ route('luasTanamHarianNas') }}" class="{{ request()->url() == route('luasTanamHarianNas') ? 'active' : '' }}">Luas Tanam Harian</a></li>
             </ul>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
