@@ -157,6 +157,9 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/verifikasi')->group(function () {
             Route::get('/refocusing/diterima', function () {return view('kabupaten.verifdata.verifRefDiterima');})->name('kabupaten.verif.ref.diterima.view');
             Route::get('/refocusing/digunakan', function () {return view('kabupaten.verifdata.verifRefDigunakan');})->name('kabupaten.verif.ref.digunakan.view');
+            Route::get('/abt/usulan', function () {return view('kabupaten.verifdata.verifAbtUsulan');})->name('kabupaten.verif.abt.usulan.view');
+            Route::get('/abt/diterima', function () {return view('kabupaten.verifdata.verifAbtDiterima');})->name('kabupaten.verif.abt.diterima.view');
+            Route::get('/abt/digunakan', function () {return view('kabupaten.verifdata.verifAbtDigunakan');})->name('kabupaten.verif.abt.digunakan.view');
         });
     });
 
