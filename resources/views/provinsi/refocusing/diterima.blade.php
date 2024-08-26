@@ -41,7 +41,7 @@
                     {{-- <th>Luas lahan (ha)</th> --}}
                     <th colspan='3' class="text-center">Pompa Refocusing Diterima</th>
                     {{-- <th>No HP Poktan <br>(jika ada)</th> --}}
-                    <th rowspan="2">Total diusulkan <br>(unit)</th>
+                    <th rowspan="2">Total Diterima<br>(unit)</th>
                 </tr>
                 <tr>
                     <th>3 inch <br>(unit)</th>
