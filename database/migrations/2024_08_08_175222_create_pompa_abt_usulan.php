@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('total_unit')->unsigned();
             $table->string('no_hp_poktan')->nullable();
             $table->date('tanggal');
-            $table->timestamp('verified_at');
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('desa_id')->references('id')->on('desa');
