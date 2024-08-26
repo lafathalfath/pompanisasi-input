@@ -46,7 +46,7 @@
             <thead>
                 <tr>
                     <th>Pompa Refocusing</th>
-                    <th>(unit)</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@
             <thead>
                 <tr>
                     <th>Pompa ABT</th>
-                    <th>(unit)</th>
+                    <th>Satuan <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@
             <thead>
                 <tr>
                     <th>Luas Tanam</th>
-                    <th>(ha)</th>
+                    <th>Satuan <br>(ha)</th>
                 </tr>
             </thead>
             <tbody>
@@ -97,7 +97,8 @@
                 </tr>
             </tbody>
         </table>
-        <h5><b>Luas Tanam Harian</b></h5>
+
+        {{-- <h5><b>Luas Tanam Harian</b></h5>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -124,7 +125,7 @@
                         <td>-</td>
                     </tr>
             </tbody>
-        </table>
+        </table> --}}
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
