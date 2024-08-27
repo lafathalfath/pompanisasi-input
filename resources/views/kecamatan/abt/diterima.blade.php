@@ -56,15 +56,15 @@
                 @forelse ($abt_diterima as $ad)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $ad->pompa_abt_usulan->pompanisasi->desa->nama }}</td>
-                    <td>{{ $ad->pompa_abt_usulan->tanggal }}</td>
-                    <td>{{ $ad->pompa_abt_usulan->nama_poktan }}</td>
-                    <td>{{ $ad->pompa_abt_usulan->luas_lahan }}</td>
+                    <td>{{ $ad->desa->nama }}</td>
+                    <td>{{ $ad->tanggal }}</td>
+                    <td>{{ $ad->nama_poktan }}</td>
+                    <td>{{ $ad->luas_lahan }}</td>
                     <td>{{ $ad->pompa_3_inch }}</td>
                     <td>{{ $ad->pompa_4_inch }}</td>
                     <td>{{ $ad->pompa_6_inch }}</td>
                     <td>{{ $ad->total_unit }}</td>
-                    <td>{{ $ad->pompa_abt_usulan->no_hp_poktan }}</td>
+                    <td>{{ $ad->no_hp_poktan }}</td>
                     {{-- <td><a href="" class="btn btn-sm btn-info">Detail</a></td> --}}
                 </tr>
                 @empty

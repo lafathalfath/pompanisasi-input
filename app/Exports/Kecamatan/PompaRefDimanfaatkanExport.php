@@ -45,7 +45,7 @@ class PompaRefDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
 
         if (!empty($desa)) {
             $ref_dimanfaatkan = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
-            foreach ($ref_dimanfaatkan as $key=>$item) {
+            return $ref_dimanfaatkan->map(function ($item, $key) {
                 return [
                     'No' => $key+1,
                     'Provinsi' => $item->desa->kecamatan->kabupaten->provinsi->nama,
@@ -61,7 +61,7 @@ class PompaRefDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
                     'Total Dimanfaatkan' => $item->total_unit ? $item->total_unit : '0',
                     'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
                 ];
-            }
+            });
         }
 
         // if (!empty($desa)) foreach ($desa as $des) {
