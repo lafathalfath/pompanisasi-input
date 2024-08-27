@@ -110,7 +110,7 @@ class KecamatanController extends Controller
         ]);
         $abt_usulan = PompaAbtUsulan::create($request->except('_token'));
         if (!$abt_usulan) return back()->withErrors('gagal mengirim data');
-        return redirect()->route('kecamatan.pompa.ref.usulan')->with('success', 'berhasil menambahkan data');
+        return redirect()->route('kecamatan.pompa.abt.usulan')->with('success', 'berhasil menambahkan data');
     }
 
     public function storeAbtDiterima(Request $request) {
@@ -157,7 +157,7 @@ class KecamatanController extends Controller
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
             $url_gambar = "/storeage/pompanisasi/$filename";
-            $abt_dimanfaatkan = PompaRefDimanfaatkan::create([
+            $abt_dimanfaatkan = PompaAbtDimanfaatkan::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
             ]);

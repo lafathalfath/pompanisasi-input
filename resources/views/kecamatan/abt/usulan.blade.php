@@ -65,7 +65,7 @@
                     <td>{{ $au->pompa_4_inch }}</td>
                     <td>{{ $au->pompa_6_inch }}</td>
                     <td>{{ $au->total_unit }}</td>
-                    <td>{{ $au->no_hp_poktan }}</td>
+                    <td>{{ $au->no_hp_poktan ? $au->no_hp_poktan : '-' }}</td>
                     {{-- <td><a href="" class="btn btn-sm btn-info">Detail</a></td> --}}
                 </tr>
                 @empty
