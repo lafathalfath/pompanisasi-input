@@ -32,6 +32,7 @@
                     <option value="{{ $des->id }}">{{ $des->nama }}</option>
                 @endforeach
             </select>
+            <button type="button" id="resetButton" class="btn btn-secondary">Reset</button>
         </div>
         <table class="w-100 table table-bordered">
             <thead>
@@ -54,9 +55,9 @@
             </thead>
             <tbody>
                 @forelse ($abt_usulan as $au)
-                <tr>
+                <tr data-date="{{ $au->tanggal }}" data-desa-id="{{ $au->desa->id }}">
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $au->pompanisasi->desa->nama }}</td>
+                    <td>{{ $au->desa->nama }}</td>
                     <td>{{ $au->tanggal }}</td>
                     <td>{{ $au->nama_poktan }}</td>
                     <td>{{ $au->luas_lahan }}</td>
@@ -78,4 +79,46 @@
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dateInput = document.getElementById('date');
+    const desaSelect = document.getElementById('desa');
+    const rows = document.querySelectorAll('tbody tr');
+    const resetButton = document.getElementById('resetButton');
+
+    function filterTable() {
+        const selectedDate = dateInput.value;
+        const selectedDesa = desaSelect.value;
+
+        rows.forEach(row => {
+            const rowDate = row.getAttribute('data-date');
+            const rowDesaId = row.getAttribute('data-desa-id');
+
+            const dateMatches = selectedDate === '' || rowDate === selectedDate;
+            const desaMatches = selectedDesa === '' || rowDesaId === selectedDesa;
+
+            if (dateMatches && desaMatches) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    function resetFilters() {
+        dateInput.value = '';
+        desaSelect.value = '';
+        rows.forEach(row => {
+            row.style.display = '';
+        });
+    }
+
+    dateInput.addEventListener('change', filterTable);
+    desaSelect.addEventListener('change', filterTable);
+    resetButton.addEventListener('click', resetFilters);
+});
+
+    </script>
+    
 @endsection

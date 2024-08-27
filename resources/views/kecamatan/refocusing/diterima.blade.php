@@ -57,10 +57,10 @@
                 @forelse ($ref_diterima as $rd)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $rd->pompanisasi->desa->nama }}</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>{{ $rd->desa->nama }}</td>
+                        <td>{{ $rd->tanggal }}</td>
+                        <td>{{ $rd->nama_poktan }}</td>
+                        <td>{{ $rd->luas_lahan }}</td>
                         <td>{{ $rd->pompa_3_inch }}</td>
                         <td>{{ $rd->pompa_4_inch }}</td>
                         <td>{{ $rd->pompa_6_inch }}</td>
