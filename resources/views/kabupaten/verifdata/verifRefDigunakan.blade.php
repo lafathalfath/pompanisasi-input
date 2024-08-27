@@ -20,19 +20,26 @@
   <div class="container mt-4">
     <h2>Verifikasi Data Pompa Refocusing Digunakan</h2>
     <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th rowspan="2">No</th>
-            <th rowspan="2">Kecamatan</th>
-            <th rowspan="2">Desa/Kelurahan</th>
-            {{-- <th rowspan="2">Tanggal</th> --}}
-            <th rowspan="2">Kelompok <br> Tani</th>
-            <th rowspan="2">Luas <br> Tanam</th>
-            <th colspan="2">Refocusing <br> Digunakan</th>
-            <th rowspan="2">Status</th>
-            <th rowspan="2">Action</th>
-          </tr>
-        </thead>
+      <thead>
+        <tr>
+          <th rowspan="2">No</th>
+          <th rowspan="2">Kecamatan</th>
+          <th rowspan="2">Desa/Kelurahan</th>
+          <th rowspan="2">Tanggal</th>
+          <th rowspan="2">Kelompok<br>tani</th>
+          <th rowspan="2">Luas lahan<br>(ha)</th>
+          <th colspan="3">Pompa refocusing Digunakan</th>
+          <th rowspan="2">Total Digunakan<br>(unit)</th>
+          <th rowspan="2">No HP Poktan<br>(jika ada)</th>
+          <th rowspan="2">Status</th>
+          <th rowspan="2">Action</th>
+      </tr>
+      <tr>
+          <th>3 inch<br>(unit)</th>
+          <th>4 inch<br>(unit)</th>
+          <th>6 inch<br>(unit)</th>
+      </tr>
+      </thead>
         <tbody>
             <tr>
                 <td>-</td>
@@ -42,18 +49,15 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
                 <td>
-                  {{-- @if ($pom->status)
-                    <span class="badge text-bg-success fs-6 fw-normal">Terverifikasi</span>
-                  @else --}}
                     <span class="badge text-bg-danger fs-6 fw-normal">Belum diverifikasi</span>
-                  {{-- @endif --}}
                 </td>
                 <td class="border-0 d-flex align-items-center justify-content-center gap-2">
                     <button class="btn btn-success btn-sm"><span>&#10003;</span></button>
-                    {{-- @if (!$pom->status)
-                      <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#verifModal" onclick="handleClick('{{ route('kabupaten.verifikasi.data.verifikasi', Crypt::encryptString($pom->desa->id)) }}')"><span>&#10003;</span></button>
-                    @endif --}}
                     <button class="btn btn-danger btn-sm"><span>&#x292C;</span></button>
                 </td>
             </tr>
@@ -94,6 +98,7 @@
         </ul>
     </nav>
     </div> --}}
+
   </div>
 
   {{-- modals --}}
