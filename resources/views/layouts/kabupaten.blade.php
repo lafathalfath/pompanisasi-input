@@ -121,9 +121,9 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.ref.diterima.view') }}">Refocusing Diterima</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.ref.digunakan.view') }}">Refocusing Digunakan</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.usulan') }}">ABT Usulan</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.diterima') }}">ABT Diterima</a></li>
-                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.pompa.abt.digunakan') }}">ABT Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.abt.usulan.view') }}">ABT Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.abt.diterima.view') }}">ABT Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.abt.digunakan.view') }}">ABT Digunakan</a></li>
                     </ul>
                 </li>
                 {{-- <li><a href="{{ route('kabupaten.verifikasi.data') }}" class="{{ request()->url() == route('kabupaten.verifikasi.data') ? 'active' : '' }}">Verifikasi Data</a></li> --}}
