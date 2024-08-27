@@ -109,6 +109,60 @@
     </div>
 </div>
 
+<div class="container mt-4">
+    <h3>Rekapitulasi Perluasan Areal Tanam dan Pompanisasi Nasional</h3>
+    <div class="row">
+
+        <div class="col">
+            <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+                <a href="{{ url('/export-luastanamharian') }}" class="d-flex align-items-center btn btn-secondary">
+                    <i class="fa fa-download me-2"></i> Excel
+                </a>
+                <select name="provinsi_id" class="form-control" id="provinsi">
+                <option value="" disabled selected>Pilih Provinsi</option>
+                </select>
+                <select name="kabupaten_id" class="form-control" id="kabupaten">
+                <option value="" disabled selected>Pilih Kabupaten</option>
+                </select>
+                <select name="kecamatan_id" class="form-control" id="kecamatan">
+                <option value="" disabled selected>Pilih Kecamatan</option>
+                </select>
+            </div>
+                <table class="table table-bordered table-custom">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="merged-cell">No</th>
+                        <th rowspan="2" class="merged-cell">Provinsi</th>
+                        <th colspan="2" class="merged-cell">Pompa Refocusing</th>
+                        <th colspan="4" class="merged-cell">Pompa ABT</th>
+                        <th rowspan="2" class="merged-cell">Luas Tanam (ha)</th>
+                    </tr>
+                    <tr>
+                        <th>Digunakan</th>
+                        <th>Diterima</th>
+                        <th>Usulan</th>
+                        <th>Diterima</th>
+                        <th>Digunakan</th>
+                        <th>Luas Tanam (ha)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Jawa Barat</td>
+                        <td>1000</td>
+                        <td>1200</td>
+                        <td>500</td>
+                        <td>700</td>
+                        <td>600</td>
+                        <td>2500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     var refocusingTarget = 25771;
