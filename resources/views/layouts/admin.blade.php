@@ -114,7 +114,7 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Manage Region
+                        Kelola Wilayah
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-dark" href="{{ route('admin.manage.provinsi') }}">Provinsi</a></li>

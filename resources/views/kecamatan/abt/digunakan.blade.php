@@ -57,7 +57,7 @@
                 @forelse ($abt_dimanfaatkan as $ad)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $ad->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->nama }}</td>
+                        <td>{{ $ad->desa->nama }}</td>
                         <td>{{ $ad->tanggal }}</td>
                         <td>{{ $ad->nama_poktan }}</td>
                         <td>{{ $ad->luas_lahan }}</td>
@@ -65,7 +65,7 @@
                         <td>{{ $ad->pompa_4_inch }}</td>
                         <td>{{ $ad->pompa_6_inch }}</td>
                         <td>{{ $ad->total_unit }}</td>
-                        <td>08123456789</td>
+                        <td>{{ $ad->no_hp_poktan }}</td>
                         <td><a href="{{ route('kecamatan.pompa.abt.digunakan.detail', Crypt::encryptString($ad->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
                     </tr>
                 @empty
