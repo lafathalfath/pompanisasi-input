@@ -58,32 +58,35 @@
                 <tr>
                     <th>No.</th>
                     <th>Tanggal</th>
+                    <th>Kecamatan</th>
                     <th>Desa</th>
                     <th>Kelompok Tani</th>
                     <th>Luas Tanam (ha)</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                {{-- <tr>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                </tr>
-                {{-- @forelse ($luas_tanam_harian as $lt)
+                    <td>-</td>
+                </tr> --}}
+                @forelse ($luas_tanam as $lt)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $lt->tanggal }}</td>
+                        <td>{{ $lt->desa->kecamatan->nama }}</td>
                         <td>{{ $lt->desa->nama }}</td>
                         <td>{{ $lt->nama_poktan }}</td>
                         <td>{{ $lt->luas_tanam }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center">Belum ada data</td>
+                        <td colspan="6" class="text-center">Belum ada data</td>
                     </tr>
-                @endforelse --}}
+                @endforelse
             </tbody>
         </table>
 

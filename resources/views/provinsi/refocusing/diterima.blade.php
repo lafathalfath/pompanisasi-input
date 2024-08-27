@@ -24,9 +24,6 @@
             <input type="date" class="form-control" id="date">
             <select name="kecamatan_id" class="form-control" id="kecamatan">
                 <option value="" disabled selected>Pilih Kabupaten</option>
-                {{-- @foreach ($kecamatan as $kec)
-                    <option value="{{ $kec->id }}">{{ $kec->nama }}</option>
-                @endforeach --}}
             </select>
         </div>
         <table class="w-100 table table-bordered">
@@ -53,10 +50,10 @@
                 @forelse ($ref_diterima as $rd)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $rd->pompanisasi->desa->kecamatan->kabupaten->nama }}</td>
-                        <td>{{ $rd->pompanisasi->desa->kecamatan->nama }}</td>
-                        <td>{{ $rd->pompanisasi->desa->nama }}</td>
-                        <td>-</td>
+                        <td>{{ $rd->desa->kecamatan->kabupaten->nama }}</td>
+                        <td>{{ $rd->desa->kecamatan->nama }}</td>
+                        <td>{{ $rd->desa->nama }}</td>
+                        <td>{{ $rd->nama_poktan }}</td>
                         <td>{{ $rd->pompa_3_inch }}</td>
                         <td>{{ $rd->pompa_4_inch }}</td>
                         <td>{{ $rd->pompa_6_inch }}</td>

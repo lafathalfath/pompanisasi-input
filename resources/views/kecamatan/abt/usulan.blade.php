@@ -56,7 +56,7 @@
                 @forelse ($abt_usulan as $au)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $au->pompanisasi->desa->nama }}</td>
+                    <td>{{ $au->desa->nama }}</td>
                     <td>{{ $au->tanggal }}</td>
                     <td>{{ $au->nama_poktan }}</td>
                     <td>{{ $au->luas_lahan }}</td>
