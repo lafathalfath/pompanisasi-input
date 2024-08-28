@@ -14,12 +14,17 @@ class LuasTanamController extends Controller
 
     public function index() {
         $user = Auth::user();
+        $desa = [];
         $luas_tanam = [];
-        if ($user->kecamatan) foreach ($user->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->luas_tanam as $lt) {
-            $luas_tanams[] = $lt;
-        };
+        if ($user->kecamatan) {
+            $desa = $user->kecamatan->desa;
+            foreach ($user->kecamatan->desa as $des) foreach ($des->luas_tanam as $lt) {
+                $luas_tanam[] = $lt;
+            };
+        }
+        // dd($luas_tanam);
         $luas_tanam = $this->paginate($luas_tanam, 10);
-        // return view
+        return view('kecamatan.luasTanamHarian', ['luas_tanam' => $luas_tanam, 'desa' => $desa]);
     }
 
     public function create() {
@@ -37,6 +42,6 @@ class LuasTanamController extends Controller
         ]);
         $luas_tanam = LuasTanam::create($request->except('_token'));
         if (!$luas_tanam) return back()->withErrors('Data gagal disimpan');
-        return redirect()->route('kecamatan.dashboard')->with('success', 'Data berhasil disimpan');
+        return redirect()->route('luasTanamHarianKec')->with('success', 'Data berhasil disimpan');
     }
 }

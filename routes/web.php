@@ -167,6 +167,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {return redirect()->route('kecamatan.dashboard');});
         Route::get('/dashboard', [KecamatanController::class, 'index'])->name('kecamatan.dashboard');
 
+        Route::get('/luasTanamHarian', [LuasTanamController::class, 'index'])->name('luasTanamHarianKec');
         Route::get('/inputLuasTanam', [LuasTanamController::class, 'create'])->name('kecamatan.inputLuasTanam');
         Route::post('/inputLuasTanam', [LuasTanamController::class, 'store'])->name('kecamatan.inputLuasTanam.store');
 
@@ -223,9 +224,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/kecamatan/luasTanamHarian', function () {
-    return view('Kecamatan.luasTanamHarian');
-})->name('luasTanamHarianKec');
 
 Route::get('/kabupaten/luasTanamHarian', function () {
     return view('kabupaten.luasTanamHarian');

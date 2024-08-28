@@ -44,13 +44,13 @@ class PompaAbtDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
 
         if (!empty($desa)) {
             $abt_dimanfaatkan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
-            foreach ($abt_dimanfaatkan as $key=>$item) {
+            return $abt_dimanfaatkan->map(function ($item, $key) {
                 return [
                     'No' => $key+1,
-                    'Provinsi' => $item->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->kecamatan->kabupaten->provinsi->nama,
-                    'Kabupaten' => $item->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->kecamatan->kabupaten->nama,
-                    'Kecamatan' => $item->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->kecamatan->nama,
-                    'Desa/Kel' => $item->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->nama,
+                    'Provinsi' => $item->desa->kecamatan->kabupaten->provinsi->nama,
+                    'Kabupaten' => $item->desa->kecamatan->kabupaten->nama,
+                    'Kecamatan' => $item->desa->kecamatan->nama,
+                    'Desa/Kel' => $item->desa->nama,
                     'Tanggal' => $item->tanggal ? $item->tanggal : '-',
                     'Kelompok Tani' => $item->nama_poktan ? $item->nama_poktan :'-',
                     'Luas Lahan (ha)' => $item->luas_lahan ? $item->luas_lahan : '0',
@@ -60,8 +60,29 @@ class PompaAbtDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
                     'Total Dimanfaatkan' => $item->total_unit ? $item->total_unit : '0',
                     'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
                 ];
-            }
+            });
         }
+
+        // if (!empty($desa)) {
+        //     $abt_dimanfaatkan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+        //     foreach ($abt_dimanfaatkan as $key=>$item) {
+        //         return [
+        //             'No' => $key+1,
+        //             'Provinsi' => $item->desa->kecamatan->kabupaten->provinsi->nama,
+        //             'Kabupaten' => $item->desa->kecamatan->kabupaten->nama,
+        //             'Kecamatan' => $item->desa->kecamatan->nama,
+        //             'Desa/Kel' => $item->desa->nama,
+        //             'Tanggal' => $item->tanggal ? $item->tanggal : '-',
+        //             'Kelompok Tani' => $item->nama_poktan ? $item->nama_poktan :'-',
+        //             'Luas Lahan (ha)' => $item->luas_lahan ? $item->luas_lahan : '0',
+        //             '3 inch (unit)' => $item->pompa_3_inch ? $item->pompa_3_inch : '0',
+        //             '4 inch (unit)' => $item->pompa_4_inch ? $item->pompa_4_inch : '0',
+        //             '6 inch (unit)' => $item->pompa_6_inch ? $item->pompa_6_inch : '0',
+        //             'Total Dimanfaatkan' => $item->total_unit ? $item->total_unit : '0',
+        //             'No HP Poktan' => $item->no_hp_poktan ? $item->no_hp_poktan : '-',
+        //         ];
+        //     }
+        // }
 
         // if (!empty($desa)) foreach ($desa as $des) {
         //     return $des->pompa_abt_dimanfaatkan

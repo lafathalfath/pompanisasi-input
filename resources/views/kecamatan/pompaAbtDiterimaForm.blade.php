@@ -1,7 +1,7 @@
 @extends('layouts.inputPompa')
 @section('content')
 <div class="container mt-5">
-    <form action="{{ route('kecamatan.abt.diterima.store') }}" method="POST">
+    <form action="{{ route('kecamatan.abt.diterima.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Pompa Diterima -->
         <h4>Pompa ABT Diterima</h4>
@@ -17,11 +17,11 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanPoktan">Nama Poktan</label>
-                <input type="text" name="pompa_abt_usulan_poktan" class="form-control" id="pumpaABTUsulanPoktan" placeholder="Nama Poktan" required>
+                <input type="text" name="nama_poktan" class="form-control" id="pumpaABTUsulanPoktan" placeholder="Nama Poktan" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanLuas">Luas Lahan (ha)</label>
-                <input type="number" name="pompa_abt_usulan_luas" class="form-control" id="pumpaABTUsulanLuas" placeholder="Luas Lahan (ha)" required>
+                <input type="number" step="0.0001" name="luas_lahan" class="form-control" id="pumpaABTUsulanLuas" placeholder="Luas Lahan (ha)" required>
             </div>
         </div>
 
@@ -47,11 +47,11 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanNoHP">No HP Poktan (Opsional)</label>
-                <input type="text" name="pompa_abt_usulan_no_hp" class="form-control" id="pumpaABTUsulanNoHP" placeholder="No HP">
+                <input type="text" name="no_hp_poktan" class="form-control" id="pumpaABTUsulanNoHP" placeholder="No HP">
             </div>
             <div class="form-group col-md-4">
                 <label for="pumpaABTUsulanTanggal">Tanggal</label>
-                <input type="date" name="pompa_abt_usulan_tanggal" class="form-control" id="pumpaABTUsulanTanggal" required>
+                <input type="date" name="tanggal" class="form-control" id="pumpaABTUsulanTanggal" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="farmerGroup">Foto Bukti</label>

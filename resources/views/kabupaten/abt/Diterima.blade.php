@@ -56,8 +56,8 @@
                 @forelse ($abt_diterima as $ad)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $ad->pompa_abt_usulan->pompanisasi->desa->kecamatan->nama }}</td>
-                        <td>{{ $ad->pompa_abt_usulan->pompanisasi->desa->nama }}</td>
+                        <td>{{ $ad->desa->kecamatan->nama }}</td>
+                        <td>{{ $ad->desa->nama }}</td>
                         <td>{{ $ad->pompa_3_inch }}</td>
                         <td>{{ $ad->pompa_4_inch }}</td>
                         <td>{{ $ad->pompa_6_inch }}</td>

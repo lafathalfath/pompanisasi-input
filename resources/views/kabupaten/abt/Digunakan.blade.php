@@ -57,8 +57,8 @@
                 @forelse ($abt_digunakan as $ad)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $ad->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->kecamatan->nama }}</td>
-                        <td>{{ $ad->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->nama }}</td>
+                        <td>{{ $ad->desa->kecamatan->nama }}</td>
+                        <td>{{ $ad->desa->nama }}</td>
                         <td>{{ $ad->tanggal }}</td>
                         <td>{{ $ad->nama_poktan }}</td>
                         <td>{{ $ad->luas_lahan }}</td>
