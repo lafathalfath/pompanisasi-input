@@ -44,7 +44,7 @@
                     <th colspan="3" class="text-center">Pompa Refocusing Dimanfaatkan</th>
                     <th rowspan="2">Total <br>dimanfaatkan</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
-                    <th rowspan="2">Aksi</th>
+                    {{-- <th rowspan="2">Aksi</th> --}}
                     {{-- <th rowspan="2">Total diusulkan <br>(unit)</th> --}}
                 </tr>
                 <tr>
@@ -57,7 +57,7 @@
                 @forelse ($ref_dimanfaatkan as $rd)
                     <tr>
                         <td>{{ $loop->iteration }}</td> 
-                        <td>{{ $rd->pompa_ref_diterima->pompanisasi->desa->nama }}</td>
+                        <td>{{ $rd->desa->nama }}</td>
                         <td>{{ $rd->tanggal }}</td>
                         <td>{{ $rd->nama_poktan }}</td>
                         <td>{{ $rd->luas_lahan }}</td>
@@ -65,12 +65,12 @@
                         <td>{{ $rd->pompa_4_inch }}</td>
                         <td>{{ $rd->pompa_6_inch }}</td>
                         <td>{{ $rd->total_unit }}</td>
-                        <td>{{ $rd->no_hp_poktan }}</td>
-                        <td><a href="{{ route('kecamatan.pompa.ref.digunakan.detail', Crypt::encryptString($rd->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
+                        <td>{{ $rd->no_hp_poktan ? $rd->no_hp_poktan : '-' }}</td>
+                        {{-- <td><a href="{{ route('kecamatan.pompa.ref.digunakan.detail', Crypt::encryptString($rd->id)) }}" class="btn btn-sm btn-info">Detail</a></td> --}}
                         {{-- <td>0</td> --}}
                     </tr>
                 @empty
-                    <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
+                    <tr><td colspan="10" class="text-center">Belum ada data</td></tr>
                 @endforelse
                 {{-- <tr>
                     <td>1</td> 

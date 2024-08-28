@@ -21,15 +21,9 @@ class ProvinsiController extends Controller
         $ref_diterima = [];
         if ($user->provinsi) {
             $kabupaten = $user->provinsi->kabupaten;
-            foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompanisasi as $pom) if (
-                $pom->verified_at
-                && $pom->pompa_ref_diterima
-                && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan
-                && $pom->pompa_abt_usulan
-                && $pom->pompa_abt_usulan->pompa_abt_diterima
-                && $pom->pompa_abt_usulan->pompa_abt_diterima->pompa_abt_dimanfaatkan
-            ) {
-                $ref_diterima[] = $pom->pompa_ref_diterima;
+            foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_ref_diterima as $rdt) if (
+                $rdt->verified_at) {
+                $ref_diterima[] = $rdt;
             }
         }
         $ref_diterima = $this->paginate($ref_diterima, 10);

@@ -33,12 +33,12 @@
         margin-left: 180px;
     }
 </style>
-    <!-- Grafik -->
+    {{-- <!-- Grafik -->
 <div class="container mt-4">
     <div class="chart-container">
         <canvas id="rekapDataChart" width="400" height="200"></canvas>
     </div>
-    <!-- Akhir Grafik Risqi -->
+    <!-- Akhir Grafik Risqi --> --}}
 
     <div class="row" style="margin-left: 3px">
         <h2>Rekapitulasi Data Provinsi</h2>
@@ -98,7 +98,7 @@
         </table>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
     // Data dari tabel
@@ -176,6 +176,6 @@
             }
         }
     });
-</script>
+</script> --}}
 
 @endsection
