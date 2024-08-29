@@ -30,19 +30,19 @@
     <div class="row info-section">
         <div class="col-md-3">
             <h5>Tanggal</h5>
-            <p>{{ $abt_dimanfaatkan->tanggal }}</p>
+            <p>{{ $abt_diterima->tanggal }}</p>
         </div>
         <div class="col-md-3">
             <h5>Desa/Kelurahan</h5>
-            <p>{{ $abt_dimanfaatkan->desa->nama }}</p>
+            <p>{{ $abt_diterima->desa->nama }}</p>
         </div>
         <div class="col-md-3">
             <h5>Kelompok Tani</h5>
-            <p>{{ $abt_dimanfaatkan->nama_poktan }}</p>
+            <p>{{ $abt_diterima->nama_poktan }}</p>
         </div>
         <div class="col-md-3">
             <h5>Luas Lahan (Ha)</h5>
-            <p>{{ $abt_dimanfaatkan->luas_lahan }}</p>
+            <p>{{ $abt_diterima->luas_lahan }}</p>
         </div>
     </div>
 
@@ -51,19 +51,19 @@
     <div class="row info-section">
         <div class="col-md-3">
             <h5>Pompa ABT 3 Inch (unit)</h5>
-            <p>{{ $abt_dimanfaatkan->pompa_3_inch }}</p>
+            <p>{{ $abt_diterima->pompa_3_inch }}</p>
         </div>
         <div class="col-md-3">
             <h5>Pompa ABT 4 Inch (unit)</h5>
-            <p>{{ $abt_dimanfaatkan->pompa_4_inch }}</p>
+            <p>{{ $abt_diterima->pompa_4_inch }}</p>
         </div>
         <div class="col-md-3">
             <h5>Pompa ABT 6 Inch (unit)</h5>
-            <p>{{ $abt_dimanfaatkan->pompa_6_inch }}</p>
+            <p>{{ $abt_diterima->pompa_6_inch }}</p>
         </div>
         <div class="col-md-3">
             <h5>No HP Poktan</h5>
-            <p>{{ $abt_dimanfaatkan->no_hp_poktan ? $abt_dimanfaatkan->no_hp_poktan : '-' }}</p>
+            <p>{{ $abt_diterima->no_hp_poktan ? $abt_diterima->no_hp_poktan : '-' }}</p>
         </div>
     </div>
 
@@ -73,7 +73,7 @@
     <div class="row image-section">
         <div class="col-12">
             <h5 class="text-center"><b>DOKUMENTASI FOTO</b></h5>
-            <img src="{{ $abt_dimanfaatkan->url_gambar }}" alt="Dokumentasi Foto">
+            <img src="{{ $abt_diterima->url_gambar }}" alt="Dokumentasi Foto">
         </div>
     </div>
 </div>

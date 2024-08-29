@@ -78,27 +78,27 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item {{ $abt_dimanfaatkan->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', ['nama' => request()->query('nama'), 'page' => $abt_dimanfaatkan->currentPage()-1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', [...request()->query(), 'page' => $abt_dimanfaatkan->currentPage()-1]) }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li class="page-item {{ $abt_dimanfaatkan->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', ['nama' => request()->query('nama'), 'page' => 1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
                         <span aria-hidden="true">First</span>
                         </a>
                     </li>
                     @for ($i = 1; $i <= $abt_dimanfaatkan->lastPage(); $i++)
                         @if ($i>($abt_dimanfaatkan->currentPage()-5) && $i<($abt_dimanfaatkan->currentPage()+5))
-                            <li class="page-item {{ $abt_dimanfaatkan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', ['nama' => request()->query('nama'), 'page' => $i]) }}">{{ $i }}</a></li>
+                            <li class="page-item {{ $abt_dimanfaatkan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
                         @endif
                     @endfor
                     <li class="page-item {{ $abt_dimanfaatkan->currentPage()==$abt_dimanfaatkan->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', ['nama' => request()->query('nama'), 'page' => $abt_dimanfaatkan->lastPage()]) }}" aria-label="Next">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', [...request()->query(), 'page' => $abt_dimanfaatkan->lastPage()]) }}" aria-label="Next">
                         <span aria-hidden="true">Last</span>
                         </a>
                     </li>
                     <li class="page-item {{ $abt_dimanfaatkan->currentPage()==$abt_dimanfaatkan->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', ['nama' => request()->query('nama'), 'page' => $abt_dimanfaatkan->currentPage()+1]) }}" aria-label="Next">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.digunakan', [...request()->query(), 'page' => $abt_dimanfaatkan->currentPage()+1]) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
