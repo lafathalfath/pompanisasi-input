@@ -18,11 +18,11 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanPoktan">Nama Poktan</label>
-                <input type="text" name="pompa_ref_usulan_poktan" class="form-control" id="pumparefUsulanPoktan" placeholder="Nama Poktan" required>
+                <input type="text" name="nama_poktan" class="form-control" id="pumparefUsulanPoktan" placeholder="Nama Poktan" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanLuas">Luas Lahan (ha)</label>
-                <input type="number" name="pompa_ref_usulan_luas" class="form-control" id="pumparefUsulanLuas" placeholder="Luas Lahan (ha)" required>
+                <input type="number" step="0.0001" name="luas_lahan" class="form-control" id="pumparefUsulanLuas" placeholder="Luas Lahan (ha)" required>
             </div>
         </div>
 
@@ -48,11 +48,11 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanNoHP">No HP Poktan (Opsional)</label>
-                <input type="text" name="pompa_ref_usulan_no_hp" class="form-control" id="pumparefUsulanNoHP" placeholder="No HP">
+                <input type="text" name="no_hp_poktan" class="form-control" id="pumparefUsulanNoHP" placeholder="No HP">
             </div>
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanTanggal">Tanggal</label>
-                <input type="date" name="pompa_ref_usulan_tanggal" class="form-control" id="pumparefUsulanTanggal" required>
+                <input type="date" name="tanggal" class="form-control" id="pumparefUsulanTanggal" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="farmerGroup">Foto Bukti</label>

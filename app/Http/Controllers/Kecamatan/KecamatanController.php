@@ -29,7 +29,7 @@ class KecamatanController extends Controller
             if ($des->pompa_ref_dimanfaatkan && !empty($des->pompa_ref_dimanfaatkan)) foreach ($des->pompa_ref_dimanfaatkan as $rdm) $ref_digunakan += $rdm->total_unit;
             if ($des->pompa_abt_usulan && !empty($des->pompa_abt_usulan)) foreach ($des->pompa_abt_usulan as $aus) $abt_usulan += $aus->total_unit;
             if ($des->pompa_abt_diterima && !empty($des->pompa_abt_diterima)) foreach ($des->pompa_abt_diterima as $adt) $abt_diterima += $adt->total_unit;
-            if ($des->pompa_abt_dimanfaatkan && !empty($des->pompa_abt_dimanfaatkan)) foreach ($des->pompa_abt_diterima as $adm) $abt_digunakan += $adm->total_unit;
+            if ($des->pompa_abt_dimanfaatkan && !empty($des->pompa_abt_dimanfaatkan)) foreach ($des->pompa_abt_dimanfaatkan as $adm) $abt_digunakan += $adm->total_unit;
         }
 
         // $luas_tanam_harian = $luas_tanam_harian->paginate(10);
@@ -59,7 +59,7 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
+            $url_gambar = "/storage/pompanisasi/$filename";
             $ref_diterima = PompaRefDiterima::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
@@ -86,7 +86,7 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
+            $url_gambar = "/storage/pompanisasi/$filename";
             $ref_dimanfaatkan = PompaRefDimanfaatkan::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
@@ -110,7 +110,7 @@ class KecamatanController extends Controller
         ]);
         $abt_usulan = PompaAbtUsulan::create($request->except('_token'));
         if (!$abt_usulan) return back()->withErrors('gagal mengirim data');
-        return redirect()->route('kecamatan.pompa.ref.usulan')->with('success', 'berhasil menambahkan data');
+        return redirect()->route('kecamatan.pompa.abt.usulan')->with('success', 'berhasil menambahkan data');
     }
 
     public function storeAbtDiterima(Request $request) {
@@ -129,7 +129,7 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
+            $url_gambar = "/storage/pompanisasi/$filename";
             $abt_diterima = PompaAbtDiterima::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
@@ -156,8 +156,8 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
-            $abt_dimanfaatkan = PompaRefDimanfaatkan::create([
+            $url_gambar = "/storage/pompanisasi/$filename";
+            $abt_dimanfaatkan = PompaAbtDimanfaatkan::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
             ]);

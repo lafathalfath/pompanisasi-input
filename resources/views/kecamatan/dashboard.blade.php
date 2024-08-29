@@ -87,7 +87,7 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Luas Tanam</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $luas_tanam_harian }}</td>
                 </tr>
             </tbody>
         </table>
