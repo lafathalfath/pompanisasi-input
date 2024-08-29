@@ -66,7 +66,7 @@
                         <td>{{ $au->pompa_4_inch }}</td>
                         <td>{{ $au->pompa_6_inch }}</td>
                         <td>{{ $au->total_unit }}</td>
-                        <td>{{ $au->no_hp_poktan }}</td>
+                        <td>{{ $au->no_hp_poktan ? $au->no_hp_poktan : '-' }}</td>
                     </tr>
                 @empty
                     <tr><td colspan="11" class="text-center">Belum ada data</td></tr>

@@ -77,27 +77,27 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item {{ $ref_diterima->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', ['nama' => request()->query('nama'), 'page' => $ref_diterima->currentPage()-1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', [...request()->query(), 'page' => $ref_diterima->currentPage()-1]) }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li class="page-item {{ $ref_diterima->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', ['nama' => request()->query('nama'), 'page' => 1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
                         <span aria-hidden="true">First</span>
                         </a>
                     </li>
                     @for ($i = 1; $i <= $ref_diterima->lastPage(); $i++)
                         @if ($i>($ref_diterima->currentPage()-5) && $i<($ref_diterima->currentPage()+5))
-                            <li class="page-item {{ $ref_diterima->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', ['nama' => request()->query('nama'), 'page' => $i]) }}">{{ $i }}</a></li>
+                            <li class="page-item {{ $ref_diterima->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
                         @endif
                     @endfor
                     <li class="page-item {{ $ref_diterima->currentPage()==$ref_diterima->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', ['nama' => request()->query('nama'), 'page' => $ref_diterima->lastPage()]) }}" aria-label="Next">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', [...request()->query(), 'page' => $ref_diterima->lastPage()]) }}" aria-label="Next">
                         <span aria-hidden="true">Last</span>
                         </a>
                     </li>
                     <li class="page-item {{ $ref_diterima->currentPage()==$ref_diterima->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', ['nama' => request()->query('nama'), 'page' => $ref_diterima->currentPage()+1]) }}" aria-label="Next">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.ref.diterima', [...request()->query(), 'page' => $ref_diterima->currentPage()+1]) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

@@ -34,15 +34,9 @@ class KabupatenRefocusingController extends Controller
         return view('kabupaten.refocusing.Diterima', ['kecamatan' => $kecamatan, 'ref_diterima' => $ref_diterima]);
     }
 
-    public function detailDiterimaView($kec_id) {
-        $kecamatan = Kecamatan::find(Crypt::decryptString($kec_id));
-        $ref_diterima = [];
-        foreach ($kecamatan->desa as $des) {
-            foreach ($des->pompanisasi as $pom) {
-                if ($pom->pompa_ref_diterima) $ref_diterima[] = $pom->pompa_ref_diterima;
-            }
-        }
-        return view('kabupaten.refocusing.detail_refocusing_kecamatan_diterima', ['ref_diterima' => $ref_diterima, 'desa' => $kecamatan->desa]);
+    public function detailDiterimaView($id) {
+        $ref_diterima = PompaRefDiterima::find(Crypt::decryptString($id));
+        return view('kabupaten.refocusing.detail_diterima', ['ref_diterima' => $ref_diterima]);
     }
 
     public function digunakanView(Request $request) {
@@ -61,18 +55,7 @@ class KabupatenRefocusingController extends Controller
         return view('kabupaten.refocusing.Digunakan', ['kecamatan' => $kecamatan, 'ref_digunakan' => $ref_digunakan]);
     }
 
-    public function detailDigunakanView($kec_id) {
-        $kecamatan = Kecamatan::find(Crypt::decryptString($kec_id));
-        $ref_dimanfaatkan = [];
-        foreach ($kecamatan->desa as $des) {
-            foreach ($des->pompanisasi as $pom) {
-                if ($pom->pompa_ref_diterima && $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan) $ref_dimanfaatkan[] = $pom->pompa_ref_diterima->pompa_ref_dimanfaatkan;
-            }
-        }
-        return view('kabupaten.refocusing.detail_refocusing_kecamatan_digunakan', ['ref_dimanfaatkan' => $ref_dimanfaatkan, 'desa' => $kecamatan->desa]);
-    }
-
-    public function detailDigunakanDetail($id) {
+    public function detailDigunakanView($id) {
         $ref_dimanfaatkan = PompaRefDimanfaatkan::find(Crypt::decryptString($id));
         return view('kabupaten.refocusing.detail_dimanfaatkan', ['ref_dimanfaatkan' => $ref_dimanfaatkan]);
     }

@@ -141,19 +141,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/luasTanamHarian', [KabupatenLuasTanamController::class, 'index'])->name('luasTanamHarianKab');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [KabupatenRefocusingController::class, 'diterimaView'])->name('kabupaten.pompa.ref.diterima');
-            Route::get('diterima/{kec_id}/detail', [KabupatenRefocusingController::class, 'detailDiterimaView'])->name('kabupaten.pompa.ref.diterima.detail');
+            Route::get('/diterima/{id}/detail', [KabupatenRefocusingController::class, 'detailDiterimaView'])->name('kabupaten.pompa.ref.diterima.detail');
             Route::get('/digunakan', [KabupatenRefocusingController::class, 'digunakanView'])->name('kabupaten.pompa.ref.digunakan');
-            Route::get('digunakan/{kec_id}/detail', [KabupatenRefocusingController::class, 'detailDigunakanView'])->name('kabupaten.pompa.ref.digunakan.detail');
-            Route::get('digunakan/{id}/detail/detail', [KabupatenRefocusingController::class, 'detailDigunakanDetail'])->name('kabupaten.pompa.ref.digunakan.detail.detail');
+            Route::get('/digunakan/{id}/detail', [KabupatenRefocusingController::class, 'detailDigunakanView'])->name('kabupaten.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
             Route::get('/usulan', [KabupatenAbtController::class, 'usulanView'])->name('kabupaten.pompa.abt.usulan');
-            Route::get('/usulan/{kec_id}/detail', [KabupatenAbtController::class, 'detailUsulanView'])->name('kabupaten.pompa.abt.usulan.detail');
             Route::get('/diterima', [KabupatenAbtController::class, 'diterimaView'])->name('kabupaten.pompa.abt.diterima');
-            Route::get('/diterima/{kec_id}/detail', [KabupatenAbtController::class, 'detailDiterimaView'])->name('kabupaten.pompa.abt.diterima.detail');
+            Route::get('/diterima/{id}/detail', [KabupatenAbtController::class, 'detailDiterimaView'])->name('kabupaten.pompa.abt.diterima.detail');
             Route::get('/digunakan', [KabupatenAbtController::class, 'digunakanView'])->name('kabupaten.pompa.abt.digunakan');
-            Route::get('/digunakan/{kec_id}/detail', [KabupatenAbtController::class, 'detailDigunakanView'])->name('kabupaten.pompa.abt.digunakan.detail');
-            Route::get('/digunakan/{id}/detail/detail', [KabupatenAbtController::class, 'detailDigunakanDetail'])->name('kabupaten.pompa.abt.digunakan.detail.detail');
+            Route::get('/digunakan/{id}/detail', [KabupatenAbtController::class, 'detailDigunakanView'])->name('kabupaten.pompa.abt.digunakan.detail');
         });
         Route::prefix('/verifikasi')->group(function () {
             Route::get('/refocusing/diterima', [VerifikasiDataController::class, 'refDiterimaView'])->name('kabupaten.verif.ref.diterima.view');

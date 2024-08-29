@@ -31,6 +31,7 @@
           <th colspan="3">Pompa refocusing Diterima</th>
           <th rowspan="2">Total Diterima<br>(unit)</th>
           <th rowspan="2">No HP Poktan<br>(jika ada)</th>
+          <th rowspan="2">Detail</th>
           <th rowspan="2">Status</th>
           <th rowspan="2">Action</th>
       </tr>
@@ -54,6 +55,9 @@
                 <td>{{ $rd->pompa_6_inch }}</td>
                 <td>{{ $rd->total_unit }}</td>
                 <td>{{ $rd->no_hp_poktan ? $rd->no_hp_poktan : '-' }}</td>
+                <td>
+                    <a href="{{ route('kabupaten.pompa.ref.diterima.detail', Crypt::encryptString($rd->id)) }}" class="btn btn-sm btn-info">Detail</a>
+                </td>
                 <td>
                   @if ($rd->verified_at)
                     <span class="badge text-bg-success fs-6 fw-normal">Terverifikasi</span>
