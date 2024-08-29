@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Kecamatan;
 
 use App\Http\Controllers\Controller;
+use App\Models\LuasTanam;
 use App\Models\PompaAbtDimanfaatkan;
 use App\Models\PompaAbtDiterima;
 use App\Models\PompaAbtUsulan;
@@ -16,23 +17,23 @@ class KecamatanController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
         $luas_tanam_harian = 0;
         $ref_diterima = 0;
         $ref_digunakan = 0;
         $abt_usulan = 0;
         $abt_diterima = 0;
         $abt_digunakan = 0;
-        foreach ($desa as $des) {
-            if ($des->luas_tanam && !empty($des->luas_tanam)) foreach ($des->luas_tanam as $lt) $luas_tanam_harian += $lt->luas_tanam;
-            if ($des->pompa_ref_diterima && !empty($des->pompa_ref_diterima)) foreach ($des->pompa_ref_diterima as $rdt) $ref_diterima += $rdt->total_unit;
-            if ($des->pompa_ref_dimanfaatkan && !empty($des->pompa_ref_dimanfaatkan)) foreach ($des->pompa_ref_dimanfaatkan as $rdm) $ref_digunakan += $rdm->total_unit;
-            if ($des->pompa_abt_usulan && !empty($des->pompa_abt_usulan)) foreach ($des->pompa_abt_usulan as $aus) $abt_usulan += $aus->total_unit;
-            if ($des->pompa_abt_diterima && !empty($des->pompa_abt_diterima)) foreach ($des->pompa_abt_diterima as $adt) $abt_diterima += $adt->total_unit;
-            if ($des->pompa_abt_dimanfaatkan && !empty($des->pompa_abt_dimanfaatkan)) foreach ($des->pompa_abt_dimanfaatkan as $adm) $abt_digunakan += $adm->total_unit;
+        
+        if ($user->kecamatan) {
+            $desa = [];
+            foreach ($user->kecamatan->desa as $des) $desa[] = $des->id;
+            $ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->sum('total_unit');
+            $ref_digunakan = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
+            $abt_usulan = PompaAbtUsulan::whereIn('desa_id', $desa)->sum('total_unit');
+            $abt_diterima = PompaAbtDiterima::whereIn('desa_id', $desa)->sum('total_unit');
+            $abt_digunakan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
+            $luas_tanam_harian = LuasTanam::whereIn('desa_id', $desa)->sum('luas_tanam');
         }
-
-        // $luas_tanam_harian = $luas_tanam_harian->paginate(10);
         return view('kecamatan.dashboard', [
             'luas_tanam_harian' => $luas_tanam_harian,
             'ref_diterima' => $ref_diterima,

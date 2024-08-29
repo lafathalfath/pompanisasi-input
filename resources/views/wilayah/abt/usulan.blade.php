@@ -16,57 +16,101 @@
 <div class="d-flex flex-col justify-content-center">
     <div>
         <br>
-        <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
-            <a href="{{ url('/export-pompa-ref-diterima') }}" class="d-flex align-items-center btn btn-secondary">
+        <form action="{{ route('wilayah.pompa.abt.usulan') }}" method="GET" id="form-filter" class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+            <a href="{{ url('/export-pompa-abt-usulan') }}" class="d-flex align-items-center btn btn-secondary">
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
-            <input type="date" class="form-control" id="date">
-            <select name="kecamatan_id" class="form-control" id="kecamatan">
+            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter()" value="{{ request()->tanggal }}">
+            <select name="provinsi" class="form-control" id="provinsi" onchange="handleFilter()">
                 <option value="" disabled selected>Pilih Provinsi</option>
-                {{-- @foreach ($kecamatan as $kec)
-                    <option value="{{ $kec->id }}">{{ $kec->nama }}</option>
-                @endforeach --}}
+                @foreach ($provinsi as $prov)
+                    <option value="{{ $prov->id }}" {{ request()->provinsi==$prov->id?'selected':'' }}>{{ $prov->nama }}</option>
+                @endforeach
             </select>
-        </div>
+            <a href="{{ route('wilayah.pompa.abt.usulan') }}" class="btn btn-secondary">Reset</a>
+        </form>
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Provinsi</th>
-                    {{-- <th>Tanggal</th> --}}
-                    <th>Kelompok tani</th>
-                    <th>Luas lahan (ha)</th>
-                    <th class="text-center">Pompa ABT Usulan</th>
-                    {{-- <th>No HP Poktan <br>(jika ada)</th> --}}
-                    <th>Aksi</th>
-                    {{-- <th rowspan="2">Total diusulkan <br>(unit)</th> --}}
+                    <th rowspan="2">No</th>
+                    <th rowspan="2">Provinsi</th>
+                    <th rowspan="2">Kabupaten</th>
+                    <th rowspan="2">Kecamatan</th>
+                    <th rowspan="2">Desa</th>
+                    <th rowspan="2">Tanggal</th>
+                    <th rowspan="2">Kelompok <br>tani</th>
+                    <th rowspan="2">Luas <br>lahan <br>(ha)</th>
+                    <th colspan="3" class="text-center">Pompa Abt Usulan</th>
+                    <th rowspan="2">Total <br>diusulkan <br>(unit)</th>
+                    <th rowspan="2">No HP Poktan</th>
                 </tr>
-                {{-- <tr>
+                <tr>
                     <th>3 inch <br>(unit)</th>
                     <th>4 inch <br>(unit)</th>
                     <th>6 inch <br>(unit)</th> 
-                </tr> --}}
+                </tr>
             </thead>
             <tbody>
-                {{-- @forelse ($ref_diterima as $rd) --}}
+                @forelse ($abt_usulan as $au)
                     <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        {{-- <td>{{ $rd->poktan }}</td>
-                        <td>{{ $rd->luas_lahan }}</td> --}}
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        {{-- <td><a href="" class="btn btn-sm btn-info">Detail</a></td> --}}
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $au->desa->kecamatan->kabupaten->provinsi->nama }}</td>
+                        <td>{{ $au->desa->kecamatan->kabupaten->nama }}</td>
+                        <td>{{ $au->desa->kecamatan->nama }}</td>
+                        <td>{{ $au->desa->nama }}</td>
+                        <td>{{ $au->tanggal }}</td>
+                        <td>{{ $au->nama_poktan }}</td>
+                        <td>{{ $au->luas_lahan }}</td>
+                        <td>{{ $au->pompa_3_inch }}</td>
+                        <td>{{ $au->pompa_4_inch }}</td>
+                        <td>{{ $au->pompa_6_inch }}</td>
+                        <td>{{ $au->total_unit }}</td>
+                        <td>{{ $au->no_hp_poktan ? $au->no_hp_poktan : '-' }}</td>
                     </tr>
-                {{-- @empty --}}
-                    <tr><td colspan="6" class="text-center">Belum ada Data</td></tr>
-                {{-- @endforelse --}}
+                @empty
+                    <tr><td colspan="13" class="text-center">Belum ada Data</td></tr>
+                @endforelse
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('wilayah.pompa.abt.usulan', [...request()->query(), 'page' => $abt_usulan->currentPage()-1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('wilayah.pompa.abt.usulan', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $abt_usulan->lastPage(); $i++)
+                        @if ($i>($abt_usulan->currentPage()-5) && $i<($abt_usulan->currentPage()+5))
+                            <li class="page-item {{ $abt_usulan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('wilayah.pompa.abt.usulan', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item {{ $abt_usulan->currentPage()==$abt_usulan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('wilayah.pompa.abt.usulan', [...request()->query(), 'page' => $abt_usulan->lastPage()]) }}" aria-label="Next">
+                        <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $abt_usulan->currentPage()==$abt_usulan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('wilayah.pompa.abt.usulan', [...request()->query(), 'page' => $abt_usulan->currentPage()+1]) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
     </div>
 
 </div>
+<script>
+    const handleFilter = () => {
+        document.getElementById('form-filter').submit()
+    }
+</script>
 @endsection
