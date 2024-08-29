@@ -41,63 +41,69 @@
       </tr>
       </thead>
         <tbody>
+          @forelse ($ref_dimanfaatkan as $rd)
             <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $rd->desa->kecamatan->nama }}</td>
+                <td>{{ $rd->desa->nama }}</td>
+                <td>{{ $rd->tanggal }}</td>
+                <td>{{ $rd->nama_poktan }}</td>
+                <td>{{ $rd->luas_lahan }}</td>
+                <td>{{ $rd->pompa_3_inch }}</td>
+                <td>{{ $rd->pompa_4_inch }}</td>
+                <td>{{ $rd->pompa_6_inch }}</td>
+                <td>{{ $rd->total_unit }}</td>
+                <td>{{ $rd->no_hp_poktan ? $rd->no_hp_poktan : '-' }}</td>
                 <td>
+                  @if ($rd->verified_at)
+                    <span class="badge text-bg-success fs-6 fw-normal">Terverifikasi</span>
+                  @else
                     <span class="badge text-bg-danger fs-6 fw-normal">Belum diverifikasi</span>
+                  @endif
                 </td>
                 <td class="border-0 d-flex align-items-center justify-content-center gap-2">
-                    <button class="btn btn-success btn-sm"><span>&#10003;</span></button>
-                    <button class="btn btn-danger btn-sm"><span>&#x292C;</span></button>
+                  @if (!$rd->verified_at)
+                    <button class="btn btn-success btn-sm" data-bs-toggle='modal' data-bs-target='#verifModal' onclick="handleClick('{{ route('kabupaten.verif.ref.digunakan.verif', Crypt::encryptString($rd->id)) }}')"><span>&#10003;</span></button>
+                  @endif
                 </td>
             </tr>
-          {{-- @empty
-            <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
-          @endforelse --}}
+          @empty
+            <tr><td colspan="13" class="text-center">Belum ada data</td></tr>
+          @endforelse
         </tbody>
     </table>
 
-    {{-- <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li class="page-item {{ $pompanisasi->currentPage()==1?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $pompanisasi->currentPage()-1]) }}" aria-label="Previous">
+            <li class="page-item {{ $ref_dimanfaatkan->currentPage()==1?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.ref.digunakan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $ref_dimanfaatkan->currentPage()-1]) }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item {{ $pompanisasi->currentPage()==1?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => 1]) }}" aria-label="Previous">
+            <li class="page-item {{ $ref_dimanfaatkan->currentPage()==1?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.ref.digunakan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => 1]) }}" aria-label="Previous">
                 <span aria-hidden="true">First</span>
                 </a>
             </li>
-            @for ($i = 1; $i <= $pompanisasi->lastPage(); $i++)
-                @if ($i>($pompanisasi->currentPage()-5) && $i<($pompanisasi->currentPage()+5))
-                    <li class="page-item {{ $pompanisasi->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $i]) }}">{{ $i }}</a></li>
+            @for ($i = 1; $i <= $ref_dimanfaatkan->lastPage(); $i++)
+                @if ($i>($ref_dimanfaatkan->currentPage()-5) && $i<($ref_dimanfaatkan->currentPage()+5))
+                    <li class="page-item {{ $ref_dimanfaatkan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.verif.ref.digunakan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $i]) }}">{{ $i }}</a></li>
                 @endif
             @endfor
-            <li class="page-item {{ $pompanisasi->currentPage()==$pompanisasi->lastPage()?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $pompanisasi->lastPage()]) }}" aria-label="Next">
+            <li class="page-item {{ $ref_dimanfaatkan->currentPage()==$ref_dimanfaatkan->lastPage()?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.ref.digunakan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $ref_dimanfaatkan->lastPage()]) }}" aria-label="Next">
                 <span aria-hidden="true">Last</span>
                 </a>
             </li>
-            <li class="page-item {{ $pompanisasi->currentPage()==$pompanisasi->lastPage()?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $pompanisasi->currentPage()+1]) }}" aria-label="Next">
+            <li class="page-item {{ $ref_dimanfaatkan->currentPage()==$ref_dimanfaatkan->lastPage()?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.ref.digunakan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $ref_dimanfaatkan->currentPage()+1]) }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
     </nav>
-    </div> --}}
+    </div>
 
   </div>
 
