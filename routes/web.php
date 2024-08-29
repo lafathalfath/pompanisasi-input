@@ -28,6 +28,7 @@ use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
 use App\Http\Controllers\Kabupaten\VerifikasiDataController;
 use App\Http\Controllers\Provinsi\ProvinsiAbtController;
+use App\Http\Controllers\Provinsi\ProvinsiLuasTanamController;
 use App\Http\Controllers\Provinsi\ProvinsiRefocusingController;
 
 /*
@@ -120,9 +121,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/provinsi')->middleware('access:provinsi')->group(function () {
         Route::get('/', function () {return redirect()->route('provinsi.dashboard');});
         Route::get('/dashboard', [ProvinsiController::class, 'index'])->name('provinsi.dashboard');
-        Route::get('/detailkabupaten', function () {
-            return view('provinsi.detailkabupaten');
-        })->name('provinsi.detailkabupaten');
+        Route::get('/luasTanamHarian', [ProvinsiLuasTanamController::class, 'index'])->name('luasTanamHarianProv');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [ProvinsiRefocusingController::class, 'diterima'])->name('provinsi.pompa.ref.diterima');
             Route::get('/diterima/{id}/detail', [ProvinsiRefocusingController::class, 'detailDiterima'])->name('provinsi.pompa.ref.diterima.detail');
@@ -141,9 +140,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/kabupaten')->middleware('access:kabupaten')->group(function () {
         Route::get('/', function () {return redirect()->route('kabupaten.dashboard');});
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
-        Route::get('/detailkecamatan', function () {
-            return view('kabupaten.detailkecamatan');
-        })->name('kabupaten.detailkecamatan');
         Route::get('/luasTanamHarian', [KabupatenLuasTanamController::class, 'index'])->name('luasTanamHarianKab');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [KabupatenRefocusingController::class, 'diterimaView'])->name('kabupaten.pompa.ref.diterima');
@@ -237,10 +233,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/export-luas-tanam-harian', function () {return Excel::download(new LuasTanamHarianExport, 'Luas Tanam Harian.xlsx');})->name('export.luasTanamHarian');
 
 });
-
-Route::get('/provinsi/luasTanamHarian', function () {
-    return view('provinsi.luasTanamHarian');
-})->name('luasTanamHarianProv');
 
 Route::get('/wilayah/luasTanamHarian', function () {
     return view('wilayah.luasTanamHarian');
