@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\Kecamatan\LuasTanamHarianExport;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DesaController;
 use App\Http\Controllers\Admin\KabupatenController as AdminKabupatenController;
@@ -24,7 +25,8 @@ use App\Exports\Kecamatan\PompaAbtDiterimaExport;
 use App\Exports\Kecamatan\PompaAbtDimanfaatkanExport;
 use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
-
+use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
+use App\Http\Controllers\Kabupaten\VerifikasiDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,8 +138,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/detailkecamatan', function () {
             return view('kabupaten.detailkecamatan');
         })->name('kabupaten.detailkecamatan');
-        // Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
-        // Route::put('/verifikasi-data/{des_id}', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data.verifikasi');
+        Route::get('/luasTanamHarian', [KabupatenLuasTanamController::class, 'index'])->name('luasTanamHarianKab');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [KabupatenRefocusingController::class, 'diterimaView'])->name('kabupaten.pompa.ref.diterima');
             Route::get('diterima/{kec_id}/detail', [KabupatenRefocusingController::class, 'detailDiterimaView'])->name('kabupaten.pompa.ref.diterima.detail');
@@ -155,11 +156,18 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan/{id}/detail/detail', [KabupatenAbtController::class, 'detailDigunakanDetail'])->name('kabupaten.pompa.abt.digunakan.detail.detail');
         });
         Route::prefix('/verifikasi')->group(function () {
-            Route::get('/refocusing/diterima', function () {return view('kabupaten.verifdata.verifRefDiterima');})->name('kabupaten.verif.ref.diterima.view');
-            Route::get('/refocusing/digunakan', function () {return view('kabupaten.verifdata.verifRefDigunakan');})->name('kabupaten.verif.ref.digunakan.view');
-            Route::get('/abt/usulan', function () {return view('kabupaten.verifdata.verifAbtUsulan');})->name('kabupaten.verif.abt.usulan.view');
-            Route::get('/abt/diterima', function () {return view('kabupaten.verifdata.verifAbtDiterima');})->name('kabupaten.verif.abt.diterima.view');
-            Route::get('/abt/digunakan', function () {return view('kabupaten.verifdata.verifAbtDigunakan');})->name('kabupaten.verif.abt.digunakan.view');
+            Route::get('/refocusing/diterima', [VerifikasiDataController::class, 'refDiterimaView'])->name('kabupaten.verif.ref.diterima.view');
+            Route::put('/refocusing/diterima/{id}', [VerifikasiDataController::class, 'refDiterimaVerif'])->name('kabupaten.verif.ref.diterima.verif');
+            Route::get('/refocusing/digunakan', [VerifikasiDataController::class, 'refDimanfaatkanView'])->name('kabupaten.verif.ref.digunakan.view');
+            Route::put('/refocusing/digunakan/{id}', [VerifikasiDataController::class, 'refDimanfaatkanVerif'])->name('kabupaten.verif.ref.digunakan.verif');
+            Route::get('/abt/usulan', [VerifikasiDataController::class, 'abtUsulanView'])->name('kabupaten.verif.abt.usulan.view');
+            Route::put('/abt/usulan/{id}', [VerifikasiDataController::class, 'abtUsulanVerif'])->name('kabupaten.verif.abt.usulan.verif');
+            Route::get('/abt/diterima', [VerifikasiDataController::class, 'abtDiterimaView'])->name('kabupaten.verif.abt.diterima.view');
+            Route::put('/abt/diterima/{id}', [VerifikasiDataController::class, 'abtDiterimaVerif'])->name('kabupaten.verif.abt.diterima.verif');
+            Route::get('/abt/digunakan', [VerifikasiDataController::class, 'abtDimanfaatkanView'])->name('kabupaten.verif.abt.digunakan.view');
+            Route::put('/abt/digunakan/{id}', [VerifikasiDataController::class, 'abtDimanfaatkanVerif'])->name('kabupaten.verif.abt.digunakan.verif');
+            Route::get('/luas-tanam', [VerifikasiDataController::class, 'luasTanamView'])->name('kabupaten.verif.luasTanam.view');
+            Route::put('/luas-tanam/{id}', [VerifikasiDataController::class, 'luasTanamVerif'])->name('kabupaten.verif.luasTanam.verif');
         });
     });
 
@@ -223,13 +231,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/export-pompa-ref-dimanfaatkan', function () {
         return Excel::download(new PompaRefDimanfaatkanExport, 'Pompa Refocusing Dimanfaatkan.xlsx');
     });
+    Route::get('/export-luas-tanam-harian', function () {return Excel::download(new LuasTanamHarianExport, 'Luas Tanam Harian.xlsx');})->name('export.luasTanamHarian');
 
 });
-
-
-Route::get('/kabupaten/luasTanamHarian', function () {
-    return view('kabupaten.luasTanamHarian');
-})->name('luasTanamHarianKab');
 
 Route::get('/provinsi/luasTanamHarian', function () {
     return view('provinsi.luasTanamHarian');

@@ -15,7 +15,7 @@ class NasionalController extends Controller
     public function index(Request $request) {
         $user = Auth::user();
         $rekap = [];
-        if ($user->verified_at) {
+        if ($user->status_verifikasi == 'terverifikasi') {
             $rekap = [];
             if (!$request) {
                 $rekap = [];
