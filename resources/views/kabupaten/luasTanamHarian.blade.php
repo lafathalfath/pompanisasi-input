@@ -47,6 +47,7 @@
                     <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
                 @endforeach
             </select>
+            <a href="{{ route('luasTanamHarianKab') }}" role="button" class="btn btn-secondary">Reset</a>
         </form>
         <table class="table table-bordered">
             <thead>

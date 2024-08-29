@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\PompaAbtDimanfaatkan;
+use App\Models\PompaAbtDiterima;
 use App\Models\PompaAbtUsulan;
 use App\Models\Pompanisasi;
 use App\Traits\ArrayPaginator;
@@ -17,17 +18,19 @@ class KabupatenAbtController extends Controller
 {
     use ArrayPaginator;
 
-    public function usulanView() {
+    public function usulanView(Request $request) {
         $user = Auth::user();
         $kecamatan = [];
         $abt_usulan = [];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_abt_usulan as $pom) if ($pom && $pom->verified_at) {
-                $abt_usulan[] = $pom;
-            }
+            $desa = [];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
+            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
+            $abt_usulan = PompaAbtUsulan::whereIn('desa_id', $desa);
+            if ($request->tanggal) $abt_usulan = $abt_usulan->where('tanggal', $request->tanggal);
+            $abt_usulan = $abt_usulan->where('verified_at', '!=', null)->paginate(10);
         }
-        $abt_usulan = $this->paginate($abt_usulan, 10);
         return view('kabupaten.abt.Usulan', ['kecamatan' => $kecamatan, 'abt_usulan' => $abt_usulan]);
     }
 
@@ -46,17 +49,19 @@ class KabupatenAbtController extends Controller
         return view('kabupaten.abt.abt_detail_kecamatan_usulan', ['desa' => $desa, 'abt_usulan' => $abt_usulan]);
     }
 
-    public function diterimaView() {
+    public function diterimaView(Request $request) {
         $user = Auth::user();
         $kecamatan = [];
         $abt_diterima = [];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_abt_diterima as $pom) if ($pom && $pom->verified_at) {
-                $abt_diterima[] = $pom;
-            }
+            $desa = [];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
+            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
+            $abt_diterima = PompaAbtDiterima::whereIn('desa_id', $desa);
+            if ($request->tanggal) $abt_diterima = $abt_diterima->where('tanggal', $request->tanggal);
+            $abt_diterima = $abt_diterima->where('verified_at', '!=', null)->paginate(10);
         }
-        $abt_diterima = $this->paginate($abt_diterima, 10);
         return view('kabupaten.abt.Diterima', ['kecamatan' => $kecamatan, 'abt_diterima' => $abt_diterima]);
     }
 
@@ -75,17 +80,19 @@ class KabupatenAbtController extends Controller
         return view('kabupaten.abt.abt_detail_kecamatan_diterima', ['desa' => $desa, 'abt_diterima' => $abt_diterima]);
     }
 
-    public function digunakanView() {
+    public function digunakanView(Request $request) {
         $user = Auth::user();
         $kecamatan = [];
         $abt_digunakan = [];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) foreach ($des->pompa_abt_dimanfaatkan as $pom) if ($pom && $pom->verified_at) {
-                $abt_digunakan[] = $pom;
-            }
+            $desa = [];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
+            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
+            $abt_digunakan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa);
+            if ($request->tanggal) $abt_digunakan = $abt_digunakan->where('tanggal', $request->tanggal);
+            $abt_digunakan = $abt_digunakan->where('verified_at', '!=', null)->paginate(10);
         }
-        $abt_digunakan = $this->paginate($abt_digunakan, 10);
         return view('kabupaten.abt.Digunakan', ['kecamatan' => $kecamatan, 'abt_digunakan' => $abt_digunakan]);
     }
     

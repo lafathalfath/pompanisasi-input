@@ -18,21 +18,19 @@ class KabupatenController extends Controller
     public function index() {
         $user = Auth::user();
         $kecamatan = [];
-        $luas_tanam_harian = [];
         $pompanisasi = (object) [
             'ref_diterima' => 0,
             'ref_dimanfaatkan' => 0,
             'abt_usulan' => 0,
             'abt_diterima' => 0,
             'abt_dimanfaatkan' => 0,
+            'luas_tanam' => 0,
         ];
         if ($user->kabupaten) {
             $kecamatan = $user->kabupaten->kecamatan;
             foreach ($kecamatan as $kec) {
                 foreach ($kec->desa as $des) {
-                    if ($des->luas_tanam) foreach ($des->luas_tanam as $lt) {
-                        if ($lt->verified_at) $luas_tanam_harian[] = $lt;
-                    }
+                    if ($des->luas_tanam && !empty($des->luas_tanam)) foreach ($des->luas_tanam as $lt) if ($lt->verified_at) $pompanisasi->luas_tanam += $lt->luas_tanam;
                     if ($des->pompa_ref_diterima && !empty($des->pompa_ref_diterima)) foreach ($des->pompa_ref_diterima as $rdt) if ($rdt->verified_at) $pompanisasi->ref_diterima += $rdt->total_unit;
                     if ($des->pompa_ref_dimanfaatkan && !empty($des->pompa_ref_dimanfaatkan)) foreach ($des->pompa_ref_dimanfaatkan as $rdm) if ($rdm->verified_at) $pompanisasi->ref_dimanfaatkan += $rdm->total_unit;
                     if ($des->pompa_abt_usulan && !empty($des->pompa_abt_usulan)) foreach ($des->pompa_abt_usulan as $aus) if ($aus->verified_at) $pompanisasi->abt_usulan += $aus->total_unit;
@@ -41,7 +39,7 @@ class KabupatenController extends Controller
                 }
             }
         }
-        return view('kabupaten.dashboard', ['luas_tanam_harian' => $luas_tanam_harian, 'pompanisasi' => $pompanisasi]);
+        return view('kabupaten.dashboard', ['pompanisasi' => $pompanisasi]);
     }
 
     public function verifikasiDataView() {
