@@ -27,6 +27,8 @@ use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
 use App\Http\Controllers\Kabupaten\VerifikasiDataController;
+use App\Http\Controllers\Provinsi\ProvinsiAbtController;
+use App\Http\Controllers\Provinsi\ProvinsiRefocusingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,13 +124,17 @@ Route::middleware('auth')->group(function () {
             return view('provinsi.detailkabupaten');
         })->name('provinsi.detailkabupaten');
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/diterima', [ProvinsiController::class, 'refDiterima'])->name('provinsi.pompa.ref.diterima');
-            Route::get('/digunakan', function () {return view('provinsi.refocusing.digunakan');})->name('provinsi.pompa.ref.digunakan');
+            Route::get('/diterima', [ProvinsiRefocusingController::class, 'diterima'])->name('provinsi.pompa.ref.diterima');
+            Route::get('/diterima/{id}/detail', [ProvinsiRefocusingController::class, 'detailDiterima'])->name('provinsi.pompa.ref.diterima.detail');
+            Route::get('/digunakan', [ProvinsiRefocusingController::class, 'dimanfaatkan'])->name('provinsi.pompa.ref.digunakan');
+            Route::get('/digunakan/{id}/detail', [ProvinsiRefocusingController::class, 'detailDimanfaatkan'])->name('provinsi.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
-            Route::get('/usulan', function () {return view('provinsi.abt.usulan');})->name('provinsi.pompa.abt.usulan');
-            Route::get('/diterima', function () {return view('provinsi.abt.diterima');})->name('provinsi.pompa.abt.diterima');
-            Route::get('/digunakan', function () {return view('provinsi.abt.digunakan');})->name('provinsi.pompa.abt.digunakan');
+            Route::get('/usulan', [ProvinsiAbtController::class, 'usulan'])->name('provinsi.pompa.abt.usulan');
+            Route::get('/diterima', [ProvinsiAbtController::class, 'diterima'])->name('provinsi.pompa.abt.diterima');
+            Route::get('/diterima/{id}/detail', [ProvinsiAbtController::class, 'detailDiterima'])->name('provinsi.pompa.abt.diterima.detail');
+            Route::get('/digunakan', [ProvinsiAbtController::class, 'dimanfaatkan'])->name('provinsi.pompa.abt.digunakan');
+            Route::get('/digunakan/{id}/detail', [ProvinsiAbtController::class, 'detailDimanfaatkan'])->name('provinsi.pompa.abt.digunakan.detail');
         });
     });
 
