@@ -46,6 +46,7 @@
                     <th colspan="3" class="text-center">Pompa ABT Diterima</th>
                     <th rowspan="2">Total diterima <br> (unit)</th>
                     <th rowspan="2">No HP Poktan <br> (jika ada)</th>
+                    <th rowspan="2">Aksi</th>
                 </tr>
                 <tr>
                     <th>3 inch <br> (unit)</th>
@@ -67,6 +68,9 @@
                         <td>{{ $ad->pompa_6_inch }}</td>
                         <td>{{ $ad->total_unit }}</td>
                         <td>{{ $ad->no_hp_poktan ? $ad->no_hp_poktan : '-' }}</td>
+                        <td>
+                            <a href="{{ route('kabupaten.pompa.abt.diterima.detail', Crypt::encryptString($ad->id)) }}" class="btn btn-sm btn-info">Detail</a>
+                        </td>
                     </tr>
                 @empty
                     <tr><td colspan="11" class="text-center">Belum ada data</td></tr>

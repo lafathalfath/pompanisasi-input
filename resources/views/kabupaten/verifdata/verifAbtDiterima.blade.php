@@ -31,6 +31,7 @@
           <th colspan="3">Pompa ABT Diterima</th>
           <th rowspan="2">Total Diterima<br>(unit)</th>
           <th rowspan="2">No HP Poktan<br>(jika ada)</th>
+          <th rowspan="2">Detail</th>
           <th rowspan="2">Status</th>
           <th rowspan="2">Action</th>
       </tr>
@@ -54,6 +55,9 @@
                 <td>{{ $ad->pompa_6_inch }}</td>
                 <td>{{ $ad->total_unit }}</td>
                 <td>{{ $ad->no_hp_poktan ? $ad->no_hp_poktan : '-' }}</td>
+                <td>
+                    <a href="{{ route('kabupaten.pompa.abt.diterima.detail', Crypt::encryptString($ad->id)) }}" class="btn btn-sm btn-info">Detail</a>
+                </td>
                 <td>
                   @if ($ad->verified_at)
                     <span class="badge text-bg-success fs-6 fw-normal">Terverifikasi</span>
