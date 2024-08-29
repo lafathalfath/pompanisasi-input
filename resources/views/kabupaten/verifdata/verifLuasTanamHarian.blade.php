@@ -35,19 +35,7 @@
 </style>
 <div class="d-flex flex-col justify-content-center">
     <div>
-        <form action="{{ route('luasTanamHarianKab') }}" method="GET" id="form-filter" class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
-            <a href="{{ route('export.luasTanamHarian') }}" class="d-flex align-items-center btn btn-secondary">
-                <i class="fa fa-download me-2"></i> Excel
-            </a>
-            <i class="fa-solid fa-sliders"></i>
-            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter()" value="{{ request()->tanggal }}">
-            <select name="kecamatan" class="form-control" id="desa" onchange="handleFilter()">
-                <option value="" disabled selected>Pilih Kecamatan</option>
-                @foreach ($kecamatan as $kec)
-                    <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
-                @endforeach
-            </select>
-        </form>
+        <h2>Verifikasi Data Luas Tanam Harian</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -58,6 +46,8 @@
                     <th>Kelompok Tani</th>
                     <th>Luas Tanam (ha)</th>
                     <th>No Hp Poktan</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,10 +60,22 @@
                         <td>{{ $lt->nama_poktan }}</td>
                         <td>{{ $lt->luas_tanam }}</td>
                         <td>{{ $lt->no_hp_poktan ? $lt->no_hp_poktan : '-' }}</td>
+                        <td>
+                            @if ($lt->verified_at)
+                                <span class="badge text-bg-success fs-6 fw-normal">Terverifikasi</span>
+                            @else
+                                <span class="badge text-bg-danger fs-6 fw-normal">Belum diverifikasi</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if (!$lt->verified_at)
+                                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#verifModal" onclick="handleClick('{{ route('kabupaten.verif.luasTanam.verif', Crypt::encryptString($lt->id)) }}')"><span>&#10003;</span></button>
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center">Belum ada data</td>
+                        <td colspan="8" class="text-center">Belum ada data</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -82,27 +84,27 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item {{ $luas_tanam->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('luasTanamHarianKab', [...request()->query(), 'page' => $luas_tanam->currentPage()-1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kabupaten.verif.luasTanam.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $luas_tanam->currentPage()-1]) }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li class="page-item {{ $luas_tanam->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('luasTanamHarianKab', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kabupaten.verif.luasTanam.view', ['kecamatan' => request()->query('kecamatan'), 'page' => 1]) }}" aria-label="Previous">
                         <span aria-hidden="true">First</span>
                         </a>
                     </li>
                     @for ($i = 1; $i <= $luas_tanam->lastPage(); $i++)
                         @if ($i>($luas_tanam->currentPage()-5) && $i<($luas_tanam->currentPage()+5))
-                            <li class="page-item {{ $luas_tanam->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('luasTanamHarianKab', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
+                            <li class="page-item {{ $luas_tanam->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.verif.luasTanam.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $i]) }}">{{ $i }}</a></li>
                         @endif
                     @endfor
                     <li class="page-item {{ $luas_tanam->currentPage()==$luas_tanam->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('luasTanamHarianKab', [...request()->query(), 'page' => $luas_tanam->lastPage()]) }}" aria-label="Next">
+                        <a class="page-link" href="{{ route('kabupaten.verif.luasTanam.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $luas_tanam->lastPage()]) }}" aria-label="Next">
                         <span aria-hidden="true">Last</span>
                         </a>
                     </li>
                     <li class="page-item {{ $luas_tanam->currentPage()==$luas_tanam->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('luasTanamHarianKab', [...request()->query(), 'page' => $luas_tanam->currentPage()+1]) }}" aria-label="Next">
+                        <a class="page-link" href="{{ route('kabupaten.verif.luasTanam.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $luas_tanam->currentPage()+1]) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -114,9 +116,35 @@
 
 </div>
 
+{{-- modals --}}
+<div class="modal fade" id="verifModal" tabindex="-1" aria-labelledby="verifModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="verifModalLabel">Konfirmasi</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Pastikan Anda telah mengkonfirmasi bahwa data ini valid.
+            Lanjutkan Verifikasi?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <form method="POST" class="p-0 m-0" id="verifForm">
+                @csrf
+                @method('PUT')
+                <button type="submit" class="btn btn-success">Verifikasi</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{{-- end modals --}}
+
 <script>
-    const handleFilter = () => {
-        document.getElementById('form-filter').submit()
+    const handleClick = (route) => {
+        const form = document.getElementById('verifForm')
+        form.action = route
     }
 </script>
 

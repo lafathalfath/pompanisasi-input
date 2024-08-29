@@ -41,63 +41,69 @@
       </tr>
       </thead>
         <tbody>
+          @forelse ($abt_usulan as $au)
             <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $au->desa->kecamatan->nama }}</td>
+                <td>{{ $au->desa->nama }}</td>
+                <td>{{ $au->tanggal }}</td>
+                <td>{{ $au->nama_poktan }}</td>
+                <td>{{ $au->luas_lahan }}</td>
+                <td>{{ $au->pompa_3_inch }}</td>
+                <td>{{ $au->pompa_4_inch }}</td>
+                <td>{{ $au->pompa_6_inch }}</td>
+                <td>{{ $au->total_unit }}</td>
+                <td>{{ $au->no_hp_poktan ? $au->no_hp_poktan : '-' }}</td>
                 <td>
+                  @if ($au->verified_at)
+                    <span class="badge text-bg-success fs-6 fw-normal">Terverifikasi</span>
+                  @else
                     <span class="badge text-bg-danger fs-6 fw-normal">Belum diverifikasi</span>
+                  @endif
                 </td>
                 <td class="border-0 d-flex align-items-center justify-content-center gap-2">
-                    <button class="btn btn-success btn-sm"><span>&#10003;</span></button>
-                    <button class="btn btn-danger btn-sm"><span>&#x292C;</span></button>
+                  @if (!$au->verified_at)
+                    <button class="btn btn-success btn-sm" data-bs-toggle='modal' data-bs-target='#verifModal' onclick="handleClick('{{ route('kabupaten.verif.abt.usulan.verif', Crypt::encryptString($au->id)) }}')"><span>&#10003;</span></button>
+                  @endif
                 </td>
             </tr>
-          {{-- @empty
-            <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
-          @endforelse --}}
+          @empty
+            <tr><td colspan="13" class="text-center">Belum ada data</td></tr>
+          @endforelse
         </tbody>
     </table>
 
-    {{-- <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li class="page-item {{ $pompanisasi->currentPage()==1?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $pompanisasi->currentPage()-1]) }}" aria-label="Previous">
+            <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.abt.usulan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $abt_usulan->currentPage()-1]) }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item {{ $pompanisasi->currentPage()==1?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => 1]) }}" aria-label="Previous">
+            <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.abt.usulan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => 1]) }}" aria-label="Previous">
                 <span aria-hidden="true">First</span>
                 </a>
             </li>
-            @for ($i = 1; $i <= $pompanisasi->lastPage(); $i++)
-                @if ($i>($pompanisasi->currentPage()-5) && $i<($pompanisasi->currentPage()+5))
-                    <li class="page-item {{ $pompanisasi->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $i]) }}">{{ $i }}</a></li>
+            @for ($i = 1; $i <= $abt_usulan->lastPage(); $i++)
+                @if ($i>($abt_usulan->currentPage()-5) && $i<($abt_usulan->currentPage()+5))
+                    <li class="page-item {{ $abt_usulan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.verif.abt.usulan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $i]) }}">{{ $i }}</a></li>
                 @endif
             @endfor
-            <li class="page-item {{ $pompanisasi->currentPage()==$pompanisasi->lastPage()?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $pompanisasi->lastPage()]) }}" aria-label="Next">
+            <li class="page-item {{ $abt_usulan->currentPage()==$abt_usulan->lastPage()?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.abt.usulan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $abt_usulan->lastPage()]) }}" aria-label="Next">
                 <span aria-hidden="true">Last</span>
                 </a>
             </li>
-            <li class="page-item {{ $pompanisasi->currentPage()==$pompanisasi->lastPage()?'disabled':'' }}">
-                <a class="page-link" href="{{ route('kabupaten.verifikasi.data', ['kecamatan' => request()->query('kecamatan'), 'page' => $pompanisasi->currentPage()+1]) }}" aria-label="Next">
+            <li class="page-item {{ $abt_usulan->currentPage()==$abt_usulan->lastPage()?'disabled':'' }}">
+                <a class="page-link" href="{{ route('kabupaten.verif.abt.usulan.view', ['kecamatan' => request()->query('kecamatan'), 'page' => $abt_usulan->currentPage()+1]) }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
     </nav>
-    </div> --}}
+    </div>
 
   </div>
 
