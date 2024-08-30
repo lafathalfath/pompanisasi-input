@@ -33,6 +33,7 @@ use App\Http\Controllers\Provinsi\ProvinsiRefocusingController;
 use App\Http\Controllers\Wilayah\WilayahAbtController;
 use App\Http\Controllers\Wilayah\WilayahLuasTanamController;
 use App\Http\Controllers\Wilayah\WilayahRefocusingController;
+use App\Http\Controllers\Wilayah\WilayahVerifPjController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,11 +103,19 @@ Route::middleware('auth')->group(function () {
             Route::get('/diterima', function () {return view('nasional.abt.diterima');})->name('nasional.pompa.abt.diterima');
             Route::get('/digunakan', function () {return view('nasional.abt.digunakan');})->name('nasional.pompa.abt.digunakan');
         });
+        Route::get('/luasTanamHarian', function () {
+            return view('nasional.luasTanamHarian');
+        })->name('luasTanamHarianNas');
     });
 
     Route::prefix('/wilayah')->middleware('access:wilayah')->group(function () {
         Route::get('/', function () {return redirect()->route('wilayah.dashboard');});
         Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilayah.dashboard');
+        Route::prefix('/verifikasi-pj')->group(function () {
+            Route::get('/', [WilayahVerifPjController::class, 'index'])->name('wilayah.verifikasi.pj');
+            Route::put('/{id}/verifikasi', [WilayahVerifPjController::class, 'verifikasi'])->name('wilayah.verifikasi.pj.verif');
+            Route::put('/{id}/tolak', [WilayahVerifPjController::class, 'tolak'])->name('wilayah.verifikasi.pj.tolak');
+        });
         Route::get('/luasTanamHarian', [WilayahLuasTanamController::class, 'index'])->name('luasTanamHarianWil');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [WilayahRefocusingController::class, 'diterima'])->name('wilayah.pompa.ref.diterima');
@@ -238,8 +247,3 @@ Route::middleware('auth')->group(function () {
     Route::get('/export-luas-tanam-harian', function () {return Excel::download(new LuasTanamHarianExport, 'Luas Tanam Harian.xlsx');})->name('export.luasTanamHarian');
 
 });
-
-
-Route::get('/nasional/luasTanamHarian', function () {
-    return view('nasional.luasTanamHarian');
-})->name('luasTanamHarianNas');
