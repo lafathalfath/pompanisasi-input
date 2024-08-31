@@ -109,4 +109,12 @@ class AuthController extends Controller
         };
         return response()->json(['data' => $data_region]);
     }
+
+    public function waitVerification() {
+        return view('auth.waitVerification');
+    }
+
+    public function rejectedVerification() {
+        return view('auth.rejectedVerification');
+    }
 }

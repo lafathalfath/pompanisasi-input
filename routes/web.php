@@ -66,8 +66,12 @@ Route::middleware('guest')->group(function () {
     });
 });
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/waiting-verification', [AuthController::class, 'waitVerification'])->middleware('verify:process')->name('auth.wait.verification');
+    Route::get('/rejected-verification', [AuthController::class, 'rejectedVerification'])->middleware('verify:reject')->name('auth.reject.verification');
 
     Route::prefix('/admin')->middleware('access:admin')->group(function () {
         Route::get('/', function () {return redirect()->route('admin.dashboard');});
