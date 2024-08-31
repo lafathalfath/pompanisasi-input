@@ -24,6 +24,7 @@ class WilayahVerifPjController extends Controller
             $provinsi = [];
             $kabupaten = [];
             $kecamatan = [];
+            $daerah = [];
             foreach ($me->wilayah->provinsi as $prov) {
                 $provinsi[] = $prov->id;
                 foreach ($prov->kabupaten as $kab) {
@@ -31,16 +32,24 @@ class WilayahVerifPjController extends Controller
                     foreach ($kab->kecamatan as $kec) $kecamatan[] = $kec->id;
                 }
             }
-            $user_provinsi = User::where('role_id', 3)->whereIn('region_id', $provinsi)->get();
-            $user_kabupaten = User::where('role_id', 4)->whereIn('region_id', $kabupaten)->get();
-            $user_kecamatan = User::where('role_id', 5)->whereIn('region_id', $kecamatan)->get();
-            foreach ($user_provinsi as $uprov) $uprov->region = Provinsi::find($uprov->region_id);
-            foreach ($user_kabupaten as $ukab) $ukab->region = Kabupaten::find($ukab->region_id);
-            foreach ($user_kecamatan as $ukec) $ukec->region = Kecamatan::find($ukec->region_id);
-            $users = [...$user_provinsi, ...$user_kabupaten, ...$user_kecamatan];
+            $users = User::whereIn('region_id', [...$provinsi, ...$kabupaten, ...$kecamatan]);
+            if ($request->status) $users = $users->where('status_verifikasi', $request->status);
+            if ($request->level) {
+                $users = $users->where('role_id', $request->level);
+                if ($request->level == 3) $daerah = Provinsi::whereIn('id', $provinsi)->get();
+                elseif ($request->level == 4) $daerah = Kabupaten::whereIn('id', $kabupaten)->get();
+                elseif ($request->level == 5) $daerah = Kecamatan::whereIn('id', $kecamatan)->get();
+                if ($request->daerah) $users = $users->where('region_id', $request->daerah);
+            }
+            $users = $users->get();
+            foreach ($users as $user) {
+                if ($user->role_id == 3) $user->region = Provinsi::find($user->region_id);
+                if ($user->role_id == 4) $user->region = Kabupaten::find($user->region_id);
+                if ($user->role_id == 5) $user->region = Kecamatan::find($user->region_id);
+            }
         }
         $users = $this->paginate($users, 10);
-        return view('wilayah.verifikasiPj', ['users' => $users]);
+        return view('wilayah.verifikasiPj', ['users' => $users, 'daerah' => $daerah]);
     }
 
     public function verifikasi($id) {
