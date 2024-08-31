@@ -56,16 +56,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <td style="font-weight: bold;">Refocusing Usulan</td>
-                    <td style="padding: 10px 20px;" id="ref_usulan">15000</td> <!-- Data dummy -->
-                </tr>
-                <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;" id="ref_diterima">10000</td> <!-- Data dummy -->
+                    <td style="padding: 10px 20px;" id="ref_diterima">{{ $pompanisasi->ref_diterima }}</td> <!-- Data dummy -->
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;" id="ref_digunakan">8000</td> <!-- Data dummy -->
+                    <td style="padding: 10px 20px;" id="ref_digunakan">{{ $pompanisasi->ref_dimanfaatkan }}</td> <!-- Data dummy -->
                 </tr>
             </tbody>
         </table>
@@ -79,15 +75,15 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;" id="abt_usulan">20000</td> <!-- Data dummy -->
+                    <td style="padding: 10px 20px;" id="abt_usulan">{{ $pompanisasi->abt_usulan }}</td> <!-- Data dummy -->
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;" id="abt_diterima">15000</td> <!-- Data dummy -->
+                    <td style="padding: 10px 20px;" id="abt_diterima">{{ $pompanisasi->abt_diterima }}</td> <!-- Data dummy -->
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">12000</td> <!-- Data dummy -->
+                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $pompanisasi->abt_dimanfaatkan }}</td> <!-- Data dummy -->
                 </tr>
             </tbody>
         </table>
@@ -102,7 +98,7 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Luas Tanam</td>
-                    <td style="padding: 10px 20px;" id="luas_tanam">5000</td> <!-- Data dummy -->
+                    <td style="padding: 10px 20px;" id="luas_tanam">{{ $pompanisasi->luas_tanam }}</td> <!-- Data dummy -->
                 </tr>
             </tbody>
         </table>
@@ -232,7 +228,6 @@
     var refocusingTarget = 25771;
     var abtTarget = 37607;
 
-    var refocusingUsulan = parseInt(document.getElementById('ref_usulan').innerHTML);
     var refocusingDiterima = parseInt(document.getElementById('ref_diterima').innerHTML);
     var refocusingDigunakan = parseInt(document.getElementById('ref_digunakan').innerHTML);
 
@@ -241,7 +236,6 @@
     var abtDigunakan = parseInt(document.getElementById('abt_digunakan').innerHTML);
 
     // Menghitung persentase berdasarkan target
-    var refocusingUsulanPercent = (refocusingUsulan / refocusingTarget) * 100;
     var refocusingDiterimaPercent = (refocusingDiterima / refocusingTarget) * 100;
     var refocusingDigunakanPercent = (refocusingDigunakan / refocusingTarget) * 100;
 
@@ -254,11 +248,11 @@
     var refocusingChart = new Chart(ctxRefocusing, {
         type: 'bar',
         data: {
-            labels: ['Usulan', 'Diterima', 'Digunakan'],
+            labels: ['Diterima', 'Digunakan'],
             datasets: [{
                 label: 'Refocusing (25.771)',
-                data: [refocusingUsulanPercent, refocusingDiterimaPercent, refocusingDigunakanPercent],
-                backgroundColor: ['#ffff22', '#00aa00', '#18a4bc'],
+                data: [refocusingDiterimaPercent, refocusingDigunakanPercent],
+                backgroundColor: ['#00aa00', '#18a4bc'],
             }]
         },
         options: {

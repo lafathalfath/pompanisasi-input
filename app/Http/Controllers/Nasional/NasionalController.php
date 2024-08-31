@@ -26,8 +26,24 @@ class NasionalController extends Controller
         $provinsi = Provinsi::get();
         $kabupaten = [];
         $kecamatan = [];
+        $pompanisasi = (object) [
+            'luas_tanam' => 0,
+            'ref_diterima' => 0,
+            'ref_dimanfaatkan' => 0,
+            'abt_usulan' => 0,
+            'abt_diterima' => 0,
+            'abt_dimanfaatkan' => 0,
+        ];
         $rekap = [];
         if ($user->status_verifikasi == 'terverifikasi') {
+            $pompanisasi = (object) [
+                'luas_tanam' => LuasTanam::where('verified_at', '!=', null)->sum('luas_tanam'),
+                'ref_diterima' => PompaRefDiterima::where('verified_at', '!=', null)->sum('total_unit'),
+                'ref_dimanfaatkan' => PompaRefDimanfaatkan::where('verified_at', '!=', null)->sum('total_unit'),
+                'abt_usulan' => PompaAbtUsulan::where('verified_at', '!=', null)->sum('total_unit'),
+                'abt_diterima' => PompaAbtDiterima::where('verified_at', '!=', null)->sum('total_unit'),
+                'abt_dimanfaatkan' => PompaAbtDimanfaatkan::where('verified_at', '!=', null)->sum('total_unit'),
+            ];
             if (!$request->provinsi && !$request->kabupaten && !$request->kecamatan) {
                 $rekap = [];
                 foreach (Provinsi::get() as $prov) {
@@ -99,6 +115,6 @@ class NasionalController extends Controller
             }
         }
         $rekap = $this->paginate($rekap, 10);
-        return view('nasional.dashboard', ['rekap' => $rekap, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan]);
+        return view('nasional.dashboard', ['pompanisasi' => $pompanisasi, 'rekap' => $rekap, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan]);
     }
 }
