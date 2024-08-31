@@ -28,10 +28,9 @@
 <div class="container mt-4">
     <h2>Verifikasi Penanggungjawab</h2>
 
-    <div class="search-bar">
+    {{-- <div class="search-bar">
         <b>Cari Berdasarkan:</b>
         <select id="filter-category" style="border-radius: 5px">
-            {{-- <option value="name">Semua</option> --}}
             <option value="name">Nama</option>
             <option value="email">Email</option>
             <option value="phone">No Telpon</option>
@@ -40,7 +39,44 @@
             <option value="status">Status</option>
         </select>
         <input type="text" id="filter-input" placeholder="Cari" style="border-radius: 5px">
-    </div>
+    </div> --}}
+    {{-- <div class="fw-bold">Filter :</div> --}}
+    <form action="{{ route('wilayah.verifikasi.pj') }}" method="GET" id="form-filter" class="mb-3 d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center">
+            <span>Status :&ensp;</span>
+            <span>
+                <select name="status" id="" class="form-control" onchange="handleFilter()">
+                    <option value="" selected>Semua</option>
+                    <option value="proses" {{ request()->status=='proses'?'selected':'' }}>Proses</option>
+                    <option value="terverifikasi" {{ request()->status=='terverifikasi'?'selected':'' }}>Terverifikasi</option>
+                    <option value="ditolak" {{ request()->status=='ditolak'?'selected':'' }}>Ditolak</option>
+                </select>
+            </span>
+        </div>
+        <div class="d-flex align-items-center">
+            <span>PJ level :&ensp;</span>
+            <span>
+                <select name="level" id="" class="form-control" onchange="handleFilter()">
+                    <option value="" selected>Semua</option>
+                    <option value="3" {{ request()->level=='3'?'selected':'' }}>Provinsi</option>
+                    <option value="4" {{ request()->level=='4'?'selected':'' }}>Kabupaten</option>
+                    <option value="5" {{ request()->level=='5'?'selected':'' }}>Kecamatan</option>
+                </select>
+            </span>
+        </div>
+        <div class="d-flex align-items-center">
+            <span>Daerah :&ensp;</span>
+            <span>
+                <select name="daerah" id="" class="form-control" onchange="handleFilter()" {{ !request()->level?'disabled':'' }}>
+                    <option value="" selected>Semua</option>
+                    @foreach ($daerah as $dr)
+                        <option value="{{ $dr->id }}" {{ request()->daerah==$dr->id?'selected':'' }}>{{ $dr->nama }}</option>
+                    @endforeach
+                </select>
+            </span>
+        </div>
+        <a href="{{ route('wilayah.verifikasi.pj') }}" class="btn btn-secondary">Reset</a>
+    </form>
 
     <table class="table table-bordered">
         <thead>
@@ -170,6 +206,10 @@
 </div>
 
 <script>
+    const handleFilter = () => {
+        document.getElementById('form-filter').submit()
+    }
+
     document.getElementById('filter-input').addEventListener('input', () => {
         let category = document.getElementById('filter-category').value;
         let filterValue = document.getElementById('filter-input').value.toLowerCase();
