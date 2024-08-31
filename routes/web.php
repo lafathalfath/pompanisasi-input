@@ -27,6 +27,8 @@ use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
 use App\Http\Controllers\Kabupaten\VerifikasiDataController;
+use App\Http\Controllers\Nasional\NasionalAbtController;
+use App\Http\Controllers\Nasional\NasionalRefocusingController;
 use App\Http\Controllers\Provinsi\ProvinsiAbtController;
 use App\Http\Controllers\Provinsi\ProvinsiLuasTanamController;
 use App\Http\Controllers\Provinsi\ProvinsiRefocusingController;
@@ -95,13 +97,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {return redirect()->route('nasional.dashboard');});
         Route::get('/dashboard', [NasionalController::class, 'index'])->name('nasional.dashboard');
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/diterima', function () {return view('nasional.refocusing.diterima');})->name('nasional.pompa.ref.diterima');
-            Route::get('/digunakan', function () {return view('nasional.refocusing.digunakan');})->name('nasional.pompa.ref.digunakan');
+            Route::get('/diterima', [NasionalRefocusingController::class, 'diterima'])->name('nasional.pompa.ref.diterima');
+            Route::get('/diterima/{id}/detail', [NasionalRefocusingController::class, 'detailDiterima'])->name('nasional.pompa.ref.diterima.detail');
+            Route::get('/digunakan', [NasionalRefocusingController::class, 'dimanfaatkan'])->name('nasional.pompa.ref.digunakan');
+            Route::get('/digunakan/{id}/detail', [NasionalRefocusingController::class, 'detailDimanfaatkan'])->name('nasional.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
-            Route::get('/usulan', function () {return view('nasional.abt.usulan');})->name('nasional.pompa.abt.usulan');
-            Route::get('/diterima', function () {return view('nasional.abt.diterima');})->name('nasional.pompa.abt.diterima');
-            Route::get('/digunakan', function () {return view('nasional.abt.digunakan');})->name('nasional.pompa.abt.digunakan');
+            Route::get('/usulan', [NasionalAbtController::class, 'usulan'])->name('nasional.pompa.abt.usulan');
+            Route::get('/diterima', [NasionalAbtController::class, 'diterima'])->name('nasional.pompa.abt.diterima');
+            Route::get('/diterima/{id}/detail', [NasionalAbtController::class, 'detailDiterima'])->name('nasional.pompa.abt.diterima.detail');
+            Route::get('/digunakan', [NasionalAbtController::class, 'dimanfaatkan'])->name('nasional.pompa.abt.digunakan');
+            Route::get('/digunakan/{id}/detail', [NasionalAbtController::class, 'detailDimanfaatkan'])->name('nasional.pompa.abt.digunakan.detail');
         });
         Route::get('/luasTanamHarian', function () {
             return view('nasional.luasTanamHarian');
