@@ -147,8 +147,9 @@
         } else if (e.id == 'filter-kabupaten') {
             document.getElementById('filter-kecamatan').value = ''
             document.getElementById('filter-desa').value = ''
-        } 
-        document.getElementById('form-filter').submit()
+        } else if (e.id == 'filter-kecamatan') {
+            document.getElementById('filter-desa').value = ''
+        }
     }
 </script>
 @endsection

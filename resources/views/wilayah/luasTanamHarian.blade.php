@@ -40,11 +40,29 @@
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
-            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter()" value="{{ request()->tanggal }}">
-            <select name="provinsi" class="form-control" id="desa" onchange="handleFilter()">
+            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter(this)" value="{{ request()->tanggal }}">
+            <select name="provinsi" class="form-control" id="desa" onchange="handleFilter(this)">
                 <option value="" disabled selected>Pilih Provinsi</option>
                 @foreach ($provinsi as $prov)
                     <option value="{{ $prov->id }}" {{ request()->provinsi==$prov->id?'selected':'' }}>{{ $prov->nama }}</option>
+                @endforeach
+            </select>
+            <select name="kabupaten" class="form-control" id="filter-kabupaten" onchange="handleFilter(this)" {{ !request()->provinsi?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Kabupaten</option>
+                @foreach ($kabupaten as $kab)
+                    <option value="{{ $kab->id }}" {{ request()->kabupaten==$kab->id?'selected':'' }}>{{ $kab->nama }}</option>
+                @endforeach
+            </select>
+            <select name="kecamatan" class="form-control" id="filter-kecamatan" onchange="handleFilter(this)" {{ !request()->kabupaten?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Kecamatan</option>
+                @foreach ($kecamatan as $kec)
+                    <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
+                @endforeach
+            </select>
+            <select name="desa" class="form-control" id="filter-desa" onchange="handleFilter(this)" {{ !request()->kecamatan?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Desa</option>
+                @foreach ($desa as $des)
+                    <option value="{{ $des->id }}" {{ request()->desa==$des->id?'selected':'' }}>{{ $des->nama }}</option>
                 @endforeach
             </select>
             <a href="{{ route('luasTanamHarianWil') }}" class="btn btn-secondary">Reset</a>
@@ -150,8 +168,17 @@
 </table> --}}
 
 <script>
-    const handleFilter = () => {
-        document.getElementById('form-filter').submit()
+    const handleFilter = (e) => {
+        if (e.id == 'filter-provinsi') {
+            document.getElementById('filter-kabupaten').value = ''
+            document.getElementById('filter-kecamatan').value = ''
+            document.getElementById('filter-desa').value = ''
+        } else if (e.id == 'filter-kabupaten') {
+            document.getElementById('filter-kecamatan').value = ''
+            document.getElementById('filter-desa').value = ''
+        } else if (e.id == 'filter-kecamatan') {
+            document.getElementById('filter-desa').value = ''
+        }
     }
 </script>
 

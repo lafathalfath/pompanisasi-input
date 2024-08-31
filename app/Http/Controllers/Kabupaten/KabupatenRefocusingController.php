@@ -20,18 +20,26 @@ class KabupatenRefocusingController extends Controller
 
     public function diterimaView(Request $request) {
         $user = Auth::user();
-        $kecamatan = [];
+        $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
+        $desa = [];
         $ref_diterima = [];
-        if ($user->kabupaten) {
-            $kecamatan = $user->kabupaten->kecamatan;
-            $desa = [];
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
-            $ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa);
+        if ($user->status_verifikasi == 'terverifikasi') {
+            $desa_id = [];
+            $ref_diterima = PompaRefDiterima::where('verified_at', '!=', null);
+            if ($request->kecamatan) {
+                $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                if ($request->desa) {
+                    $desa_id = [$request->desa];
+                } else {
+                    $desa_id = [];
+                    foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                }
+                $ref_diterima = $ref_diterima->whereIn('desa_id', $desa_id);
+            }
             if ($request->tanggal) $ref_diterima = $ref_diterima->where('tanggal', $request->tanggal);
-            $ref_diterima = $ref_diterima->where('verified_at', '!=', null)->paginate(10);
+            $ref_diterima = $ref_diterima->paginate(10);
         }
-        return view('kabupaten.refocusing.Diterima', ['kecamatan' => $kecamatan, 'ref_diterima' => $ref_diterima]);
+        return view('kabupaten.refocusing.diterima', ['ref_diterima' => $ref_diterima, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 
     public function detailDiterimaView($id) {
@@ -41,18 +49,26 @@ class KabupatenRefocusingController extends Controller
 
     public function digunakanView(Request $request) {
         $user = Auth::user();
-        $kecamatan = [];
-        $ref_digunakan = [];
-        if ($user->kabupaten) {
-            $kecamatan = $user->kabupaten->kecamatan;
-            $desa = [];
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
-            $ref_digunakan = PompaRefDimanfaatkan::whereIn('desa_id', $desa);
-            if ($request->tanggal) $ref_digunakan = $ref_digunakan->where('tanggal', $request->tanggal);
-            $ref_digunakan = $ref_digunakan->where('verified_at', '!=', null)->paginate(10);
+        $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
+        $desa = [];
+        $ref_dimanfaatkan = [];
+        if ($user->status_verifikasi == 'terverifikasi') {
+            $desa_id = [];
+            $ref_dimanfaatkan = PompaRefDimanfaatkan::where('verified_at', '!=', null);
+            if ($request->kecamatan) {
+                $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                if ($request->desa) {
+                    $desa_id = [$request->desa];
+                } else {
+                    $desa_id = [];
+                    foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                }
+                $ref_dimanfaatkan = $ref_dimanfaatkan->whereIn('desa_id', $desa_id);
+            }
+            if ($request->tanggal) $ref_dimanfaatkan = $ref_dimanfaatkan->where('tanggal', $request->tanggal);
+            $ref_dimanfaatkan = $ref_dimanfaatkan->paginate(10);
         }
-        return view('kabupaten.refocusing.Digunakan', ['kecamatan' => $kecamatan, 'ref_digunakan' => $ref_digunakan]);
+        return view('kabupaten.refocusing.digunakan', ['ref_dimanfaatkan' => $ref_dimanfaatkan, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 
     public function detailDigunakanView($id) {

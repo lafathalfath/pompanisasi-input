@@ -25,11 +25,17 @@
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
-            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter()" value="{{ request()->tanggal }}">
-            <select name="kecamatan" class="form-control" id="kota-kabupaten" onchange="handleFilter()">
+            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter(this)" value="{{ request()->tanggal }}">
+            <select name="kecamatan" class="form-control" id="kecamatan" onchange="handleFilter(this)">
                 <option value="" disabled selected>Pilih Kecamatan</option>
                 @foreach ($kecamatan as $kec)
                     <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
+                @endforeach
+            </select>
+            <select name="desa" class="form-control" id="filter-desa" onchange="handleFilter(this)" {{ !request()->kecamatan?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Desa</option>
+                @foreach ($desa as $des)
+                    <option value="{{ $des->id }}" {{ request()->desa==$des->id?'selected':'' }}>{{ $des->nama }}</option>
                 @endforeach
             </select>
             <a href="{{ route('kabupaten.pompa.abt.diterima') }}" role="button" class="btn btn-secondary">Reset</a>
@@ -73,7 +79,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
+                    <tr><td colspan="12" class="text-center">Belum ada data</td></tr>
                 @endforelse
             </tbody>
         </table>
@@ -113,7 +119,10 @@
 </div>
 
 <script>
-    const handleFilter = () => {
+    const handleFilter = (e) => {
+        if (e.id == 'filter-kecamatan') {
+            document.getElementById('filter-desa').value = ''
+        } 
         document.getElementById('form-filter').submit()
     }
 </script>

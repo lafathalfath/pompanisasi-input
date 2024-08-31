@@ -39,7 +39,7 @@
         <canvas id="rekapDataChart" width="400" height="200"></canvas>
     </div>
     <!-- Akhir Grafik Risqi --> --}}
-    <div class="row" style="margin-left: 3px">
+    <div class="row ms-5" style="margin-left: 3px">
         <h2>Rekapitulasi Data Provinsi</h2>
         <table class="table table-bordered table-custom" style="width: 45%; margin-right: 20px; display: inline-table;">
             <thead>
