@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Provinsi;
 
 use App\Http\Controllers\Controller;
+use App\Models\Desa;
 use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use App\Models\PompaRefDimanfaatkan;
 use App\Models\PompaRefDiterima;
 use App\Traits\ArrayPaginator;
@@ -17,21 +19,33 @@ class ProvinsiRefocusingController extends Controller
 
     public function diterima(Request $request) {
         $user = Auth::user();
-        $ref_diterima = [];
-        // if ($request->kabupaten) dd(Kabupaten::find($request->kabupaten)->kecamatan);
         $kabupaten = $user->provinsi ? $user->provinsi->kabupaten : [];
-        if ($user->provinsi) {
-            $desa = [];
-            foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
+        $kecamatan = [];
+        $desa = [];
+        $ref_diterima = [];
+        if ($user->status_verifikasi == 'terverifikasi') {
+            $desa_id = [];
+            $ref_diterima = PompaRefDiterima::where('verified_at', '!=', null);
             if ($request->kabupaten) {
-                $desa = [];
-                foreach(Kabupaten::find($request->kabupaten)->kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
+                $kecamatan = Kecamatan::where('kabupaten_id', $request->kabupaten)->get();
+                if ($request->kecamatan) {
+                    $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                    if ($request->desa) {
+                        $desa_id = [$request->desa];
+                    } else {
+                        $desa_id = [];
+                        foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                    }
+                } else {
+                    $desa_id = [];
+                    foreach (Kabupaten::find($request->kabupaten)->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
+                }
+                $ref_diterima = $ref_diterima->whereIn('desa_id', $desa_id);
             }
-            $ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null);
             if ($request->tanggal) $ref_diterima = $ref_diterima->where('tanggal', $request->tanggal);
             $ref_diterima = $ref_diterima->paginate(10);
         }
-        return view('provinsi.refocusing.diterima', ['ref_diterima' => $ref_diterima, 'kabupaten' => $kabupaten]);
+        return view('provinsi.refocusing.diterima', ['ref_diterima' => $ref_diterima, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 
     public function detailDiterima($id) {
@@ -42,19 +56,32 @@ class ProvinsiRefocusingController extends Controller
     public function dimanfaatkan(Request $request) {
         $user = Auth::user();
         $kabupaten = $user->provinsi ? $user->provinsi->kabupaten : [];
-        $ref_dimanfaatkan = [];
-        if ($user->provinsi) {
+        $kecamatan = [];
         $desa = [];
-        foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-        if ($request->kabupaten) {
-            $desa = [];
-            foreach(Kabupaten::find($request->kabupaten)->kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
+        $ref_dimanfaatkan = [];
+        if ($user->status_verifikasi == 'terverifikasi') {
+            $desa_id = [];
+            $ref_dimanfaatkan = PompaRefDimanfaatkan::where('verified_at', '!=', null);
+            if ($request->kabupaten) {
+                $kecamatan = Kecamatan::where('kabupaten_id', $request->kabupaten)->get();
+                if ($request->kecamatan) {
+                    $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                    if ($request->desa) {
+                        $desa_id = [$request->desa];
+                    } else {
+                        $desa_id = [];
+                        foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                    }
+                } else {
+                    $desa_id = [];
+                    foreach (Kabupaten::find($request->kabupaten)->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
+                }
+                $ref_dimanfaatkan = $ref_dimanfaatkan->whereIn('desa_id', $desa_id);
+            }
+            if ($request->tanggal) $ref_dimanfaatkan = $ref_dimanfaatkan->where('tanggal', $request->tanggal);
+            $ref_dimanfaatkan = $ref_dimanfaatkan->paginate(10);
         }
-        $ref_dimanfaatkan = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null);
-        if ($request->tanggal) $ref_dimanfaatkan = $ref_dimanfaatkan->where('tanggal', $request->tanggal);
-        $ref_dimanfaatkan = $ref_dimanfaatkan->paginate(10);
-        }
-        return view('provinsi.refocusing.digunakan', ['ref_dimanfaatkan' =>$ref_dimanfaatkan, 'kabupaten' => $kabupaten]);
+        return view('provinsi.refocusing.digunakan', ['ref_dimanfaatkan' => $ref_dimanfaatkan, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 
     public function detailDimanfaatkan($id) {

@@ -41,7 +41,7 @@
         </div><br> --}}
         <form action="{{ route('luasTanamHarianKec') }}" method="GET" id="form-filter" class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <a href="{{ route('kecamatan.inputLuasTanam') }}" type="submit" class="d-flex align-items-center btn btn-success" style="white-space: nowrap;">Input Data</a>
-            <a href="{{ url('/export-luastanamharian') }}" class="d-flex align-items-center btn btn-secondary">
+            <a href="{{ url('/export-luas-tanam-harian') }}" class="d-flex align-items-center btn btn-secondary">
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
@@ -59,10 +59,10 @@
                 <tr>
                     <th>No.</th>
                     <th>Tanggal</th>
-                    <th>Kecamatan</th>
                     <th>Desa</th>
                     <th>Kelompok Tani</th>
                     <th>Luas Tanam (ha)</th>
+                    <th>No Hp Poktan</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,10 +78,10 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $lt->tanggal }}</td>
-                        <td>{{ $lt->desa->kecamatan->nama }}</td>
                         <td>{{ $lt->desa->nama }}</td>
                         <td>{{ $lt->nama_poktan }}</td>
                         <td>{{ $lt->luas_tanam }}</td>
+                        <td>{{ $lt->no_hp_poktan ? $lt->no_hp_poktan : '-' }}</td>
                     </tr>
                 @empty
                     <tr>

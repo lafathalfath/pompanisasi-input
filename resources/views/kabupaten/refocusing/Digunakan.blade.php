@@ -25,11 +25,17 @@
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
-            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter()" value="{{ request()->tanggal }}">
-            <select name="kecamatan" class="form-control" id="kecamatan" onchange="handleFilter()">
+            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter(this)" value="{{ request()->tanggal }}">
+            <select name="kecamatan" class="form-control" id="kecamatan" onchange="handleFilter(this)">
                 <option value="" disabled selected>Pilih Kecamatan</option>
                 @foreach ($kecamatan as $kec)
                     <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
+                @endforeach
+            </select>
+            <select name="desa" class="form-control" id="filter-desa" onchange="handleFilter(this)" {{ !request()->kecamatan?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Desa</option>
+                @foreach ($desa as $des)
+                    <option value="{{ $des->id }}" {{ request()->desa==$des->id?'selected':'' }}>{{ $des->nama }}</option>
                 @endforeach
             </select>
             <a href="{{ route('kabupaten.pompa.ref.digunakan') }}" role="button" class="btn btn-secondary">Reset</a>
@@ -55,7 +61,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($ref_digunakan as $rd)
+                @forelse ($ref_dimanfaatkan as $rd)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $rd->desa->kecamatan->nama }}</td>
@@ -80,28 +86,28 @@
         <div class="d-flex justify-content-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item {{ $ref_digunakan->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $ref_digunakan->currentPage()-1]) }}" aria-label="Previous">
+                    <li class="page-item {{ $ref_dimanfaatkan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $ref_dimanfaatkan->currentPage()-1]) }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="page-item {{ $ref_digunakan->currentPage()==1?'disabled':'' }}">
+                    <li class="page-item {{ $ref_dimanfaatkan->currentPage()==1?'disabled':'' }}">
                         <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
                         <span aria-hidden="true">First</span>
                         </a>
                     </li>
-                    @for ($i = 1; $i <= $ref_digunakan->lastPage(); $i++)
-                        @if ($i>($ref_digunakan->currentPage()-5) && $i<($ref_digunakan->currentPage()+5))
-                            <li class="page-item {{ $ref_digunakan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
+                    @for ($i = 1; $i <= $ref_dimanfaatkan->lastPage(); $i++)
+                        @if ($i>($ref_dimanfaatkan->currentPage()-5) && $i<($ref_dimanfaatkan->currentPage()+5))
+                            <li class="page-item {{ $ref_dimanfaatkan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
                         @endif
                     @endfor
-                    <li class="page-item {{ $ref_digunakan->currentPage()==$ref_digunakan->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $ref_digunakan->lastPage()]) }}" aria-label="Next">
+                    <li class="page-item {{ $ref_dimanfaatkan->currentPage()==$ref_dimanfaatkan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $ref_dimanfaatkan->lastPage()]) }}" aria-label="Next">
                         <span aria-hidden="true">Last</span>
                         </a>
                     </li>
-                    <li class="page-item {{ $ref_digunakan->currentPage()==$ref_digunakan->lastPage()?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $ref_digunakan->currentPage()+1]) }}" aria-label="Next">
+                    <li class="page-item {{ $ref_dimanfaatkan->currentPage()==$ref_dimanfaatkan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.ref.digunakan', [...request()->query(), 'page' => $ref_dimanfaatkan->currentPage()+1]) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -113,7 +119,11 @@
 </div>
 
 <script>
-    const handleFilter = () => {
+    
+    const handleFilter = (e) => {
+        if (e.id == 'filter-kecamatan') {
+            document.getElementById('filter-desa').value = ''
+        } 
         document.getElementById('form-filter').submit()
     }
 </script>

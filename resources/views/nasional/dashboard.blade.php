@@ -111,9 +111,9 @@
 
         <div class="col">
             <form action="{{ route('nasional.dashboard') }}" method="GET" class="mb-3" id="form-filter" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
-                <a href="{{ url('/export-luastanamharian') }}" class="d-flex align-items-center btn btn-secondary">
+                {{-- <a href="{{ url('/export-luastanamharian') }}" class="d-flex align-items-center btn btn-secondary">
                     <i class="fa fa-download me-2"></i> Excel
-                </a>
+                </a> --}}
                 <select name="provinsi" class="form-control" id="filter-provinsi" onchange="handleFilter(this)">
                     <option value="" disabled selected>Pilih Provinsi</option>
                     @foreach ($provinsi as $prov)
@@ -130,6 +130,12 @@
                     <option value="" disabled selected>Pilih Kecamatan</option>
                     @foreach ($kecamatan as $kec)
                         <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
+                    @endforeach
+                </select>
+                <select name="desa" class="form-control" id="filter-desa" onchange="handleFilter(this)" {{ !request()->kecamatan?'disabled':'' }}>
+                    <option value="" disabled selected>Pilih Desa</option>
+                    @foreach ($desa as $des)
+                        <option value="{{ $des->id }}" {{ request()->desa==$des->id?'selected':'' }}>{{ $des->nama }}</option>
                     @endforeach
                 </select>
                 <a href="{{ route('nasional.dashboard') }}" class="btn btn-secondary">Reset</a>
@@ -331,9 +337,12 @@
         if (e.id == 'filter-provinsi') {
             document.getElementById('filter-kabupaten').value = ''
             document.getElementById('filter-kecamatan').value = ''
+            document.getElementById('filter-desa').value = ''
         } else if (e.id == 'filter-kabupaten') {
-            // document.getElementById('filter-provinsi').value = ''
             document.getElementById('filter-kecamatan').value = ''
+            document.getElementById('filter-desa').value = ''
+        } else if (e.id == 'filter-kecamatan') {
+            document.getElementById('filter-desa').value = ''
         } 
         document.getElementById('form-filter').submit()
     }

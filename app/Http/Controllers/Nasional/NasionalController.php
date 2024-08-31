@@ -26,6 +26,7 @@ class NasionalController extends Controller
         $provinsi = Provinsi::get();
         $kabupaten = [];
         $kecamatan = [];
+        $region_desa = [];
         $pompanisasi = (object) [
             'luas_tanam' => 0,
             'ref_diterima' => 0,
@@ -65,18 +66,32 @@ class NasionalController extends Controller
                 if ($request->kabupaten) {
                     $kecamatan = Kecamatan::where('kabupaten_id', $request->kabupaten)->get();
                     if ($request->kecamatan) {
-                        $rekap = [];
-                        foreach (Desa::where('kecamatan_id', $request->kecamatan)->get() as $des) {
-                            $rekap_row = (object) [
-                                'desa' => $des,
-                                'luas_tanam' => LuasTanam::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('luas_tanam'),
-                                'pompa_ref_diterima' => PompaRefDiterima::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
-                                'pompa_ref_dimanfaatkan' => PompaRefDimanfaatkan::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
-                                'pompa_abt_usulan' => PompaAbtUsulan::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
-                                'pompa_abt_diterima' => PompaAbtDiterima::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
-                                'pompa_abt_dimanfaatkan' => PompaAbtDimanfaatkan::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
-                            ];
-                            if ($rekap_row->luas_tanam || $rekap_row->pompa_ref_diterima || $rekap_row->pompa_ref_dimanfaatkan || $rekap_row->pompa_abt_usulan || $rekap_row->pompa_abt_diterima || $rekap_row->pompa_abt_dimanfaatkan) $rekap[] = $rekap_row;
+                        $region_desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                        if ($request->desa) {
+                            $data_desa = Desa::find($request->desa);
+                            $rekap = [(object) [
+                                'desa' => $data_desa,
+                                'luas_tanam' => LuasTanam::where('verified_at', '!=', null)->where('desa_id', $data_desa->id)->sum('luas_tanam'),
+                                'pompa_ref_diterima' => PompaRefDiterima::where('verified_at', '!=', null)->where('desa_id', $data_desa->id)->sum('total_unit'),
+                                'pompa_ref_dimanfaatkan' => PompaRefDimanfaatkan::where('verified_at', '!=', null)->where('desa_id', $data_desa->id)->sum('total_unit'),
+                                'pompa_abt_usulan' => PompaAbtUsulan::where('verified_at', '!=', null)->where('desa_id', $data_desa->id)->sum('total_unit'),
+                                'pompa_abt_diterima' => PompaAbtDiterima::where('verified_at', '!=', null)->where('desa_id', $data_desa->id)->sum('total_unit'),
+                                'pompa_abt_dimanfaatkan' => PompaAbtDimanfaatkan::where('verified_at', '!=', null)->where('desa_id', $data_desa->id)->sum('total_unit'),
+                            ]];
+                        } else {
+                            $rekap = [];
+                            foreach (Desa::where('kecamatan_id', $request->kecamatan)->get() as $des) {
+                                $rekap_row = (object) [
+                                    'desa' => $des,
+                                    'luas_tanam' => LuasTanam::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('luas_tanam'),
+                                    'pompa_ref_diterima' => PompaRefDiterima::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
+                                    'pompa_ref_dimanfaatkan' => PompaRefDimanfaatkan::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
+                                    'pompa_abt_usulan' => PompaAbtUsulan::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
+                                    'pompa_abt_diterima' => PompaAbtDiterima::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
+                                    'pompa_abt_dimanfaatkan' => PompaAbtDimanfaatkan::where('verified_at', '!=', null)->where('desa_id', $des->id)->sum('total_unit'),
+                                ];
+                                if ($rekap_row->luas_tanam || $rekap_row->pompa_ref_diterima || $rekap_row->pompa_ref_dimanfaatkan || $rekap_row->pompa_abt_usulan || $rekap_row->pompa_abt_diterima || $rekap_row->pompa_abt_dimanfaatkan) $rekap[] = $rekap_row;
+                            }
                         }
                     } else {
                         $rekap = [];
@@ -115,6 +130,6 @@ class NasionalController extends Controller
             }
         }
         $rekap = $this->paginate($rekap, 10);
-        return view('nasional.dashboard', ['pompanisasi' => $pompanisasi, 'rekap' => $rekap, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan]);
+        return view('nasional.dashboard', ['pompanisasi' => $pompanisasi, 'rekap' => $rekap, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'desa' => $region_desa]);
     }
 }

@@ -20,34 +20,50 @@ class KabupatenAbtController extends Controller
 
     public function usulanView(Request $request) {
         $user = Auth::user();
-        $kecamatan = [];
+        $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
+        $desa = [];
         $abt_usulan = [];
-        if ($user->kabupaten) {
-            $kecamatan = $user->kabupaten->kecamatan;
-            $desa = [];
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
-            $abt_usulan = PompaAbtUsulan::whereIn('desa_id', $desa);
+        if ($user->status_verifikasi == 'terverifikasi') {
+            $desa_id = [];
+            $abt_usulan = PompaAbtUsulan::where('verified_at', '!=', null);
+            if ($request->kecamatan) {
+                $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                if ($request->desa) {
+                    $desa_id = [$request->desa];
+                } else {
+                    $desa_id = [];
+                    foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                }
+                $abt_usulan = $abt_usulan->whereIn('desa_id', $desa_id);
+            }
             if ($request->tanggal) $abt_usulan = $abt_usulan->where('tanggal', $request->tanggal);
-            $abt_usulan = $abt_usulan->where('verified_at', '!=', null)->paginate(10);
+            $abt_usulan = $abt_usulan->paginate(10);
         }
-        return view('kabupaten.abt.Usulan', ['kecamatan' => $kecamatan, 'abt_usulan' => $abt_usulan]);
+        return view('kabupaten.abt.usulan', ['abt_usulan' => $abt_usulan, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 
     public function diterimaView(Request $request) {
         $user = Auth::user();
-        $kecamatan = [];
+        $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
+        $desa = [];
         $abt_diterima = [];
-        if ($user->kabupaten) {
-            $kecamatan = $user->kabupaten->kecamatan;
-            $desa = [];
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
-            $abt_diterima = PompaAbtDiterima::whereIn('desa_id', $desa);
+        if ($user->status_verifikasi == 'terverifikasi') {
+            $desa_id = [];
+            $abt_diterima = PompaAbtDiterima::where('verified_at', '!=', null);
+            if ($request->kecamatan) {
+                $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                if ($request->desa) {
+                    $desa_id = [$request->desa];
+                } else {
+                    $desa_id = [];
+                    foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                }
+                $abt_diterima = $abt_diterima->whereIn('desa_id', $desa_id);
+            }
             if ($request->tanggal) $abt_diterima = $abt_diterima->where('tanggal', $request->tanggal);
-            $abt_diterima = $abt_diterima->where('verified_at', '!=', null)->paginate(10);
+            $abt_diterima = $abt_diterima->paginate(10);
         }
-        return view('kabupaten.abt.Diterima', ['kecamatan' => $kecamatan, 'abt_diterima' => $abt_diterima]);
+        return view('kabupaten.abt.diterima', ['abt_diterima' => $abt_diterima, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 
     public function detailDiterimaView($id) {
@@ -57,18 +73,26 @@ class KabupatenAbtController extends Controller
 
     public function digunakanView(Request $request) {
         $user = Auth::user();
-        $kecamatan = [];
-        $abt_digunakan = [];
-        if ($user->kabupaten) {
-            $kecamatan = $user->kabupaten->kecamatan;
-            $desa = [];
-            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-            if ($request->kecamatan) $desa = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
-            $abt_digunakan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa);
-            if ($request->tanggal) $abt_digunakan = $abt_digunakan->where('tanggal', $request->tanggal);
-            $abt_digunakan = $abt_digunakan->where('verified_at', '!=', null)->paginate(10);
+        $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
+        $desa = [];
+        $abt_dimanfaatkan = [];
+        if ($user->status_verifikasi == 'terverifikasi') {
+            $desa_id = [];
+            $abt_dimanfaatkan = PompaAbtDimanfaatkan::where('verified_at', '!=', null);
+            if ($request->kecamatan) {
+                $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                if ($request->desa) {
+                    $desa_id = [$request->desa];
+                } else {
+                    $desa_id = [];
+                    foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                }
+                $abt_dimanfaatkan = $abt_dimanfaatkan->whereIn('desa_id', $desa_id);
+            }
+            if ($request->tanggal) $abt_dimanfaatkan = $abt_dimanfaatkan->where('tanggal', $request->tanggal);
+            $abt_dimanfaatkan = $abt_dimanfaatkan->paginate(10);
         }
-        return view('kabupaten.abt.Digunakan', ['kecamatan' => $kecamatan, 'abt_digunakan' => $abt_digunakan]);
+        return view('kabupaten.abt.digunakan', ['abt_dimanfaatkan' => $abt_dimanfaatkan, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 
     public function detailDigunakanView($id) {

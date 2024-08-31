@@ -15,15 +15,24 @@ class KabupatenLuasTanamController extends Controller
     public function index(Request $request) {
         $user = Auth::user();
         $kecamatan = $user->kabupaten ? $user->kabupaten->kecamatan : [];
+        $desa = [];
         $luas_tanam = [];
-        if ($user->kabupaten) {
+        if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
-            foreach ($user->kabupaten->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
-            if ($request->kecamatan) $desa_id = Desa::where('kecamatan_id', $request->kecamatan)->distinct()->pluck('id');
-            $luas_tanam = LuasTanam::whereIn('desa_id', $desa_id);
+            $luas_tanam = LuasTanam::where('verified_at', '!=', null);
+            if ($request->kecamatan) {
+                $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
+                if ($request->desa) {
+                    $desa_id = [$request->desa];
+                } else {
+                    $desa_id = [];
+                    foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
+                }
+                $luas_tanam = $luas_tanam->whereIn('desa_id', $desa_id);
+            }
             if ($request->tanggal) $luas_tanam = $luas_tanam->where('tanggal', $request->tanggal);
-            $luas_tanam = $luas_tanam->where('verified_at', '!=', null)->paginate(10);
+            $luas_tanam = $luas_tanam->paginate(10);
         }
-        return view('kabupaten.luasTanamHarian', ['luas_tanam' => $luas_tanam, 'kecamatan' => $kecamatan]);
+        return view('kabupaten.luasTanamHarian', ['luas_tanam' => $luas_tanam, 'kecamatan' => $kecamatan, 'desa' => $desa]);
     }
 }

@@ -28,6 +28,7 @@ use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
 use App\Http\Controllers\Kabupaten\VerifikasiDataController;
 use App\Http\Controllers\Nasional\NasionalAbtController;
+use App\Http\Controllers\Nasional\NasionalLuasTanamController;
 use App\Http\Controllers\Nasional\NasionalRefocusingController;
 use App\Http\Controllers\Provinsi\ProvinsiAbtController;
 use App\Http\Controllers\Provinsi\ProvinsiLuasTanamController;
@@ -109,9 +110,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan', [NasionalAbtController::class, 'dimanfaatkan'])->name('nasional.pompa.abt.digunakan');
             Route::get('/digunakan/{id}/detail', [NasionalAbtController::class, 'detailDimanfaatkan'])->name('nasional.pompa.abt.digunakan.detail');
         });
-        Route::get('/luasTanamHarian', function () {
-            return view('nasional.luasTanamHarian');
-        })->name('luasTanamHarianNas');
+        Route::get('/luasTanamHarian', [NasionalLuasTanamController::class, 'index'])->name('luasTanamHarianNas');
     });
 
     Route::prefix('/wilayah')->middleware('access:wilayah')->group(function () {
