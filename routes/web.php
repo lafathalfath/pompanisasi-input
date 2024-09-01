@@ -25,6 +25,7 @@ use App\Exports\Kecamatan\PompaAbtDiterimaExport;
 use App\Exports\Kecamatan\PompaAbtDimanfaatkanExport;
 use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
+use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
 use App\Http\Controllers\Kabupaten\VerifikasiDataController;
 use App\Http\Controllers\Nasional\NasionalAbtController;
@@ -79,9 +80,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
         Route::put('verifikasi-pj/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
         Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
-        Route::get('/kelolaAkun', function () {
-            return view('admin.kelolaAkun');
-        })->name('admin.kelolaAkun');
+        Route::get('/kelolaAkun', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
+        Route::put('/kelolaAkun/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
             Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
