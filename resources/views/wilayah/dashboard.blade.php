@@ -44,11 +44,11 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;" id="ref_diterima">0</td>
+                    <td style="padding: 10px 20px;" id="ref_diterima">{{ $pompanisasi->ref_diterima }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;" id="ref_digunakan">0</td>
+                    <td style="padding: 10px 20px;" id="ref_digunakan">{{ $pompanisasi->ref_dimanfaatkan }}</td>
                 </tr>
             </tbody>
         </table>
@@ -62,15 +62,15 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;" id="abt_usulan">0</td>
+                    <td style="padding: 10px 20px;" id="abt_usulan">{{ $pompanisasi->abt_usulan }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;" id="abt_diterima">0</td>
+                    <td style="padding: 10px 20px;" id="abt_diterima">{{ $pompanisasi->abt_diterima }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">0</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $pompanisasi->abt_dimanfaatkan }}</td>
                 </tr>
             </tbody>
         </table>
@@ -84,7 +84,7 @@
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Luas Tanam</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">-</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $pompanisasi->luas_tanam }}</td>
                 </tr>
             </tbody>
         </table>
