@@ -343,7 +343,7 @@
             document.getElementById('filter-desa').value = ''
         } else if (e.id == 'filter-kecamatan') {
             document.getElementById('filter-desa').value = ''
-        } 
+        }
         document.getElementById('form-filter').submit()
     }
 </script>
