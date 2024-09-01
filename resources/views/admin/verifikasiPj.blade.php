@@ -140,8 +140,8 @@
                     </td>
                     <td class="border-0 d-flex align-items-center justify-content-center gap-2">
                         @if ($user->status_verifikasi == 'proses')
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#verifModal" onclick="handleVerifikasi({{ $user->id }})"><span>&#10003;</span></button>
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#tolakModal" onclick="handleTolak({{ $user->id }})"><span>&#x292C;</span></button>
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#verifModal" onclick="handleVerifikasi('{{ route('admin.verifikasiPj.verifikasi', Crypt::encryptString($user->id)) }}')"><span>&#10003;</span></button>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#tolakModal" onclick="handleTolak('{{ route('admin.verifikasiPj.tolak', Crypt::encryptString($user->id)) }}')"><span>&#x292C;</span></button>
                         @endif
                     </td>
                 </tr>
@@ -236,39 +236,15 @@
         document.getElementById('form-filter').submit()
     }
 
-    document.getElementById('filter-input').addEventListener('input', () => {
-        let category = document.getElementById('filter-category').value;
-        let filterValue = document.getElementById('filter-input').value.toLowerCase();
-        let rows = document.querySelectorAll('#data-table-body tr');
-        
-        rows.forEach(row => {
-            let cellValue = row.cells[{
-                semua: 1,
-                name: 2,
-                email: 3,
-                phone: 4,
-                role: 5,
-                Assignment: 6,
-                status: 7
-            }[category]].innerText.toLowerCase();
-            
-            if (cellValue.includes(filterValue)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    });
-
-    const handleVerifikasi = (id) => {
+    const handleVerifikasi = (route) => {
         const form = document.getElementById('verif-form')
-        form.action = `/admin/verifikasi-pj/${id}/verifikasi`
+        form.action = route
         // console.log(form.action);
         
     }
-    const handleTolak = (id) => {
+    const handleTolak = (route) => {
         const form = document.getElementById('tolak-form')
-        form.action = `/admin/verifikasi-pj/${id}/tolak`
+        form.action = route
     }
 </script>
 @endsection
