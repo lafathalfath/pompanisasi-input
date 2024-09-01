@@ -92,16 +92,16 @@ class AuthController extends Controller
     public function getAsignee($role_id) {
         $role = $role_id;
         $data_region = [];
-        if ($role == 2) $data_region = Wilayah::get();
-        else if ($role == 3) $data_region = Provinsi::get();
+        if ($role == 2) $data_region = Wilayah::where('pj_id', null)->get();
+        else if ($role == 3) $data_region = Provinsi::where('pj_id', null)->get();
         else if ($role == 4) {
-            $data_region = Kabupaten::get();
+            $data_region = Kabupaten::where('pj_id', null)->get();
             foreach ($data_region as $dr) {
                 $dr->nama_provinsi = $dr->provinsi->nama;
             }
         }
         else if ($role == 5) {
-            $data_region = Kecamatan::get();
+            $data_region = Kecamatan::where('pj_id', null)->get();
             foreach ($data_region as $dr) {
                 $dr->nama_kabupaten = $dr->kabupaten->nama;
                 $dr->nama_provinsi = $dr->kabupaten->provinsi->nama;
