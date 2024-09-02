@@ -94,7 +94,14 @@
             <select name="role_id" class="form-control" id="role" required>
                 <option value="" disabled selected>Pilih Sebagai</option>
                 @foreach ($role as $rl)
-                    <option value="{{ $rl->id }}">PJ {{ $rl->nama }}</option>
+                    @if ($rl->id == 6)
+                        <option value="{{ $rl->id }}">PJ {{ $rl->nama }}</option>
+                    @endif
+                @endforeach
+                @foreach ($role as $rl)
+                    @if ($rl->id != 6)
+                        <option value="{{ $rl->id }}">PJ {{ $rl->nama }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>

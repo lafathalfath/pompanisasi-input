@@ -20,19 +20,26 @@
 <div class="d-flex flex-col justify-content-center">
     <div>
         <br>
-        <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+        <form action="{{ route('kabupaten.pompa.abt.usulan') }}" method="GET" id="form-filter" class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <a href="{{ url('/export-pompa-abt-usulan') }}" class="d-flex align-items-center btn btn-secondary">
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
-            <input type="date" class="form-control" id="date">
-            <select name="kota_kabupaten" class="form-control" id="kota-kabupaten">
+            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter(this)" value="{{ request()->tanggal }}">
+            <select name="kecamatan" class="form-control" id="kecamatan" onchange="handleFilter(this)">
                 <option value="" disabled selected>Pilih Kecamatan</option>
-                <option value="Bogor Utara">Bogor Utara</option>
-                <option value="Bogor Selatan">Bogor Selatan</option>
-                <!-- Tambahkan opsi kota/kabupaten lainnya -->
+                @foreach ($kecamatan as $kec)
+                    <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
+                @endforeach
             </select>
-        </div>
+            <select name="desa" class="form-control" id="filter-desa" onchange="handleFilter(this)" {{ !request()->kecamatan?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Desa</option>
+                @foreach ($desa as $des)
+                    <option value="{{ $des->id }}" {{ request()->desa==$des->id?'selected':'' }}>{{ $des->nama }}</option>
+                @endforeach
+            </select>
+            <a href="{{ route('kabupaten.pompa.abt.usulan') }}" role="button" class="btn btn-secondary">Reset</a>
+        </form>
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
@@ -56,8 +63,8 @@
                 @forelse ($abt_usulan as $au)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $au->pompanisasi->desa->kecamatan->nama }}</td>
-                        <td>{{ $au->pompanisasi->desa->nama }}</td>
+                        <td>{{ $au->desa->kecamatan->nama }}</td>
+                        <td>{{ $au->desa->nama }}</td>
                         <td>{{ $au->tanggal }}</td>
                         <td>{{ $au->nama_poktan }}</td>
                         <td>{{ $au->luas_lahan }}</td>
@@ -65,8 +72,7 @@
                         <td>{{ $au->pompa_4_inch }}</td>
                         <td>{{ $au->pompa_6_inch }}</td>
                         <td>{{ $au->total_unit }}</td>
-                        <td>{{ $au->no_hp_poktan }}</td>
-                        {{-- <td><a href="{{ route('kabupaten.pompa.abt.usulan.detail', Crypt::encryptString($au->pompanisasi->desa->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td> --}}
+                        <td>{{ $au->no_hp_poktan ? $au->no_hp_poktan : '-' }}</td>
                     </tr>
                 @empty
                     <tr><td colspan="11" class="text-center">Belum ada data</td></tr>
@@ -77,12 +83,12 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kabupaten.pompa.abt.usulan', ['nama' => request()->query('nama'), 'page' => $abt_usulan->currentPage()-1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.abt.usulan', [...request()->query(), 'page' => $abt_usulan->currentPage()-1]) }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
-                        <a class="page-link" href="{{ route('kabupaten.pompa.abt.usulan', ['nama' => request()->query('nama'), 'page' => 1]) }}" aria-label="Previous">
+                        <a class="page-link" href="{{ route('kabupaten.pompa.abt.usulan', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
                         <span aria-hidden="true">First</span>
                         </a>
                     </li>
@@ -107,4 +113,13 @@
     </div>
 
 </div>
+
+<script>
+    const handleFilter = (e) => {
+        if (e.id == 'filter-kecamatan') {
+            document.getElementById('filter-desa').value = ''
+        } 
+        document.getElementById('form-filter').submit()
+    }
+</script>
 @endsection

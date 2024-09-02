@@ -9,6 +9,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <style>
             body {
                 font-family: Poppins, sans-serif;
@@ -136,6 +138,7 @@
                     </ul>
                 </li>
                 <li><a href="{{ route('luasTanamHarianWil') }}" class="{{ request()->url() == route('luasTanamHarianWil') ? 'active' : '' }}">Luas Tanam Harian</a></li>
+                <li><a href="{{ route('wilayah.verifikasi.pj') }}" class="{{ request()->url() == route('wilayah.verifikasi.pj') ? 'active' : '' }}">Verifikasi Penanggungjawab</a></li>
 
                 {{-- <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Pompa ABT</a></li> --}}
 
@@ -158,5 +161,11 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     </body>
 </html>

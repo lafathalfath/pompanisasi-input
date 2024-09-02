@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pompa_ref_dimanfaatkan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('desa_id')->unsigned()->unique();
+            $table->bigInteger('desa_id')->unsigned();
             $table->string('nama_poktan');
             $table->float('luas_lahan');
             $table->integer('pompa_3_inch')->unsigned();

@@ -21,7 +21,10 @@ class RoleAccess
         if (empty($guards)) return abort(500);
         
         foreach ($guards as $guard) {
-            $role = Auth::user()->role->nama;
+            $user = Auth::user();
+            $role = $user->role->nama;
+            if ($user->status_verifikasi == 'proses') return redirect()->route('auth.wait.verification');
+            elseif ($user->status_verifikasi == 'ditolak') return redirect()->route('auth.reject.verification');
             if ($role == $guard) {
                 return $next($request);
             }
