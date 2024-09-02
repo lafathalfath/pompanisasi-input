@@ -26,6 +26,7 @@ use App\Exports\Kecamatan\PompaAbtDimanfaatkanExport;
 use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
 use App\Http\Controllers\Admin\ManageUserController;
+use App\Http\Controllers\Admin\StarterPompaKabupatenController;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
 use App\Http\Controllers\Kabupaten\VerifikasiDataController;
 use App\Http\Controllers\Nasional\NasionalAbtController;
@@ -105,6 +106,26 @@ Route::middleware('auth')->group(function () {
             Route::post('/desa', [DesaController::class, 'store'])->name('admin.manage.desa.store');
             Route::put('/desa/{id}', [DesaController::class, 'update'])->name('admin.manage.desa.update');
             Route::delete('/desa/{id}', [DesaController::class, 'destroy'])->name('admin.manage.desa.destroy');
+        });
+        Route::prefix('/starter-kabupaten')->group(function () {
+            Route::get('/ref_diterima', [StarterPompaKabupatenController::class, 'ref_diterima_view'])->name('admin.starter.kabupaten.ref_diterima');
+            Route::post('/ref_diterima', [StarterPompaKabupatenController::class, 'ref_diterima_store'])->name('admin.starter.kabupaten.ref_diterima.store');
+            Route::put('/ref_diterima/{id}/update', [StarterPompaKabupatenController::class, 'ref_diterima_update'])->name('admin.starter.kabupaten.ref_diterima.update');
+            Route::get('/ref_dimanfaatkan', [StarterPompaKabupatenController::class, 'ref_dimanfaatkan_view'])->name('admin.starter.kabupaten.ref_dimanfaatkan');
+            Route::post('/ref_dimanfaatkan', [StarterPompaKabupatenController::class, 'ref_dimanfaatkan_store'])->name('admin.starter.kabupaten.ref_dimanfaatkan.store');
+            Route::put('/ref_dimanfaatkan/{id}/update', [StarterPompaKabupatenController::class, 'ref_dimanfaatkan_update'])->name('admin.starter.kabupaten.ref_dimanfaatkan.update');
+            Route::get('/abt_usulan', [StarterPompaKabupatenController::class, 'abt_usulan_view'])->name('admin.starter.kabupaten.abt_usulan');
+            Route::post('/abt_usulan', [StarterPompaKabupatenController::class, 'abt_usulan_store'])->name('admin.starter.kabupaten.abt_usulan.store');
+            Route::put('/abt_usulan/{id}/update', [StarterPompaKabupatenController::class, 'abt_usulan_update'])->name('admin.starter.kabupaten.abt_usulan.update');
+            Route::get('/abt_diterima', [StarterPompaKabupatenController::class, 'abt_diterima_view'])->name('admin.starter.kabupaten.abt_diterima');
+            Route::post('/abt_diterima', [StarterPompaKabupatenController::class, 'abt_diterima_store'])->name('admin.starter.kabupaten.abt_diterima.store');
+            Route::put('/abt_diterima/{id}/update', [StarterPompaKabupatenController::class, 'abt_diterima_update'])->name('admin.starter.kabupaten.abt_diterima.update');
+            Route::get('/abt_dimanfaatkan', [StarterPompaKabupatenController::class, 'abt_dimanfaatkan_view'])->name('admin.starter.kabupaten.abt_dimanfaatkan');
+            Route::post('/abt_dimanfaatkan', [StarterPompaKabupatenController::class, 'abt_dimanfaatkan_store'])->name('admin.starter.kabupaten.abt_dimanfaatkan.store');
+            Route::put('/abt_dimanfaatkan/{id}/update', [StarterPompaKabupatenController::class, 'abt_dimanfaatkan_update'])->name('admin.starter.kabupaten.abt_dimanfaatkan.update');
+            Route::get('/luas_tanam', [StarterPompaKabupatenController::class, 'luas_tanam_view'])->name('admin.starter.kabupaten.luas_tanam');
+            Route::post('/luas_tanam', [StarterPompaKabupatenController::class, 'luas_tanam_store'])->name('admin.starter.kabupaten.luas_tanam.store');
+            Route::put('/luas_tanam/{id}/update', [StarterPompaKabupatenController::class, 'luas_tanam_update'])->name('admin.starter.kabupaten.luas_tanam.update');
         });
     });
 

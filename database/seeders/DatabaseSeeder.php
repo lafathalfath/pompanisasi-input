@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             Kabupaten2Seeder::class,
             Kecamatan2Seeder::class,
             Desa2Seeder::class,
+            StarterPompaKabupatenSeeder::class,
+            StarterLuasTanamKabupatenSeeder::class,
         ]);
     }
 }
