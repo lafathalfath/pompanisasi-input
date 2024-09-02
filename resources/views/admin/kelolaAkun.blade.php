@@ -90,6 +90,9 @@
                             @endif, '{{ route('admin.kelolaAkun.update', Crypt::encryptString($us->id)) }}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal1">
                                 Detail
                             </button>
+                            <button onclick="confirmDelete('{{ Crypt::encryptString($us->id) }}', '{{ $us->nama }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 @empty
@@ -194,6 +197,29 @@
             </div>
         </div>
 
+        <!-- Modal Delete Akun -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus Akun</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin menghapus akun <span id="delete-user-name"></span>?
+                    </div>
+                    <div class="modal-footer">
+                        <form id="delete-form" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -280,5 +306,10 @@
                 }
             });
         })
+
+        const confirmDelete = (id, name) => {
+            document.getElementById('delete-user-name').innerText = name;
+            document.getElementById('delete-form').action = `/admin/kelolaAkun/delete/${id}`;
+        }
     </script>
 @endsection
