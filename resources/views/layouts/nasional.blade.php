@@ -65,6 +65,7 @@
             .logout:hover {
                 background-color: #005f62;
                 text-decoration: none !important;
+                color: #fff !important;
             }
 
             .logout {
