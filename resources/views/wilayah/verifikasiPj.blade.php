@@ -220,7 +220,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(".js-example-templating").select2();
@@ -229,30 +229,6 @@
         if (e.id == 'filter-level') document.getElementById('filter-daerah').value = ''
         document.getElementById('form-filter').submit()
     }
-
-    document.getElementById('filter-input').addEventListener('input', () => {
-        let category = document.getElementById('filter-category').value;
-        let filterValue = document.getElementById('filter-input').value.toLowerCase();
-        let rows = document.querySelectorAll('#data-table-body tr');
-        
-        rows.forEach(row => {
-            let cellValue = row.cells[{
-                semua: 1,
-                name: 2,
-                email: 3,
-                phone: 4,
-                role: 5,
-                Assignment: 6,
-                status: 7
-            }[category]].innerText.toLowerCase();
-            
-            if (cellValue.includes(filterValue)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    });
 
     const handleVerifikasi = (route) => {
         const form = document.getElementById('verif-form')

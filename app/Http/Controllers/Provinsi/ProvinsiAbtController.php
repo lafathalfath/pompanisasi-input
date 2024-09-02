@@ -26,6 +26,7 @@ class ProvinsiAbtController extends Controller
         $abt_usulan = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
+            foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
             $abt_usulan = PompaAbtUsulan::where('verified_at', '!=', null);
             if ($request->kabupaten) {
                 $kecamatan = Kecamatan::where('kabupaten_id', $request->kabupaten)->get();
@@ -41,8 +42,8 @@ class ProvinsiAbtController extends Controller
                     $desa_id = [];
                     foreach (Kabupaten::find($request->kabupaten)->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
                 }
-                $abt_usulan = $abt_usulan->whereIn('desa_id', $desa_id);
             }
+            $abt_usulan = $abt_usulan->whereIn('desa_id', $desa_id);
             if ($request->tanggal) $abt_usulan = $abt_usulan->where('tanggal', $request->tanggal);
             $abt_usulan = $abt_usulan->paginate(10);
         }
@@ -57,6 +58,7 @@ class ProvinsiAbtController extends Controller
         $abt_diterima = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
+            foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
             $abt_diterima = PompaAbtDiterima::where('verified_at', '!=', null);
             if ($request->kabupaten) {
                 $kecamatan = Kecamatan::where('kabupaten_id', $request->kabupaten)->get();
@@ -72,8 +74,8 @@ class ProvinsiAbtController extends Controller
                     $desa_id = [];
                     foreach (Kabupaten::find($request->kabupaten)->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
                 }
-                $abt_diterima = $abt_diterima->whereIn('desa_id', $desa_id);
             }
+            $abt_diterima = $abt_diterima->whereIn('desa_id', $desa_id);
             if ($request->tanggal) $abt_diterima = $abt_diterima->where('tanggal', $request->tanggal);
             $abt_diterima = $abt_diterima->paginate(10);
         }
@@ -93,6 +95,7 @@ class ProvinsiAbtController extends Controller
         $abt_dimanfaatkan = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
+            foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
             $abt_dimanfaatkan = PompaAbtDimanfaatkan::where('verified_at', '!=', null);
             if ($request->kabupaten) {
                 $kecamatan = Kecamatan::where('kabupaten_id', $request->kabupaten)->get();
@@ -108,8 +111,8 @@ class ProvinsiAbtController extends Controller
                     $desa_id = [];
                     foreach (Kabupaten::find($request->kabupaten)->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
                 }
-                $abt_dimanfaatkan = $abt_dimanfaatkan->whereIn('desa_id', $desa_id);
             }
+            $abt_dimanfaatkan = $abt_dimanfaatkan->whereIn('desa_id', $desa_id);
             if ($request->tanggal) $abt_dimanfaatkan = $abt_dimanfaatkan->where('tanggal', $request->tanggal);
             $abt_dimanfaatkan = $abt_dimanfaatkan->paginate(10);
         }

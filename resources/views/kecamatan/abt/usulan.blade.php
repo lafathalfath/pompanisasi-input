@@ -44,8 +44,8 @@
                     <th rowspan="2">Luas lahan <br>(ha)</th>
                     <th colspan="3" class="text-center">Usulan Pompa ABT</th>
                     <th rowspan="2">Total <br>diusulkan</th>
+                    <th rowspan="2">Status</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
-                    {{-- <th rowspan="2">Aksi</th> --}}
                 </tr>
                 <tr>
                     <th>3 inch <br>(unit)</th>
@@ -65,6 +65,11 @@
                     <td>{{ $au->pompa_4_inch }}</td>
                     <td>{{ $au->pompa_6_inch }}</td>
                     <td>{{ $au->total_unit }}</td>
+                    <td>
+                        <div class="badge text-bg-{{ $au->verified_at?'success':'danger' }} fs-6">
+                            {{ $au->verified_at ? 'terverifikasi' : 'belum diverifikasi' }}
+                        </div>
+                    </td>
                     <td>{{ $au->no_hp_poktan ? $au->no_hp_poktan : '-' }}</td>
                     {{-- <td><a href="" class="btn btn-sm btn-info">Detail</a></td> --}}
                 </tr>
