@@ -91,4 +91,24 @@ class ManageUserController extends Controller
                 return redirect()->route('admin.kelolaAkun')->with('error', 'Akun tidak ditemukan');
             }
         }
+  
+    public function nonaktifkan($id) {
+        $user = User::find(Crypt::decryptString($id));
+        if (!$user) return back()->withErrors('user tidak ditemukan');
+        if (!$user->region_id) {
+            $user->update(['status_verifikasi' => 'ditolak']);
+        } else {
+            $region = null;
+            if ($user->role_id == 2) $region = Wilayah::find($user->region_id);
+            elseif ($user->role_id == 3) $region = Provinsi::find($user->region_id);
+            elseif ($user->role_id == 4) $region = Kabupaten::find($user->region_id);
+            elseif ($user->role_id == 5) $region = Kecamatan::find($user->region_id);
+            if ($region) {
+                $region->update(['pj_id' => null]);
+            }
+            $user->update(['status_verifikasi' => 'ditolak']);
+        }
+        return back()->with('success', 'berhasil mengnonaktifkan user');
+    }
+  
 }
