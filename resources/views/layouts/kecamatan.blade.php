@@ -102,6 +102,13 @@
             .sidebar::-webkit-scrollbar-thumb:hover {
                 background: gray; 
             }
+            .user-info {
+                margin-top: 20px;
+            }
+            .user-role {
+                font-size: 14px;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -111,6 +118,14 @@
                     <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
+                <div class="user-info">
+                    <p class="user-role">
+                        {{ Auth::user()->nama }}<br>
+                        PJ Kec. {{ ucwords(strtolower(Auth::user()->kecamatan->nama)) }}<br>
+                        {{ ucwords(strtolower(Auth::user()->kecamatan->kabupaten->nama)) }}<br>
+                        {{ ucwords(strtolower(Auth::user()->kecamatan->kabupaten->provinsi->nama)) }}
+                    </p>
+                </div>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Dashboard</a></li>
