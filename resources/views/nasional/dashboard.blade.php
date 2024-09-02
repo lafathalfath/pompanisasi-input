@@ -110,10 +110,7 @@
     <div class="row">
 
         <div class="col">
-            <form action="{{ route('nasional.dashboard') }}" method="GET" class="mb-3" id="form-filter" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
-                {{-- <a href="{{ url('/export-luastanamharian') }}" class="d-flex align-items-center btn btn-secondary">
-                    <i class="fa fa-download me-2"></i> Excel
-                </a> --}}
+            {{-- <form action="{{ route('nasional.dashboard') }}" method="GET" class="mb-3" id="form-filter" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
                 <select name="provinsi" class="form-control" id="filter-provinsi" onchange="handleFilter(this)">
                     <option value="" disabled selected>Pilih Provinsi</option>
                     @foreach ($provinsi as $prov)
@@ -139,21 +136,21 @@
                     @endforeach
                 </select>
                 <a href="{{ route('nasional.dashboard') }}" class="btn btn-secondary">Reset</a>
-            </form>
+            </form> --}}
                 <table class="table table-bordered table-custom">
                 <thead>
                     <tr>
                         <th rowspan="2" class="merged-cell">No</th>
                         <th rowspan="2" class="merged-cell">
-                            @if (request()->kecamatan)
+                            {{-- @if (request()->kecamatan)
                                 Desa
                             @elseif (request()->kabupaten)
                                 Kecamatan
                             @elseif (request()->provinsi)
                                 Kabupaten
-                            @else
+                            @else --}}
                                 Provinsi
-                            @endif
+                            {{-- @endif --}}
                         </th>
                         <th rowspan="2" class="merged-cell">Luas Tanam (ha)</th>
                         <th colspan="2" class="merged-cell">Pompa Refocusing</th>
@@ -172,15 +169,15 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                @if (request()->kecamatan)
+                                {{-- @if (request()->kecamatan)
                                     {{ $rk->desa->nama }}
                                 @elseif (request()->kabupaten)
                                     {{ $rk->kecamatan->nama }}
                                 @elseif (request()->provinsi)
                                     {{ $rk->kabupaten->nama }}
-                                @else
+                                @else --}}
                                     {{ $rk->provinsi->nama }}
-                                @endif
+                                {{-- @endif --}}
                             </td>
                             <td>{{ $rk->luas_tanam }}</td>
                             <td>{{ $rk->pompa_ref_diterima }}</td>
