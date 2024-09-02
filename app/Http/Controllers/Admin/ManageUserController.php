@@ -10,12 +10,13 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class ManageUserController extends Controller
 {
     public function index(Request $request) {
-        $users = new User();
+        $users = User::where('id', '!=', Auth::user()->id);
         if ($request->status) $users = $users->where('status_verifikasi', $request->status);
         if ($request->role) $users = $users->where('role_id', $request->role);
         $users = $users->paginate(10);

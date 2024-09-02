@@ -133,13 +133,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.kelolaAkun') }}">Kelola Akun</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Starter Pompa <br>Kabupaten
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.ref_diterima') }}">Pompa Refocusing Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.ref_dimanfaatkan') }}">Pompa Refocusing Dimanfaatkan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.abt_usulan') }}">Pompa ABT Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.abt_diterima') }}">Pompa ABT Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.abt_dimanfaatkan') }}">Pompa ABT Dimanfaatkan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.luas_tanam') }}">Pompa Luas Tanam harian</a></li>
+                </li>
 
             </ul>
             <br>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
 
-        <div class="content">
+        <div class="content p-5">
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
