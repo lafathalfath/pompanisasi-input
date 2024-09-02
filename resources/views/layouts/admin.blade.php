@@ -97,7 +97,7 @@
                 <a href="{{ route('kabupaten.dashboard') }}">
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
-                <h1>Satgas Pompanisasi<br></h1>
+                <h1>Admin Satgas Pompanisasi<br></h1>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->url() == route('admin.dashboard') ? 'active' : '' }}">Dashboard</a></li>
