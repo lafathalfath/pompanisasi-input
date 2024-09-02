@@ -47,6 +47,7 @@ class KecamatanController extends Controller
     public function  destroy($id) {
         $kecamatan = Kecamatan::find(Crypt::decryptString($id));
         if (!$kecamatan) return back()->withErrors('kecamatan tidak ditemukan');
+        if (count($kecamatan->desa)) return back()->withErrors('kecamatan tidak dapat dihapus, terdapat desa di kecamatan ini');
         $kecamatan->delete();
         return back()->with('success', 'berhasil menghapus kecamatan');
     }

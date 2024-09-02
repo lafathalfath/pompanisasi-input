@@ -46,6 +46,14 @@ class DesaController extends Controller
     public function  destroy($id) {
         $desa = Desa::find(Crypt::decryptString($id));
         if (!$desa) return back()->withErrors('desa tidak ditemukan');
+        if (
+            count($desa->pompa_ref_diterima)
+            || count($desa->pompa_ref_dimanfaatkan)
+            || count($desa->pompa_abt_usulan)
+            || count($desa->pompa_abt_diterima)
+            || count($desa->pompa_abt_dimanfaatkan)
+            || count($desa->luas_tanam)
+        ) return back()->withErrors('desa tidak dapat dihapus, terdapat data pompa atau luas tanam harian');
         $desa->delete();
         return back()->with('success', 'berhasil menghapus desa');
     }
