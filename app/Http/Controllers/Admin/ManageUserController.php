@@ -67,4 +67,28 @@ class ManageUserController extends Controller
         }
         return back()->with('success', 'berhasil mengupdate data user');
     }
+
+    public function deleteUser($id)
+        {
+            $userId = Crypt::decryptString($id);
+            $user = User::findOrFail($userId);
+
+            if ($user) {
+                if ($user->role_id == 2) { 
+                    Wilayah::where('pj_id', $user->id)->update(['pj_id' => null]);
+                } elseif ($user->role_id == 3) {
+                    Provinsi::where('pj_id', $user->id)->update(['pj_id' => null]);
+                } elseif ($user->role_id == 4) { 
+                    Kabupaten::where('pj_id', $user->id)->update(['pj_id' => null]);
+                } elseif ($user->role_id == 5) {
+                    Kecamatan::where('pj_id', $user->id)->update(['pj_id' => null]);
+                }
+
+                $user->delete();
+
+                return redirect()->route('admin.kelolaAkun')->with('success', 'Akun berhasil dihapus');
+            } else {
+                return redirect()->route('admin.kelolaAkun')->with('error', 'Akun tidak ditemukan');
+            }
+        }
 }

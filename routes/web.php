@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
         Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
         Route::get('/kelolaAkun', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
         Route::put('/kelolaAkun/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
+        Route::delete('/kelolaAkun/delete/{id}', [ManageUserController::class, 'deleteUser'])->name('admin.kelolaAkun.delete');
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
             Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
