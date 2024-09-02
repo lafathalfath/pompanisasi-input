@@ -59,7 +59,8 @@
                         <td>{{ $prov->wilayah->nama }}</td>
                         <td>{{ $prov->nama }}</td>
                         <td class="border-0 d-flex align-items-center justify-content-center gap-2">
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $prov }})">Edit</button>
+                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $prov }}, '{{ route('admin.manage.provinsi.update', Crypt::encryptString($prov->id)) }}')">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="handleDelete('{{ route('admin.manage.provinsi.destroy', Crypt::encryptString($prov->id)) }}')">Hapus</button>
                         </td>
                     </tr>
                 @endforeach
@@ -123,31 +124,7 @@
         </form>
     </div>
 </div>
-{{-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form class="modal-content" method="POST" id="formEdit">
-            @csrf
-            @method('PUT')
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel">Edit Provinsi</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="editNama" class="form-control" name="nama" placeholder="Nama provinsi" required><br>
-                <select name="wilayah_id" class="form-control js-example-templating" id="editWilayah" required>
-                    <option value="" disabled selected>Pilih Wilayah</option>
-                    @foreach ($wilayah as $wil)
-                        <option value="{{ $wil->id }}">{{ $wil->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-warning">Edit</button>
-            </div>
-        </form>
-    </div>
-</div> --}}
+{{-- modal --}}
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form class="modal-content" method="POST" id="formEdit">
@@ -173,6 +150,26 @@
         </form>
     </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" method="POST" id="formDelete">
+            @csrf
+            @method('DELETE')
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteModalLabel">Edit Kabupaten</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus provinsi ini?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-danger">Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>
+{{-- end modal --}}
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -188,18 +185,23 @@
         width: '100%',
     });
 
-    const handleEdit = (provinsi) => {
+    const handleEdit = (provinsi, route) => {
         // console.log(provinsi.nama);
         
         const form = document.getElementById('formEdit')
         const editNama =  document.getElementById('editNama')
         const editWilayah = document.getElementById('editWilayah')
-        form.action = `/admin/manage/provinsi/${provinsi.id}`
+        form.action = route
         editNama.value = provinsi.nama
         editWilayah.value = provinsi.wilayah_id
         
     //     editNama.value = provinsi.nama
     //     editWilayah.value = provinsi.wilayah_id
+    }
+
+    const handleDelete = (route) => {
+        const form = document.getElementById('formDelete')
+        form.action = route
     }
 </script>
 @endsection

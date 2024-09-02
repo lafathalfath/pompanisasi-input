@@ -61,7 +61,8 @@
                         <td>{{ $kb->provinsi->nama }}</td>
                         <td>{{ $kb->nama }}</td>
                         <td class="border-0 d-flex align-items-center justify-content-center gap-2">
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $kb }})">Edit</button>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $kb }}, '{{ route('admin.manage.kabupaten.update', Crypt::encryptString($kb->id)) }}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleDelete('{{ route('admin.manage.kabupaten.destroy', Crypt::encryptString($kb->id)) }}')">Hapus</button>
                         </td>
                     </tr>
                 @endforeach
@@ -174,6 +175,25 @@
             </form>
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" method="POST" id="formDelete">
+                @csrf
+                @method('DELETE')
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Edit Kabupaten</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus kabupaten ini?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -189,13 +209,18 @@
             width: '100%',
         });
 
-        const handleEdit = (kabupaten) => {
+        const handleEdit = (kabupaten, route) => {
             const form = document.getElementById('formEdit')
             const inputNama = document.getElementById('editNama')
             const inputProvinsi = document.getElementById('editProvinsi')
-            form.action = `/admin/manage/kabupaten/${kabupaten.id}`
+            form.action = route
             inputNama.value = kabupaten.nama
             inputProvinsi.value = kabupaten.provinsi_id
+        }
+
+        const handleDelete = (route) => {
+            const form = document.getElementById('formDelete')
+            form.action = route
         }
 
         // $('#editModal').on('show.bs.modal', function (event) {

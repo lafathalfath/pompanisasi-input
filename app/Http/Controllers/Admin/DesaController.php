@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class DesaController extends Controller
 {
@@ -40,5 +41,12 @@ class DesaController extends Controller
         ]);
         Desa::find($id)->update($request->except('_token'));
         return back()->with('success', 'berhasil mengubah provinsi');
+    }
+
+    public function  destroy($id) {
+        $desa = Desa::find(Crypt::decryptString($id));
+        if (!$desa) return back()->withErrors('desa tidak ditemukan');
+        $desa->delete();
+        return back()->with('success', 'berhasil menghapus desa');
     }
 }

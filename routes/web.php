@@ -77,24 +77,33 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin')->middleware('access:admin')->group(function () {
         Route::get('/', function () {return redirect()->route('admin.dashboard');});
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-        Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
-        Route::put('verifikasi-pj/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
-        Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
-        Route::get('/kelolaAkun', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
-        Route::put('/kelolaAkun/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
+        Route::prefix('/verifikasi-pj')->group(function () {
+            Route::get('/', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
+            Route::put('/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
+            Route::put('/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
+        });
+        Route::prefix('/kelolaAkun')->group(function () {
+            Route::get('/', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
+            Route::put('/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
+            Route::put('/{id}/nonaktifkan', [ManageUserController::class, 'nonaktifkan'])->name('admin.kelolaAkun.nonaktifkan');
+        });
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
             Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
             Route::put('/provinsi/{id}', [AdminProvinsiController::class, 'update'])->name('admin.manage.provinsi.update');
+            Route::delete('/provinsi/{id}', [AdminProvinsiController::class, 'destroy'])->name('admin.manage.provinsi.destroy');
             Route::get('/kabupaten', [AdminKabupatenController::class, 'index'])->name('admin.manage.kabupaten');
             Route::post('/kabupaten', [AdminKabupatenController::class, 'store'])->name('admin.manage.kabupaten.store');
             Route::put('/kabupaten/{id}', [AdminKabupatenController::class, 'update'])->name('admin.manage.kabupaten.update');
+            Route::delete('/kabupaten/{id}', [AdminKabupatenController::class, 'destroy'])->name('admin.manage.kabupaten.destroy');
             Route::get('/kecamatan', [AdminKecamatanController::class, 'index'])->name('admin.manage.kecamatan');
             Route::post('/kecamatan', [AdminKecamatanController::class, 'store'])->name('admin.manage.kecamatan.store');
             Route::put('/kecamatan/{id}', [AdminKecamatanController::class, 'update'])->name('admin.manage.kecamatan.update');
+            Route::delete('/kecamatan/{id}', [AdminKecamatanController::class, 'destroy'])->name('admin.manage.kecamatan.destroy');
             Route::get('/desa', [DesaController::class, 'index'])->name('admin.manage.desa');
             Route::post('/desa', [DesaController::class, 'store'])->name('admin.manage.desa.store');
             Route::put('/desa/{id}', [DesaController::class, 'update'])->name('admin.manage.desa.update');
+            Route::delete('/desa/{id}', [DesaController::class, 'destroy'])->name('admin.manage.desa.destroy');
         });
     });
 
