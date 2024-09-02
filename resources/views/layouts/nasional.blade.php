@@ -97,9 +97,9 @@
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi</h1>
-                <div class="user-info">
-                    <p class="user-role">
-                        {{ Auth::user()->nama }}<br>
+                <div class="user-info text-left">
+                    <div class="text-capitalize fw-bold mb-2">{{ Auth::user()->nama }}</div>
+                    <p class="user-role text-capitalize">
                         PJ Nasional
                     </p>
                 </div>
@@ -131,6 +131,20 @@
         </div>
 
         <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @yield('content')
         </div>
 

@@ -89,6 +89,14 @@
             a{
                 text-decoration: none;
             }
+            .user-info {
+                margin-top: 20px;
+                text-align: left;
+            }
+            .user-role {
+                font-size: 14px;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -98,6 +106,12 @@
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Admin Satgas Pompanisasi<br></h1>
+                <div class="user-info text-left">
+                    <div class="text-capitalize fw-bold mb-2">{{ Auth::user()->nama }}</div>
+                    <p class="user-role text-capitalize">
+                        Admin
+                    </p>
+                </div>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->url() == route('admin.dashboard') ? 'active' : '' }}">Dashboard</a></li>
@@ -124,6 +138,21 @@
         </div>
 
         <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @yield('content')
         </div>
 

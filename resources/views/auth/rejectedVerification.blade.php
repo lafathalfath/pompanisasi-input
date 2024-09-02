@@ -22,7 +22,7 @@
             <img src="/assets/img/logobbpsip.png" alt="Logo">
             <h4>Satgas Pompanisasi</h4>
             <br>
-            <h5>Verifikasi akun ditolak</h5>
+            <h5>Akun ditolak atau dinonaktifkan</h5>
             <p>Silahkan hubungi Admin atau PJ Wilayah</p>
         </div>
     </div>
