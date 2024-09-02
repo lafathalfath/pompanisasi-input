@@ -62,7 +62,7 @@
                         <td>{{ $kb->nama }}</td>
                         <td class="border-0 d-flex align-items-center justify-content-center gap-2">
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $kb }}, '{{ route('admin.manage.kabupaten.update', Crypt::encryptString($kb->id)) }}')">Edit</button>
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleDelete('{{ route('admin.manage.kabupaten.destroy', Crypt::encryptString($kb->id)) }}')">Hapus</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="handleDelete('{{ route('admin.manage.kabupaten.destroy', Crypt::encryptString($kb->id)) }}')">Hapus</button>
                         </td>
                     </tr>
                 @endforeach
