@@ -19,21 +19,21 @@
             <a href="{{ route('kecamatan.abt.usulan.input') }}" type="submit" class="btn btn-success">Input Data</a>
             <a href="{{ url('/export-pompa-abt-usulan') }}" class="btn btn-secondary"><i class="fa fa-download"></i> Excel</a>
         </div><br> --}}
-        <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+        <form action="{{ route('kecamatan.pompa.abt.usulan') }}" method="GET" id="form-filter" class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <a href="{{ route('kecamatan.abt.usulan.input') }}" type="submit" class="d-flex align-items-center btn btn-success" style="white-space: nowrap;">Input Data</a>
             <a href="{{ url('/export-pompa-abt-usulan') }}" class="d-flex align-items-center btn btn-secondary">
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
-            <input type="date" class="form-control" id="date">
-            <select name="desa_id" class="form-control" id="desa">
+            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter()" value="{{ request()->tanggal }}">
+            <select name="desa" class="form-control" id="desa" onchange="handleFilter()">
                 <option value="" disabled selected>Pilih Desa/Kelurahan</option>
                 @foreach ($desa as $des)
-                    <option value="{{ $des->id }}">{{ $des->nama }}</option>
+                    <option value="{{ $des->id }}" {{ request()->desa==$des->id?'selected':'' }}>{{ $des->nama }}</option>
                 @endforeach
             </select>
-            <button type="button" id="resetButton" class="btn btn-secondary">Reset</button>
-        </div>
+            <a href="{{ route('kecamatan.pompa.abt.usulan') }}" role="button" id="resetButton" class="btn btn-secondary">Reset</a>
+        </form>
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
@@ -75,12 +75,47 @@
                 @endforelse
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.usulan', [...request()->query(), 'page' => $abt_usulan->currentPage()-1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $abt_usulan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.usulan', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $abt_usulan->lastPage(); $i++)
+                        @if ($i>($abt_usulan->currentPage()-5) && $i<($abt_usulan->currentPage()+5))
+                            <li class="page-item {{ $abt_usulan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('kecamatan.pompa.abt.usulan', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item {{ $abt_usulan->currentPage()==$abt_usulan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.usulan', [...request()->query(), 'page' => $abt_usulan->lastPage()]) }}" aria-label="Next">
+                        <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $abt_usulan->currentPage()==$abt_usulan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('kecamatan.pompa.abt.usulan', [...request()->query(), 'page' => $abt_usulan->currentPage()+1]) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
     </div>
 
 </div>
 
 <script>
+    const handleFilter = () => {
+        document.getElementById('form-filter').submit()
+    }
+
 document.addEventListener('DOMContentLoaded', function() {
     const dateInput = document.getElementById('date');
     const desaSelect = document.getElementById('desa');

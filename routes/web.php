@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\Kecamatan\LuasTanamHarianExport;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DesaController;
 use App\Http\Controllers\Admin\KabupatenController as AdminKabupatenController;
@@ -24,7 +25,19 @@ use App\Exports\Kecamatan\PompaAbtDiterimaExport;
 use App\Exports\Kecamatan\PompaAbtDimanfaatkanExport;
 use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
-
+use App\Http\Controllers\Admin\ManageUserController;
+use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
+use App\Http\Controllers\Kabupaten\VerifikasiDataController;
+use App\Http\Controllers\Nasional\NasionalAbtController;
+use App\Http\Controllers\Nasional\NasionalLuasTanamController;
+use App\Http\Controllers\Nasional\NasionalRefocusingController;
+use App\Http\Controllers\Provinsi\ProvinsiAbtController;
+use App\Http\Controllers\Provinsi\ProvinsiLuasTanamController;
+use App\Http\Controllers\Provinsi\ProvinsiRefocusingController;
+use App\Http\Controllers\Wilayah\WilayahAbtController;
+use App\Http\Controllers\Wilayah\WilayahLuasTanamController;
+use App\Http\Controllers\Wilayah\WilayahRefocusingController;
+use App\Http\Controllers\Wilayah\WilayahVerifPjController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,8 +67,12 @@ Route::middleware('guest')->group(function () {
     });
 });
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/waiting-verification', [AuthController::class, 'waitVerification'])->middleware('verify:process')->name('auth.wait.verification');
+    Route::get('/rejected-verification', [AuthController::class, 'rejectedVerification'])->middleware('verify:reject')->name('auth.reject.verification');
 
     Route::prefix('/admin')->middleware('access:admin')->group(function () {
         Route::get('/', function () {return redirect()->route('admin.dashboard');});
@@ -63,9 +80,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
         Route::put('verifikasi-pj/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
         Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
-        Route::get('/kelolaAkun', function () {
-            return view('admin.kelolaAkun');
-        })->name('admin.kelolaAkun');
+        Route::get('/kelolaAkun', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
+        Route::put('/kelolaAkun/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
             Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
@@ -86,80 +102,94 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {return redirect()->route('nasional.dashboard');});
         Route::get('/dashboard', [NasionalController::class, 'index'])->name('nasional.dashboard');
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/diterima', function () {return view('nasional.refocusing.diterima');})->name('nasional.pompa.ref.diterima');
-            Route::get('/digunakan', function () {return view('nasional.refocusing.digunakan');})->name('nasional.pompa.ref.digunakan');
+            Route::get('/diterima', [NasionalRefocusingController::class, 'diterima'])->name('nasional.pompa.ref.diterima');
+            Route::get('/diterima/{id}/detail', [NasionalRefocusingController::class, 'detailDiterima'])->name('nasional.pompa.ref.diterima.detail');
+            Route::get('/digunakan', [NasionalRefocusingController::class, 'dimanfaatkan'])->name('nasional.pompa.ref.digunakan');
+            Route::get('/digunakan/{id}/detail', [NasionalRefocusingController::class, 'detailDimanfaatkan'])->name('nasional.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
-            Route::get('/usulan', function () {return view('nasional.abt.usulan');})->name('nasional.pompa.abt.usulan');
-            Route::get('/diterima', function () {return view('nasional.abt.diterima');})->name('nasional.pompa.abt.diterima');
-            Route::get('/digunakan', function () {return view('nasional.abt.digunakan');})->name('nasional.pompa.abt.digunakan');
+            Route::get('/usulan', [NasionalAbtController::class, 'usulan'])->name('nasional.pompa.abt.usulan');
+            Route::get('/diterima', [NasionalAbtController::class, 'diterima'])->name('nasional.pompa.abt.diterima');
+            Route::get('/diterima/{id}/detail', [NasionalAbtController::class, 'detailDiterima'])->name('nasional.pompa.abt.diterima.detail');
+            Route::get('/digunakan', [NasionalAbtController::class, 'dimanfaatkan'])->name('nasional.pompa.abt.digunakan');
+            Route::get('/digunakan/{id}/detail', [NasionalAbtController::class, 'detailDimanfaatkan'])->name('nasional.pompa.abt.digunakan.detail');
         });
+        Route::get('/luasTanamHarian', [NasionalLuasTanamController::class, 'index'])->name('luasTanamHarianNas');
     });
 
     Route::prefix('/wilayah')->middleware('access:wilayah')->group(function () {
         Route::get('/', function () {return redirect()->route('wilayah.dashboard');});
         Route::get('/dashboard', [WilayahController::class, 'index'])->name('wilayah.dashboard');
-        Route::get('/detailprovinsi', function () {
-            return view('wilayah.detailProvinsi');
-        })->name('wilayah.detailprovinsi');
+        Route::prefix('/verifikasi-pj')->group(function () {
+            Route::get('/', [WilayahVerifPjController::class, 'index'])->name('wilayah.verifikasi.pj');
+            Route::put('/{id}/verifikasi', [WilayahVerifPjController::class, 'verifikasi'])->name('wilayah.verifikasi.pj.verif');
+            Route::put('/{id}/tolak', [WilayahVerifPjController::class, 'tolak'])->name('wilayah.verifikasi.pj.tolak');
+        });
+        Route::get('/luasTanamHarian', [WilayahLuasTanamController::class, 'index'])->name('luasTanamHarianWil');
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/diterima', function () {return view('wilayah.refocusing.diterima');})->name('wilayah.pompa.ref.diterima');
-            Route::get('/digunakan', function () {return view('wilayah.refocusing.digunakan');})->name('wilayah.pompa.ref.digunakan');
+            Route::get('/diterima', [WilayahRefocusingController::class, 'diterima'])->name('wilayah.pompa.ref.diterima');
+            Route::get('/diterima/{id}/detail', [WilayahRefocusingController::class, 'detailDiterima'])->name('wilayah.pompa.ref.diterima.detail');
+            Route::get('/digunakan', [WilayahRefocusingController::class, 'dimanfaatkan'])->name('wilayah.pompa.ref.digunakan');
+            Route::get('/digunakana/{id}/detail', [WilayahRefocusingController::class, 'detailDimanfaatkan'])->name('wilayah.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
-            Route::get('/usulan', function () {return view('wilayah.abt.usulan');})->name('wilayah.pompa.abt.usulan');
-            Route::get('/diterima', function () {return view('wilayah.abt.diterima');})->name('wilayah.pompa.abt.diterima');
-            Route::get('/digunakan', function () {return view('wilayah.abt.digunakan');})->name('wilayah.pompa.abt.digunakan');
+            Route::get('/usulan', [WilayahAbtController::class, 'usulan'])->name('wilayah.pompa.abt.usulan');
+            Route::get('/diterima', [WilayahAbtController::class, 'diterima'])->name('wilayah.pompa.abt.diterima');
+            Route::get('/diterima/{id}/detail', [WilayahAbtController::class, 'detailDiterima'])->name('wilayah.pompa.abt.diterima.detail');
+            Route::get('/digunakan', [WilayahAbtController::class, 'dimanfaatkan'])->name('wilayah.pompa.abt.digunakan');
+            Route::get('/digunakan/{id}/detail', [WilayahAbtController::class, 'detailDimanfaatkan'])->name('wilayah.pompa.abt.digunakan.detail');
         });
     });
 
     Route::prefix('/provinsi')->middleware('access:provinsi')->group(function () {
         Route::get('/', function () {return redirect()->route('provinsi.dashboard');});
         Route::get('/dashboard', [ProvinsiController::class, 'index'])->name('provinsi.dashboard');
-        Route::get('/detailkabupaten', function () {
-            return view('provinsi.detailkabupaten');
-        })->name('provinsi.detailkabupaten');
+        Route::get('/luasTanamHarian', [ProvinsiLuasTanamController::class, 'index'])->name('luasTanamHarianProv');
         Route::prefix('/pompa/refocusing')->group(function () {
-            Route::get('/diterima', [ProvinsiController::class, 'refDiterima'])->name('provinsi.pompa.ref.diterima');
-            Route::get('/digunakan', function () {return view('provinsi.refocusing.digunakan');})->name('provinsi.pompa.ref.digunakan');
+            Route::get('/diterima', [ProvinsiRefocusingController::class, 'diterima'])->name('provinsi.pompa.ref.diterima');
+            Route::get('/diterima/{id}/detail', [ProvinsiRefocusingController::class, 'detailDiterima'])->name('provinsi.pompa.ref.diterima.detail');
+            Route::get('/digunakan', [ProvinsiRefocusingController::class, 'dimanfaatkan'])->name('provinsi.pompa.ref.digunakan');
+            Route::get('/digunakan/{id}/detail', [ProvinsiRefocusingController::class, 'detailDimanfaatkan'])->name('provinsi.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
-            Route::get('/usulan', function () {return view('provinsi.abt.usulan');})->name('provinsi.pompa.abt.usulan');
-            Route::get('/diterima', function () {return view('provinsi.abt.diterima');})->name('provinsi.pompa.abt.diterima');
-            Route::get('/digunakan', function () {return view('provinsi.abt.digunakan');})->name('provinsi.pompa.abt.digunakan');
+            Route::get('/usulan', [ProvinsiAbtController::class, 'usulan'])->name('provinsi.pompa.abt.usulan');
+            Route::get('/diterima', [ProvinsiAbtController::class, 'diterima'])->name('provinsi.pompa.abt.diterima');
+            Route::get('/diterima/{id}/detail', [ProvinsiAbtController::class, 'detailDiterima'])->name('provinsi.pompa.abt.diterima.detail');
+            Route::get('/digunakan', [ProvinsiAbtController::class, 'dimanfaatkan'])->name('provinsi.pompa.abt.digunakan');
+            Route::get('/digunakan/{id}/detail', [ProvinsiAbtController::class, 'detailDimanfaatkan'])->name('provinsi.pompa.abt.digunakan.detail');
         });
     });
 
     Route::prefix('/kabupaten')->middleware('access:kabupaten')->group(function () {
         Route::get('/', function () {return redirect()->route('kabupaten.dashboard');});
         Route::get('/dashboard', [KabupatenController::class, 'index'])->name('kabupaten.dashboard');
-        Route::get('/detailkecamatan', function () {
-            return view('kabupaten.detailkecamatan');
-        })->name('kabupaten.detailkecamatan');
-        // Route::get('/verifikasi-data', [KabupatenController::class, 'verifikasiDataView'])->name('kabupaten.verifikasi.data');
-        // Route::put('/verifikasi-data/{des_id}', [KabupatenController::class, 'verifikasiData'])->name('kabupaten.verifikasi.data.verifikasi');
+        Route::get('/luasTanamHarian', [KabupatenLuasTanamController::class, 'index'])->name('luasTanamHarianKab');
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [KabupatenRefocusingController::class, 'diterimaView'])->name('kabupaten.pompa.ref.diterima');
-            Route::get('diterima/{kec_id}/detail', [KabupatenRefocusingController::class, 'detailDiterimaView'])->name('kabupaten.pompa.ref.diterima.detail');
+            Route::get('/diterima/{id}/detail', [KabupatenRefocusingController::class, 'detailDiterimaView'])->name('kabupaten.pompa.ref.diterima.detail');
             Route::get('/digunakan', [KabupatenRefocusingController::class, 'digunakanView'])->name('kabupaten.pompa.ref.digunakan');
-            Route::get('digunakan/{kec_id}/detail', [KabupatenRefocusingController::class, 'detailDigunakanView'])->name('kabupaten.pompa.ref.digunakan.detail');
-            Route::get('digunakan/{id}/detail/detail', [KabupatenRefocusingController::class, 'detailDigunakanDetail'])->name('kabupaten.pompa.ref.digunakan.detail.detail');
+            Route::get('/digunakan/{id}/detail', [KabupatenRefocusingController::class, 'detailDigunakanView'])->name('kabupaten.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
             Route::get('/usulan', [KabupatenAbtController::class, 'usulanView'])->name('kabupaten.pompa.abt.usulan');
-            Route::get('/usulan/{kec_id}/detail', [KabupatenAbtController::class, 'detailUsulanView'])->name('kabupaten.pompa.abt.usulan.detail');
             Route::get('/diterima', [KabupatenAbtController::class, 'diterimaView'])->name('kabupaten.pompa.abt.diterima');
-            Route::get('/diterima/{kec_id}/detail', [KabupatenAbtController::class, 'detailDiterimaView'])->name('kabupaten.pompa.abt.diterima.detail');
+            Route::get('/diterima/{id}/detail', [KabupatenAbtController::class, 'detailDiterimaView'])->name('kabupaten.pompa.abt.diterima.detail');
             Route::get('/digunakan', [KabupatenAbtController::class, 'digunakanView'])->name('kabupaten.pompa.abt.digunakan');
-            Route::get('/digunakan/{kec_id}/detail', [KabupatenAbtController::class, 'detailDigunakanView'])->name('kabupaten.pompa.abt.digunakan.detail');
-            Route::get('/digunakan/{id}/detail/detail', [KabupatenAbtController::class, 'detailDigunakanDetail'])->name('kabupaten.pompa.abt.digunakan.detail.detail');
+            Route::get('/digunakan/{id}/detail', [KabupatenAbtController::class, 'detailDigunakanView'])->name('kabupaten.pompa.abt.digunakan.detail');
         });
         Route::prefix('/verifikasi')->group(function () {
-            Route::get('/refocusing/diterima', function () {return view('kabupaten.verifdata.verifRefDiterima');})->name('kabupaten.verif.ref.diterima.view');
-            Route::get('/refocusing/digunakan', function () {return view('kabupaten.verifdata.verifRefDigunakan');})->name('kabupaten.verif.ref.digunakan.view');
-            Route::get('/abt/usulan', function () {return view('kabupaten.verifdata.verifAbtUsulan');})->name('kabupaten.verif.abt.usulan.view');
-            Route::get('/abt/diterima', function () {return view('kabupaten.verifdata.verifAbtDiterima');})->name('kabupaten.verif.abt.diterima.view');
-            Route::get('/abt/digunakan', function () {return view('kabupaten.verifdata.verifAbtDigunakan');})->name('kabupaten.verif.abt.digunakan.view');
+            Route::get('/refocusing/diterima', [VerifikasiDataController::class, 'refDiterimaView'])->name('kabupaten.verif.ref.diterima.view');
+            Route::put('/refocusing/diterima/{id}', [VerifikasiDataController::class, 'refDiterimaVerif'])->name('kabupaten.verif.ref.diterima.verif');
+            Route::get('/refocusing/digunakan', [VerifikasiDataController::class, 'refDimanfaatkanView'])->name('kabupaten.verif.ref.digunakan.view');
+            Route::put('/refocusing/digunakan/{id}', [VerifikasiDataController::class, 'refDimanfaatkanVerif'])->name('kabupaten.verif.ref.digunakan.verif');
+            Route::get('/abt/usulan', [VerifikasiDataController::class, 'abtUsulanView'])->name('kabupaten.verif.abt.usulan.view');
+            Route::put('/abt/usulan/{id}', [VerifikasiDataController::class, 'abtUsulanVerif'])->name('kabupaten.verif.abt.usulan.verif');
+            Route::get('/abt/diterima', [VerifikasiDataController::class, 'abtDiterimaView'])->name('kabupaten.verif.abt.diterima.view');
+            Route::put('/abt/diterima/{id}', [VerifikasiDataController::class, 'abtDiterimaVerif'])->name('kabupaten.verif.abt.diterima.verif');
+            Route::get('/abt/digunakan', [VerifikasiDataController::class, 'abtDimanfaatkanView'])->name('kabupaten.verif.abt.digunakan.view');
+            Route::put('/abt/digunakan/{id}', [VerifikasiDataController::class, 'abtDimanfaatkanVerif'])->name('kabupaten.verif.abt.digunakan.verif');
+            Route::get('/luas-tanam', [VerifikasiDataController::class, 'luasTanamView'])->name('kabupaten.verif.luasTanam.view');
+            Route::put('/luas-tanam/{id}', [VerifikasiDataController::class, 'luasTanamVerif'])->name('kabupaten.verif.luasTanam.verif');
         });
     });
 
@@ -174,12 +204,14 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/pompa/refocusing')->group(function () {
             Route::get('/diterima', [PompaController::class, 'refDiterimaView'])->name('kecamatan.pompa.ref.diterima');
             Route::get('/digunakan', [PompaController::class, 'refDigunakanView'])->name('kecamatan.pompa.ref.digunakan');
+            Route::get('/diterima/{id}/detail', [PompaController::class, 'refDiterimaDetail'])->name('kecamatan.pompa.ref.diterima.detail');
             Route::get('/digunakan/{id}/detail', [PompaController::class, 'refDigunakanDetail'])->name('kecamatan.pompa.ref.digunakan.detail');
         });
         Route::prefix('/pompa/abt')->group(function () {
             Route::get('/usulan', [PompaController::class, 'abtUsulanView'])->name('kecamatan.pompa.abt.usulan');
             Route::get('/diterima', [PompaController::class, 'abtDiterimaView'])->name('kecamatan.pompa.abt.diterima');
             Route::get('/digunakan', [PompaController::class, 'abtDigunakanView'])->name('kecamatan.pompa.abt.digunakan');
+            Route::get('/diterima/{id}/detal', [PompaController::class, 'abtDiterimaDetail'])->name('kecamatan.pompa.abt.diterima.detail');
             Route::get('/digunakan/{id}/detal', [PompaController::class, 'abtDigunakanDetail'])->name('kecamatan.pompa.abt.digunakan.detail');
         });
         Route::prefix('/pompa/refocusing/form')->group(function () {
@@ -221,22 +253,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/export-pompa-ref-dimanfaatkan', function () {
         return Excel::download(new PompaRefDimanfaatkanExport, 'Pompa Refocusing Dimanfaatkan.xlsx');
     });
+    Route::get('/export-luas-tanam-harian', function () {return Excel::download(new LuasTanamHarianExport, 'Luas Tanam Harian.xlsx');})->name('export.luasTanamHarian');
 
 });
-
-
-Route::get('/kabupaten/luasTanamHarian', function () {
-    return view('kabupaten.luasTanamHarian');
-})->name('luasTanamHarianKab');
-
-Route::get('/provinsi/luasTanamHarian', function () {
-    return view('provinsi.luasTanamHarian');
-})->name('luasTanamHarianProv');
-
-Route::get('/wilayah/luasTanamHarian', function () {
-    return view('wilayah.luasTanamHarian');
-})->name('luasTanamHarianWil');
-
-Route::get('/nasional/luasTanamHarian', function () {
-    return view('nasional.luasTanamHarian');
-})->name('luasTanamHarianNas');

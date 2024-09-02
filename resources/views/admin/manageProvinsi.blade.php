@@ -36,6 +36,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <form class="search-bar" method="GET">
                 <input type="text" name="nama" value="{{ request()->nama }}" id="search-input" placeholder="Cari" style="border-radius: 5px">
+                <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
             </form>
             <div>
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal">+ Tambah</button>
@@ -100,7 +101,7 @@
     <!-- Modal -->
 <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('admin.manage.provinsi.store') }}" class="modal-content" method="POST">
+        <form action="{{ route('admin.manage.provinsi.store') }}" class="modal-content" id="form-modal" method="POST">
             @csrf
             <div class="modal-header">
             <h1 class="modal-title fs-5" id="tambahModalLabel">Tambah Provinsi</h1>
@@ -158,7 +159,7 @@
             </div>
             <div class="modal-body">
                 <input type="text" id="editNama" class="form-control" name="nama" placeholder="Nama provinsi" required><br>
-                <select name="wilayah_id" class="form-control js-example-templating" id="editWilayah" required>
+                <select name="wilayah_id" class="form-control js-example-templating2" id="editWilayah" required>
                     <option value="" disabled selected>Pilih Wilayah</option>
                     @foreach ($wilayah as $wil)
                         <option value="{{ $wil->id }}">{{ $wil->nama }}</option>
@@ -173,37 +174,32 @@
     </div>
 </div>
 
-    <script>
-        // $(document).ready(() => {
-            // $(".js-example-templating").select2();   
-    
-            // $('#editModal').on('show.bs.modal', function (event) {
-            //     var button = $(event.relatedTarget);
-            //     var name = button.data('name');
-            //     var modal = $(this);
-            //     modal.find('.modal-body input').val(name);
-            // });
-            
-            // $('#editForm').on('submit', function (event) {
-            //     event.preventDefault();
-            //     var name = $('#nameInput').val();
-            //     console.log('Nama baru:', name);
-            //     $('#editModal').modal('hide');
-            // });
-        // })
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(".js-example-templating").select2({
+        dropdownParent: $('#form-modal'),
+        width: '100%',
+    });
+    $(".js-example-templating2").select2({
+        dropdownParent: $('#formEdit'),
+        width: '100%',
+    });
 
-        const handleEdit = (provinsi) => {
-            // console.log(provinsi.nama);
-            
-            const form = document.getElementById('formEdit')
-            const editNama =  document.getElementById('editNama')
-            const editWilayah = document.getElementById('editWilayah')
-            form.action = `/admin/manage/provinsi/${provinsi.id}`
-            editNama.value = provinsi.nama
-            editWilayah.value = provinsi.wilayah_id
-            
-        //     editNama.value = provinsi.nama
-        //     editWilayah.value = provinsi.wilayah_id
-        }
-    </script>
+    const handleEdit = (provinsi) => {
+        // console.log(provinsi.nama);
+        
+        const form = document.getElementById('formEdit')
+        const editNama =  document.getElementById('editNama')
+        const editWilayah = document.getElementById('editWilayah')
+        form.action = `/admin/manage/provinsi/${provinsi.id}`
+        editNama.value = provinsi.nama
+        editWilayah.value = provinsi.wilayah_id
+        
+    //     editNama.value = provinsi.nama
+    //     editWilayah.value = provinsi.wilayah_id
+    }
+</script>
 @endsection

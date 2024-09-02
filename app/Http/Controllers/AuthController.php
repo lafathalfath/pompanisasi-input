@@ -34,10 +34,10 @@ class AuthController extends Controller
             $login_by = 'no_hp';
             $user = User::where('no_hp', $request->email)->first();
         }
-        if (!$user) return redirect()->route('login')->withErrors('cannot found user with this email');
-        if (!Hash::check($request->password, $user->password)) return redirect()->route('login')->withErrors('password invalid');
+        if (!$user) return redirect()->route('login')->withErrors('Pengguna tidak ditemukan');
+        if (!Hash::check($request->password, $user->password)) return redirect()->route('login')->withErrors('Kata sandi salah!');
         $attempt = Auth::attempt([$login_by=>$request->email, 'password' => $request->password]);
-        if (!$attempt) return redirect()->route('login')->withErrors('email or password invalid');
+        if (!$attempt) return redirect()->route('login')->withErrors('Email atau kata sandi yang anda masukkan salah!');
         
         $role = Auth::user()->role->nama;
         return redirect()->route("$role.dashboard")->with('success', 'login successfully');
@@ -81,32 +81,40 @@ class AuthController extends Controller
         
         Auth::attempt(['email' => $user->email, 'password' => $user->password]);
         $role = $user->role->nama;
-        return redirect()->route("$role.dashboard")->with('success', 'account created');
+        return redirect()->route('login')->with('success', 'Pendaftaran berhasil, Silahkan masuk!');
     }
 
     public function logout() {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'logout successfully');
+        return redirect()->route('login')->with('success', 'Berhasil logout!');
     }
 
     public function getAsignee($role_id) {
         $role = $role_id;
         $data_region = [];
-        if ($role == 2) $data_region = Wilayah::get();
-        else if ($role == 3) $data_region = Provinsi::get();
+        if ($role == 2) $data_region = Wilayah::where('pj_id', null)->get();
+        else if ($role == 3) $data_region = Provinsi::where('pj_id', null)->get();
         else if ($role == 4) {
-            $data_region = Kabupaten::get();
+            $data_region = Kabupaten::where('pj_id', null)->get();
             foreach ($data_region as $dr) {
                 $dr->nama_provinsi = $dr->provinsi->nama;
             }
         }
         else if ($role == 5) {
-            $data_region = Kecamatan::get();
+            $data_region = Kecamatan::where('pj_id', null)->get();
             foreach ($data_region as $dr) {
                 $dr->nama_kabupaten = $dr->kabupaten->nama;
                 $dr->nama_provinsi = $dr->kabupaten->provinsi->nama;
             }
         };
         return response()->json(['data' => $data_region]);
+    }
+
+    public function waitVerification() {
+        return view('auth.waitVerification');
+    }
+
+    public function rejectedVerification() {
+        return view('auth.rejectedVerification');
     }
 }
