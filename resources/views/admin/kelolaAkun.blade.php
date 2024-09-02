@@ -75,7 +75,7 @@
                                 {{ $us->status_verifikasi }}
                             </div>
                         </td>
-                        <td>
+                        <td class="d-flex align-items-center justify-content-center gap-2">
                             <button onclick="viewDetail({{ $us }}, {{ $us->role }}, 
                             @if ($us->role_id == 2 && $us->wilayah)
                             '{{ $us->wilayah->nama }}'
@@ -90,8 +90,11 @@
                             @endif, '{{ route('admin.kelolaAkun.update', Crypt::encryptString($us->id)) }}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal1">
                                 Detail
                             </button>
+                            <button onclick="confirmNonactive('{{ route('admin.kelolaAkun.nonaktifkan', Crypt::encryptString($us->id)) }}', '{{ $us->nama }}')" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#nonactiveModal">
+                                Nonaktifkan
+                            </button>
                             <button onclick="confirmDelete('{{ Crypt::encryptString($us->id) }}', '{{ $us->nama }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                Delete
+                                Hapus
                             </button>
                         </td>
                     </tr>
@@ -220,6 +223,29 @@
             </div>
         </div>
 
+        <!-- Modal Nonactive Akun -->
+        <div class="modal fade" id="nonactiveModal" tabindex="-1" aria-labelledby="nonactiveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="nonactiveModalLabel">Konfirmasi Hapus Akun</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin menonaktifkan akun <span id="nonactive-user-name"></span>?
+                    </div>
+                    <div class="modal-footer">
+                        <form id="nonactive-form" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -310,6 +336,10 @@
         const confirmDelete = (id, name) => {
             document.getElementById('delete-user-name').innerText = name;
             document.getElementById('delete-form').action = `/admin/kelolaAkun/delete/${id}`;
+        }
+        const confirmNonactive = (route, name) => {
+            document.getElementById('nonactive-user-name').innerText = name
+            document.getElementById('nonactive-form').action = route
         }
     </script>
 @endsection

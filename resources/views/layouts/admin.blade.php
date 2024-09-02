@@ -92,6 +92,7 @@
             }
             .user-info {
                 margin-top: 20px;
+                margin-bottom: -20px;
                 text-align: left;
             }
             .user-role {
