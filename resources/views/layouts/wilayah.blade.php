@@ -104,6 +104,13 @@
             .sidebar::-webkit-scrollbar-thumb:hover {
                 background: gray;
             }
+            .user-info {
+                margin-top: 20px;
+            }
+            .user-role {
+                font-size: 14px;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -113,6 +120,12 @@
                     <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
+                <div class="user-info">
+                    <p class="user-role">
+                        {{ Auth::user()->nama }}<br>
+                        PJ {{ Auth::user()->wilayah->nama }}
+                    </p>
+                </div>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('wilayah.dashboard') }}" class="{{ request()->url() == route('wilayah.dashboard') ? 'active' : '' }}">Dashboard</a></li>

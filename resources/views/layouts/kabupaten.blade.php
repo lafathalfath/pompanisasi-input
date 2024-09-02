@@ -82,6 +82,13 @@
                 padding: 20px;
                 flex-grow: 1;
             }
+            .user-info {
+                margin-top: 20px;
+            }
+            .user-role {
+                font-size: 14px;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -91,6 +98,13 @@
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi</h1>
+                <div class="user-info">
+                    <p class="user-role">
+                        {{ Auth::user()->nama }}<br>
+                        PJ {{ ucwords(strtolower(Auth::user()->kabupaten->nama)) }}<br>
+                        {{ ucwords(strtolower(Auth::user()->kabupaten->provinsi->nama)) }}
+                    </p>
+                </div>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('kabupaten.dashboard') }}" class="{{ request()->url() == route('kabupaten.dashboard') ? 'active' : '' }}">Dashboard</a></li>
