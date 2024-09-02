@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
             Route::put('/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
             Route::put('/{id}/nonaktifkan', [ManageUserController::class, 'nonaktifkan'])->name('admin.kelolaAkun.nonaktifkan');
+            Route::delete('/delete/{id}', [ManageUserController::class, 'deleteUser'])->name('admin.kelolaAkun.delete');
         });
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
