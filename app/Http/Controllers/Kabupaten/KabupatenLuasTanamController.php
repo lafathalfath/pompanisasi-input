@@ -19,6 +19,7 @@ class KabupatenLuasTanamController extends Controller
         $luas_tanam = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
             $luas_tanam = LuasTanam::where('verified_at', '!=', null);
             if ($request->kecamatan) {
                 $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
@@ -28,8 +29,8 @@ class KabupatenLuasTanamController extends Controller
                     $desa_id = [];
                     foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
                 }
-                $luas_tanam = $luas_tanam->whereIn('desa_id', $desa_id);
             }
+            $luas_tanam = $luas_tanam->whereIn('desa_id', $desa_id);
             if ($request->tanggal) $luas_tanam = $luas_tanam->where('tanggal', $request->tanggal);
             $luas_tanam = $luas_tanam->paginate(10);
         }

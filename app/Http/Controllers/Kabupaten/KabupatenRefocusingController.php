@@ -25,6 +25,7 @@ class KabupatenRefocusingController extends Controller
         $ref_diterima = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
             $ref_diterima = PompaRefDiterima::where('verified_at', '!=', null);
             if ($request->kecamatan) {
                 $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
@@ -34,8 +35,8 @@ class KabupatenRefocusingController extends Controller
                     $desa_id = [];
                     foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
                 }
-                $ref_diterima = $ref_diterima->whereIn('desa_id', $desa_id);
             }
+            $ref_diterima = $ref_diterima->whereIn('desa_id', $desa_id);
             if ($request->tanggal) $ref_diterima = $ref_diterima->where('tanggal', $request->tanggal);
             $ref_diterima = $ref_diterima->paginate(10);
         }
@@ -54,6 +55,7 @@ class KabupatenRefocusingController extends Controller
         $ref_dimanfaatkan = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
+            foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
             $ref_dimanfaatkan = PompaRefDimanfaatkan::where('verified_at', '!=', null);
             if ($request->kecamatan) {
                 $desa = Desa::where('kecamatan_id', $request->kecamatan)->get();
@@ -63,8 +65,8 @@ class KabupatenRefocusingController extends Controller
                     $desa_id = [];
                     foreach (Kecamatan::find($request->kecamatan)->desa as $des) $desa_id[] = $des->id;
                 }
-                $ref_dimanfaatkan = $ref_dimanfaatkan->whereIn('desa_id', $desa_id);
             }
+            $ref_dimanfaatkan = $ref_dimanfaatkan->whereIn('desa_id', $desa_id);
             if ($request->tanggal) $ref_dimanfaatkan = $ref_dimanfaatkan->where('tanggal', $request->tanggal);
             $ref_dimanfaatkan = $ref_dimanfaatkan->paginate(10);
         }
