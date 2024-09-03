@@ -35,7 +35,9 @@
             <thead>
                 <tr>
                     <th>Pompa Refocusing</th>
-                    <th>Satuan <br>(Unit)</th>
+                    <th>Total <br>(Unit)</th>
+                    <th>Terverifikasi <br>(Unit)</th>
+                    <th>Belum <br>Diverifikasi <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,11 +48,15 @@
                 </tr> --}}
                 <tr>
                     <td style="font-weight: bold;">Refocusing Diterima</td>
-                    <td style="padding: 10px 20px;">{{ $ref_diterima }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->ref_diterima->total }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->ref_diterima->terverifikasi }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->ref_diterima->belum_verifikasi }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Refocusing Digunakan</td>
-                    <td style="padding: 10px 20px;">{{ $ref_digunakan }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->ref_digunakan->total }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->ref_digunakan->terverifikasi }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->ref_digunakan->belum_verifikasi }}</td>
                 </tr>
             </tbody>
         </table>
@@ -59,21 +65,29 @@
             <thead>
                 <tr>
                     <th>Pompa ABT</th>
-                    <th>Satuan <br>(Unit)</th>
+                    <th>Total <br>(Unit)</th>
+                    <th>Terverifikasi <br>(Unit)</th>
+                    <th>Belum <br>Diverifikasi <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">ABT Usulan</td>
-                    <td style="padding: 10px 20px;">{{ $abt_usulan }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_usulan->total }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_usulan->terverifikasi }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_usulan->belum_verifikasi }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Diterima</td>
-                    <td style="padding: 10px 20px;">{{ $abt_diterima }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_diterima->total }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_diterima->terverifikasi }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_diterima->belum_verifikasi }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">ABT Digunakan</td>
-                    <td style="padding: 10px 20px;">{{ $abt_digunakan }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_digunakan->total }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_digunakan->terverifikasi }}</td>
+                    <td style="padding: 10px 20px;">{{ $pompa->abt_digunakan->belum_verifikasi }}</td>
                 </tr>
             </tbody>
         </table>
@@ -81,13 +95,17 @@
             <thead>
                 <tr>
                     <th>Luas Tanam</th>
-                    <th>Satuan <br>(ha)</th>
+                    <th>Total <br>(Unit)</th>
+                    <th>Terverifikasi <br>(Unit)</th>
+                    <th>Belum <br>Diverifikasi <br>(Unit)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="font-weight: bold;">Luas Tanam</td>
-                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $luas_tanam_harian }}</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $pompa->luas_tanam->total }}</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $pompa->luas_tanam->terverifikasi }}</td>
+                    <td style="padding: 10px 20px;" id="abt_digunakan">{{ $pompa->luas_tanam->belum_verifikasi }}</td>
                 </tr>
             </tbody>
         </table>

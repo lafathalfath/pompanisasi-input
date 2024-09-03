@@ -66,6 +66,7 @@
                         <td>{{ $des->nama }}</td>
                         <td class="border-0 d-flex align-items-center justify-content-center gap-2">
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $des }})">Edit</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="handleDelete('{{ route('admin.manage.desa.destroy', Crypt::encryptString($des->id)) }}')">Hapus</button>
                         </td>
                     </tr>
                 @endforeach
@@ -153,6 +154,25 @@
             </form>
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" method="POST" id="formDelete">
+                @csrf
+                @method('DELETE')
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Hapus Desa</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus desa ini?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -188,6 +208,10 @@
             form.action = `/admin/manage/desa/${desa.id}`
             inputNama.value = desa.nama
             inputKecamatan.value = desa.kecamatan_id
+        }
+        const handleDelete = (route) => {
+            const form = document.getElementById('formDelete')
+            form.action = route
         }
     </script>
 @endsection

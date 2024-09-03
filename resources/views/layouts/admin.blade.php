@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{-- <link rel="stylesheet" href="styles.css"> --}}
         <title>Dashboard Admin</title>
+        <link rel="shortcut icon" href="{{ asset('assets/img/logobbpsip.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -70,6 +71,7 @@
             .logout:hover {
                 background-color: #005f62;
                 text-decoration: none !important;
+                color: #fff !important;
             }
 
             .logout {
@@ -89,6 +91,15 @@
             a{
                 text-decoration: none;
             }
+            .user-info {
+                margin-top: 20px;
+                margin-bottom: -20px;
+                text-align: left;
+            }
+            .user-role {
+                font-size: 14px;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -98,6 +109,12 @@
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
+                <div class="user-info text-left">
+                    <div class="text-capitalize fw-bold mb-2">{{ Auth::user()->nama }}</div>
+                    <p class="user-role text-capitalize">
+                        Admin
+                    </p>
+                </div>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->url() == route('admin.dashboard') ? 'active' : '' }}">Dashboard</a></li>
@@ -117,13 +134,40 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.kelolaAkun') }}">Kelola Akun</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Starter Pompa <br>Kabupaten
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.ref_diterima') }}">Pompa Refocusing Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.ref_dimanfaatkan') }}">Pompa Refocusing Dimanfaatkan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.abt_usulan') }}">Pompa ABT Usulan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.abt_diterima') }}">Pompa ABT Diterima</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.abt_dimanfaatkan') }}">Pompa ABT Dimanfaatkan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('admin.starter.kabupaten.luas_tanam') }}">Pompa Luas Tanam harian</a></li>
+                </li>
 
             </ul>
             <br>
             <a href="{{ route('logout') }}" class="logout">Logout</a>
         </div>
 
-        <div class="content">
+        <div class="content p-5">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @yield('content')
         </div>
 

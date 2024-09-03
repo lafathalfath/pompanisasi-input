@@ -30,13 +30,21 @@ class ProvinsiController extends Controller
         if ($user->provinsi) {
             $kabupaten = $user->provinsi->kabupaten;
             $desa = [];
-            foreach ($kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-            $pompanisasi->ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->ref_dimanfaatkan = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->abt_usulan = PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->abt_diterima = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->abt_dimanfaatkan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->luas_tanam = LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('luas_tanam');
+            foreach ($kabupaten as $kab) {
+                $pompanisasi->ref_diterima += $kab->starter_ref_diterima_kabupaten->total_unit;
+                $pompanisasi->ref_dimanfaatkan += $kab->starter_ref_dimanfaatkan_kabupaten->total_unit;
+                $pompanisasi->abt_usulan += $kab->starter_abt_usulan_kabupaten->total_unit;
+                $pompanisasi->abt_diterima += $kab->starter_abt_diterima_kabupaten->total_unit;
+                $pompanisasi->abt_dimanfaatkan += $kab->starter_abt_dimanfaatkan_kabupaten->total_unit;
+                $pompanisasi->luas_tanam += $kab->starter_luas_tanam_kabupaten->luas_tanam;
+                foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
+            }
+            $pompanisasi->ref_diterima += PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->ref_dimanfaatkan += PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->abt_usulan += PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->abt_diterima += PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->abt_dimanfaatkan += PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->luas_tanam += LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('luas_tanam');
         }
         return view('provinsi.dashboard', ['pompanisasi' => $pompanisasi]);
     }

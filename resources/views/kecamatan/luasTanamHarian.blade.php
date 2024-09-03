@@ -63,6 +63,7 @@
                     <th>Kelompok Tani</th>
                     <th>Luas Tanam (ha)</th>
                     <th>No Hp Poktan</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,6 +83,11 @@
                         <td>{{ $lt->nama_poktan }}</td>
                         <td>{{ $lt->luas_tanam }}</td>
                         <td>{{ $lt->no_hp_poktan ? $lt->no_hp_poktan : '-' }}</td>
+                        <td>
+                            <div class="badge text-bg-{{ $lt->verified_at?'success':'danger' }} fs-6">
+                                {{ $lt->verified_at ? 'terverifikasi' : 'belum diverifikasi' }}
+                            </div>
+                        </td>
                     </tr>
                 @empty
                     <tr>

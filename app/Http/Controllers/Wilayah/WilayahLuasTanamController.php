@@ -22,6 +22,7 @@ class WilayahLuasTanamController extends Controller
         $luas_tanam = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $desa_id = [];
+            foreach ($provinsi as $prov) foreach ($prov->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
             $luas_tanam = LuasTanam::where('verified_at', '!=', null);
             if ($request->provinsi) {
                 $kabupaten = Kabupaten::where('provinsi_id', $request->provinsi)->get();
@@ -43,8 +44,8 @@ class WilayahLuasTanamController extends Controller
                     $desa_id = [];
                     foreach (Provinsi::find($request->provinsi)->kabupaten as $kab) foreach ($kab->kecamatan as $kec) foreach ($kec->desa as $des) $desa_id[] = $des->id;
                 }
-                $luas_tanam = $luas_tanam->whereIn('desa_id', $desa_id);
             }
+            $luas_tanam = $luas_tanam->whereIn('desa_id', $desa_id);
             if ($request->tanggal) $luas_tanam = $luas_tanam->where('tanggal', $request->tanggal);
             $luas_tanam = $luas_tanam->paginate(10);
         }

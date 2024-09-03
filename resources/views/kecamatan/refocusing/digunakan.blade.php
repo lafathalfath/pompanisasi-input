@@ -44,6 +44,7 @@
                     <th rowspan="2">Luas lahan <br>(ha)</th>
                     <th colspan="3" class="text-center">Pompa Refocusing Dimanfaatkan</th>
                     <th rowspan="2">Total <br>dimanfaatkan</th>
+                    <th rowspan="2">Status</th>
                     <th rowspan="2">No HP Poktan <br>(jika ada)</th>
                     <th rowspan="2">Aksi</th>
                 </tr>
@@ -65,6 +66,11 @@
                         <td>{{ $rd->pompa_4_inch }}</td>
                         <td>{{ $rd->pompa_6_inch }}</td>
                         <td>{{ $rd->total_unit }}</td>
+                        <td>
+                            <div class="badge text-bg-{{ $rd->verified_at?'success':'danger' }} fs-6">
+                                {{ $rd->verified_at ? 'terverifikasi' : 'belum diverifikasi' }}
+                            </div>
+                        </td>
                         <td>{{ $rd->no_hp_poktan ? $rd->no_hp_poktan : '-' }}</td>
                         <td><a href="{{ route('kecamatan.pompa.ref.digunakan.detail', Crypt::encryptString($rd->id)) }}" class="btn btn-sm btn-info">Detail</a></td>
                     </tr>
