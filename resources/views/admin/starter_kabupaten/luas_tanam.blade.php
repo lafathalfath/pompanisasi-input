@@ -14,7 +14,7 @@
                 <tr>
                     <th>No</th>
                     <th>Kabupaten</th>
-                    <th>Total Unit</th>
+                    <th>Luas Tanam</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
