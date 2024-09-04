@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Kecamatan;
 
 use App\Http\Controllers\Controller;
+use App\Models\LuasTanam;
 use App\Models\PompaAbtDimanfaatkan;
 use App\Models\PompaAbtDiterima;
 use App\Models\PompaAbtUsulan;
@@ -16,30 +17,66 @@ class KecamatanController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        $desa = $user->kecamatan ? $user->kecamatan->desa : [];
-        $luas_tanam_harian = 0;
-        $ref_diterima = 0;
-        $ref_digunakan = 0;
-        $abt_usulan = 0;
-        $abt_diterima = 0;
-        $abt_digunakan = 0;
-        foreach ($desa as $des) {
-            if ($des->luas_tanam && !empty($des->luas_tanam)) foreach ($des->luas_tanam as $lt) $luas_tanam_harian += $lt->luas_tanam;
-            if ($des->pompa_ref_diterima && !empty($des->pompa_ref_diterima)) foreach ($des->pompa_ref_diterima as $rdt) $ref_diterima += $rdt->total_unit;
-            if ($des->pompa_ref_dimanfaatkan && !empty($des->pompa_ref_dimanfaatkan)) foreach ($des->pompa_ref_dimanfaatkan as $rdm) $ref_digunakan += $rdm->total_unit;
-            if ($des->pompa_abt_usulan && !empty($des->pompa_abt_usulan)) foreach ($des->pompa_abt_usulan as $aus) $abt_usulan += $aus->total_unit;
-            if ($des->pompa_abt_diterima && !empty($des->pompa_abt_diterima)) foreach ($des->pompa_abt_diterima as $adt) $abt_diterima += $adt->total_unit;
-            if ($des->pompa_abt_dimanfaatkan && !empty($des->pompa_abt_dimanfaatkan)) foreach ($des->pompa_abt_diterima as $adm) $abt_digunakan += $adm->total_unit;
+        $pompa = (object) [
+            'luas_tanam' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'ref_diterima' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'ref_digunakan' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'abt_usulan' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'abt_diterima' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'abt_digunakan' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+        ];
+        
+        if ($user->kecamatan) {
+            $desa = [];
+            foreach ($user->kecamatan->desa as $des) $desa[] = $des->id;
+            // total
+            $pompa->ref_diterima->total = PompaRefDiterima::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->ref_digunakan->total = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->abt_usulan->total = PompaAbtUsulan::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->abt_diterima->total = PompaAbtDiterima::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->abt_digunakan->total = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->luas_tanam->total = LuasTanam::whereIn('desa_id', $desa)->sum('luas_tanam');
+            // terverifikasi
+            $pompa->ref_diterima->terverifikasi = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->ref_digunakan->terverifikasi = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->abt_usulan->terverifikasi = PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->abt_diterima->terverifikasi = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->abt_digunakan->terverifikasi = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->luas_tanam->terverifikasi = LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('luas_tanam');
+            // belum_verifikasi
+            $pompa->ref_diterima->belum_verifikasi = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->ref_digunakan->belum_verifikasi = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->abt_usulan->belum_verifikasi = PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->abt_diterima->belum_verifikasi = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->abt_digunakan->belum_verifikasi = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->luas_tanam->belum_verifikasi = LuasTanam::whereIn('desa_id', $desa)->where('verified_at', null)->sum('luas_tanam');
         }
-
-        // $luas_tanam_harian = $luas_tanam_harian->paginate(10);
         return view('kecamatan.dashboard', [
-            'luas_tanam_harian' => $luas_tanam_harian,
-            'ref_diterima' => $ref_diterima,
-            'ref_digunakan' => $ref_digunakan,
-            'abt_usulan' => $abt_usulan,
-            'abt_diterima' => $abt_diterima,
-            'abt_digunakan' => $abt_digunakan,
+            'pompa' => $pompa
         ]);
     }
 
@@ -59,7 +96,7 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
+            $url_gambar = "/storage/pompanisasi/$filename";
             $ref_diterima = PompaRefDiterima::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
@@ -86,7 +123,7 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
+            $url_gambar = "/storage/pompanisasi/$filename";
             $ref_dimanfaatkan = PompaRefDimanfaatkan::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
@@ -129,7 +166,7 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
+            $url_gambar = "/storage/pompanisasi/$filename";
             $abt_diterima = PompaAbtDiterima::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
@@ -156,7 +193,7 @@ class KecamatanController extends Controller
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
             $request->gambar->move(storage_path('app/public/pompanisasi'), $filename);
-            $url_gambar = "/storeage/pompanisasi/$filename";
+            $url_gambar = "/storage/pompanisasi/$filename";
             $abt_dimanfaatkan = PompaAbtDimanfaatkan::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,

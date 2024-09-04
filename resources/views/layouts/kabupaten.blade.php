@@ -66,6 +66,7 @@
             .logout:hover {
                 background-color: #005f62;
                 text-decoration: none !important;
+                color: #fff !important;
             }
 
             .logout {
@@ -82,6 +83,13 @@
                 padding: 20px;
                 flex-grow: 1;
             }
+            .user-info {
+                margin-top: 20px;
+            }
+            .user-role {
+                font-size: 14px;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -91,6 +99,13 @@
                 <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi</h1>
+                <div class="user-info text-left">
+                    <div class="text-capitalize fw-bold mb-2">{{ Auth::user()->nama }}</div>
+                    <p class="user-role text-capitalize">
+                        PJ {{ ucwords(strtolower(Auth::user()->kabupaten->nama)) }},<br>
+                        {{ ucwords(strtolower(Auth::user()->kabupaten->provinsi->nama)) }}
+                    </p>
+                </div>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('kabupaten.dashboard') }}" class="{{ request()->url() == route('kabupaten.dashboard') ? 'active' : '' }}">Dashboard</a></li>
@@ -124,6 +139,7 @@
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.abt.usulan.view') }}">ABT Usulan</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.abt.diterima.view') }}">ABT Diterima</a></li>
                         <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.abt.digunakan.view') }}">ABT Digunakan</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('kabupaten.verif.luasTanam.view') }}">Luas Tanam Harian</a></li>
                     </ul>
                 </li>
                 {{-- <li><a href="{{ route('kabupaten.verifikasi.data') }}" class="{{ request()->url() == route('kabupaten.verifikasi.data') ? 'active' : '' }}">Verifikasi Data</a></li> --}}
@@ -132,6 +148,20 @@
         </div>
 
         <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @yield('content')
         </div>
 
