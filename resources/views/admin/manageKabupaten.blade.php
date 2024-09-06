@@ -36,6 +36,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <form class="search-bar" method="GET">
                 <input type="text" name="nama" value="{{ request()->nama }}" id="search-input" placeholder="Cari" style="border-radius: 5px">
+                <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
             </form>
             <div>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal">+ Tambah</button>
@@ -60,7 +61,8 @@
                         <td>{{ $kb->provinsi->nama }}</td>
                         <td>{{ $kb->nama }}</td>
                         <td class="border-0 d-flex align-items-center justify-content-center gap-2">
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $kb }})">Edit</button>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $kb }}, '{{ route('admin.manage.kabupaten.update', Crypt::encryptString($kb->id)) }}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="handleDelete('{{ route('admin.manage.kabupaten.destroy', Crypt::encryptString($kb->id)) }}')">Hapus</button>
                         </td>
                     </tr>
                 @endforeach
@@ -102,7 +104,7 @@
     <!-- Modal -->
     <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('admin.manage.kecamatan.store') }}" class="modal-content" method="POST">
+            <form action="{{ route('admin.manage.kabupaten.store') }}" class="modal-content" id="form-modal" method="POST">
                 @csrf
                 <div class="modal-header">
                 <h1 class="modal-title fs-5" id="tambahModalLabel">Tambah Kecamatan</h1>
@@ -110,10 +112,10 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" class="form-control" name="nama" placeholder="Nama Kecamatan" required><br>
-                    <select name="kabupaten_id" class="form-control js-example-templating" id="kabupaten" required>
+                    <select name="provinsi_id" class="form-control js-example-templating" id="provinsi" required>
                         <option value="" disabled selected>Pilih Provinsi</option>
-                        @foreach ($kabupaten as $kab)
-                            <option value="{{ $kab->id }}">{{ $kab->nama }}</option>
+                        @foreach ($provinsi as $prov)
+                            <option value="{{ $prov->id }}">{{ $prov->nama }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -159,7 +161,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" id="editNama" class="form-control" name="nama" placeholder="Nama Kabupaten" required><br>
-                    <select name="provinsi_id" class="form-control js-example-templating" id="editProvinsi" required>
+                    <select name="provinsi_id" class="form-control js-example-templating2" id="editProvinsi" required>
                         <option value="" disabled selected>Pilih Provinsi</option>
                         @foreach ($provinsi as $prov)
                             <option value="{{ $prov->id }}">{{ $prov->nama }}</option>
@@ -173,17 +175,52 @@
             </form>
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" method="POST" id="formDelete">
+                @csrf
+                @method('DELETE')
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Hapus Kabupaten</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus kabupaten ini?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        // $('.js-example-templating').select2();
+        $(".js-example-templating").select2({
+            dropdownParent: $('#form-modal'),
+            width: '100%',
+        });
+        $(".js-example-templating2").select2({
+            dropdownParent: $('#formEdit'),
+            width: '100%',
+        });
 
-        const handleEdit = (kabupaten) => {
+        const handleEdit = (kabupaten, route) => {
             const form = document.getElementById('formEdit')
             const inputNama = document.getElementById('editNama')
             const inputProvinsi = document.getElementById('editProvinsi')
-            form.action = `/admin/manage/kabupaten/${kabupaten.id}`
+            form.action = route
             inputNama.value = kabupaten.nama
             inputProvinsi.value = kabupaten.provinsi_id
+        }
+
+        const handleDelete = (route) => {
+            const form = document.getElementById('formDelete')
+            form.action = route
         }
 
         // $('#editModal').on('show.bs.modal', function (event) {

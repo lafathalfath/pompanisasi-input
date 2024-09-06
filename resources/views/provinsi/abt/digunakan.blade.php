@@ -13,51 +13,124 @@
     vertical-align: middle;
 }
 </style>
-
-<div class="d-flex flex-col justify-content-center">
+<div class="mx-5 d-flex flex-col justify-content-center">
     <div>
         <br>
-        <div class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
+        <form action="{{ route('provinsi.pompa.abt.digunakan') }}" method="GET" id="form-filter" class="mb-3" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;" >
             <a href="{{ url('/export-pompa-abt-dimanfaatkan') }}" class="d-flex align-items-center btn btn-secondary">
                 <i class="fa fa-download me-2"></i> Excel
             </a>
             <i class="fa-solid fa-sliders"></i>
-            <input type="date" class="form-control" id="date">
-            <select name="kota_kabupaten" class="form-control" id="kota-kabupaten">
-                <option value="" disabled selected>Pilih Desa/Kelurahan</option>
-                <option value="empang">Empank</option>
-                <option value="baranangsiang">Baranangsiang</option>
-                <!-- Tambahkan opsi kota/kabupaten lainnya -->
+            <input type="date" name="tanggal" class="form-control" id="date" onchange="handleFilter(this)" value="{{ request()->tanggal }}">
+            <select name="kabupaten" class="form-control" id="kecamatan" onchange="handleFilter(this)">
+                <option value="" disabled selected>Pilih Kabupaten</option>
+                @foreach($kabupaten as $kab)
+                    <option value="{{ $kab->id }}" {{ request()->kabupaten==$kab->id?'selected':'' }}>{{ $kab->nama }}</option>
+                @endforeach
             </select>
-        </div>
+            <select name="kecamatan" class="form-control" id="filter-kecamatan" onchange="handleFilter(this)" {{ !request()->kabupaten?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Kecamatan</option>
+                @foreach ($kecamatan as $kec)
+                    <option value="{{ $kec->id }}" {{ request()->kecamatan==$kec->id?'selected':'' }}>{{ $kec->nama }}</option>
+                @endforeach
+            </select>
+            <select name="desa" class="form-control" id="filter-desa" onchange="handleFilter(this)" {{ !request()->kecamatan?'disabled':'' }}>
+                <option value="" disabled selected>Pilih Desa</option>
+                @foreach ($desa as $des)
+                    <option value="{{ $des->id }}" {{ request()->desa==$des->id?'selected':'' }}>{{ $des->nama }}</option>
+                @endforeach
+            </select>
+            <a href="{{ route('provinsi.pompa.abt.digunakan') }}" role="button" class="btn btn-secondary">Reset</a>
+        </form>
         <table class="w-100 table table-bordered">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Kabupaten</th>
-                    <th>Kelompok tani</th>
-                    <th>Luas lahan (ha)</th>
-                    <th class="text-center">Pompa ABT Digunakan</th>
-                    <th>Aksi</th>
+                    <th rowspan="2">No</th>
+                    <th rowspan="2">Kabupaten/Kota</th>
+                    <th rowspan="2">Kecamatan</th>
+                    <th rowspan="2">Desa/Kel</th>
+                    <th rowspan="2">Kelompok Tani</th>
+                    <th rowspan="2">Tanggal</th>
+                    <th rowspan="2">Luas lahan (ha)</th>
+                    <th colspan='3' class="text-center">Pompa ABT Digunakan</th>
+                    <th rowspan="2">Total Digunakan<br>(unit)</th>
+                    <th rowspan="2">No HP Poktan</th>
+                    <th rowspan="2">Aksi</th>
+                </tr>
+                <tr>
+                    <th>3 inch <br>(unit)</th>
+                    <th>4 inch <br>(unit)</th>
+                    <th>6 inch <br>(unit)</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @forelse ($abt_digunakan as $ad) --}}
+                @forelse ($abt_dimanfaatkan as $ad)
                     <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        {{-- <td><a href="{{ route('kabupaten.pompa.abt.digunakan.detail', Crypt::encryptString($ad->kecamatan->id)) }}" class="btn btn-sm btn-info">Detail</a></td> --}}
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $ad->desa->kecamatan->kabupaten->nama }}</td>
+                        <td>{{ $ad->desa->kecamatan->nama }}</td>
+                        <td>{{ $ad->desa->nama }}</td>
+                        <td>{{ $ad->nama_poktan }}</td>
+                        <td>{{ $ad->tanggal }}</td>
+                        <td>{{ $ad->luas_lahan }}</td>
+                        <td>{{ $ad->pompa_3_inch }}</td>
+                        <td>{{ $ad->pompa_4_inch }}</td>
+                        <td>{{ $ad->pompa_6_inch }}</td>
+                        <td>{{ $ad->total_unit }}</td>
+                        <td>{{ $ad->no_hp_poktan ? $ad->no_hp_poktan : '-' }}</td>
+                        <td>
+                            <a href="{{ route('provinsi.pompa.abt.digunakan.detail', Crypt::encryptString($ad->id)) }}" class="btn btn-sm btn-info">Detail</a>
+                        </td>
                     </tr>
-                {{-- @empty --}}
-                    <tr><td colspan="6" class="text-center">Belum ada data</td></tr>
-                {{-- @endforelse --}}
+                @empty
+                    <tr><td colspan="13" class="text-center">Belum ada Data</td></tr>
+                @endforelse
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{ $abt_dimanfaatkan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('provinsi.pompa.abt.digunakan', [...request()->query(), 'page' => $abt_dimanfaatkan->currentPage()-1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $abt_dimanfaatkan->currentPage()==1?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('provinsi.pompa.abt.digunakan', [...request()->query(), 'page' => 1]) }}" aria-label="Previous">
+                        <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $abt_dimanfaatkan->lastPage(); $i++)
+                        @if ($i>($abt_dimanfaatkan->currentPage()-5) && $i<($abt_dimanfaatkan->currentPage()+5))
+                            <li class="page-item {{ $abt_dimanfaatkan->currentPage()==$i?'active':'' }}"><a class="page-link" href="{{ route('provinsi.pompa.abt.digunakan', [...request()->query(), 'page' => $i]) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li class="page-item {{ $abt_dimanfaatkan->currentPage()==$abt_dimanfaatkan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('provinsi.pompa.abt.digunakan', [...request()->query(), 'page' => $abt_dimanfaatkan->lastPage()]) }}" aria-label="Next">
+                        <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li class="page-item {{ $abt_dimanfaatkan->currentPage()==$abt_dimanfaatkan->lastPage()?'disabled':'' }}">
+                        <a class="page-link" href="{{ route('provinsi.pompa.abt.digunakan', [...request()->query(), 'page' => $abt_dimanfaatkan->currentPage()+1]) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
     </div>
 
 </div>
+<script>
+    const handleFilter = (e) => {
+        if (e.id == 'filter-kabupaten') {
+            document.getElementById('filter-kecamatan').value = ''
+            document.getElementById('filter-desa').value = ''
+        } else if (e.id == 'filter-kecamatan') {
+            document.getElementById('filter-desa').value = ''
+        }
+        document.getElementById('form-filter').submit()
+    }
+</script>
 @endsection

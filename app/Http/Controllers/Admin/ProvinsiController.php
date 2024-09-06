@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Provinsi;
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ProvinsiController extends Controller
 {
@@ -36,8 +37,15 @@ class ProvinsiController extends Controller
             'wilayah_id.required' => 'Wilayah tidak boleh kosong',
             'nama.required' => 'Nama tidak boleh kosong',
         ]);
-        Provinsi::find($id)->update($request->except('_token'));
+        Provinsi::find(Crypt::decryptString($id))->update($request->except('_token'));
         return back()->with('success', 'berhasil mengubah provinsi');
+    }
 
+    public function destroy($id) {
+        $provinsi = Provinsi::find(Crypt::decryptString($id));
+        if (!$provinsi) return back()->withErrors('provinsi tidak ditemukan');
+        if (count($provinsi->kabupaten)) return back()->withErrors('provinsi tidak dapat dihapus, terdapat kabupaten di provinsi ini');
+        $provinsi->delete();
+        return back()->with('success', 'berhasil menghapus provinsi');
     }
 }

@@ -31,11 +31,12 @@
     </script>
 
     <div class="container mt-4">
-        <h2>Manage Wilayah</h2>
+        <h2>Kelola Desa</h2>
         
         <div class="d-flex align-items-center justify-content-between">
             <form method="GET" class="search-bar">
                 <input type="text" name="nama" value="{{ request()->nama }}" id="search-input" placeholder="Cari" style="border-radius: 5px">
+                <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
             </form>
             <div>
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal">+ Tambah</button>
@@ -65,6 +66,7 @@
                         <td>{{ $des->nama }}</td>
                         <td class="border-0 d-flex align-items-center justify-content-center gap-2">
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEdit({{ $des }})">Edit</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="handleDelete('{{ route('admin.manage.desa.destroy', Crypt::encryptString($des->id)) }}')">Hapus</button>
                         </td>
                     </tr>
                 @endforeach
@@ -105,7 +107,7 @@
     
     <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('admin.manage.desa.store') }}" class="modal-content" method="POST">
+            <form action="{{ route('admin.manage.desa.store') }}" id="form-modal" class="modal-content" method="POST">
                 @csrf
                 <div class="modal-header">
                 <h1 class="modal-title fs-5" id="tambahModalLabel">Tambah Desa</h1>
@@ -138,7 +140,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" id="editNama" class="form-control" name="nama" placeholder="Nama Desa" required><br>
-                    <select name="kecamatan_id" class="form-control js-example-templating" id="editKecamatan" required>
+                    <select name="kecamatan_id" class="form-control js-example-templating2" id="editKecamatan" required>
                         <option value="" disabled selected>Pilih Kecamatan</option>
                         @foreach ($kecamatan as $kec)
                             <option value="{{ $kec->id }}">{{ $kec->nama }}</option>
@@ -152,8 +154,39 @@
             </form>
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" method="POST" id="formDelete">
+                @csrf
+                @method('DELETE')
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Hapus Desa</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus desa ini?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $(".js-example-templating").select2({
+            dropdownParent: $('#form-modal'),
+            width: '100%',
+        });
+        $(".js-example-templating2").select2({
+            dropdownParent: $('#formEdit'),
+            width: '100%',
+        });
         // $('#editModal').on('show.bs.modal', function (event) {
         //     var button = $(event.relatedTarget);
         //     var name = button.data('name');
@@ -175,6 +208,10 @@
             form.action = `/admin/manage/desa/${desa.id}`
             inputNama.value = desa.nama
             inputKecamatan.value = desa.kecamatan_id
+        }
+        const handleDelete = (route) => {
+            const form = document.getElementById('formDelete')
+            form.action = route
         }
     </script>
 @endsection

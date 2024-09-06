@@ -15,7 +15,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = [
-            ['nama' => 'Admin', 'email' => 'admin@gmail.com', 'no_hp' => '0111111111', 'role_id' => 1, 'password' => Hash::make('password'), 'status_verifikasi' => 'terverifikasi'],
+            [
+                'nama' => 'Admin', 
+                'email' => 'admin@gmail.com', 
+                'no_hp' => '0111111111', 
+                'role_id' => 1, 
+                'password' => Hash::make('password'), 
+                'status_verifikasi' => 'terverifikasi',
+            ],
         ];
 
         DB::table('users')->insert($user);

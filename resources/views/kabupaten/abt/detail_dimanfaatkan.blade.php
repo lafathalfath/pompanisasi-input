@@ -21,11 +21,11 @@
     }
 </style>
 
-<h5><b>Pompa ABT Digunakan</b></h5>
 
-<br><br>
+<br>
 
 <div class="container mt-4">
+    <h3><b>Pompa ABT Digunakan</b></h3><br>
     <!-- Info Section -->
     <div class="row info-section">
         <div class="col-md-3">
@@ -34,7 +34,7 @@
         </div>
         <div class="col-md-3">
             <h5>Desa/Kelurahan</h5>
-            <p>{{ $abt_dimanfaatkan->pompa_abt_diterima->pompa_abt_usulan->pompanisasi->desa->nama }}</p>
+            <p>{{ $abt_dimanfaatkan->desa->nama }}</p>
         </div>
         <div class="col-md-3">
             <h5>Kelompok Tani</h5>

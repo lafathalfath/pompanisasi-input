@@ -34,7 +34,7 @@
         </div>
         <div class="col-md-3">
             <h5>Desa/Kelurahan</h5>
-            <p>{{ $ref_dimanfaatkan->pompa_ref_diterima->pompanisasi->desa->nama }}</p>
+            <p>{{ $ref_dimanfaatkan->desa->nama }}</p>
         </div>
         <div class="col-md-3">
             <h5>Kelompok Tani</h5>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class KecamatanController extends Controller
 {
@@ -41,5 +42,13 @@ class KecamatanController extends Controller
         ]);
         Kecamatan::find($id)->update($request->except('_token'));
         return back()->with('success', 'berhasil mengubah provinsi');
+    }
+
+    public function  destroy($id) {
+        $kecamatan = Kecamatan::find(Crypt::decryptString($id));
+        if (!$kecamatan) return back()->withErrors('kecamatan tidak ditemukan');
+        if (count($kecamatan->desa)) return back()->withErrors('kecamatan tidak dapat dihapus, terdapat desa di kecamatan ini');
+        $kecamatan->delete();
+        return back()->with('success', 'berhasil menghapus kecamatan');
     }
 }

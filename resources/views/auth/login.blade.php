@@ -68,16 +68,18 @@
 <div class="login-container">
     <img src="/assets/img/logobbpsip.png" alt="Logo">
     <h3>Masuk</h3>
-    @error('email')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
-    @error('password')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
+    @if(session('success'))
+        <div class="alert alert-success">
+            <p style="text-align: left; margin-bottom: 0;">{{ session('success') }}</p>
+        </div>
+    @endif
+    @if(session('errors'))
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <p style="text-align: left; margin-bottom: 0;">{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
     <form action="{{ route('login.login') }}" method="POST">
         @csrf
         <div class="form-group">
