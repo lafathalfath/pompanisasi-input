@@ -44,7 +44,9 @@ class PompaRefDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
         }
 
         if (!empty($desa)) {
-            $ref_dimanfaatkan = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+            $ref_dimanfaatkan = PompaRefDimanfaatkan::where('verified_at', '!=', null);
+            if ($user->role_id != 6) $ref_dimanfaatkan = $ref_dimanfaatkan->whereIn('desa_id', $desa);
+            $ref_dimanfaatkan = $ref_dimanfaatkan->get();
             return $ref_dimanfaatkan->map(function ($item, $key) {
                 return [
                     'No' => $key+1,
