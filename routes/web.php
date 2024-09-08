@@ -39,6 +39,8 @@ use App\Http\Controllers\Wilayah\WilayahAbtController;
 use App\Http\Controllers\Wilayah\WilayahLuasTanamController;
 use App\Http\Controllers\Wilayah\WilayahRefocusingController;
 use App\Http\Controllers\Wilayah\WilayahVerifPjController;
+use App\Models\Desa;
+use App\Models\PompaRefDiterima;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,11 +53,24 @@ use App\Http\Controllers\Wilayah\WilayahVerifPjController;
 |
 */
 
-Route::get('/', function () {return redirect()->route('login');});
+Route::get('/', function () {
+    // $desa = Desa::distinct()->pluck('id');
+    // $ref_diterima = PompaRefDiterima::where('verified_at', '!=', null)->get();
+    // dd($ref_diterima);
+    return redirect()->route('login');
+});
 
 // Route::get('/kecamatan/inputPompaKecamatan', function () {
 //     return view('kecamatan.inputPompaKecamatan');
 // });
+
+Route::get('/link', function () {  
+    $file = '/c.jpg';      
+    storage_path('app/public/'.$file);
+    $target = '/home/public_html/storage/app/public';
+    $shortcut = '/home/public_html/public/storage';
+    symlink($target, $shortcut);
+});
 
 
 Route::middleware('guest')->group(function () {

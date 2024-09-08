@@ -43,7 +43,9 @@ class PompaRefDiterimaExport implements FromCollection, WithHeadings, WithStyles
         }
 
         if (!empty($desa)) {
-            $ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+            $ref_diterima = PompaRefDiterima::where('verified_at', '!=', null);
+            if ($user->role_id != 6) $ref_diterima = $ref_diterima->whereIn('desa_id', $desa);
+            $ref_diterima = $ref_diterima->get();
             return $ref_diterima->map(function ($item, $key) {
                 return [
                     'No' => $key+1,
