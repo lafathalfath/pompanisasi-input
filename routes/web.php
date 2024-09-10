@@ -53,24 +53,7 @@ use App\Models\PompaRefDiterima;
 |
 */
 
-Route::get('/', function () {
-    // $desa = Desa::distinct()->pluck('id');
-    // $ref_diterima = PompaRefDiterima::where('verified_at', '!=', null)->get();
-    // dd($ref_diterima);
-    return redirect()->route('login');
-});
-
-// Route::get('/kecamatan/inputPompaKecamatan', function () {
-//     return view('kecamatan.inputPompaKecamatan');
-// });
-
-Route::get('/link', function () {  
-    $file = '/c.jpg';      
-    storage_path('app/public/'.$file);
-    $target = '/home/public_html/storage/app/public';
-    $shortcut = '/home/public_html/public/storage';
-    symlink($target, $shortcut);
-});
+Route::get('/', function () {return redirect()->route('login');});
 
 
 Route::middleware('guest')->group(function () {
@@ -83,6 +66,9 @@ Route::middleware('guest')->group(function () {
     });
 });
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard-pompa.dashboard');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -274,10 +260,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan', [PompaController::class, 'abtDigunakan'])->name('kecamatan.abt.digunakan.input');
             Route::post('/digunakan', [KecamatanController::class, 'storeAbtDigunakan'])->name('kecamatan.abt.digunakan.store');
         });
-    });
-
-    Route::get('/verifAdmin', function () {
-        return view('admin.verifikasiData');
     });
 
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');

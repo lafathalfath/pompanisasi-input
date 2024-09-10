@@ -97,14 +97,14 @@
                         <div class="chart-container">
                             <canvas id="refocusingChart"></canvas>
                         </div>
-                        <div class="stat-value">{{ $data['pompa_refocusing']['diterima'] }}</div>
+                        <div class="stat-value">200</div>
                         <div class="stat-label">Diterima</div>
                     </div>
                     <div class="text-center flex-fill">
                         <div class="chart-container">
                             <canvas id="refocusingUsedChart"></canvas>
                         </div>
-                        <div class="stat-value">{{ $data['pompa_refocusing']['dimanfaatkan'] }}</div>
+                        <div class="stat-value">200</div>
                         <div class="stat-label">Dimanfaatkan</div>
                     </div>
                 </div>
@@ -119,21 +119,21 @@
                         <div class="chart-container">
                             <canvas id="abtProposalChart"></canvas>
                         </div>
-                        <div class="stat-value">{{ $data['pompa_abt']['diusulkan'] }}</div>
+                        <div class="stat-value">200</div>
                         <div class="stat-label">Diusulkan</div>
                     </div>
                     <div class="text-center flex-fill">
                         <div class="chart-container">
                             <canvas id="abtUsedChart"></canvas>
                         </div>
-                        <div class="stat-value">{{ $data['pompa_abt']['diterima'] }}</div>
+                        <div class="stat-value">200</div>
                         <div class="stat-label">Diterima</div>
                     </div>
                     <div class="text-center flex-fill">
                         <div class="chart-container">
                             <canvas id="abtDimanfaatkanChart"></canvas>
                         </div>
-                        <div class="stat-value">{{ $data['pompa_abt']['dimanfaatkan'] }}</div>
+                        <div class="stat-value">200</div>
                         <div class="stat-label">Dimanfaatkan</div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <h5 class="text-center">Luas Tanam Harian</h5>
-                    <p class="text-center text-muted">Total Luas Tanam: <span class="stat-value">{{ $data['luas_tanam_harian']['total'] }} ha</span></p>
+                    <p class="text-center text-muted">Total Luas Tanam: <span class="stat-value">200 ha</span></p>
                     <div class="chart-container luas-tanam-container">
                         <canvas id="tanamChart"></canvas>
                     </div>
@@ -163,7 +163,7 @@
             data: {
                 labels: ['Diterima', 'Belum Diterima'],
                 datasets: [{
-                    data: [{{ $data['pompa_refocusing']['diterima'] }}, 100 - {{ $data['pompa_refocusing']['diterima'] }}],
+                    data: [200, 100 - 200],
                     backgroundColor: ['#4caf50', '#e0e0e0'],
                     borderWidth: 1
                 }]
@@ -185,7 +185,7 @@
             data: {
                 labels: ['Dimanfaatkan', 'Belum Dimanfaatkan'],
                 datasets: [{
-                    data: [{{ $data['pompa_refocusing']['dimanfaatkan'] }}, 100 - {{ $data['pompa_refocusing']['dimanfaatkan'] }}],
+                    data: [200, 100 - 200],
                     backgroundColor: ['#ff9800', '#e0e0e0'],
                     borderWidth: 1
                 }]
@@ -207,7 +207,7 @@
             data: {
                 labels: ['Diusulkan', 'Belum Diusulkan'],
                 datasets: [{
-                    data: [{{ $data['pompa_abt']['diusulkan'] }}, 100 - {{ $data['pompa_abt']['diusulkan'] }}],
+                    data: [200, 100 - 200],
                     backgroundColor: ['#2196f3', '#e0e0e0'],
                     borderWidth: 1
                 }]
@@ -229,7 +229,7 @@
             data: {
                 labels: ['Diterima', 'Belum Diterima'],
                 datasets: [{
-                    data: [{{ $data['pompa_abt']['diterima'] }}, 100 - {{ $data['pompa_abt']['diterima'] }}],
+                    data: [200, 100 - 200],
                     backgroundColor: ['#4caf50', '#e0e0e0'],
                     borderWidth: 1
                 }]
@@ -251,7 +251,7 @@
             data: {
                 labels: ['Dimanfaatkan', 'Belum Dimanfaatkan'],
                 datasets: [{
-                    data: [{{ $data['pompa_abt']['dimanfaatkan'] }}, 100 - {{ $data['pompa_abt']['dimanfaatkan'] }}],
+                    data: [200, 100 - 200],
                     backgroundColor: ['#ff9800', '#e0e0e0'], //dimanfaatkan
                     borderWidth: 1
                 }]
@@ -271,10 +271,12 @@
         const tanamChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: {!! json_encode(array_keys($data['luas_tanam_harian']['harian'])) !!},
+                // labels: {--!! json_encode(array_keys($data['luas_tanam_harian']['harian'])) !!--},
+                labels: 200,
                 datasets: [{
                     label: 'Luas Tanam Harian (ha)',
-                    data: {!! json_encode(array_values($data['luas_tanam_harian']['harian'])) !!},
+                    // data: {--!! json_encode(array_values($data['luas_tanam_harian']['harian'])) !!--},
+                    data: 200,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1,
