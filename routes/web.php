@@ -66,9 +66,9 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard-pompa.dashboard');
-});
+// Route::get('/dashboard', function () {
+//     return view('dashboard-pompa.dashboard');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
