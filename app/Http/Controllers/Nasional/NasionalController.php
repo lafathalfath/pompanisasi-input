@@ -35,6 +35,8 @@ class NasionalController extends Controller
             'abt_diterima' => 0,
             'abt_dimanfaatkan' => 0,
         ];
+        $lth = [];
+        $luas_tanam = [];
         $rekap = [];
         if ($user->status_verifikasi == 'terverifikasi') {
             $pompanisasi = (object) [
@@ -45,6 +47,12 @@ class NasionalController extends Controller
                 'abt_diterima' => PompaAbtDiterima::where('verified_at', '!=', null)->sum('total_unit'),
                 'abt_dimanfaatkan' => PompaAbtDimanfaatkan::where('verified_at', '!=', null)->sum('total_unit'),
             ];
+            $lth = LuasTanam::where('verified_at', '!=', null)
+                ->selectRaw('tanggal, SUM(luas_tanam) as total')
+                ->groupBy('tanggal')
+                ->orderBy('tanggal', 'asc')
+                ->get();
+            foreach ($lth as $l) $luas_tanam[$l->tanggal] = $l->total;
             // if (!$request->provinsi && !$request->kabupaten && !$request->kecamatan) {
             //     $rekap = [];
                 foreach (Provinsi::get() as $prov) {
@@ -138,6 +146,6 @@ class NasionalController extends Controller
             // }
         }
         $rekap = $this->paginate($rekap, 10);
-        return view('nasional.dashboard', ['pompanisasi' => $pompanisasi, 'rekap' => $rekap, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'desa' => $region_desa]);
+        return view('nasional.dashboard', ['pompanisasi' => $pompanisasi, 'luas_tanam' => $luas_tanam, 'rekap' => $rekap, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'desa' => $region_desa]);
     }
 }
