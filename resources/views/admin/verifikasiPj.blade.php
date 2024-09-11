@@ -58,6 +58,7 @@
                 <span>
                     <select name="level" id="" class="form-control" id="filter-level" onchange="handleFilter(this)">
                         <option value="" selected>Semua</option>
+                        <option value="6" {{ request()->level=='6'?'selected':'' }}>Nasional</option>
                         <option value="2" {{ request()->level=='2'?'selected':'' }}>Wilayah</option>
                         <option value="3" {{ request()->level=='3'?'selected':'' }}>Provinsi</option>
                         <option value="4" {{ request()->level=='4'?'selected':'' }}>Kabupaten</option>

@@ -66,6 +66,7 @@
             .logout:hover {
                 background-color: #005f62;
                 text-decoration: none !important;
+                color: #fff !important;
             }
 
             .logout {
@@ -102,6 +103,13 @@
             .sidebar::-webkit-scrollbar-thumb:hover {
                 background: gray; 
             }
+            .user-info {
+                margin-top: 20px;
+            }
+            .user-role {
+                font-size: 14px;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -111,6 +119,14 @@
                     <img src="/assets/img/logobbpsip.png" alt="Logo" class="logo">
                 </a>
                 <h1>Satgas Pompanisasi<br></h1>
+                <div class="user-info text-left">
+                    <div class="text-capitalize fw-bold mb-2">{{ Auth::user()->nama }}</div>
+                    <p class="user-role text-capitalize">
+                        PJ Kec. {{ ucwords(strtolower(Auth::user()->kecamatan->nama)) }},<br>
+                        {{ ucwords(strtolower(Auth::user()->kecamatan->kabupaten->nama)) }},<br>
+                        {{ ucwords(strtolower(Auth::user()->kecamatan->kabupaten->provinsi->nama)) }}
+                    </p>
+                </div>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('kecamatan.dashboard') }}" class="{{ request()->url() == route('kecamatan.dashboard') ? 'active' : '' }}">Dashboard</a></li>
@@ -153,6 +169,20 @@
         </div>
 
         <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @yield('content')
         </div>
 

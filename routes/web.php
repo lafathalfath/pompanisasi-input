@@ -26,6 +26,7 @@ use App\Exports\Kecamatan\PompaAbtDimanfaatkanExport;
 use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
 use App\Http\Controllers\Admin\ManageUserController;
+use App\Http\Controllers\Admin\StarterPompaKabupatenController;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
 use App\Http\Controllers\Kabupaten\VerifikasiDataController;
 use App\Http\Controllers\Nasional\NasionalAbtController;
@@ -38,6 +39,8 @@ use App\Http\Controllers\Wilayah\WilayahAbtController;
 use App\Http\Controllers\Wilayah\WilayahLuasTanamController;
 use App\Http\Controllers\Wilayah\WilayahRefocusingController;
 use App\Http\Controllers\Wilayah\WilayahVerifPjController;
+use App\Models\Desa;
+use App\Models\PompaRefDiterima;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,10 +55,6 @@ use App\Http\Controllers\Wilayah\WilayahVerifPjController;
 
 Route::get('/', function () {return redirect()->route('login');});
 
-// Route::get('/kecamatan/inputPompaKecamatan', function () {
-//     return view('kecamatan.inputPompaKecamatan');
-// });
-
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register');
@@ -67,6 +66,9 @@ Route::middleware('guest')->group(function () {
     });
 });
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard-pompa.dashboard');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -77,24 +79,54 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin')->middleware('access:admin')->group(function () {
         Route::get('/', function () {return redirect()->route('admin.dashboard');});
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-        Route::get('/verifikasi-pj', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
-        Route::put('verifikasi-pj/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
-        Route::put('verifikasi-pj/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
-        Route::get('/kelolaAkun', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
-        Route::put('/kelolaAkun/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
+        Route::prefix('/verifikasi-pj')->group(function () {
+            Route::get('/', [VerifikasiPjController::class, 'index'])->name('admin.verifikasiPj');
+            Route::put('/{user_id}/verifikasi', [VerifikasiPjController::class, 'verifikasi'])->name('admin.verifikasiPj.verifikasi');
+            Route::put('/{user_id}/tolak', [VerifikasiPjController::class, 'tolak'])->name('admin.verifikasiPj.tolak');
+        });
+        Route::prefix('/kelolaAkun')->group(function () {
+            Route::get('/', [ManageUserController::class, 'index'])->name('admin.kelolaAkun');
+            Route::put('/{id}/update', [ManageUserController::class, 'update'])->name('admin.kelolaAkun.update');
+            Route::put('/{id}/nonaktifkan', [ManageUserController::class, 'nonaktifkan'])->name('admin.kelolaAkun.nonaktifkan');
+            Route::delete('/delete/{id}', [ManageUserController::class, 'deleteUser'])->name('admin.kelolaAkun.delete');
+        });
         Route::prefix('/manage')->group(function () {
             Route::get('/provinsi', [AdminProvinsiController::class, 'index'])->name('admin.manage.provinsi');
             Route::post('/provinsi', [AdminProvinsiController::class, 'store'])->name('admin.manage.provinsi.store');
             Route::put('/provinsi/{id}', [AdminProvinsiController::class, 'update'])->name('admin.manage.provinsi.update');
+            Route::delete('/provinsi/{id}', [AdminProvinsiController::class, 'destroy'])->name('admin.manage.provinsi.destroy');
             Route::get('/kabupaten', [AdminKabupatenController::class, 'index'])->name('admin.manage.kabupaten');
             Route::post('/kabupaten', [AdminKabupatenController::class, 'store'])->name('admin.manage.kabupaten.store');
             Route::put('/kabupaten/{id}', [AdminKabupatenController::class, 'update'])->name('admin.manage.kabupaten.update');
+            Route::delete('/kabupaten/{id}', [AdminKabupatenController::class, 'destroy'])->name('admin.manage.kabupaten.destroy');
             Route::get('/kecamatan', [AdminKecamatanController::class, 'index'])->name('admin.manage.kecamatan');
             Route::post('/kecamatan', [AdminKecamatanController::class, 'store'])->name('admin.manage.kecamatan.store');
             Route::put('/kecamatan/{id}', [AdminKecamatanController::class, 'update'])->name('admin.manage.kecamatan.update');
+            Route::delete('/kecamatan/{id}', [AdminKecamatanController::class, 'destroy'])->name('admin.manage.kecamatan.destroy');
             Route::get('/desa', [DesaController::class, 'index'])->name('admin.manage.desa');
             Route::post('/desa', [DesaController::class, 'store'])->name('admin.manage.desa.store');
             Route::put('/desa/{id}', [DesaController::class, 'update'])->name('admin.manage.desa.update');
+            Route::delete('/desa/{id}', [DesaController::class, 'destroy'])->name('admin.manage.desa.destroy');
+        });
+        Route::prefix('/starter-kabupaten')->group(function () {
+            Route::get('/ref_diterima', [StarterPompaKabupatenController::class, 'ref_diterima_view'])->name('admin.starter.kabupaten.ref_diterima');
+            Route::post('/ref_diterima', [StarterPompaKabupatenController::class, 'ref_diterima_store'])->name('admin.starter.kabupaten.ref_diterima.store');
+            Route::put('/ref_diterima/{id}/update', [StarterPompaKabupatenController::class, 'ref_diterima_update'])->name('admin.starter.kabupaten.ref_diterima.update');
+            Route::get('/ref_dimanfaatkan', [StarterPompaKabupatenController::class, 'ref_dimanfaatkan_view'])->name('admin.starter.kabupaten.ref_dimanfaatkan');
+            Route::post('/ref_dimanfaatkan', [StarterPompaKabupatenController::class, 'ref_dimanfaatkan_store'])->name('admin.starter.kabupaten.ref_dimanfaatkan.store');
+            Route::put('/ref_dimanfaatkan/{id}/update', [StarterPompaKabupatenController::class, 'ref_dimanfaatkan_update'])->name('admin.starter.kabupaten.ref_dimanfaatkan.update');
+            Route::get('/abt_usulan', [StarterPompaKabupatenController::class, 'abt_usulan_view'])->name('admin.starter.kabupaten.abt_usulan');
+            Route::post('/abt_usulan', [StarterPompaKabupatenController::class, 'abt_usulan_store'])->name('admin.starter.kabupaten.abt_usulan.store');
+            Route::put('/abt_usulan/{id}/update', [StarterPompaKabupatenController::class, 'abt_usulan_update'])->name('admin.starter.kabupaten.abt_usulan.update');
+            Route::get('/abt_diterima', [StarterPompaKabupatenController::class, 'abt_diterima_view'])->name('admin.starter.kabupaten.abt_diterima');
+            Route::post('/abt_diterima', [StarterPompaKabupatenController::class, 'abt_diterima_store'])->name('admin.starter.kabupaten.abt_diterima.store');
+            Route::put('/abt_diterima/{id}/update', [StarterPompaKabupatenController::class, 'abt_diterima_update'])->name('admin.starter.kabupaten.abt_diterima.update');
+            Route::get('/abt_dimanfaatkan', [StarterPompaKabupatenController::class, 'abt_dimanfaatkan_view'])->name('admin.starter.kabupaten.abt_dimanfaatkan');
+            Route::post('/abt_dimanfaatkan', [StarterPompaKabupatenController::class, 'abt_dimanfaatkan_store'])->name('admin.starter.kabupaten.abt_dimanfaatkan.store');
+            Route::put('/abt_dimanfaatkan/{id}/update', [StarterPompaKabupatenController::class, 'abt_dimanfaatkan_update'])->name('admin.starter.kabupaten.abt_dimanfaatkan.update');
+            Route::get('/luas_tanam', [StarterPompaKabupatenController::class, 'luas_tanam_view'])->name('admin.starter.kabupaten.luas_tanam');
+            Route::post('/luas_tanam', [StarterPompaKabupatenController::class, 'luas_tanam_store'])->name('admin.starter.kabupaten.luas_tanam.store');
+            Route::put('/luas_tanam/{id}/update', [StarterPompaKabupatenController::class, 'luas_tanam_update'])->name('admin.starter.kabupaten.luas_tanam.update');
         });
     });
 
@@ -228,10 +260,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan', [PompaController::class, 'abtDigunakan'])->name('kecamatan.abt.digunakan.input');
             Route::post('/digunakan', [KecamatanController::class, 'storeAbtDigunakan'])->name('kecamatan.abt.digunakan.store');
         });
-    });
-
-    Route::get('/verifAdmin', function () {
-        return view('admin.verifikasiData');
     });
 
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');

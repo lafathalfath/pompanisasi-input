@@ -22,7 +22,7 @@
             <img src="/assets/img/logobbpsip.png" alt="Logo">
             <h4>Satgas Pompanisasi</h4>
             <br>
-            <h5>Akun sedang dalam proses verifikasi</h5>
+            <h5>Akun tidak aktif atau sedang dalam proses verifikasi</h5>
             <p>Silahkan hubungi Admin atau PJ Wilayah untuk meminta verifikasi akun</p>
             <div>
                 <a href="">Refresh &#10227;</a>

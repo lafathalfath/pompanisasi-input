@@ -43,7 +43,9 @@ class PompaAbtUsulanExport implements FromCollection, WithHeadings, WithStyles, 
         }
 
         if (!empty($desa)) {
-            $abt_usulan = PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+            $abt_usulan = PompaAbtUsulan::where('verified_at', '!=', null);
+            if ($user->role_id != 6) $abt_usulan = $abt_usulan->whereIn('desa_id', $desa);
+            $abt_usulan = $abt_usulan->get();
             return $abt_usulan->map(function ($item, $key) {
                     return [
                         'No' => $key+1,

@@ -17,30 +17,80 @@ class KecamatanController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        $luas_tanam_harian = 0;
-        $ref_diterima = 0;
-        $ref_digunakan = 0;
-        $abt_usulan = 0;
-        $abt_diterima = 0;
-        $abt_digunakan = 0;
+        $luas_tanam = [];
+        $lth = [];
+        $pompa = (object) [
+            'luas_tanam' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'ref_diterima' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'ref_digunakan' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'abt_usulan' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'abt_diterima' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+            'abt_digunakan' => (object) [
+                'total' => 0,
+                'terverifikasi' => 0,
+                'belum_verifikasi' => 0,
+            ],
+        ];
         
         if ($user->kecamatan) {
             $desa = [];
             foreach ($user->kecamatan->desa as $des) $desa[] = $des->id;
-            $ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->sum('total_unit');
-            $ref_digunakan = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
-            $abt_usulan = PompaAbtUsulan::whereIn('desa_id', $desa)->sum('total_unit');
-            $abt_diterima = PompaAbtDiterima::whereIn('desa_id', $desa)->sum('total_unit');
-            $abt_digunakan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
-            $luas_tanam_harian = LuasTanam::whereIn('desa_id', $desa)->sum('luas_tanam');
+            // total
+            $pompa->ref_diterima->total = PompaRefDiterima::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->ref_digunakan->total = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->abt_usulan->total = PompaAbtUsulan::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->abt_diterima->total = PompaAbtDiterima::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->abt_digunakan->total = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->sum('total_unit');
+            $pompa->luas_tanam->total = LuasTanam::whereIn('desa_id', $desa)->sum('luas_tanam');
+            // terverifikasi
+            $pompa->ref_diterima->terverifikasi = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->ref_digunakan->terverifikasi = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->abt_usulan->terverifikasi = PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->abt_diterima->terverifikasi = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->abt_digunakan->terverifikasi = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompa->luas_tanam->terverifikasi = LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('luas_tanam');
+            // belum_verifikasi
+            $pompa->ref_diterima->belum_verifikasi = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->ref_digunakan->belum_verifikasi = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->abt_usulan->belum_verifikasi = PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->abt_diterima->belum_verifikasi = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->abt_digunakan->belum_verifikasi = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
+            $pompa->luas_tanam->belum_verifikasi = LuasTanam::whereIn('desa_id', $desa)->where('verified_at', null)->sum('luas_tanam');
+            // foreach ($user->kecamatan->desa as $des) if ($des->luas_tanam) {
+            //     $luas_tanam[] = $des->luas_tanam;
+            // }
+            $luas_tanam = LuasTanam::whereIn('desa_id', $desa)
+                ->selectRaw('tanggal, SUM(luas_tanam) as total')
+                ->groupBy('tanggal')
+                ->orderBy('tanggal', 'asc')
+                ->get();
+            foreach ($luas_tanam as $lt) {
+                $lth[$lt->tanggal] = $lt->total;
+            }
         }
         return view('kecamatan.dashboard', [
-            'luas_tanam_harian' => $luas_tanam_harian,
-            'ref_diterima' => $ref_diterima,
-            'ref_digunakan' => $ref_digunakan,
-            'abt_usulan' => $abt_usulan,
-            'abt_diterima' => $abt_diterima,
-            'abt_digunakan' => $abt_digunakan,
+            'pompa' => $pompa,
+            'luas_tanam' => $lth
         ]);
     }
 

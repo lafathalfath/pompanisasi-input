@@ -14,12 +14,14 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         $role = [
+            
             ['id' => 1, 'nama' => 'admin'],
+            ['id' => 6, 'nama' => 'nasional'],
             ['id' => 2, 'nama' => 'wilayah'],
             ['id' => 3, 'nama' => 'provinsi'],
             ['id' => 4, 'nama' => 'kabupaten'],
             ['id' => 5, 'nama' => 'kecamatan'],
-            ['id' => 6, 'nama' => 'nasional'],
+            
         ];
 
         DB::table('role')->insert($role);
