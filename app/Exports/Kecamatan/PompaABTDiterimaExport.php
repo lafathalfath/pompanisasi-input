@@ -43,7 +43,9 @@ class PompaAbtDiterimaExport implements FromCollection, WithHeadings, WithStyles
         }
 
         if (!empty($desa)) {
-            $abt_diterima = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+            $abt_diterima = PompaAbtDiterima::where('verified_at', '!=', null);
+            if ($user->role_id != 6) $abt_diterima = $abt_diterima->whereIn('desa_id', $desa);
+            $abt_diterima = $abt_diterima->get();
             return $abt_diterima->map(function ($item, $key) {
                 return [
                     'No' => $key+1,
