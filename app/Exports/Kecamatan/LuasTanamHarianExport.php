@@ -33,7 +33,10 @@ class LuasTanamHarianExport implements FromCollection, WithHeadings, WithStyles,
             $desa = Desa::distinct()->pluck('id');
         }
         if (!empty($desa)) {
-            return LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get()->map(function ($item, $key) {
+            $luas_tanam = LuasTanam::where('verified_at', '!=', null);
+            if ($user->role_id != 6) $luas_tanam = $luas_tanam->whereIn('desa_id', $desa);
+            $luas_tanam = $luas_tanam->get();
+            return $luas_tanam->map(function ($item, $key) {
                 return [
                     'No' => $key+1,
                     'Tanggal' => $item->tanggal,

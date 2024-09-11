@@ -24,6 +24,8 @@ class KabupatenController extends Controller
     public function index() {
         $user = Auth::user();
         $kecamatan = [];
+        $lth = [];
+        $luas_tanam = [];
         $pompanisasi = (object) [
             'ref_diterima' => 0,
             'ref_dimanfaatkan' => 0,
@@ -33,17 +35,32 @@ class KabupatenController extends Controller
             'luas_tanam' => 0,
         ];
         if ($user->kabupaten) {
+            $pompanisasi = (object) [
+                'ref_diterima' => $user->kabupaten->starter_ref_diterima_kabupaten->total_unit,
+                'ref_dimanfaatkan' => $user->kabupaten->starter_ref_dimanfaatkan_kabupaten->total_unit,
+                'abt_usulan' => $user->kabupaten->starter_abt_usulan_kabupaten->total_unit,
+                'abt_diterima' => $user->kabupaten->starter_abt_diterima_kabupaten->total_unit,
+                'abt_dimanfaatkan' => $user->kabupaten->starter_abt_dimanfaatkan_kabupaten->total_unit,
+                'luas_tanam' => $user->kabupaten->starter_luas_tanam_kabupaten->luas_tanam,
+            ];
             $kecamatan = $user->kabupaten->kecamatan;
             $desa = [];
             foreach ($kecamatan as $kec) foreach ($kec->desa as $des) $desa[] = $des->id;
-            $pompanisasi->ref_diterima = PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->ref_dimanfaatkan = PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->abt_usulan = PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->abt_diterima = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->abt_dimanfaatkan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
-            $pompanisasi->luas_tanam = LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('luas_tanam');
+            $pompanisasi->ref_diterima += PompaRefDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->ref_dimanfaatkan += PompaRefDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->abt_usulan += PompaAbtUsulan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->abt_diterima += PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->abt_dimanfaatkan += PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
+            $pompanisasi->luas_tanam += LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('luas_tanam');
+            $lth = LuasTanam::whereIn('desa_id', $desa)
+                ->where('verified_at', '!=', null)
+                ->selectRaw('tanggal, SUM(luas_tanam) as total')
+                ->groupBy('tanggal')
+                ->orderBy('tanggal', 'asc')
+                ->get();
+            foreach ($lth as $l) $luas_tanam[$l->tanggal] = $l->total;
         }
-        return view('kabupaten.dashboard', ['pompanisasi' => $pompanisasi]);
+        return view('kabupaten.dashboard', ['pompanisasi' => $pompanisasi, 'luas_tanam' => $luas_tanam]);
     }
 
     public function verifikasiDataView() {

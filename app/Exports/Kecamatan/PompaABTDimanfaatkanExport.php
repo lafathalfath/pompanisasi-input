@@ -43,7 +43,9 @@ class PompaAbtDimanfaatkanExport implements FromCollection, WithHeadings, WithSt
         }
 
         if (!empty($desa)) {
-            $abt_dimanfaatkan = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->get();
+            $abt_dimanfaatkan = PompaAbtDimanfaatkan::where('verified_at', '!=', null);
+            if ($user->role_id != 6) $abt_dimanfaatkan = $abt_dimanfaatkan->whereIn('desa_id', $desa);
+            $abt_dimanfaatkan = $abt_dimanfaatkan->get();
             return $abt_dimanfaatkan->map(function ($item, $key) {
                 return [
                     'No' => $key+1,

@@ -39,6 +39,8 @@ use App\Http\Controllers\Wilayah\WilayahAbtController;
 use App\Http\Controllers\Wilayah\WilayahLuasTanamController;
 use App\Http\Controllers\Wilayah\WilayahRefocusingController;
 use App\Http\Controllers\Wilayah\WilayahVerifPjController;
+use App\Models\Desa;
+use App\Models\PompaRefDiterima;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,10 +55,6 @@ use App\Http\Controllers\Wilayah\WilayahVerifPjController;
 
 Route::get('/', function () {return redirect()->route('login');});
 
-// Route::get('/kecamatan/inputPompaKecamatan', function () {
-//     return view('kecamatan.inputPompaKecamatan');
-// });
-
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register');
@@ -68,6 +66,9 @@ Route::middleware('guest')->group(function () {
     });
 });
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard-pompa.dashboard');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -259,10 +260,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan', [PompaController::class, 'abtDigunakan'])->name('kecamatan.abt.digunakan.input');
             Route::post('/digunakan', [KecamatanController::class, 'storeAbtDigunakan'])->name('kecamatan.abt.digunakan.store');
         });
-    });
-
-    Route::get('/verifAdmin', function () {
-        return view('admin.verifikasiData');
     });
 
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');
