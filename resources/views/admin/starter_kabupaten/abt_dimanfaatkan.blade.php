@@ -7,7 +7,13 @@
                 <input type="search" name="kabupaten" id="cari" class="form-control w-25" value="{{ request()->kabupaten }}" placeholder="Cari kabupaten">
                 <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
             </form>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">+ Tambah</button>
+            <div class="d-flex align-items center justify-content-end gap-2 w-50">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">+ Tambah Kabupaten</button>
+                <a href="{{ route('admin.starter.kabupaten.import.abt_dimanfaatkan.view') }}" class="btn btn-primary">
+                    <i class="bi bi-file-earmark-arrow-down-fill"></i>&ensp;
+                    Import Excel
+                </a>
+            </div>
         </div>
         <table class="table table-bordered">
             <thead>
