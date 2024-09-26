@@ -58,6 +58,8 @@
             <div class="form-group col-md-4">
                 <label for="farmerGroup">Foto Bukti</label>
                 <input type="file" name="gambar" class="form-control" id="foto" name="foto" accept="image/*" required>
+                <div class="text-secondary" style="font-size: 14px;">* File diizinkan: JPG, JPEG, PNG</div>
+                <div class="text-secondary" style="font-size: 14px;">* Ukuran maksimal: 2MB</div>
             </div>
             <div class="form-group col-md-4">
                 <label for="pumparefUsulanTanggal">Tanggal</label>
