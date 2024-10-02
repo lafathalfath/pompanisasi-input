@@ -120,4 +120,47 @@ class VerifikasiDataController extends Controller
         $luas_tanam->update(['verified_at' => now()]);
         return back()->with('success', 'berhasil verifikasi data');
     }
+
+    // unverified
+    public function refDiterimaUnverif($id) {
+        $id = Crypt::decryptString($id);
+        $ref_diterima = PompaRefDiterima::find($id);
+        $ref_diterima->update(['verified_at' => null]);
+        return back()->with('success', 'berhasil batalkan verifikasi data');
+    }
+
+    public function refDimanfaatkanUnverif($id) {
+        $id = Crypt::decryptString($id);
+        $ref_dimanfaatkan = PompaRefDimanfaatkan::find($id);
+        $ref_dimanfaatkan->update(['verified_at' => null]);
+        return back()->with('success', 'berhasil batalkan verifikasi data');
+    }
+
+    public function abtUsulanUnverif($id) {
+        $id = Crypt::decryptString($id);
+        $abt_usulan = PompaAbtUsulan::find($id);
+        $abt_usulan->update(['verified_at' => null]);
+        return back()->with('success', 'berhasil batalkan verifikasi data');
+    }
+
+    public function abtDiterimaUnverif($id) {
+        $id = Crypt::decryptString($id);
+        $abt_diterima = PompaAbtDiterima::find($id);
+        $abt_diterima->update(['verified_at' => null]);
+        return back()->with('success', 'berhasil batalkan verifikasi data');
+    }
+
+    public function abtDimanfaatkanUnverif($id) {
+        $id = Crypt::decryptString($id);
+        $abt_dimanfaatkan = PompaAbtDimanfaatkan::find($id);
+        $abt_dimanfaatkan->update(['verified_at' => null]);
+        return back()->with('success', 'berhasil batalkan verifikasi data');
+    }
+
+    public function luasTanamUnverif($id) {
+        $id = Crypt::decryptString($id);
+        $luas_tanam = LuasTanam::find($id);
+        $luas_tanam->update(['verified_at' => null]);
+        return back()->with('success', 'berhasil batalkan verifikasi data');
+    }
 }

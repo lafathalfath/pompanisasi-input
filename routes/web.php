@@ -236,6 +236,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/luas-tanam', [VerifikasiDataController::class, 'luasTanamView'])->name('kabupaten.verif.luasTanam.view');
             Route::put('/luas-tanam/{id}', [VerifikasiDataController::class, 'luasTanamVerif'])->name('kabupaten.verif.luasTanam.verif');
         });
+        Route::prefix('/unverified')->group(function () {
+            Route::put('/refocusing/diterima/{id}', [VerifikasiDataController::class, 'refDiterimaUnverif'])->name('kabupaten.verif.ref.diterima.unverif');
+            Route::put('/refocusing/digunakan/{id}', [VerifikasiDataController::class, 'refDimanfaatkanUnverif'])->name('kabupaten.verif.ref.digunakan.unverif');
+            Route::put('/abt/usulan/{id}', [VerifikasiDataController::class, 'abtUsulanUnverif'])->name('kabupaten.verif.abt.usulan.unverif');
+            Route::put('/abt/diterima/{id}', [VerifikasiDataController::class, 'abtDiterimaUnverif'])->name('kabupaten.verif.abt.diterima.unverif');
+            Route::put('/abt/digunakan/{id}', [VerifikasiDataController::class, 'abtDimanfaatkanUnverif'])->name('kabupaten.verif.abt.digunakan.unverif');
+            Route::put('/luas-tanam/{id}', [VerifikasiDataController::class, 'luasTanamUnverif'])->name('kabupaten.verif.luasTanam.unverif');
+        });
     });
 
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
