@@ -68,7 +68,9 @@
                             @endif
                         </td>
                         <td>
-                            @if (!$lt->verified_at)
+                            @if ($lt->verified_at)
+                                <button title="batalkan verifikasi" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#unverifModal" onclick="handleUnverif('{{ route('kabupaten.verif.luasTanam.unverif', Crypt::encryptString($lt->id)) }}')"><span>&#10005;</span></button>
+                            @elseif (!$lt->verified_at)
                                 <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#verifModal" onclick="handleClick('{{ route('kabupaten.verif.luasTanam.verif', Crypt::encryptString($lt->id)) }}')"><span>&#10003;</span></button>
                             @endif
                         </td>
@@ -139,11 +141,37 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="unverifModal" tabindex="-1" aria-labelledby="unverifModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="unverifModalLabel">Konfirmasi</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Apakah Anda yakin ingin membatalkan verifikasi data ini?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+            <form method="POST" class="p-0 m-0" id="unverifForm">
+            @csrf
+            @method('PUT')
+            <button type="submit" class="btn btn-danger">Batalkan Verifikasi</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
 {{-- end modals --}}
 
 <script>
     const handleClick = (route) => {
         const form = document.getElementById('verifForm')
+        form.action = route
+    }
+    const handleUnverif = (route) => {
+        const form = document.getElementById('unverifForm')
         form.action = route
     }
 </script>
