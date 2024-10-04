@@ -17,6 +17,8 @@ class KecamatanController extends Controller
 {
     public function index() {
         $user = Auth::user();
+        $luas_tanam = [];
+        $lth = [];
         $pompa = (object) [
             'luas_tanam' => (object) [
                 'total' => 0,
@@ -74,9 +76,21 @@ class KecamatanController extends Controller
             $pompa->abt_diterima->belum_verifikasi = PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
             $pompa->abt_digunakan->belum_verifikasi = PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', null)->sum('total_unit');
             $pompa->luas_tanam->belum_verifikasi = LuasTanam::whereIn('desa_id', $desa)->where('verified_at', null)->sum('luas_tanam');
+            // foreach ($user->kecamatan->desa as $des) if ($des->luas_tanam) {
+            //     $luas_tanam[] = $des->luas_tanam;
+            // }
+            $luas_tanam = LuasTanam::whereIn('desa_id', $desa)
+                ->selectRaw('tanggal, SUM(luas_tanam) as total')
+                ->groupBy('tanggal')
+                ->orderBy('tanggal', 'asc')
+                ->get();
+            foreach ($luas_tanam as $lt) {
+                $lth[$lt->tanggal] = $lt->total;
+            }
         }
         return view('kecamatan.dashboard', [
-            'pompa' => $pompa
+            'pompa' => $pompa,
+            'luas_tanam' => $lth
         ]);
     }
 
@@ -87,11 +101,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
@@ -114,11 +131,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
@@ -157,11 +177,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
@@ -184,11 +207,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();

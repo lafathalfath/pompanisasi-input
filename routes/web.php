@@ -25,6 +25,7 @@ use App\Exports\Kecamatan\PompaAbtDiterimaExport;
 use App\Exports\Kecamatan\PompaAbtDimanfaatkanExport;
 use App\Exports\Kecamatan\PompaRefDiterimaExport;
 use App\Exports\Kecamatan\PompaRefDimanfaatkanExport;
+use App\Http\Controllers\Admin\ImportStarterController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\StarterPompaKabupatenController;
 use App\Http\Controllers\Kabupaten\KabupatenLuasTanamController;
@@ -39,6 +40,8 @@ use App\Http\Controllers\Wilayah\WilayahAbtController;
 use App\Http\Controllers\Wilayah\WilayahLuasTanamController;
 use App\Http\Controllers\Wilayah\WilayahRefocusingController;
 use App\Http\Controllers\Wilayah\WilayahVerifPjController;
+use App\Models\Desa;
+use App\Models\PompaRefDiterima;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,10 +56,6 @@ use App\Http\Controllers\Wilayah\WilayahVerifPjController;
 
 Route::get('/', function () {return redirect()->route('login');});
 
-// Route::get('/kecamatan/inputPompaKecamatan', function () {
-//     return view('kecamatan.inputPompaKecamatan');
-// });
-
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'registerView'])->name('register');
@@ -67,7 +66,6 @@ Route::middleware('guest')->group(function () {
         return view('auth.forgot-password');
     });
 });
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -126,6 +124,22 @@ Route::middleware('auth')->group(function () {
             Route::get('/luas_tanam', [StarterPompaKabupatenController::class, 'luas_tanam_view'])->name('admin.starter.kabupaten.luas_tanam');
             Route::post('/luas_tanam', [StarterPompaKabupatenController::class, 'luas_tanam_store'])->name('admin.starter.kabupaten.luas_tanam.store');
             Route::put('/luas_tanam/{id}/update', [StarterPompaKabupatenController::class, 'luas_tanam_update'])->name('admin.starter.kabupaten.luas_tanam.update');
+
+            Route::prefix('/import')->group(function () {
+                Route::get('/ref_diterima', [ImportStarterController::class, 'ref_diterima_view'])->name('admin.starter.kabupaten.import.ref_diterima.view');
+                Route::get('/ref_dimanfaatkan', [ImportStarterController::class, 'ref_dimanfaatkan_view'])->name('admin.starter.kabupaten.import.ref_dimanfaatkan.view');
+                Route::get('/abt_usulan', [ImportStarterController::class, 'abt_usulan_view'])->name('admin.starter.kabupaten.import.abt_usulan.view');
+                Route::get('/abt_diterima', [ImportStarterController::class, 'abt_diterima_view'])->name('admin.starter.kabupaten.import.abt_diterima.view');
+                Route::get('/abt_dimanfaatkan', [ImportStarterController::class, 'abt_dimanfaatkan_view'])->name('admin.starter.kabupaten.import.abt_dimanfaatkan.view');
+                Route::get('/luas_tanam', [ImportStarterController::class, 'luas_tanam_view'])->name('admin.starter.kabupaten.import.luas_tanam.view');
+                
+                Route::post('/ref_diterima/store', [ImportStarterController::class, 'ref_diterima'])->name('admin.starter.kabupaten.import.ref_diterima.store');
+                Route::post('/ref_dimanfaatkan/store', [ImportStarterController::class, 'ref_dimanfaatkan'])->name('admin.starter.kabupaten.import.ref_dimanfaatkan.store');
+                Route::post('/abt_usulan/store', [ImportStarterController::class, 'abt_usulan'])->name('admin.starter.kabupaten.import.abt_usulan.store');
+                Route::post('/abt_diterima/store', [ImportStarterController::class, 'abt_diterima'])->name('admin.starter.kabupaten.import.abt_diterima.store');
+                Route::post('/abt_dimanfaatkan/store', [ImportStarterController::class, 'abt_dimanfaatkan'])->name('admin.starter.kabupaten.import.abt_dimanfaatkan.store');
+                Route::post('/luas_tanam/store', [ImportStarterController::class, 'luas_tanam'])->name('admin.starter.kabupaten.import.luas_tanam.store');
+            });
         });
     });
 
@@ -222,6 +236,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/luas-tanam', [VerifikasiDataController::class, 'luasTanamView'])->name('kabupaten.verif.luasTanam.view');
             Route::put('/luas-tanam/{id}', [VerifikasiDataController::class, 'luasTanamVerif'])->name('kabupaten.verif.luasTanam.verif');
         });
+        Route::prefix('/unverified')->group(function () {
+            Route::put('/refocusing/diterima/{id}', [VerifikasiDataController::class, 'refDiterimaUnverif'])->name('kabupaten.verif.ref.diterima.unverif');
+            Route::put('/refocusing/digunakan/{id}', [VerifikasiDataController::class, 'refDimanfaatkanUnverif'])->name('kabupaten.verif.ref.digunakan.unverif');
+            Route::put('/abt/usulan/{id}', [VerifikasiDataController::class, 'abtUsulanUnverif'])->name('kabupaten.verif.abt.usulan.unverif');
+            Route::put('/abt/diterima/{id}', [VerifikasiDataController::class, 'abtDiterimaUnverif'])->name('kabupaten.verif.abt.diterima.unverif');
+            Route::put('/abt/digunakan/{id}', [VerifikasiDataController::class, 'abtDimanfaatkanUnverif'])->name('kabupaten.verif.abt.digunakan.unverif');
+            Route::put('/luas-tanam/{id}', [VerifikasiDataController::class, 'luasTanamUnverif'])->name('kabupaten.verif.luasTanam.unverif');
+        });
     });
 
     Route::prefix('/kecamatan')->middleware('access:kecamatan')->group(function () {
@@ -259,10 +281,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/digunakan', [PompaController::class, 'abtDigunakan'])->name('kecamatan.abt.digunakan.input');
             Route::post('/digunakan', [KecamatanController::class, 'storeAbtDigunakan'])->name('kecamatan.abt.digunakan.store');
         });
-    });
-
-    Route::get('/verifAdmin', function () {
-        return view('admin.verifikasiData');
     });
 
     Route::post('/data-kecamatan', [LokasiController::class, 'storeKecamatan'])->name('lokasi.kecamatan.store');

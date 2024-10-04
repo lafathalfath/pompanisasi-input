@@ -1,4 +1,4 @@
-@extends('layouts.provinsi')
+@extends('layouts.nasional')
 @section('content')
 <style>
     .info-section {

@@ -24,6 +24,8 @@ class WilayahController extends Controller
             'abt_dimanfaatkan' => 0,
             'luas_tanam' => 0,
         ];
+        $lth = [];
+        $luas_tanam = [];
         if ($user->wilayah) {
             $desa = [];
             foreach ($user->wilayah->provinsi as $prov) foreach ($prov->kabupaten as $kab) {
@@ -41,7 +43,14 @@ class WilayahController extends Controller
             $pompanisasi->abt_diterima += PompaAbtDiterima::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
             $pompanisasi->abt_dimanfaatkan += PompaAbtDimanfaatkan::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('total_unit');
             $pompanisasi->luas_tanam += LuasTanam::whereIn('desa_id', $desa)->where('verified_at', '!=', null)->sum('luas_tanam');
+            $lth = LuasTanam::whereIn('desa_id', $desa)
+                ->where('verified_at', '!=', null)
+                ->selectRaw('tanggal, SUM(luas_tanam) as total')
+                ->groupBy('tanggal')
+                ->orderBy('tanggal', 'asc')
+                ->get();
+            foreach ($lth as $l) $luas_tanam[$l->tanggal] = $l->total;
         }
-        return view('wilayah.dashboard', ['pompanisasi' => $pompanisasi]);
+        return view('wilayah.dashboard', ['pompanisasi' => $pompanisasi, 'luas_tanam' => $luas_tanam]);
     }
 }
