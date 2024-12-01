@@ -23,6 +23,22 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'), 
                 'status_verifikasi' => 'terverifikasi',
             ],
+            [
+                'nama' => 'PJ Kabupaten', 
+                'email' => 'kabupaten@gmail.com', 
+                'no_hp' => '001', 
+                'role_id' => 4, 
+                'password' => Hash::make('121212'), 
+                'status_verifikasi' => 'terverifikasi',
+            ],
+            [
+                'nama' => 'PJ Kecamatan', 
+                'email' => 'kecamatan@gmail.com', 
+                'no_hp' => '002', 
+                'role_id' => 5, 
+                'password' => Hash::make('121212'), 
+                'status_verifikasi' => 'terverifikasi',
+            ],
         ];
 
         DB::table('users')->insert($user);

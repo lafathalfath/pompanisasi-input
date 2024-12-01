@@ -68,4 +68,60 @@ class User extends Authenticatable
     public function kecamatan() : HasOne {
         return $this->hasOne(Kecamatan::class, 'pj_id', 'id');
     }
+
+    public function notification_send() : HasMany {
+        return $this->hasMany(Notification::class, 'sender', 'id');
+    }
+
+    public function notification_recive() : HasMany {
+        return $this->hasMany(Notification::class, 'recipent', 'id');
+    }
+
+    public function create_luas_tanam() : HasMany {
+        return $this->hasMany(LuasTanam::class, 'created_by', 'id');
+    }
+
+    public function update_luas_tanam() : HasMany {
+        return $this->hasMany(LuasTanam::class, 'updated_by', 'id');
+    }
+
+    public function create_abt_dimanfaatkan() : HasMany {
+        return $this->hasMany(PompaAbtDimanfaatkan::class, 'created_by', 'id');
+    }
+
+    public function update_abt_dimanfaatkan() : HasMany {
+        return $this->hasMany(PompaAbtDimanfaatkan::class, 'updated_by', 'id');
+    }
+
+    public function create_abt_diterima() : HasMany {
+        return $this->hasMany(PompaAbtDiterima::class, 'created_by', 'id');
+    }
+
+    public function update_abt_diterima() : HasMany {
+        return $this->hasMany(PompaAbtDiterima::class, 'updated_by', 'id');
+    }
+
+    public function create_abt_usulan() : HasMany {
+        return $this->hasMany(PompaAbtUsulan::class, 'created_by', 'id');
+    }
+
+    public function update_abt_usulan() : HasMany {
+        return $this->hasMany(PompaAbtUsulan::class, 'updated_by', 'id');
+    }
+
+    public function create_ref_diterima() : HasMany {
+        return $this->hasMany(PompaRefDiterima::class, 'created_by', 'id');
+    }
+
+    public function update_ref_diterima() : HasMany {
+        return $this->hasMany(PompaRefDiterima::class, 'updated_by', 'id');
+    }
+
+    public function create_ref_dimanfaatkan() : HasMany {
+        return $this->hasMany(PompaRefDimanfaatkan::class, 'created_by', 'id');
+    }
+
+    public function update_ref_dimanfaatkan() : HasMany {
+        return $this->hasMany(PompaRefDimanfaatkan::class, 'updated_by', 'id');
+    }
 }

@@ -117,6 +117,8 @@ class KecamatanController extends Controller
             $ref_diterima = PompaRefDiterima::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]);
             if (!$ref_diterima) return back()->withErrors('gagal mengirim data');
             return redirect()->route('kecamatan.pompa.ref.diterima')->with('success', 'berhasil menambahkan data');
@@ -147,6 +149,8 @@ class KecamatanController extends Controller
             $ref_dimanfaatkan = PompaRefDimanfaatkan::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]);
             if (!$ref_dimanfaatkan) return back()->withErrors('gagal mengirim data');
             return redirect()->route('kecamatan.pompa.ref.digunakan')->with('success', 'berhasil menambahkan data');
@@ -165,7 +169,11 @@ class KecamatanController extends Controller
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
         ]);
-        $abt_usulan = PompaAbtUsulan::create($request->except('_token'));
+        $abt_usulan = PompaAbtUsulan::create([
+            ...$request->except('_token'),
+            'created_by' => Auth::user()->id,
+            'updated_by' => Auth::user()->id,
+        ]);
         if (!$abt_usulan) return back()->withErrors('gagal mengirim data');
         return redirect()->route('kecamatan.pompa.abt.usulan')->with('success', 'berhasil menambahkan data');
     }
@@ -193,6 +201,8 @@ class KecamatanController extends Controller
             $abt_diterima = PompaAbtDiterima::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]);
             if (!$abt_diterima) return back()->withErrors('gagal mengirim data');
             return redirect()->route('kecamatan.pompa.abt.diterima')->with('success', 'berhasil menambahkan data');
@@ -223,6 +233,8 @@ class KecamatanController extends Controller
             $abt_dimanfaatkan = PompaAbtDimanfaatkan::create([
                 ...$request->except(['_token', 'gambar']),
                 'url_gambar' => $url_gambar,
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]);
             if (!$abt_dimanfaatkan) return back()->withErrors('gagal mengirim data');
             return redirect()->route('kecamatan.pompa.abt.digunakan')->with('success', 'berhasil menambahkan data');

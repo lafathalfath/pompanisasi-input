@@ -15,4 +15,12 @@ class PompaRefDimanfaatkan extends Model
     public function desa() : BelongsTo {
         return $this->belongsTo(Desa::class, 'desa_id', 'id');
     }
+
+    public function create_by() : BelongsTo {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function update_by() : BelongsTo {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
 }
