@@ -101,11 +101,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
@@ -128,11 +131,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
@@ -171,11 +177,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
@@ -198,11 +207,14 @@ class KecamatanController extends Controller
             'luas_lahan' => 'required',
             'total_unit' => 'required',
             'tanggal' => 'required',
-            'gambar' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], [
             'desa_id.required' => 'desa id cannot be null',
             'nama_poktan.required' => 'nama poktan cannot be null',
             'luas_lahan.required' => 'luas lahan cannot be null',
+            'gamber.required' => 'gambar tidak boleh kosong',
+            'gamber.mimes' => 'gambar tidak didukung',
+            'gamber.max' => 'ukuran gambar terlalu besar',
         ]);
         if ($request->hasFile('gambar')) {
             $filename = $request->gambar->hashName();
